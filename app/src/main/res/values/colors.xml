@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#a6311f</color>
+    <color name="colorPrimaryDark">#862414</color>
+    <color name="colorAccent">#448aff</color>
+    <color name="colorBackground">#c4bcbc</color>
+    <color name="colorBackgroundDivider">#FAFAFA</color>
+    <color name="colorDatesShowDown">#ffffff</color>
+    <color name="colorPrimaryDarkCards">#0d47a1</color>
+    <color name="colorBackgroundTest">#efefef</color>
+    <color name="colorPrimaryEasy">#2e7d32</color>
+    <color name="colorTrueButton">#43a047</color>
+    <color name="colorFalseButton">#ff5252</color>
+</resources>

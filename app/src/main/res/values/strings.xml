@@ -1,0 +1,88 @@
+<resources>
+    <string name="app_name">Dates</string>
+    <string name="title_tests">Tests</string>
+    <string name="title_dates">Dates</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="dialog_title">Pick Date interval</string>
+    <string name="ok_button">Ok</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="type_pick_title">Pick Type</string>
+    <string name="mode_switch">Mode Switch</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+
+
+    <string name="check_button">Check</string>
+    <string name="sotr_text">Sort in ascending sequence</string>
+
+
+    <string name="reset_button">Reset</string>
+    <string name="exit_button">Exit</string>
+
+    <string name="current_result">Your current result: </string>
+    <string name="best_result">Your best result in session: </string>
+    <string name="cur_mark">Your current mark: </string>
+
+    <string name="mark_2">Very Bad</string>
+    <string name="mark_3">Pretty Bad</string>
+    <string name="mark_4">Not Bad</string>
+    <string name="mark_5">Very Good</string>
+    <string name="mark_20">Damn Boii</string>
+
+    <string-array name="tests">
+        <item>Cards</item>
+        <item>DIVIDER</item>
+        <item>Test</item>
+        <item>Test</item>
+        <item>DIVIDER</item>
+        <item>True/False</item>
+        <item>True/False</item>
+        <item>DIVIDER</item>
+        <item>Sort</item>
+        <item>Sort</item>
+        <!-- <item>Choose test</item> -->
+        <!-- <item>Multiple pick</item> -->
+    </string-array>
+
+    <string-array name="tests_description">
+        <item>Cards with dates</item>
+        <item>DIVIDER</item>
+        <item>Infinite</item>
+        <item>Test just like in school</item>
+        <item>DIVIDER</item>
+        <item>Infinite</item>
+        <item>Truth test</item>
+        <item>DIVIDER</item>
+        <item>Infinite sort</item>
+        <item>Sort test</item>
+    </string-array>
+
+    <string-array name="centuries">
+        <item>VI - XII</item>
+        <item>XIII</item>
+        <item>XIV - XV</item>
+        <item>XVI</item>
+        <item>XVII</item>
+        <item>XVIII</item>
+        <item>XIX first half</item>
+        <item>XIX second half</item>
+        <item>XX first half</item>
+        <item>XX second half</item>
+        <item>All dates</item>
+    </string-array>
+
+    <string-array name="centuries_easy">
+        <item>first half</item>
+        <item>second half</item>
+        <item>All</item>
+    </string-array>
+
+    <string-array name="pick_type">
+        <item>Only Dates</item>
+        <item>Only Events</item>
+        <item>Mixed</item>
+    </string-array>
+
+</resources>
