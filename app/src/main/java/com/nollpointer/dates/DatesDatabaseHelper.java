@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class DatesDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME="dates";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
     public DatesDatabaseHelper(Context context) {
         super(context,DB_NAME,null,DB_VERSION);
     }
@@ -28,10 +28,11 @@ public class DatesDatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE D1");
         onCreate(sqLiteDatabase);
     }
-    private void insertDate(SQLiteDatabase db,String name, String date,String event){
+    private void insertDate(SQLiteDatabase db,String name, String date,String event,int k){
         ContentValues ct = new ContentValues();
         ct.put("DATE",date);
         ct.put("EVENT",event);
+        ct.put("MISTAKES",k);
         db.insert(name,null,ct);
     }
     private void parseString(SQLiteDatabase db,String table_name,String text){
@@ -39,15 +40,15 @@ public class DatesDatabaseHelper extends SQLiteOpenHelper {
         String[] str;
         while (scan.hasNextLine()) {
             str = scan.nextLine().split("#");
-            insertDate(db, table_name, str[0].trim(), str[1].trim());
+            insertDate(db, table_name, str[0].trim(), str[1].trim(),0);
         }
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE D10 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE);");
-        db.execSQL("CREATE TABLE D1 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE);");
+        db.execSQL("CREATE TABLE D10 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE, MISTAKES INTEGER);");
+        db.execSQL("CREATE TABLE D1 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE, MISTAKES INTEGER);");
         parseString(db,"D1","862 # Призвание Рюрика в Новгород\n" +
                 "988–990 # Принятие христианства\n" +
                 "1147 # Первое летописное упоминание о Москве\n" +
