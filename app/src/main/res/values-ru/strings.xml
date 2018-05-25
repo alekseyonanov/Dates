@@ -12,6 +12,7 @@
     <string name="mode_switch">Переключение режима</string>
     <string name="true_button">Правда</string>
     <string name="false_button">Ложь</string>
+    <string name="mistakes">Ошибки</string>
 
     <string name="check_button">Проверить</string>
     <string name="sotr_text">Расположите в хронологической последовательности</string>

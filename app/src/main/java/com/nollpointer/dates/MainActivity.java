@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
     private BottomNavigationView bn;
     private int type_pick = -1;
     private int mode;
+    private boolean isMistakeMode = false;
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -189,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Fragment frg = MainActivity.this.getFragmentManager().findFragmentByTag("TAG");
+                Fragment frg = MainActivity.this.getFragmentManager().findFragmentById(R.id.frameLayout);
                 try {
                     if (b) {
                         mode = 1;
@@ -207,12 +210,27 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
                 }
             }
         });
+        mI = menu.findItem(R.id.mistakes);
+        mI.getIcon().setAlpha(isMistakeMode ? 255 : 128);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.mistakes){
+            isMistakeMode = !isMistakeMode;
+            setMistakesMode(isMistakeMode);
+           item.getIcon().setAlpha(isMistakeMode ? 255 : 128);
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setMistakesMode(boolean state){
+        if(state){
+            refreshLook();
+        }else{
+            refreshLook();
+        }
     }
 
     private void setFragment(Fragment frg){
@@ -266,10 +284,10 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
 
     public void refreshLook(){
         if(mode ==0) {
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(isMistakeMode ? R.color.colorPrimaryMistakeMode : R.color.colorPrimary)));
             getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
         }else{
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimaryEasy)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(isMistakeMode ? R.color.colorPrimaryEasyMistakeMode : R.color.colorPrimaryEasy)));
             getSupportActionBar().setIcon(R.mipmap.ic_launcher_easy);
         }
     }

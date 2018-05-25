@@ -9,6 +9,9 @@
     <color name="colorPrimaryDarkCards">#0d47a1</color>
     <color name="colorBackgroundTest">#efefef</color>
     <color name="colorPrimaryEasy">#2e7d32</color>
+
+    <color name="colorPrimaryMistakeMode">#862414</color>
+    <color name="colorPrimaryEasyMistakeMode">#1B5E20</color>
     <color name="colorTrueButton">#43a047</color>
     <color name="colorFalseButton">#ff5252</color>
 </resources>
