@@ -13,6 +13,7 @@
     <string name="true_button">True</string>
     <string name="false_button">False</string>
     <string name="mistakes">Mistakes</string>
+    <string name="next_sort">Next</string>
 
     <string name="check_button">Check</string>
     <string name="sotr_text">Sort in ascending sequence</string>

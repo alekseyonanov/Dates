@@ -33,6 +33,7 @@ public class SortFragment extends Fragment {
     private TextView instructions;
     private int RightSequence = -1;
     private int Answer = 123;
+    private int CheckModeRightSequence = -1;
     private int right_answers_count=0,wrong_answers_count=0,best_result = 0;
     private int[] position, bound;
     private String[] questions = new String[3];
@@ -43,6 +44,7 @@ public class SortFragment extends Fragment {
     private Button check_button;
     private boolean isInfinitive;
     private boolean isResultScreenOn = false;
+    private boolean checkMode = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,7 +90,10 @@ public class SortFragment extends Fragment {
                     Answer = numb * 100 + Answer % 100;
                     Numbers[0].setText(Integer.toString(numb));
                     tree.put(view.getId(), numb);
+                    if(checkMode)
+                        OnGoingCheck();
                 }
+
             }
         });
         cards[1].setOnClickListener(new View.OnClickListener() {
@@ -101,9 +106,12 @@ public class SortFragment extends Fragment {
                     Answer = (Answer / 100) * 100 + numb * 10 + Answer % 10;
                     Numbers[1].setText(Integer.toString(numb));
                     tree.put(view.getId(), numb);
+                    if(checkMode)
+                        OnGoingCheck();
                 }else{
                     resetInfo();
                 }
+
             }
         });
         cards[2].setOnClickListener(new View.OnClickListener() {
@@ -116,17 +124,28 @@ public class SortFragment extends Fragment {
                     Answer = (Answer / 10) * 10 + numb;
                     Numbers[2].setText(Integer.toString(numb));
                     tree.put(view.getId(), numb);
+                    if(checkMode)
+                        OnGoingCheck();
                 }else
                     mAc.getFragmentManager().popBackStack();
-            }
-        });
-        view.findViewById(R.id.sort_check).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Check();
+
             }
         });
         check_button = view.findViewById(R.id.sort_check);
+        check_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkMode) {
+                    refreshPage();
+                    Answer = 123;
+                }
+                else
+                    Check();
+                checkMode = !checkMode;
+                check_button.setText(getString(checkMode ? R.string.next_sort : R.string.check_button));
+            }
+        });
+
         Appodeal.setBannerViewId(R.id.appodealBannerView_sort);
         Appodeal.show(mAc,Appodeal.BANNER_VIEW);
         mHandler = new Handler();
@@ -147,6 +166,17 @@ public class SortFragment extends Fragment {
         setQuestionInfo();
         setQuestions();
         return view;
+    }
+
+    private void refreshPage(){
+        int color = getResources().getColor(android.R.color.white);
+        for(CardView c:cards)
+            c.setBackgroundColor(color);
+        check_button.setClickable(true);
+        if(!isInfinitive && wrong_answers_count+right_answers_count==20)
+            setResultScreen();
+        else
+            setQuestions();
     }
 
     private void setQuestionInfo(){
@@ -229,10 +259,30 @@ public class SortFragment extends Fragment {
         //Log.wtf("WTf", RightSequence + "");
     }
 
+    private void OnGoingCheck(){
+        setColoredCards(CheckModeRightSequence);
+    }
+
+    private void setColoredCards(int RightSequence){
+        boolean[] ar = new boolean[3];
+        ar[0] = RightSequence/100 == Answer/100;
+        ar[1] = (RightSequence/10)%10 == (Answer/10)%10;
+        ar[2] = RightSequence%10 == Answer%10;
+        int colorR = getResources().getColor(android.R.color.holo_green_dark);
+        int colorW = getResources().getColor(android.R.color.holo_red_light);
+        //Log.wtf("ASDASDASDASDASDASDASD",)
+        for(int i =0;i<3;i++){
+            if(ar[i])
+                cards[i].setBackgroundColor(colorR);
+            else
+                cards[i].setBackgroundColor(colorW);
+        }
+    }
+
     private void Check(){
-        mHandler.postDelayed(post,940);
+        //mHandler.postDelayed(post,940);
         //Log.wtf("CHECK",Answer + "");
-        check_button.setClickable(false);
+        //check_button.setClickable(false);
         if(Answer == RightSequence) {
             right_answers_count++;
             RtextView.setText(Integer.toString(right_answers_count));
@@ -242,23 +292,13 @@ public class SortFragment extends Fragment {
         }else{
             wrong_answers_count++;
             WtextView.setText(Integer.toString(wrong_answers_count));
-            boolean[] ar = new boolean[3];
-            ar[0] = RightSequence/100 == Answer/100;
-            ar[1] = (RightSequence/10)%10 == (Answer/10)%10;
-            ar[2] = RightSequence%10 == Answer%10;
-            int colorR = getResources().getColor(android.R.color.holo_green_dark);
-            int colorW = getResources().getColor(android.R.color.holo_red_light);
-            //Log.wtf("ASDASDASDASDASDASDASD",)
-            for(int i =0;i<3;i++){
-                if(ar[i])
-                    cards[i].setBackgroundColor(colorR);
-                else
-                    cards[i].setBackgroundColor(colorW);
-            }
+            setColoredCards(RightSequence);
         }
-        Answer = 123;
+        CheckModeRightSequence = RightSequence;
+        //Answer = 123;
         setSequence();
         setQuestionInfo();
+
         //setQuestions();
     }
 

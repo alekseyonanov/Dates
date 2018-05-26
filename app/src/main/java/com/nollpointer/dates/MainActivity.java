@@ -41,12 +41,14 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
+
     @Override
     public void onButtonClicked(ArrayList<Integer> dialog) {
         if(dialog != null)
             ((PractiseFragment)getFragmentManager().findFragmentByTag("TAG")).startPractise(dialog,type_pick);
 
     }
+
     public void typePicked(int pos){
         type_pick = pos;
         new CenturyPickDialog().show(getSupportFragmentManager(), "1");
@@ -106,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
         setContentView(R.layout.activity_main);
         Toolbar tlb = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(tlb);
-
         SharedPreferences preferences = getSharedPreferences("mode_settings", Context.MODE_PRIVATE);
         SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(this).getReadableDatabase();
         if(preferences.contains("Mode"))
@@ -181,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
             Log.e("Exception",e.toString());
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
@@ -228,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
     public void setMistakesMode(boolean state){
         if(state){
             refreshLook();
+
         }else{
             refreshLook();
         }
@@ -248,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
     protected Cursor getCursor(){
         return crs;
     }
+
     public void setCursor(Cursor crs){
         this.crs = crs;
         getFragmentManager().beginTransaction().add(R.id.frameLayout,new DatesFragment(),"TAG").commit();
@@ -274,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
         super.onStop();
         FlurryAgent.onEndSession(this);
     }
+
     public BottomNavigationView getBn(){
         return bn;
     }
@@ -285,10 +290,10 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
     public void refreshLook(){
         if(mode ==0) {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(isMistakeMode ? R.color.colorPrimaryMistakeMode : R.color.colorPrimary)));
-            getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
+            //getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
         }else{
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(isMistakeMode ? R.color.colorPrimaryEasyMistakeMode : R.color.colorPrimaryEasy)));
-            getSupportActionBar().setIcon(R.mipmap.ic_launcher_easy);
+            //getSupportActionBar().setIcon(R.mipmap.ic_launcher_easy);
         }
     }
 
