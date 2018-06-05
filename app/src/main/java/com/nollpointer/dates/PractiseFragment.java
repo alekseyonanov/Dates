@@ -27,19 +27,22 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
     private MainActivity mMainActivity;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rc = (RecyclerView) inflater.inflate(R.layout.fragment_practise, container, false);
+        View v;
+        v =  inflater.inflate(R.layout.fragment_practise, container, false);
+        rc = v.findViewById(R.id.recyclerView_practise);
         TestMenuCardsAdapter t = new TestMenuCardsAdapter(getResources().getStringArray(R.array.tests),
                 getResources().getStringArray(R.array.tests_description),new int[]{R.mipmap.ic_dates_cards_round,-1,R.mipmap.ic_tests_round,R.mipmap.ic_tests_real_round,-1,R.mipmap.ic_true_false_inf_round,R.mipmap.ic_true_false_real_round,-1,R.mipmap.ic_sort_infinite_round,R.mipmap.ic_sort_real_round});
         t.setListner(this);
         mMainActivity = (MainActivity)getActivity();
         rc.setAdapter(t);
         rc.setLayoutManager(new LinearLayoutManager(getActivity()));
-        return rc;
+        return v;
     }
     public void onResume() {
         super.onResume();
         MainActivity mAc = mMainActivity;
         mAc.getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>" + getResources().getString(R.string.title_tests) + "</font>"));
+        mAc.changeToolbarItemsVisibility(false,false);
         BottomNavigationView bn = mAc.getBn();
         if(!mAc.getSupportActionBar().isShowing()) {
             ((LinearLayout)mAc.findViewById(R.id.container_main)).addView(bn);

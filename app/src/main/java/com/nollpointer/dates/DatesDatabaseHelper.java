@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class DatesDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME="dates";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 5;
     public DatesDatabaseHelper(Context context) {
         super(context,DB_NAME,null,DB_VERSION);
     }
@@ -61,7 +61,7 @@ public class DatesDatabaseHelper extends SQLiteOpenHelper {
                 "1497 # \"Судебник\" Ивана III\n" +
                 "1549 # Первый Земский собор\n" +
                 "1550 # \"Судебник\" Ивана Грозного\n" +
-                "1558–1582 # Ливонская война\n" +
+                "1558–1583 # Ливонская война\n" +
                 "1603–1613 # Смута\n" +
                 "1613 # Избрание на царство Михаила Романова; начало правления династии Романовых\n" +
                 "1649 # \"Соборное уложение\"\n" +

@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 public class DatesFragment extends Fragment{
     private Cursor crs;
     private RecyclerView rc;
+    MainActivity ctx;
+    boolean show_font_minus = false;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rc = (RecyclerView) inflater.inflate(R.layout.fragment_dates, container, false);
-        MainActivity ctx = (MainActivity) getActivity();
+        ctx = (MainActivity) getActivity();
         rc.setLayoutManager(new LinearLayoutManager(ctx));
         crs = ctx.getCursor();
         crs.moveToFirst();
@@ -30,8 +32,9 @@ public class DatesFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        BottomNavigationView bn = getActivity().findViewById(R.id.navigation);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>" + getResources().getString(R.string.title_dates) + "</font>"));
+        BottomNavigationView bn = ctx.findViewById(R.id.navigation);
+        ctx.getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>" + getResources().getString(R.string.title_dates) + "</font>"));
+        //ctx.changeToolbarItemsVisibility(true,show_font_minus);
         if(bn.getSelectedItemId() != R.id.navigetion_dates)
             bn.setSelectedItemId(R.id.navigetion_dates);
     }
@@ -42,7 +45,13 @@ public class DatesFragment extends Fragment{
     public void refresh() {
         MainActivity ctx = (MainActivity)getActivity();
         crs = ctx.getCursor();
-        DatesCardsAdapter d = new DatesCardsAdapter(crs,ctx.getMode(),(ctx.getMode() == 0) ? ctx.getResources().getStringArray(R.array.centuries) : ctx.getResources().getStringArray(R.array.centuries_easy));
+        int font_size =((DatesCardsAdapter) rc.getAdapter()).getFontSize();
+        DatesCardsAdapter d = new DatesCardsAdapter(crs,ctx.getMode(),(ctx.getMode() == 0) ? ctx.getResources().getStringArray(R.array.centuries) : ctx.getResources().getStringArray(R.array.centuries_easy),font_size);
         rc.setAdapter(d);
+    }
+
+    public boolean setAdapterFontSize(int m){
+        show_font_minus = !((DatesCardsAdapter)rc.getAdapter()).changeFontSize(m);
+        return !show_font_minus;
     }
 }

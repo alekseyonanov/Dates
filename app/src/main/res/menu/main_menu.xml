@@ -3,16 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mode_switch"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         android:title="@string/mode_switch"
         app:showAsAction="ifRoom" />
 
+
     <item
-        android:id="@+id/mistakes"
-        android:orderInCategory="1"
-        android:title="@string/mistakes"
+        android:id="@+id/font_plus"
+        android:orderInCategory="2"
+        android:title="Font +"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_error_outline_white_24dp"
+        android:icon="@drawable/ic_zoom_in_black_24dp"
         />
 
+    <item
+        android:id="@+id/font_minus"
+        android:orderInCategory="1"
+        android:title="Font -"
+        app:showAsAction="ifRoom"
+        android:visible="false"
+        android:icon="@drawable/ic_zoom_out_black_24dp"
+        />
 </menu>

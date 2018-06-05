@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
     private int type_pick = -1;
     private int mode;
     private boolean isMistakeMode = false;
+    private Menu menu;
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -186,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
+        this.menu = menu;
         MenuItem mI = menu.findItem(R.id.mode_switch);
         mI.setActionView(R.layout.switch_layout);
         SwitchCompat s = (SwitchCompat) mI.getActionView();
@@ -212,29 +214,33 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
                 }
             }
         });
-        mI = menu.findItem(R.id.mistakes);
-        mI.getIcon().setAlpha(isMistakeMode ? 255 : 128);
+        //menu.findItem(R.id.font_minus)
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.mistakes){
-            isMistakeMode = !isMistakeMode;
-            setMistakesMode(isMistakeMode);
-           item.getIcon().setAlpha(isMistakeMode ? 255 : 128);
+        int x;
+        Fragment frg = getFragmentManager().findFragmentById(R.id.frameLayout);
+        switch (item.getItemId()){
+            case R.id.font_plus:
+                x = 2;
+                break;
+            case R.id.font_minus:
+                x = -2;
+                break;
+            default:
+                x = 0;
+        }
+        if(frg instanceof DatesFragment) {
+            if(((DatesFragment) frg).setAdapterFontSize(x))
+                menu.findItem(R.id.font_minus).setVisible(false);
+            else
+                menu.findItem(R.id.font_minus).setVisible(true);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void setMistakesMode(boolean state){
-        if(state){
-            refreshLook();
-
-        }else{
-            refreshLook();
-        }
-    }
 
     private void setFragment(Fragment frg){
         FragmentManager fgM = getFragmentManager();
@@ -267,6 +273,11 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
         crsAdd = c;
     }
 
+    public void changeToolbarItemsVisibility(boolean font_plus,boolean font_minus){
+        menu.findItem(R.id.font_minus).setVisible(font_minus);
+        menu.findItem(R.id.font_plus).setVisible(font_plus);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -289,10 +300,10 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
 
     public void refreshLook(){
         if(mode ==0) {
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(isMistakeMode ? R.color.colorPrimaryMistakeMode : R.color.colorPrimary)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
             //getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
         }else{
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(isMistakeMode ? R.color.colorPrimaryEasyMistakeMode : R.color.colorPrimaryEasy)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimaryEasy)));
             //getSupportActionBar().setIcon(R.mipmap.ic_launcher_easy);
         }
     }

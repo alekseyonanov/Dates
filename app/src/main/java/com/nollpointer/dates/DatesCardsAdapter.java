@@ -3,9 +3,12 @@ package com.nollpointer.dates;
 import android.database.Cursor;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.yandex.mobile.ads.nativeads.template.appearance.TextAppearance;
 
 import java.util.TreeMap;
 
@@ -14,6 +17,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     private int DATE = 0, DATE_WITH_MARGIN = 1;
     private int mode;
     private TreeMap<Integer,String> top_texts = new TreeMap<>();
+    private int fontSize = 14;
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private CardView mCardView;
         ViewHolder(CardView c){
@@ -25,6 +29,17 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
         this.crs = crs;
         this.mode = mode;
         fill_top_texts(text_tops);
+    }
+
+    public DatesCardsAdapter(Cursor crs,int mode,String[] text_tops,int fons_size){
+        this.crs = crs;
+        this.mode = mode;
+        fontSize = fons_size;
+        fill_top_texts(text_tops);
+    }
+
+    public int getFontSize(){
+        return fontSize;
     }
 
     @Override
@@ -43,11 +58,14 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
                 CardView cardView = holder.mCardView;
                 TextView textView = cardView.findViewById(R.id.date_number);
                 textView.setText(crs.getString(0));
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,fontSize  +4);
                 textView = cardView.findViewById(R.id.date_event);
                 textView.setText(crs.getString(1));
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,fontSize);
                 if(top_texts.containsKey(position)){
                     textView = cardView.findViewById(R.id.date_top_text);
                     textView.setText(top_texts.get(Integer.valueOf(position)));
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,fontSize);
                 }
             }
     }
@@ -65,6 +83,15 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
                 top_texts.put(positions[i],texts[i]);
             }
         }
+    }
+
+    public boolean changeFontSize(int m){
+        fontSize += m;
+        notifyDataSetChanged();
+        if(fontSize == 14)
+            return true;
+        else
+            return false;
     }
 
 
