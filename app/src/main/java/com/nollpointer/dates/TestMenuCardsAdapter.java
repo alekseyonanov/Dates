@@ -14,13 +14,13 @@ public class TestMenuCardsAdapter extends RecyclerView.Adapter<TestMenuCardsAdap
     private String[] subtitle_texts;
     private int[] imageIds;
     private Listener mListener;
-    private int DIVIDER = 0, CONTENT = 1;
+    private static final int DIVIDER = 0, CONTENT = 1;
 
-    public static interface Listener{
+    public interface Listener{
         void onClick(int position);
     }
 
-    public void setListner(Listener listener) {
+    public void setListener(Listener listener) {
         mListener = listener;
     }
 

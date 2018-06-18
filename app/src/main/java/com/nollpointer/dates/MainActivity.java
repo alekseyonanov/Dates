@@ -29,7 +29,7 @@ import com.flurry.android.FlurryAgent;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements CenturyPickDialog.NoticeDialogListener{
+public class MainActivity extends AppCompatActivity{
     private Cursor main_cursor = null;
     private Cursor easy_cursor = null;
     private boolean first_time = true;
@@ -44,19 +44,6 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
-
-    @Override
-    public void onButtonClicked(ArrayList<Integer> dialog) {
-        if(dialog != null)
-            ((PractiseFragment)getFragmentManager().findFragmentByTag("TAG")).startPractise(dialog,type_pick);
-
-    }
-
-    public void typePicked(int pos){
-        type_pick = pos;
-        new CenturyPickDialog().show(getSupportFragmentManager(), "1");
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +95,8 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
                 if (bn.getSelectedItemId() != id) {
                     if (item.getItemId() == R.id.navigation_tests) {
                         setFragment(new PractiseFragment());
-                        //bn.setSelectedItemId(R.id.navigation_tests);
                     } else {
                         getFragmentManager().popBackStack(null,0);
-                        //bn.setSelectedItemId(R.id.navigetion_dates);
                         first_time = true;
                     }
                 }else{

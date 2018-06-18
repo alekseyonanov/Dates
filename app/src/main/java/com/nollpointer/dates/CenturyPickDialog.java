@@ -14,17 +14,19 @@ public class CenturyPickDialog extends DialogFragment {
     public static interface NoticeDialogListener {
         public void onButtonClicked(ArrayList<Integer> dialog);
     }
-    private NoticeDialogListener NListner;
+    private NoticeDialogListener NListener;
+
+    public void setListener(NoticeDialogListener listener){
+        NListener = listener;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final ArrayList<Integer> mSelectedItems = new ArrayList<>();
-        MainActivity m = (MainActivity) getActivity();
-        NListner = m;
-        int tag = m.getMode();
+        int mode = Integer.parseInt(getTag());
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dialog_title)//.setTitle(R.string.dialog_title)
-                .setMultiChoiceItems(tag==0 ? R.array.centuries : R.array.centuries_easy, null, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setTitle(R.string.dialog_title)
+                .setMultiChoiceItems(mode==0 ? R.array.centuries : R.array.centuries_easy, null, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                 if(b)
@@ -37,14 +39,14 @@ public class CenturyPickDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(mSelectedItems.isEmpty())
-                    NListner.onButtonClicked(null);
+                    NListener.onButtonClicked(null);
                 else
-                    NListner.onButtonClicked(mSelectedItems);
+                    NListener.onButtonClicked(mSelectedItems);
             }
         }).setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                NListner.onButtonClicked(null);
+                NListener.onButtonClicked(null);
             }
         });
         return builder.create();

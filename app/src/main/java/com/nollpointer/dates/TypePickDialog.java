@@ -9,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 
 public class TypePickDialog extends DialogFragment {
     private int mPosition = 0;
+    private Listener listener;
 
     public int getPosition() {
         return mPosition;
@@ -18,8 +19,12 @@ public class TypePickDialog extends DialogFragment {
         mPosition = position;
     }
 
-    interface TypePickedListener{
-        void type_picked(int type);
+    public void setListener(Listener listener){
+        this.listener = listener;
+    }
+
+    interface Listener{
+        void typePicked(int type);
     }
 
     @NonNull
@@ -37,7 +42,7 @@ public class TypePickDialog extends DialogFragment {
         .setNegativeButton(R.string.cancel_button, null).setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mnc.typePicked(getPosition());
+                listener.typePicked(getPosition());
             }
         });
         return builder.create();
