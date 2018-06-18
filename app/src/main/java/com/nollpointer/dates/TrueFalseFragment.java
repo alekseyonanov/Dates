@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TrueFalseFragment extends Fragment {
-    private Cursor crs;
+    private Cursor cursor;
     private TextView question_date,question_event;
     private TextView RightAnswers,WrongAnswers;
     private Handler mHandler;
@@ -82,7 +82,7 @@ public class TrueFalseFragment extends Fragment {
         RightAnswers.setText("0");
         mAc.getSupportActionBar().hide();
         //mAc.setTheme(R.style.TestStyle);
-        crs = mAc.getCursor();
+        cursor = mAc.getCursor();
         setTestInfo();
         setQuestions();
         return g;
@@ -110,17 +110,17 @@ public class TrueFalseFragment extends Fragment {
                 Answer = position[current_pick] + rnd.nextInt(bound[current_pick]);
             }
         }
-        crs.moveToPosition(Answer);
-        date = crs.getString(0).trim();
+        cursor.moveToPosition(Answer);
+        date = cursor.getString(0).trim();
             if (!isCorrect) {
                 do {
                     int sAnswer = position[current_pick] + rnd.nextInt(bound[current_pick]);
                     while (sAnswer == Answer)
                         sAnswer = position[current_pick] + rnd.nextInt(bound[current_pick]);
-                    crs.moveToPosition(sAnswer);
-                }while (crs.getString(0).trim().equals(date));
+                    cursor.moveToPosition(sAnswer);
+                }while (cursor.getString(0).trim().equals(date));
             }
-            event = crs.getString(1);
+            event = cursor.getString(1);
     }
 
     private void setQuestions(){

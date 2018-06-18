@@ -15,15 +15,15 @@ import android.view.ViewGroup;
 public class DatesFragment extends Fragment{
     private Cursor crs;
     private RecyclerView rc;
-    MainActivity ctx;
-    boolean show_font_minus = false;
+    private MainActivity ctx;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rc = (RecyclerView) inflater.inflate(R.layout.fragment_dates, container, false);
         ctx = (MainActivity) getActivity();
         rc.setLayoutManager(new LinearLayoutManager(ctx));
         crs = ctx.getCursor();
-        crs.moveToFirst();
+        //crs.moveToFirst();
         DatesCardsAdapter d = new DatesCardsAdapter(crs,ctx.getMode(),(ctx.getMode() == 0) ? ctx.getResources().getStringArray(R.array.centuries) : ctx.getResources().getStringArray(R.array.centuries_easy));
         rc.setAdapter(d);
         return rc;
@@ -32,12 +32,10 @@ public class DatesFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        BottomNavigationView bn = ctx.findViewById(R.id.navigation);
-        ctx.getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>" + getResources().getString(R.string.title_dates) + "</font>"));
-        //ctx.changeToolbarItemsVisibility(true,show_font_minus);
-        if(bn.getSelectedItemId() != R.id.navigetion_dates)
-            bn.setSelectedItemId(R.id.navigetion_dates);
+        ctx.changeToolbarItemsVisibility(true,false);
+        ctx.getSupportActionBar().setTitle(R.string.title_dates);
     }
+
     public void setStartPosition(){
         rc.scrollToPosition(0);
     }
@@ -51,7 +49,6 @@ public class DatesFragment extends Fragment{
     }
 
     public boolean setAdapterFontSize(int m){
-        show_font_minus = !((DatesCardsAdapter)rc.getAdapter()).changeFontSize(m);
-        return !show_font_minus;
+        return ((DatesCardsAdapter)rc.getAdapter()).changeFontSize(m);
     }
 }

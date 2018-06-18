@@ -18,6 +18,10 @@ public class TypePickDialog extends DialogFragment {
         mPosition = position;
     }
 
+    interface TypePickedListener{
+        void type_picked(int type);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

@@ -40,34 +40,33 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
     }
     public void onResume() {
         super.onResume();
-        MainActivity mAc = mMainActivity;
-        mAc.getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>" + getResources().getString(R.string.title_tests) + "</font>"));
-        mAc.changeToolbarItemsVisibility(false,false);
-        BottomNavigationView bn = mAc.getBn();
-        if(!mAc.getSupportActionBar().isShowing()) {
-            ((LinearLayout)mAc.findViewById(R.id.container_main)).addView(bn);
-            mAc.getSupportActionBar().show();
-            //mAc.setTheme(R.style.AppTheme);
-            mAc.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        mMainActivity.changeToolbarItemsVisibility(false,false);
+        mMainActivity.getSupportActionBar().setTitle(R.string.title_tests);
+        if(!mMainActivity.getSupportActionBar().isShowing()) {
+            mMainActivity.show_bottom_navigation_view();
+            mMainActivity.getSupportActionBar().show();
+            mMainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-        if(bn.getSelectedItemId() != R.id.navigation_tests)
-            bn.setSelectedItemId(R.id.navigation_tests);
+
     }
+
     public void onClick(int position){
         pressedPosition = position;
         if(position == 5 || position == 6 || position == 8 || position==9) {
             mMainActivity.typePicked(1);
         }else {
             TypePickDialog c = new TypePickDialog();
-            c.show(((MainActivity) getActivity()).getSupportFragmentManager(), "1");
+            c.show(mMainActivity.getSupportFragmentManager(), "1");
         }
     }
+
     public void setStartPosition(){
         rc.scrollToPosition(0);
     }
+
     public void startPractise(ArrayList<Integer> arrayList,int type){
-        MainActivity mAc =(MainActivity) getActivity();
-        ((LinearLayout)mAc.findViewById(R.id.container_main)).removeView(mAc.getBn());
+        MainActivity mAc = mMainActivity;
+        mAc.hide_bottom_navigation_view();
         switch (pressedPosition){
             case 0:
                 mAc.getFragmentManager().beginTransaction().replace(R.id.frameLayout,new CardsShowDown().setCenturies(arrayList,type,mAc.getMode())).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null).commit();

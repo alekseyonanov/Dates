@@ -26,7 +26,7 @@ import java.util.TreeMap;
 
 public class SortFragment extends Fragment {
     private Cursor crs;
-    private TextView RtextView, WtextView;
+    private TextView RightAnswers, WrongAnswers;
     private TextView[] Numbers = new TextView[3];
     private TextView[] Texts = new TextView[3];
     private CardView[] cards = new CardView[3];
@@ -58,11 +58,11 @@ public class SortFragment extends Fragment {
         mAc.getSupportActionBar().hide();
        // mAc.setTheme(R.style.TestStyle);
         crs = mAc.getCursor();
-        RtextView = view.findViewById(R.id.right_answers);
-        WtextView = view.findViewById(R.id.wrong_answers);
+        RightAnswers = view.findViewById(R.id.right_answers);
+        WrongAnswers = view.findViewById(R.id.wrong_answers);
         instructions = view.findViewById(R.id.instruction_sort);
-        RtextView.setText("0");
-        WtextView.setText("0");
+        RightAnswers.setText("0");
+        WrongAnswers.setText("0");
         cards[0] = view.findViewById(R.id.cardView1);
         cards[1] = view.findViewById(R.id.cardView2);
         cards[2] = view.findViewById(R.id.cardView3);
@@ -285,13 +285,13 @@ public class SortFragment extends Fragment {
         //check_button.setClickable(false);
         if(Answer == RightSequence) {
             right_answers_count++;
-            RtextView.setText(Integer.toString(right_answers_count));
+            RightAnswers.setText(Integer.toString(right_answers_count));
             int color = getResources().getColor(android.R.color.holo_green_dark);
             for(CardView c:cards)
                 c.setBackgroundColor(color);
         }else{
             wrong_answers_count++;
-            WtextView.setText(Integer.toString(wrong_answers_count));
+            WrongAnswers.setText(Integer.toString(wrong_answers_count));
             setColoredCards(RightSequence);
         }
         CheckModeRightSequence = RightSequence;
@@ -428,8 +428,8 @@ public class SortFragment extends Fragment {
         if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
             Appodeal.show(getActivity(),Appodeal.INTERSTITIAL);
         wrong_answers_count=right_answers_count=0;
-        WtextView.setText(Integer.toString(wrong_answers_count));
-        RtextView.setText(Integer.toString(right_answers_count));
+        WrongAnswers.setText(Integer.toString(wrong_answers_count));
+        RightAnswers.setText(Integer.toString(right_answers_count));
         isResultScreenOn = false;
         check_button.setVisibility(View.VISIBLE);
         check_button.setClickable(true);
