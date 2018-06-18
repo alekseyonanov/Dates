@@ -13,20 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class DatesFragment extends Fragment{
-    private Cursor crs;
-    private RecyclerView rc;
     private MainActivity ctx;
+    private DatesCardsAdapter adapter;
+    private RecyclerView recycler;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rc = (RecyclerView) inflater.inflate(R.layout.fragment_dates, container, false);
+        recycler = (RecyclerView) inflater.inflate(R.layout.fragment_dates, container, false);
         ctx = (MainActivity) getActivity();
-        rc.setLayoutManager(new LinearLayoutManager(ctx));
-        crs = ctx.getCursor();
-        //crs.moveToFirst();
-        DatesCardsAdapter d = new DatesCardsAdapter(crs,ctx.getMode(),(ctx.getMode() == 0) ? ctx.getResources().getStringArray(R.array.centuries) : ctx.getResources().getStringArray(R.array.centuries_easy));
-        rc.setAdapter(d);
-        return rc;
+        recycler.setLayoutManager(new LinearLayoutManager(ctx));
+        Cursor cursor = ctx.getCursor();
+        int mode = ctx.getMode();
+        adapter = new DatesCardsAdapter(cursor,mode,ctx.getResources().getStringArray(R.array.centuries),ctx.getResources().getStringArray(R.array.centuries_easy));
+        recycler.setAdapter(adapter);
+        return recycler;
     }
 
     @Override
@@ -37,18 +37,14 @@ public class DatesFragment extends Fragment{
     }
 
     public void setStartPosition(){
-        rc.scrollToPosition(0);
+        recycler.scrollToPosition(0);
     }
 
     public void refresh() {
-        MainActivity ctx = (MainActivity)getActivity();
-        crs = ctx.getCursor();
-        int font_size =((DatesCardsAdapter) rc.getAdapter()).getFontSize();
-        DatesCardsAdapter d = new DatesCardsAdapter(crs,ctx.getMode(),(ctx.getMode() == 0) ? ctx.getResources().getStringArray(R.array.centuries) : ctx.getResources().getStringArray(R.array.centuries_easy),font_size);
-        rc.setAdapter(d);
+        adapter.refresh(ctx.getCursor());
     }
 
     public boolean setAdapterFontSize(int m){
-        return ((DatesCardsAdapter)rc.getAdapter()).changeFontSize(m);
+        return adapter.changeFontSize(m);
     }
 }

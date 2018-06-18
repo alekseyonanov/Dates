@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements CenturyPickDialog
     private int type_pick = -1;
     private int mode;
     private Menu menu;
-    private static final int FULL_DATES_MODE = 0;
-    private static final int EASY_DATES_MODE = 1;
+    public static final int FULL_DATES_MODE = 0;
+    public static final int EASY_DATES_MODE = 1;
     private LinearLayout linearLayout;
 
     static {
