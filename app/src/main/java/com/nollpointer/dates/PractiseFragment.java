@@ -19,7 +19,7 @@ import com.appodeal.ads.Appodeal;
 
 import java.util.ArrayList;
 
-public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.Listener,CenturyPickDialog.NoticeDialogListener,TypePickDialog.Listener{
+public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.Listener, CenturyPickDialog.NoticeDialogListener, TypePickDialog.Listener, StartPosition{
     RecyclerView recycler;
     private int pressedPosition;
     private MainActivity mMainActivity;
@@ -41,6 +41,7 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
         super.onResume();
         mMainActivity.changeToolbarItemsVisibility(false,false);
         mMainActivity.getSupportActionBar().setTitle(R.string.title_tests);
+        mMainActivity.updateBottomNavigationView(R.id.navigation_tests);
         if(!mMainActivity.getSupportActionBar().isShowing()) {
             mMainActivity.show_bottom_navigation_view();
             mMainActivity.getSupportActionBar().show();
@@ -119,6 +120,11 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
     public void showAds(){
         if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
             Appodeal.show(mMainActivity,Appodeal.INTERSTITIAL);
+    }
+
+    @Override
+    public void goToStartPosition() {
+        recycler.scrollToPosition(0);
     }
 
 

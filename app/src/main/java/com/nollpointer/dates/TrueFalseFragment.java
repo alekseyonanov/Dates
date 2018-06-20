@@ -30,7 +30,7 @@ public class TrueFalseFragment extends Fragment {
     private String date, event;
     private int right_answers_count=0,wrong_answers_count=0;
     private GridLayout g;
-    private Button BTrue,BFalse;
+    private Button trueButton,falseButton;
     private ArrayList<Integer> questions;
     private int bestResult = 0;
 
@@ -57,16 +57,16 @@ public class TrueFalseFragment extends Fragment {
         };
         mHandler = new Handler();
         MainActivity mAc = (MainActivity) getActivity();
-        BTrue = g.findViewById(R.id.true_button);
-        BTrue.setOnClickListener(new View.OnClickListener() {
+        trueButton = g.findViewById(R.id.true_button);
+        trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickResult(true);
 
             }
         });
-        BFalse = g.findViewById(R.id.false_button);
-        BFalse.setOnClickListener(new View.OnClickListener() {
+        falseButton = g.findViewById(R.id.false_button);
+        falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickResult(false);
@@ -89,8 +89,8 @@ public class TrueFalseFragment extends Fragment {
     }
 
     public void setClickable(boolean b){
-        BTrue.setClickable(b);
-        BFalse.setClickable(b);
+        trueButton.setClickable(b);
+        falseButton.setClickable(b);
     }
 
     private void setTestInfo(){
@@ -234,15 +234,15 @@ public class TrueFalseFragment extends Fragment {
             bestResult = right_answers_count;
         RightAnswers.setText(Integer.toString(right_answers_count));
         WrongAnswers.setText(Integer.toString(wrong_answers_count));
-        BTrue.setText(R.string.reset_button);
-        BFalse.setText(R.string.exit_button);
-        BFalse.setOnClickListener(new View.OnClickListener() {
+        trueButton.setText(R.string.reset_button);
+        falseButton.setText(R.string.exit_button);
+        falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().getFragmentManager().popBackStack();
             }
         });
-        BTrue.setOnClickListener(new View.OnClickListener() {
+        trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 restartInfo();
@@ -284,15 +284,15 @@ public class TrueFalseFragment extends Fragment {
         right_answers_count = wrong_answers_count = 0;
         RightAnswers.setText(Integer.toString(right_answers_count));
         WrongAnswers.setText(Integer.toString(wrong_answers_count));
-        BTrue.setText(R.string.true_button);
-        BFalse.setText(R.string.false_button);
-        BTrue.setOnClickListener(new View.OnClickListener() {
+        trueButton.setText(R.string.true_button);
+        falseButton.setText(R.string.false_button);
+        trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickResult(true);
             }
         });
-        BFalse.setOnClickListener(new View.OnClickListener() {
+        falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickResult(false);

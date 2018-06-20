@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class DatesDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME="dates";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 10;
     public DatesDatabaseHelper(Context context) {
         super(context,DB_NAME,null,DB_VERSION);
     }
@@ -28,27 +28,48 @@ public class DatesDatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE D1");
         onCreate(sqLiteDatabase);
     }
-    private void insertDate(SQLiteDatabase db,String name, String date,String event,int k){
+    private void insertDate(SQLiteDatabase db,String name, String date,String event){
         ContentValues ct = new ContentValues();
         ct.put("DATE",date);
         ct.put("EVENT",event);
-        ct.put("MISTAKES",k);
+        ct.put("REQUEST","y");
         db.insert(name,null,ct);
     }
+
+    private void insertDate(SQLiteDatabase db,String name, String date,String event,String request){
+        ContentValues ct = new ContentValues();
+        ct.put("DATE",date);
+        ct.put("EVENT",event);
+        ct.put("REQUEST",request);
+        db.insert(name,null,ct);
+    }
+
     private void parseString(SQLiteDatabase db,String table_name,String text){
         Scanner scan = new Scanner(text);
         String[] str;
         while (scan.hasNextLine()) {
             str = scan.nextLine().split("#");
-            insertDate(db, table_name, str[0].trim(), str[1].trim(),0);
+            insertDate(db, table_name, str[0].trim(), str[1].trim());
         }
+    }
+
+    private void parseString(SQLiteDatabase db,String table_name,String text,String requests){
+        Scanner scan = new Scanner(text);
+        Scanner scan_requests = new Scanner(requests);
+        String[] str;
+        while (scan.hasNextLine() && scan_requests.hasNextLine()) {
+            str = scan.nextLine().split("#");
+            insertDate(db, table_name, str[0].trim(), str[1].trim(),scan_requests.nextLine());
+        }
+        scan.close();
+        scan_requests.close();
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE D10 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE, MISTAKES INTEGER);");
-        db.execSQL("CREATE TABLE D1 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE, MISTAKES INTEGER);");
+        db.execSQL("CREATE TABLE D10 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE, REQUEST TEXT);");
+        db.execSQL("CREATE TABLE D1 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE, REQUEST TEXT);");
         parseString(db,"D1","862 # Призвание Рюрика в Новгород\n" +
                 "988–990 # Принятие христианства\n" +
                 "1147 # Первое летописное упоминание о Москве\n" +
@@ -62,7 +83,7 @@ public class DatesDatabaseHelper extends SQLiteOpenHelper {
                 "1549 # Первый Земский собор\n" +
                 "1550 # \"Судебник\" Ивана Грозного\n" +
                 "1558–1583 # Ливонская война\n" +
-                "1603–1613 # Смута\n" +
+                "1598–1613 # Смута\n" +
                 "1613 # Избрание на царство Михаила Романова; начало правления династии Романовых\n" +
                 "1649 # \"Соборное уложение\"\n" +
                 "1654 # Церковный Собор, одобривший церковную реформу патриарха Никона\n" +
@@ -140,10 +161,105 @@ public class DatesDatabaseHelper extends SQLiteOpenHelper {
                 " 1979 # Ввод советских войск в Афганистан\n" +
                 "1985–1991 # Период \"перестройки\" в СССР\n" +
                 "1990, 12 июня # Принятие Декларации о суверенитете РСФСР\n" +
-                "1991, 19–21 августа # Попытка государственного переворота в СССР, ГКЧП (путч)\n" +
+                "1991, 18–21 августа # Попытка государственного переворота в СССР, ГКЧП (путч)\n" +
                 "1991, 8 декабря # Беловежская встреча лидеров СССР, России, Белоруссии, Казахстана; роспуск СССР и создание СНГ\n" +
                 "1992, 1 января # Либерализация цен. Начало рыночной реформы, «шоковая терапия»\n" +
-                "1993, октябрь # Конституционный кризис. Противостояние Президента РФ и Верховного Совета РФ");
+                "1993, октябрь # Конституционный кризис. Противостояние Президента РФ и Верховного Совета РФ",
+                "Призвание_варягов\n" +
+                        "Крещение_Руси\n" +
+                        "Основание_Москвы\n" +
+                        "Битва_на_Калке\n" +
+                        "Невская_битва\n" +
+                        "Ледовое_побоище\n" +
+                        "Куликовская_битва\n" +
+                        "Московско-новгородская_война_(1477—1478)\n" +
+                        "Стояние_на_реке_Угре\n" +
+                        "Судебник_1497_года\n" +
+                        "Земский_собор\n" +
+                        "Судебник_Ивана_IV\n" +
+                        "Ливонская_война\n" +
+                        "Смутное_время\n" +
+                        "Михаил_Фёдорович\n" +
+                        "Соборное_уложение_1649_года\n" +
+                        "Московский_собор_(1654)\n" +
+                        "Переяславская_рада\n" +
+                        "Восстание_под_предводительством_Степана_Разина\n" +
+                        "Северная_война\n" +
+                        "История_Санкт-Петербурга\n" +
+                        "Полтавская_битва\n" +
+                        "Указ_о_единонаследии\n" +
+                        "Пётр_I\n" +
+                        "Табель_о_рангах\n" +
+                        "Манифест_о_вольности_дворянства\n" +
+                        "Крестьянская_война_под_предводительством_Емельяна_Пугачёва\n" +
+                        "Жалованная_грамота_дворянству\n" +
+                        "Битва_под_Аустерлицем\n" +
+                        "Отечественная_война_1812_года\n" +
+                        "Бородинское_сражение\n" +
+                        "Война_шестой_коалиции\n" +
+                        "Восстание_декабристов\n" +
+                        "Царскосельская_железная_дорога\n" +
+                        "Крымская_война\n" +
+                        "Крестьянская_реформа_в_России\n" +
+                        "Русско-турецкая_война_(1877—1878)\n" +
+                        "Покушение_на_Александра_II_1_марта_1881_года\n" +
+                        "II_съезд_РСДРП\n" +
+                        "Русско-японская_война\n" +
+                        "Оборона_Порт-Артура\n" +
+                        "Цусимское_сражение\n" +
+                        "Кровавое_воскресенье\n" +
+                        "Революция_1905—1907_годов_в_России\n" +
+                        "Манифест_17_октября_1905_года\n" +
+                        "Государственная_дума_Российской_империи_I_созыва\n" +
+                        "Столыпинская_аграрная_реформа\n" +
+                        "Первая_мировая_война\n" +
+                        "Февральская_революция\n" +
+                        "Корниловское_выступление\n" +
+                        "Октябрьское_вооружённое_восстание_в_Москве_(1917)\n" +
+                        "Всероссийское_учредительное_собрание\n" +
+                        "Брестский_мир\n" +
+                        "Конституция_РСФСР_1918_года\n" +
+                        "Кронштадтское_восстание_(1921)\n" +
+                        "Новая_экономическая_политика\n" +
+                        "Генуэзская_конференция\n" +
+                        "История_СССР\n" +
+                        "Конституция_СССР_1924_года\n" +
+                        "Первая_пятилетка\n" +
+                        "Коллективизация_в_СССР\n" +
+                        "Вторая_пятилетка\n" +
+                        "Лига_Наций\n" +
+                        "Конституция_СССР_1936_года\n" +
+                        "Договор_о_ненападении_между_Германией_и_Советским_Союзом\n" +
+                        "Польская_кампания_вермахта_(1939)\n" +
+                        "Великая_Отечественная_война\n" +
+                        "Битва_за_Москву\n" +
+                        "Блокада_Ленинграда\n" +
+                        "Сталинградская_битва\n" +
+                        "Курская_битва\n" +
+                        "Тегеранская_конференция\n" +
+                        "Нормандская_операция\n" +
+                        "Ялтинская_конференция\n" +
+                        "Штурм_Берлина\n" +
+                        "Акт_о_капитуляции_Германии\n" +
+                        "Потсдамская_конференция\n" +
+                        "Акт_о_капитуляции_Японии\n" +
+                        "Совет_экономической_взаимопомощи\n" +
+                        "Смерть_Сталина\n" +
+                        "Хрущёв,_Никита_Сергеевич\n" +
+                        "Организация_Варшавского_договора\n" +
+                        "XX_съезд_КПСС\n" +
+                        "Венгерское_восстание_(1956)\n" +
+                        "Спутник-1\n" +
+                        "Восток-1\n" +
+                        "Карибский_кризис\n" +
+                        "Заключительный_акт_Совещания_по_безопасности_и_сотрудничеству_в_Европе\n" +
+                        "Афганская_война_(1979—1989)\n" +
+                        "Перестройка\n" +
+                        "Декларация_о_государственном_суверенитете_РСФСР\n" +
+                        "Августовский_путч\n" +
+                        "Беловежские_соглашения\n" +
+                        "Либерализация_цен_в_России\n" +
+                        "Конституционный_кризис_в_России_(1992—1993)\n");
         parseString(db,"D10", "VI в. # Легенда о князе Кие - основателе города Киева.\n" +
                 "IX в. # Образование Древнерусского государства\n" +
                 "860 # Поход русов на Константинополь.\n" +

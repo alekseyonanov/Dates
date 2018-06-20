@@ -1,11 +1,13 @@
 package com.nollpointer.dates;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -22,6 +24,11 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     private TreeMap<Integer,String> main_top_texts = new TreeMap<>();
     private TreeMap<Integer,String> add_top_texts = new TreeMap<>();
     private int fontSize = 14;
+    private Listener listener;
+
+    public interface Listener{
+        void onItemClick(int position);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private CardView mCardView;
@@ -76,6 +83,12 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
                     textView.setText(main_top_texts.get(Integer.valueOf(position)));
                     textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,fontSize);
                 }
+                cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listener.onItemClick(position);
+                    }
+                });
             }
     }
 
@@ -85,7 +98,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
             for(int i=0;i<positions_main.length;i++)
                 main_top_texts.put(positions_main[i],texts[i]);
             for(int i=0;i<positions_easy.length;i++)
-                add_top_texts.put(positions_easy[i],texts[i]);
+                add_top_texts.put(positions_easy[i],add_texts[i]);
             if(mode==MainActivity.EASY_DATES_MODE)
                 change_top_texts();
     }
@@ -114,6 +127,10 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     @Override
     public int getItemCount() {
         return cursor.getCount();
+    }
+
+    public void setListener(Listener listener){
+        this.listener = listener;
     }
 
     @Override

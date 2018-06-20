@@ -38,6 +38,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:15.0.0'
     implementation 'com.google.android.gms:play-services-location:15.0.0'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+
+
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     compile name: 'adcolony-sdk-3.2.1', ext: 'aar'

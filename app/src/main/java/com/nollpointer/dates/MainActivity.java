@@ -32,9 +32,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity{
     private Cursor main_cursor = null;
     private Cursor easy_cursor = null;
-    private boolean first_time = true;
-    private BottomNavigationView bn;
-    private int type_pick = -1;
+    private BottomNavigationView BottomView;
     private int mode;
     private Menu menu;
     public static final int FULL_DATES_MODE = 0;
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity{
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        linearLayout = findViewById(R.id.container_main);
+        //linearLayout = findViewById(R.id.container_main);
         Toolbar tlb = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(tlb);
         SharedPreferences preferences = getSharedPreferences("mode_settings", Context.MODE_PRIVATE);
@@ -67,9 +65,9 @@ public class MainActivity extends AppCompatActivity{
                             Cursor e_cursor = null;
                             try{
                                 m_cursor = sqLiteDatabase
-                                        .query("D10",new String[]{"DATE","EVENT"},null,null,null,null,null);
+                                        .query("D10",new String[]{"DATE","EVENT","REQUEST"},null,null,null,null,null);
                                 e_cursor = sqLiteDatabase
-                                        .query("D1",new String[]{"DATE","EVENT"},null,null,null,null,null);
+                                        .query("D1",new String[]{"DATE","EVENT","REQUEST"},null,null,null,null,null);
                                 m_cursor.moveToFirst();
                                 e_cursor.moveToFirst();
                             }catch (Exception e){
@@ -85,26 +83,25 @@ public class MainActivity extends AppCompatActivity{
         new FlurryAgent.Builder()
                 .withLogEnabled(true)
                 .build(this, "52ZN7BKTNFZ8M26Q2VPN");
-        bn = findViewById(R.id.navigation);
-        bn.inflateMenu(R.menu.navigation);
-        bn.setSelectedItemId(R.id.navigetion_dates);
-        bn.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        BottomView = findViewById(R.id.navigation);
+        BottomView.inflateMenu(R.menu.navigation);
+        BottomView.setSelectedItemId(R.id.navigetion_dates);
+        BottomView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                if (bn.getSelectedItemId() != id) {
+                if (BottomView.getSelectedItemId() != id) {
                     if (item.getItemId() == R.id.navigation_tests) {
-                        setFragment(new PractiseFragment());
-                    } else {
+                        FragmentTransaction frT = getFragmentManager().beginTransaction();
+                        frT.replace(R.id.frameLayout,new PractiseFragment(),"TAG");
+                        frT.addToBackStack(null);
+                        frT.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        frT.commit();
+                    } else
                         getFragmentManager().popBackStack(null,0);
-                        first_time = true;
-                    }
-                }else{
-                    if(id == R.id.navigetion_dates)
-                        ((DatesFragment)getFragmentManager().findFragmentById(R.id.frameLayout)).setStartPosition();
-                    else
-                        ((PractiseFragment)getFragmentManager().findFragmentById(R.id.frameLayout)).setStartPosition();
-                }
+                }else
+                    goToStartPosition();
                 return true;
             }
         });
@@ -112,11 +109,7 @@ public class MainActivity extends AppCompatActivity{
         tlb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment frg = getFragmentManager().findFragmentById(R.id.frameLayout);
-                if(frg instanceof DatesFragment)
-                    ((DatesFragment)frg).setStartPosition();
-                else
-                    ((PractiseFragment)frg).setStartPosition();
+                goToStartPosition();
             }
         });
 
@@ -125,6 +118,11 @@ public class MainActivity extends AppCompatActivity{
         }catch (Exception e){
             Log.e("Exception",e.toString());
         }
+    }
+
+    private void goToStartPosition(){
+        StartPosition fragment=(StartPosition) getFragmentManager().findFragmentById(R.id.frameLayout);
+        fragment.goToStartPosition();
     }
 
     @Override
@@ -150,7 +148,6 @@ public class MainActivity extends AppCompatActivity{
                         mode = FULL_DATES_MODE;
                         refreshLook();
                     }
-                    //refreshCursor();
                     if(frg != null && frg instanceof DatesFragment)
                         ((DatesFragment) frg).refresh();
                 }catch (Exception e){
@@ -158,7 +155,6 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         });
-        //menu.findItem(R.id.font_minus)
         return true;
     }
 
@@ -183,19 +179,6 @@ public class MainActivity extends AppCompatActivity{
                 menu.findItem(R.id.font_minus).setVisible(true);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    private void setFragment(Fragment frg){
-        FragmentManager fgM = getFragmentManager();
-        FragmentTransaction frT = fgM.beginTransaction();
-        frT.replace(R.id.frameLayout,frg,"TAG");
-        if(first_time) {
-            frT.addToBackStack(null);
-            first_time = false;
-        }
-        frT.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        frT.commit();
     }
 
     public Cursor getCursor(){
@@ -232,16 +215,17 @@ public class MainActivity extends AppCompatActivity{
         new setNewPreferences(mode).execute(this);
     }
 
-    public BottomNavigationView getBn(){
-        return bn;
-    }
 
     public void hide_bottom_navigation_view(){
-        linearLayout.removeView(bn);
+        linearLayout.removeView(BottomView);
     }
 
     public void show_bottom_navigation_view() {
-        linearLayout.addView(bn);
+        linearLayout.addView(BottomView);
+    }
+
+    public void updateBottomNavigationView(int id){
+        BottomView.setSelectedItemId(id);
     }
 
     public int getMode(){
