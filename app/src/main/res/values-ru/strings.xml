@@ -18,6 +18,9 @@
     <string name="no_internet_connection">Нет доступа к Интернету</string>
     <string name="try_again">Повторить Попытку</string>
 
+    <string name="easy_mode">Необходимый минимум</string>
+    <string name="full_mode">Расширенный режим</string>
+
     <string name="go_to_wikipedia">Открыть Википедию</string>
 
     <string name="check_button">Проверить</string>

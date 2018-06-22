@@ -1,7 +1,6 @@
 package com.nollpointer.dates;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SwitchCompat;
@@ -26,8 +26,6 @@ import android.widget.LinearLayout;
 
 import com.appodeal.ads.Appodeal;
 import com.flurry.android.FlurryAgent;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
     private Cursor main_cursor = null;
@@ -49,8 +47,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         linearLayout = findViewById(R.id.container_main);
-        Toolbar tlb = (Toolbar) findViewById(R.id.toolbar_actionbar);
-        setSupportActionBar(tlb);
+        Toolbar toolbar = findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(toolbar);
         SharedPreferences preferences = getSharedPreferences("mode_settings", Context.MODE_PRIVATE);
         final SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(this).getReadableDatabase();
         Handler handler = new Handler();
@@ -76,7 +74,6 @@ public class MainActivity extends AppCompatActivity{
                             setCursors(m_cursor,e_cursor);
                         }
                     });
-
         Appodeal.disableLocationPermissionCheck();
         Appodeal.disableNetwork(this, "mmedia");
         Appodeal.initialize(this, "106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1", Appodeal.INTERSTITIAL | Appodeal.BANNER);
@@ -106,7 +103,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        tlb.setOnClickListener(new View.OnClickListener() {
+        toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToStartPosition();
@@ -140,12 +137,15 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 Fragment frg = MainActivity.this.getFragmentManager().findFragmentById(R.id.frameLayout);
+                int string_resource_id = 0;
                 try {
                     if (checked) {
                         mode = EASY_DATES_MODE;
+                        string_resource_id = R.string.easy_mode;
                         refreshLook();
                     } else {
                         mode = FULL_DATES_MODE;
+                        string_resource_id = R.string.full_mode;
                         refreshLook();
                     }
                     if(frg != null && frg instanceof DatesFragment)
@@ -153,6 +153,8 @@ public class MainActivity extends AppCompatActivity{
                 }catch (Exception e){
                     Log.e("Switch_Exception",e.toString());
                 }
+                Snackbar.make(MainActivity.this.findViewById(R.id.frameLayout), string_resource_id,Snackbar.LENGTH_SHORT).show();
+
             }
         });
         return true;
@@ -213,6 +215,7 @@ public class MainActivity extends AppCompatActivity{
         super.onStop();
         FlurryAgent.onEndSession(this);
         new setNewPreferences(mode).execute(this);
+
     }
 
 
@@ -250,9 +253,11 @@ public class MainActivity extends AppCompatActivity{
 
     protected static class setNewPreferences extends AsyncTask<MainActivity,Void,Void>{
         int mode;
-        setNewPreferences(int m){
-            mode = m;
+
+        setNewPreferences(int mode){
+            this.mode = mode;
         }
+
         @Override
         protected Void doInBackground(MainActivity... mainActivities) {
             SharedPreferences.Editor editor = mainActivities[0].getSharedPreferences("mode_settings",Context.MODE_PRIVATE).edit();

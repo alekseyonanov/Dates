@@ -1,6 +1,5 @@
 package com.nollpointer.dates;
 
-import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 
 import retrofit2.Retrofit;
