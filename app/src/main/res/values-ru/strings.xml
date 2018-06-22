@@ -15,6 +15,9 @@
     <string name="mistakes">Ошибки</string>
     <string name="next_sort">Следующий</string>
 
+    <string name="no_internet_connection">Нет доступа к Интернету</string>
+    <string name="try_again">Повторить Попытку</string>
+
     <string name="go_to_wikipedia">Открыть Википедию</string>
 
     <string name="check_button">Проверить</string>

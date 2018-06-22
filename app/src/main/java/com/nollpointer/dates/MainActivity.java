@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity{
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //linearLayout = findViewById(R.id.container_main);
+        linearLayout = findViewById(R.id.container_main);
         Toolbar tlb = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(tlb);
         SharedPreferences preferences = getSharedPreferences("mode_settings", Context.MODE_PRIVATE);
@@ -245,7 +245,6 @@ public class MainActivity extends AppCompatActivity{
         super.onDestroy();
         easy_cursor.close();
         main_cursor.close();
-
     }
 
 

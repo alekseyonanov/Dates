@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class DatesDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME="dates";
-    private static final int DB_VERSION = 10;
+    private static final int DB_VERSION = 11;
     public DatesDatabaseHelper(Context context) {
         super(context,DB_NAME,null,DB_VERSION);
     }

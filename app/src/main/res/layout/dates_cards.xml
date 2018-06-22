@@ -7,18 +7,19 @@
     card_view:cardElevation="0dp"
     android:background="@android:color/white"
     android:layout_marginBottom="1dp"
+    android:clickable="true"
+    android:focusable="true"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="@android:color/white"
+        android:id="@+id/date_linear_layout"
         android:layout_height="match_parent">
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:background="@android:color/white"
             android:textStyle="bold"
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_marginStart="8dp"
@@ -28,7 +29,6 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:background="@android:color/white"
             android:layout_marginTop="2dp"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="6dp"

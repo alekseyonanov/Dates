@@ -19,7 +19,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     private Cursor cursor;
     private static final int DATE = 0;
     private static final int DATE_WITH_MARGIN = 1;
-    private static final int DEFAULT_TEXT_SIZE = 14;
+    public static final int DEFAULT_TEXT_SIZE = 14;
     private int mode;
     private TreeMap<Integer,String> main_top_texts = new TreeMap<>();
     private TreeMap<Integer,String> add_top_texts = new TreeMap<>();
@@ -71,7 +71,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     @Override
     public void onBindViewHolder(DatesCardsAdapter.ViewHolder holder, final int position) {
             if (cursor.moveToPosition(position)) {
-                CardView cardView = holder.mCardView;
+                final CardView cardView = holder.mCardView;
                 TextView textView = cardView.findViewById(R.id.date_number);
                 textView.setText(cursor.getString(0));
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,fontSize  +4);

@@ -8,9 +8,57 @@
     android:layout_height="match_parent" >
 
     <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:theme="@style/AppTheme"
         android:id="@+id/dialog_progressbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/dialog_no_internet"
+        android:visibility="invisible"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end|top"
+            android:layout_margin="5dp"
+            android:id="@+id/dialog_close_button_no"
+            android:background="?selectableItemBackgroundBorderless"
+            style="?android:borderlessButtonStyle"
+            app:srcCompat="@drawable/ic_clear_black_24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:gravity="center"
+            android:text="@string/no_internet_connection"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/dialog_info_no"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            style="?android:borderlessButtonStyle"
+            android:text="@string/try_again"
+            android:id="@+id/dialog_try_again"
+            android:textColor="@color/colorAccent"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +75,7 @@
             android:id="@+id/dialog_close_button"
             android:background="?selectableItemBackgroundBorderless"
             style="?android:borderlessButtonStyle"
-            android:src="@drawable/ic_clear_black_24dp"/>
+            app:srcCompat="@drawable/ic_clear_black_24dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -45,10 +93,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="@string/go_to_wikipedia"
             style="?android:borderlessButtonStyle"
             android:id="@+id/dialog_go_to_source_button"
-            android:textColor="@android:color/holo_blue_dark"/>
+            android:textColor="@color/colorAccent"/>
 
     </LinearLayout>
 

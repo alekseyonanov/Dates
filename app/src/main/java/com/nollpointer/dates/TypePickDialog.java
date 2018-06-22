@@ -30,8 +30,7 @@ public class TypePickDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final MainActivity mnc = (MainActivity) getActivity();
-        AlertDialog.Builder builder = new AlertDialog.Builder(mnc);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setSingleChoiceItems(R.array.pick_type, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

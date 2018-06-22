@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class CenturyPickDialog extends DialogFragment {
 
     public static interface NoticeDialogListener {
-        public void onButtonClicked(ArrayList<Integer> dialog);
+        void onButtonClicked(ArrayList<Integer> dialog);
     }
     private NoticeDialogListener NListener;
 
