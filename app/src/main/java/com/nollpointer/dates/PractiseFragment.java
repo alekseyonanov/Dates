@@ -4,6 +4,7 @@ package com.nollpointer.dates;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,13 @@ import android.view.ViewGroup;
 import com.appodeal.ads.Appodeal;
 
 import java.util.ArrayList;
+
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.shape.NoShape;
+
+import static com.nollpointer.dates.MainActivity.DATES;
+import static com.nollpointer.dates.MainActivity.PRACTISE;
+
 
 public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.Listener, CenturyPickDialog.NoticeDialogListener, TypePickDialog.Listener, StartPosition{
     RecyclerView recycler;
@@ -43,6 +51,17 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
             mMainActivity.getSupportActionBar().show();
             mMainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+        if(mMainActivity.isFirstTime(PRACTISE))
+            new MaterialShowcaseView.Builder(mMainActivity)
+                    .setTarget(recycler)
+                    .setDelay(200)
+                    .setContentText(R.string.tutorial_practise)
+                    .setDismissText(R.string.got_it)
+                    .setDismissOnTouch(true)
+                    .setDismissTextColor(Color.GREEN)
+                    .setMaskColour(getResources().getColor(R.color.colorMask))
+                    .setShape(new NoShape())
+                    .show();
     }
 
     public void onClick(int position){
@@ -56,6 +75,7 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
         }
     }
 
+
     @Override
     public void typePicked(int type) {
         this.type = type;
@@ -68,10 +88,6 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
     public void onButtonClicked(ArrayList<Integer> dialog) {
         if(dialog != null)
             startPractise(dialog,type);
-    }
-
-    public void setStartPosition(){
-        recycler.scrollToPosition(0);
     }
 
     public void startPractise(ArrayList<Integer> arrayList,int type){

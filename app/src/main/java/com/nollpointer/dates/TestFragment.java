@@ -48,7 +48,6 @@ public class TestFragment extends Fragment {
             view =(GridLayout) inflater.inflate(R.layout.fragment_test, container, false);
         MainActivity mAc = (MainActivity) getActivity();
         mAc.getSupportActionBar().hide();
-        //mAc.setTheme(R.style.TestStyle);
         crs = mAc.getCursor();
         ItextView = view.findViewById(R.id.test_info);
         RtextView = view.findViewById(R.id.right_answers);

@@ -4,6 +4,7 @@ package com.nollpointer.dates;
 import android.app.Fragment;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 
 public class CardsShowDown extends Fragment {
     private Cursor crs;
@@ -55,6 +59,17 @@ public class CardsShowDown extends Fragment {
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,40);
             }
         });
+        if(mAc.isFirstTime(MainActivity.CARDS))
+            new MaterialShowcaseView.Builder(mAc)
+                    .setTarget(view)
+                    .setDelay(200)
+                    .setContentText(R.string.tutorial_cards)
+                    .setDismissText(R.string.got_it)
+                    .setDismissOnTouch(true)
+                    .setDismissTextColor(Color.GREEN)
+                    .setMaskColour(getResources().getColor(R.color.colorMask))
+                    .setShape(new NoShape())
+                    .show();
         return view;
     }
 

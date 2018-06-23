@@ -39,6 +39,7 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
             ctx.changeToolbarItemsVisibility(true, true);
         ctx.getSupportActionBar().setTitle(R.string.title_dates);
         ctx.updateBottomNavigationView(R.id.navigetion_dates);
+        //ctx.startFirstTimeUserTutorial();
     }
 
     public void refresh() {

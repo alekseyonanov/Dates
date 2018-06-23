@@ -21,6 +21,17 @@
     <string name="easy_mode">Необходимый минимум</string>
     <string name="full_mode">Расширенный режим</string>
 
+    <string name="tutorial_dates">Нажмите на дату для краткой справке по событию</string>
+    <string name="tutorial_switch">Здесь можно переключить режим дат</string>
+    <string name="tutorial_bottom_view">Переключение между практикой и теорией</string>
+    <string name="tutorial_practise">Нажмите на вид практики для дальнейшей проверки</string>
+
+    <string name="tutorial_cards">Попробуйте вспомнить дату. Если не получается, нажмите на \'?\'</string>
+    <string name="tutorial_true_false">Если дата подходит к событию, нажмите \'Правда\', иначе стоит выбрать \'Ложь\'</string>
+    <string name="tutorial_sort">Нажмите на дату для изменения порядкового номера. Как только последовательность получится, нажмите \'Проверить\'</string>
+    <string name="tutorial_sort_check">В режиме проверки вы можете моментально увидеть ошибку. Так же нажимайте на дату для изменеия ее порядкового номера</string>
+    <string name="got_it">Понятно</string>
+
     <string name="go_to_wikipedia">Открыть Википедию</string>
 
     <string name="check_button">Проверить</string>

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +28,13 @@ import android.widget.LinearLayout;
 import com.appodeal.ads.Appodeal;
 import com.flurry.android.FlurryAgent;
 
+import java.util.TreeMap;
+
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.shape.NoShape;
+import uk.co.deanwild.materialshowcaseview.shape.RectangleShape;
+
 public class MainActivity extends AppCompatActivity{
     private Cursor main_cursor = null;
     private Cursor easy_cursor = null;
@@ -36,6 +44,10 @@ public class MainActivity extends AppCompatActivity{
     public static final int FULL_DATES_MODE = 0;
     public static final int EASY_DATES_MODE = 1;
     private LinearLayout linearLayout;
+    public static final String MODE = "MODE", PRACTISE = "PRACTISE", DATES = "DATES", SORT = "SORT",SORT_CHECK = "SORT_CHECK", TRUE_FALSE = "TRUE_FALSE", CARDS = "CARDS";
+    public static final String SETTINGS = "SETTINGS";
+    private TreeMap<String,Boolean> preferences = new TreeMap<>();
+
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -49,19 +61,16 @@ public class MainActivity extends AppCompatActivity{
         linearLayout = findViewById(R.id.container_main);
         Toolbar toolbar = findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(toolbar);
-        SharedPreferences preferences = getSharedPreferences("mode_settings", Context.MODE_PRIVATE);
-        final SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(this).getReadableDatabase();
+        SharedPreferences prefs = getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
         Handler handler = new Handler();
-        if(preferences.contains("Mode"))
-            mode = preferences.getInt("Mode",-1);
-        else
-            mode = 0;
+        //this.preferences = prefs.getAll();
+        mode = prefs.getInt(MODE,FULL_DATES_MODE);
         handler.post(new Runnable() {
                         @Override
                         public void run() {
                             Cursor m_cursor = null;
                             Cursor e_cursor = null;
-                            try{
+                            try(SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(MainActivity.this).getReadableDatabase()){
                                 m_cursor = sqLiteDatabase
                                         .query("D10",new String[]{"DATE","EVENT","REQUEST"},null,null,null,null,null);
                                 e_cursor = sqLiteDatabase
@@ -74,6 +83,12 @@ public class MainActivity extends AppCompatActivity{
                             setCursors(m_cursor,e_cursor);
                         }
                     });
+        preferences.put(DATES,prefs.getBoolean(DATES,true));
+        preferences.put(PRACTISE,prefs.getBoolean(PRACTISE,true));
+        preferences.put(SORT,prefs.getBoolean(SORT,true));
+        preferences.put(SORT_CHECK,prefs.getBoolean(SORT_CHECK,true));
+        preferences.put(CARDS,prefs.getBoolean(CARDS,true));
+        preferences.put(TRUE_FALSE,prefs.getBoolean(TRUE_FALSE,true));
         Appodeal.disableLocationPermissionCheck();
         Appodeal.disableNetwork(this, "mmedia");
         Appodeal.initialize(this, "106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1", Appodeal.INTERSTITIAL | Appodeal.BANNER);
@@ -128,12 +143,12 @@ public class MainActivity extends AppCompatActivity{
         this.menu = menu;
         MenuItem mI = menu.findItem(R.id.mode_switch);
         mI.setActionView(R.layout.switch_layout);
-        SwitchCompat s = (SwitchCompat) mI.getActionView();
+        SwitchCompat switchCompat = (SwitchCompat) mI.getActionView();
         if(mode == EASY_DATES_MODE) {
-            s.setChecked(true);
+            switchCompat.setChecked(true);
             refreshLook();
         }
-        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 Fragment frg = MainActivity.this.getFragmentManager().findFragmentById(R.id.frameLayout);
@@ -157,6 +172,8 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
+        if(isFirstTime(DATES))
+            startFirstTimeUserTutorial();
         return true;
     }
 
@@ -204,20 +221,67 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    public void startFirstTimeUserTutorial(){
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this);
+        View switch_compat = menu.findItem(R.id.mode_switch).getActionView();
+        View main_frame = findViewById(R.id.frameLayout);
+        MaterialShowcaseView bottom_showcase,switch_showcase,dates_showcase;
+        int mask_color = getResources().getColor(R.color.colorMask);
+        int dismiss_color = Color.GREEN;
+        bottom_showcase = new MaterialShowcaseView.Builder(this)
+                .setTarget(BottomView)
+                .setContentText(R.string.tutorial_bottom_view)
+                .setDismissText(R.string.got_it)
+                .setDismissOnTouch(true)
+                .setShape(new RectangleShape(BottomView.getWidth(),BottomView.getHeight()))
+                .setMaskColour(mask_color)
+                .setDismissTextColor(dismiss_color)
+                .build();
+        sequence.addSequenceItem(bottom_showcase);
+        switch_showcase = new MaterialShowcaseView.Builder(this)
+                .setTarget(switch_compat)
+                .setContentText(R.string.tutorial_switch)
+                .setDismissText(R.string.got_it)
+                .setTargetTouchable(true)
+                .setDismissOnTouch(true)
+                .setMaskColour(mask_color)
+                .setDismissTextColor(dismiss_color)
+                .build();
+        sequence.addSequenceItem(switch_showcase);
+        dates_showcase = new MaterialShowcaseView.Builder(this)
+                .setTarget(main_frame)
+                .setContentText(R.string.tutorial_dates)
+                .setDismissText(R.string.got_it)
+                .setDismissOnTouch(true)
+                .setShape(new NoShape())
+                .setMaskColour(mask_color)
+                .setDismissTextColor(dismiss_color)
+                .build();
+        sequence.addSequenceItem(dates_showcase);
+        sequence.start();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
         FlurryAgent.onStartSession(this);
     }
 
+    public boolean isFirstTime(String key){
+        boolean is = preferences.get(key);
+        if(is)
+            preferences.put(key,false);
+        return is;
+    }
+
+
     @Override
     protected void onStop() {
         super.onStop();
         FlurryAgent.onEndSession(this);
-        new setNewPreferences(mode).execute(this);
+        new setNewPreferences(mode,preferences).execute(this);
 
     }
-
 
     public void hide_bottom_navigation_view(){
         linearLayout.removeView(BottomView);
@@ -252,16 +316,25 @@ public class MainActivity extends AppCompatActivity{
 
 
     protected static class setNewPreferences extends AsyncTask<MainActivity,Void,Void>{
+        TreeMap<String,Boolean> prefs;
         int mode;
 
-        setNewPreferences(int mode){
+        setNewPreferences(int mode, TreeMap<String,Boolean> prefs){
             this.mode = mode;
+            this.prefs = prefs;
         }
 
         @Override
         protected Void doInBackground(MainActivity... mainActivities) {
-            SharedPreferences.Editor editor = mainActivities[0].getSharedPreferences("mode_settings",Context.MODE_PRIVATE).edit();
-            editor.putInt("Mode",mode).apply();
+            SharedPreferences.Editor editor = mainActivities[0].getSharedPreferences(SETTINGS,Context.MODE_PRIVATE).edit();
+            editor.putInt(MODE,mode);
+            editor.putBoolean(PRACTISE,prefs.get(PRACTISE));
+            editor.putBoolean(DATES,prefs.get(DATES));
+            editor.putBoolean(SORT,prefs.get(SORT));
+            editor.putBoolean(SORT_CHECK,prefs.get(SORT_CHECK));
+            editor.putBoolean(TRUE_FALSE,prefs.get(TRUE_FALSE));
+            editor.putBoolean(CARDS,prefs.get(CARDS));
+            editor.apply();
             return null;
         }
     }

@@ -23,6 +23,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeMap;
 
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.shape.NoShape;
+
+import static com.nollpointer.dates.MainActivity.SORT;
+import static com.nollpointer.dates.MainActivity.SORT_CHECK;
+
 
 public class SortFragment extends Fragment {
     private Cursor crs;
@@ -45,19 +51,19 @@ public class SortFragment extends Fragment {
     private boolean isInfinitive;
     private boolean isResultScreenOn = false;
     private boolean checkMode = false;
+    private GridLayout view;
+    private boolean isFirstTimeCheck = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        GridLayout view;
         if(Build.VERSION.SDK_INT == 19)
             view = (GridLayout) inflater.inflate(R.layout.fragment_sort_low_api, container, false);
         else
             view =(GridLayout) inflater.inflate(R.layout.fragment_sort, container, false);
-        final MainActivity mAc = (MainActivity) getActivity();
-        mAc.getSupportActionBar().hide();
-       // mAc.setTheme(R.style.TestStyle);
-        crs = mAc.getCursor();
+        final MainActivity ctx = (MainActivity) getActivity();
+        ctx.getSupportActionBar().hide();
+        crs = ctx.getCursor();
         RightAnswers = view.findViewById(R.id.right_answers);
         WrongAnswers = view.findViewById(R.id.wrong_answers);
         instructions = view.findViewById(R.id.instruction_sort);
@@ -127,7 +133,7 @@ public class SortFragment extends Fragment {
                     if(checkMode)
                         OnGoingCheck();
                 }else
-                    mAc.getFragmentManager().popBackStack();
+                    ctx.getFragmentManager().popBackStack();
 
             }
         });
@@ -147,7 +153,7 @@ public class SortFragment extends Fragment {
         });
 
         Appodeal.setBannerViewId(R.id.appodealBannerView_sort);
-        Appodeal.show(mAc,Appodeal.BANNER_VIEW);
+        Appodeal.show(ctx,Appodeal.BANNER_VIEW);
         mHandler = new Handler();
         post = new Runnable() {
             @Override
@@ -165,6 +171,18 @@ public class SortFragment extends Fragment {
         setSequence();
         setQuestionInfo();
         setQuestions();
+        isFirstTimeCheck = ctx.isFirstTime(SORT_CHECK);
+        if(ctx.isFirstTime(SORT))
+            new MaterialShowcaseView.Builder(ctx)
+                    .setTarget(view)
+                    .setDelay(200)
+                    .setContentText(R.string.tutorial_sort)
+                    .setDismissText(R.string.got_it)
+                    .setDismissOnTouch(true)
+                    .setDismissTextColor(Color.GREEN)
+                    .setMaskColour(getResources().getColor(R.color.colorMask))
+                    .setShape(new NoShape())
+                    .show();
         return view;
     }
 
@@ -295,11 +313,21 @@ public class SortFragment extends Fragment {
             setColoredCards(RightSequence);
         }
         CheckModeRightSequence = RightSequence;
-        //Answer = 123;
+        if(isFirstTimeCheck) {
+            new MaterialShowcaseView.Builder(getActivity())
+                    .setTarget(view)
+                    .setDelay(150)
+                    .setContentText(R.string.tutorial_sort_check)
+                    .setDismissText(R.string.got_it)
+                    .setDismissOnTouch(true)
+                    .setDismissTextColor(Color.GREEN)
+                    .setMaskColour(getResources().getColor(R.color.colorMask))
+                    .setShape(new NoShape())
+                    .show();
+            isFirstTimeCheck = false;
+        }
         setSequence();
         setQuestionInfo();
-
-        //setQuestions();
     }
 
     public SortFragment setCenturies(ArrayList<Integer> arrayList, int type, int mode,boolean infinitive) {

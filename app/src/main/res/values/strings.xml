@@ -19,6 +19,15 @@
     <string name="try_again">Try Again</string>
     <string name="easy_mode">Easy Mode</string>
     <string name="full_mode">Full Mode</string>
+    <string name="tutorial_dates">Click on date to get more info</string>
+    <string name="tutorial_switch">Here you can switch dates mode</string>
+    <string name="tutorial_bottom_view">Here you can move between theory and practise</string>
+    <string name="tutorial_practise">Here you can find different types of practise</string>
+
+    <string name="tutorial_cards">Try to call to mind date. If you can\'t remember, press \'?\'</string>
+    <string name="tutorial_true_false">If date and description doesn\'t match press false, otherwise press true</string>
+    <string name="tutorial_sort">Press on date to change its order number</string>
+    <string name="got_it">Got it</string>
 
     <string name="go_to_wikipedia">Go To Wikipedia</string>
 

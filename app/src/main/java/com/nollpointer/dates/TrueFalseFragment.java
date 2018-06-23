@@ -3,6 +3,7 @@ package com.nollpointer.dates;
 
 import android.app.Fragment;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,9 @@ import com.appodeal.ads.Appodeal;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 
 public class TrueFalseFragment extends Fragment {
     private Cursor cursor;
@@ -81,10 +85,20 @@ public class TrueFalseFragment extends Fragment {
         WrongAnswers.setText("0");
         RightAnswers.setText("0");
         mAc.getSupportActionBar().hide();
-        //mAc.setTheme(R.style.TestStyle);
         cursor = mAc.getCursor();
         setTestInfo();
         setQuestions();
+        if(mAc.isFirstTime(MainActivity.TRUE_FALSE))
+            new MaterialShowcaseView.Builder(mAc)
+                    .setTarget(g)
+                    .setDelay(200)
+                    .setContentText(R.string.tutorial_true_false)
+                    .setDismissText(R.string.got_it)
+                    .setDismissOnTouch(true)
+                    .setDismissTextColor(Color.GREEN)
+                    .setMaskColour(getResources().getColor(R.color.colorMask))
+                    .setShape(new NoShape())
+                    .show();
         return g;
     }
 
