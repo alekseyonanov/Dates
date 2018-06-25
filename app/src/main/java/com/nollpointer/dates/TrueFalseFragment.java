@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.appodeal.ads.Appodeal;
@@ -42,6 +43,7 @@ public class TrueFalseFragment extends Fragment {
     private Button trueButton,falseButton;
     private ArrayList<Integer> questions;
     private int bestResult = 0;
+    private ProgressBar progressBar;
 
 
     public static TrueFalseFragment newInstance(ArrayList<Integer> arrayList,int picked_pos,int mode,boolean infinitive){
@@ -167,6 +169,7 @@ public class TrueFalseFragment extends Fragment {
 
             }
         });
+        progressBar = g.findViewById(R.id.true_false_progressbar);
         Appodeal.setBannerViewId(R.id.appodealBannerView_true);
         question_date = g.findViewById(R.id.test_info_true_false_date);
         question_event = g.findViewById(R.id.test_info_true_false_event);
@@ -177,8 +180,10 @@ public class TrueFalseFragment extends Fragment {
         mAc.getSupportActionBar().hide();
         cursor = mAc.getCursor();
         Bundle saved = getArguments();
-        if(!saved.getBoolean(INFINITIVE))
+        if(!saved.getBoolean(INFINITIVE)) {
+            progressBar.setVisibility(View.VISIBLE);
             questions = new ArrayList<>();
+        }
         bound = saved.getIntArray(BOUND);
         position = saved.getIntArray(POSITION);
         setTestInfo();
@@ -332,6 +337,7 @@ public class TrueFalseFragment extends Fragment {
         });
         questions.clear();
         question_event.setTextColor(getResources().getColor(android.R.color.black));
+        progressBar.setProgress(0);
         setQuestions();
     }
 
@@ -352,6 +358,8 @@ public class TrueFalseFragment extends Fragment {
             question_date.setTextColor(getResources().getColor(R.color.colorFalseButton));
             question_event.setTextColor(getResources().getColor(R.color.colorFalseButton));
         }
+        if(questions != null)
+            progressBar.incrementProgressBy(1);
         setClickable(false);
         setTestInfo();
         mHandler.postDelayed(rnb, 1000);

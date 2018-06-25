@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.appodeal.ads.Appodeal;
@@ -57,6 +58,7 @@ public class SortFragment extends Fragment {
     private boolean checkMode = false;
     private GridLayout view;
     private boolean isFirstTimeCheck = true;
+    private ProgressBar progressBar;
 
 
     public static SortFragment newInstance(ArrayList<Integer> arrayList,int picked_pos,int mode,boolean infinitive){
@@ -161,6 +163,7 @@ public class SortFragment extends Fragment {
         cards[0] = view.findViewById(R.id.cardView1);
         cards[1] = view.findViewById(R.id.cardView2);
         cards[2] = view.findViewById(R.id.cardView3);
+        progressBar = view.findViewById(R.id.sort_progressbar);
         int color = Color.WHITE;
         cards[0].setBackgroundColor(color);
         cards[1].setBackgroundColor(color);
@@ -246,6 +249,8 @@ public class SortFragment extends Fragment {
         isInfinitive = saved.getBoolean(INFINITIVE);
         Appodeal.setBannerViewId(R.id.appodealBannerView_sort);
         Appodeal.show(ctx,Appodeal.BANNER_VIEW);
+        if(!isInfinitive)
+            progressBar.setVisibility(View.VISIBLE);
         mHandler = new Handler();
         post = new Runnable() {
             @Override
@@ -398,6 +403,8 @@ public class SortFragment extends Fragment {
             WrongAnswers.setText(Integer.toString(wrong_answers_count));
             setColoredCards(RightSequence);
         }
+        if(!isInfinitive)
+            progressBar.incrementProgressBy(1);
         CheckModeRightSequence = RightSequence;
         if(isFirstTimeCheck) {
             new MaterialShowcaseView.Builder(getActivity())
@@ -475,6 +482,7 @@ public class SortFragment extends Fragment {
         cards[1].setBackgroundColor(getResources().getColor(android.R.color.white));
         cards[2].setBackgroundColor(getResources().getColor(android.R.color.white));
         instructions.setText(getString(R.string.sotr_text));
+        progressBar.setProgress(0);
         setQuestions();
     }
 

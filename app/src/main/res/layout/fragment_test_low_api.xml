@@ -96,4 +96,19 @@
         app:layout_gravity="fill_horizontal"
         android:layout_height="wrap_content" />
 
+    <ProgressBar
+        android:layout_height="3dp"
+        android:layout_width="match_parent"
+        android:id="@+id/test_progressbar"
+        app:layout_row="7"
+        app:layout_column="0"
+        app:layout_columnSpan="2"
+        android:visibility="invisible"
+        style="?android:progressBarStyleHorizontal"
+        android:max="20"
+        android:progress="0"
+        app:layout_gravity="fill_horizontal|end"
+        android:theme="@style/ProgressBarStyle"
+        />
+
 </android.support.v7.widget.GridLayout>

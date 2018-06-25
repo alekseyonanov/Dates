@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.appodeal.ads.Appodeal;
@@ -36,6 +37,7 @@ public class TestFragment extends Fragment {
     private ArrayList<Integer> questions;
     private ArrayList<String> test = new ArrayList<>();
     private int bestResult = 0;
+    private ProgressBar progressBar;
 
 
     public static TestFragment newInstance(ArrayList<Integer> arrayList,int picked_pos,int mode,boolean infinitive){
@@ -139,6 +141,7 @@ public class TestFragment extends Fragment {
         ItextView = view.findViewById(R.id.test_info);
         RtextView = view.findViewById(R.id.right_answers);
         WtextView = view.findViewById(R.id.wrong_answers);
+        progressBar = view.findViewById(R.id.test_progressbar);
         btn = new Button[4];
         Appodeal.setBannerViewId(R.id.appodealBannerView);
         Arrays.fill(info,"");
@@ -150,8 +153,10 @@ public class TestFragment extends Fragment {
 
         Bundle saved = getArguments();
         type = saved.getInt(TYPE);
-        if(!saved.getBoolean(INFINITIVE))
+        if(!saved.getBoolean(INFINITIVE)) {
             questions = new ArrayList<>();
+            progressBar.setVisibility(View.VISIBLE);
+        }
         bound = saved.getIntArray(BOUND);
         position = saved.getIntArray(POSITION);
 
@@ -270,6 +275,9 @@ public class TestFragment extends Fragment {
             btn[position].setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
         }
         btn[RightButton].setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+        if(questions != null){
+            progressBar.incrementProgressBy(1);
+        }
         mHandler.postDelayed(rnb, 950); ///////
         setTestInfo();
     }
@@ -382,6 +390,7 @@ public class TestFragment extends Fragment {
                 }
             }
         };
+        progressBar.setProgress(0);
         btn[1].setOnClickListener(o);
         btn[3].setOnClickListener(o);
         questions.clear();
