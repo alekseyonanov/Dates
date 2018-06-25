@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity{
     public static final int FULL_DATES_MODE = 0;
     public static final int EASY_DATES_MODE = 1;
     private LinearLayout linearLayout;
-    public static final String MODE = "MODE", PRACTISE = "PRACTISE", DATES = "DATES", SORT = "SORT",SORT_CHECK = "SORT_CHECK", TRUE_FALSE = "TRUE_FALSE", CARDS = "CARDS";
+    public static final String MODE = "MODE", PRACTISE = "PRACTISE", DATES = "DATES",
+            SORT = "SORT",SORT_CHECK = "SORT_CHECK", TRUE_FALSE = "TRUE_FALSE", CARDS = "CARDS";
     public static final String SETTINGS = "SETTINGS";
     private TreeMap<String,Boolean> preferences = new TreeMap<>();
 

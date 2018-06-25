@@ -14,7 +14,6 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
     private MainActivity ctx;
     private DatesCardsAdapter adapter;
     private RecyclerView recycler;
-    int last_dy = 0;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,7 +38,6 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
             ctx.changeToolbarItemsVisibility(true, true);
         ctx.getSupportActionBar().setTitle(R.string.title_dates);
         ctx.updateBottomNavigationView(R.id.navigetion_dates);
-        //ctx.startFirstTimeUserTutorial();
     }
 
     public void refresh() {
@@ -57,12 +55,10 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
 
     @Override
     public void onItemClick(int position) {
-        if (ctx.getMode() == MainActivity.EASY_DATES_MODE) {
             Cursor cursor = ctx.getCursor();
             cursor.moveToPosition(position);
             String request = cursor.getString(2);
             MoreInfoDialog more = MoreInfoDialog.newInstance(request);
             more.show(ctx.getSupportFragmentManager(), null);
-        }
     }
 }

@@ -14,5 +14,5 @@
     <color name="colorPrimaryEasyMistakeMode">#1B5E20</color>
     <color name="colorTrueButton">#43a047</color>
     <color name="colorFalseButton">#ff5252</color>
-    <color name="colorMask">#e137474F</color>
+    <color name="colorMask">#ea37474F</color>
 </resources>

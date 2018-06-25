@@ -72,6 +72,9 @@
             android:layout_marginBottom="12dp"
             app:cardElevation="0dp"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:textAppearance="?android:textAppearanceMedium"
@@ -119,6 +122,9 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:textAppearance="?android:textAppearanceMedium"
             android:id="@+id/cardView2" >
 
@@ -164,6 +170,9 @@
             app:cardElevation="0dp"
             android:background="@android:color/white"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:textAppearance="?android:textAppearanceMedium"
             android:id="@+id/cardView3"
             android:layout_marginBottom="12dp" >
@@ -213,6 +222,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/check_button"
+        android:foreground="?android:attr/selectableItemBackground"
         android:textAppearance="?android:textAppearanceMedium"
         style="?android:borderlessButtonStyle"
         android:background="@color/colorBackgroundDivider"

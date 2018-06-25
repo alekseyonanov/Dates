@@ -92,6 +92,7 @@
         style="?android:borderlessButtonStyle"
         android:background="@color/colorTrueButton"
         app:layout_gravity="start"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_height="wrap_content"
         android:text="@string/true_button"/>
 
@@ -101,6 +102,7 @@
         android:id="@+id/false_button"
         android:background="@color/colorFalseButton"
         style="?android:borderlessButtonStyle"
+        android:foreground="?android:attr/selectableItemBackground"
         app:layout_gravity="end"
         android:layout_height="wrap_content"
         android:text="@string/false_button"/>

@@ -120,7 +120,7 @@ public class SortFragment extends Fragment {
 
             }
         });
-        cards[2].setOnClickListener(new View.OnClickListener() {
+        cards[2].setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 if(!isResultScreenOn) {
@@ -274,7 +274,6 @@ public class SortFragment extends Fragment {
                 RightSequence = 321;
                 break;
         }
-        //Log.wtf("WTf", RightSequence + "");
     }
 
     private void OnGoingCheck(){
@@ -288,7 +287,6 @@ public class SortFragment extends Fragment {
         ar[2] = RightSequence%10 == Answer%10;
         int colorR = getResources().getColor(android.R.color.holo_green_dark);
         int colorW = getResources().getColor(android.R.color.holo_red_light);
-        //Log.wtf("ASDASDASDASDASDASDASD",)
         for(int i =0;i<3;i++){
             if(ar[i])
                 cards[i].setBackgroundColor(colorR);
@@ -298,9 +296,6 @@ public class SortFragment extends Fragment {
     }
 
     private void Check(){
-        //mHandler.postDelayed(post,940);
-        //Log.wtf("CHECK",Answer + "");
-        //check_button.setClickable(false);
         if(Answer == RightSequence) {
             right_answers_count++;
             RightAnswers.setText(Integer.toString(right_answers_count));
@@ -380,7 +375,7 @@ public class SortFragment extends Fragment {
                         break;
                     case 9:
                         position[i] = 334;
-                        bound[i] = 49;
+                        bound[i] = 50;
                         break;
                 }
             }

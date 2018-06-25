@@ -59,7 +59,7 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
                     .setDismissText(R.string.got_it)
                     .setDismissOnTouch(true)
                     .setDismissTextColor(Color.GREEN)
-                    .setMaskColour(getResources().getColor(R.color.colorMask))
+                    //.setMaskColour(getResources().getColor(R.color.colorMask))
                     .setShape(new NoShape())
                     .show();
     }

@@ -87,6 +87,7 @@
             android:id="@+id/true_button"
             style="?android:borderlessButtonStyle"
             android:background="@color/colorTrueButton"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_gravity="start"
             android:layout_height="wrap_content"
             android:text="@string/true_button"/>
@@ -96,6 +97,7 @@
             android:layout_weight="1"
             android:id="@+id/false_button"
             android:background="@color/colorFalseButton"
+            android:foreground="?android:attr/selectableItemBackground"
             style="?android:borderlessButtonStyle"
             app:layout_gravity="end"
             android:layout_height="wrap_content"

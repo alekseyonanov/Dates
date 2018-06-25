@@ -241,7 +241,7 @@ public class TestFragment extends Fragment {
                         break;
                     case 9:
                         position[i] = 334;
-                        bound[i] = 49;
+                        bound[i] = 50;
                         break;
                 }
             }

@@ -5,7 +5,7 @@
     card_view:cardCornerRadius="0dp"
     android:layout_width="match_parent"
     card_view:cardElevation="0dp"
-    android:background="@android:color/white"
+    android:foreground="?android:attr/selectableItemBackground"
     android:layout_marginBottom="1dp"
     android:clickable="true"
     android:focusable="true"
