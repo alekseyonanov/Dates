@@ -117,11 +117,7 @@ public class CardsShowDown extends Fragment {
         bundle.putInt(TYPE,picked_pos);
         cards.setArguments(bundle);
         return cards;
-
     }
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

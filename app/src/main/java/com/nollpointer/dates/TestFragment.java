@@ -29,7 +29,7 @@ public class TestFragment extends Fragment {
     private Button btn[];
     private TextView ItextView, RtextView, WtextView;
     private String[] info = new String[5];
-    private boolean clicked = false, all = false;
+    private boolean clicked = false;
     private int[] position, bound;
     private Handler mHandler;
     private Runnable rnb;

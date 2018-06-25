@@ -1,5 +1,6 @@
 package com.nollpointer.dates;
 
+
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -70,14 +71,15 @@ public class MainActivity extends AppCompatActivity{
                             Cursor m_cursor = null;
                             Cursor e_cursor = null;
                             try(SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(MainActivity.this).getReadableDatabase()){
+                                String[] cells = new String[]{"DATE","EVENT","REQUEST"};
                                 m_cursor = sqLiteDatabase
-                                        .query("D10",new String[]{"DATE","EVENT","REQUEST"},null,null,null,null,null);
+                                        .query("D10",cells,null,null,null,null,null);
                                 e_cursor = sqLiteDatabase
-                                        .query("D1",new String[]{"DATE","EVENT","REQUEST"},null,null,null,null,null);
+                                        .query("D1",cells,null,null,null,null,null);
                                 m_cursor.moveToFirst();
                                 e_cursor.moveToFirst();
                             }catch (Exception e){
-                                Log.e("ExceptionFUUUUUUUCK",e.toString());
+                                Log.e("SQl_DATABASE_EXCEPTION",e.toString());
                             }
                             setCursors(m_cursor,e_cursor);
                         }
@@ -88,11 +90,14 @@ public class MainActivity extends AppCompatActivity{
         preferences.put(SORT_CHECK,prefs.getBoolean(SORT_CHECK,true));
         preferences.put(CARDS,prefs.getBoolean(CARDS,true));
         preferences.put(TRUE_FALSE,prefs.getBoolean(TRUE_FALSE,true));
+
         Appodeal.disableLocationPermissionCheck();
         Appodeal.disableNetwork(this, "mmedia");
         Appodeal.initialize(this, "106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1", Appodeal.INTERSTITIAL | Appodeal.BANNER);
+
         new FlurryAgent.Builder()
                 .withLogEnabled(true)
+                .withCaptureUncaughtExceptions(true)
                 .build(this, "52ZN7BKTNFZ8M26Q2VPN");
 
         BottomView = findViewById(R.id.navigation);
@@ -104,11 +109,11 @@ public class MainActivity extends AppCompatActivity{
                 int id = item.getItemId();
                 if (BottomView.getSelectedItemId() != id) {
                     if (item.getItemId() == R.id.navigation_tests) {
-                        FragmentTransaction frT = getFragmentManager().beginTransaction();
-                        frT.replace(R.id.frameLayout,new PractiseFragment(),"TAG");
-                        frT.addToBackStack(null);
-                        frT.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                        frT.commit();
+                        FragmentTransaction f_transaction = getFragmentManager().beginTransaction();
+                        f_transaction.replace(R.id.frameLayout,new PractiseFragment(),"TAG");
+                        f_transaction.addToBackStack(null);
+                        f_transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        f_transaction.commit();
                     } else
                         getFragmentManager().popBackStack(null,0);
                 }else
@@ -123,12 +128,6 @@ public class MainActivity extends AppCompatActivity{
                 goToStartPosition();
             }
         });
-
-        try {
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }catch (Exception e){
-            Log.e("Exception",e.toString());
-        }
     }
 
     private void goToStartPosition(){
@@ -298,10 +297,14 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void refreshLook(){
-        if(mode == FULL_DATES_MODE) {
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
-        }else{
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimaryEasy)));
+        try {
+            if (mode == FULL_DATES_MODE) {
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+            } else {
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimaryEasy)));
+            }
+        }catch (Exception e){
+            Log.e("Error",e.toString());
         }
     }
 
@@ -336,5 +339,4 @@ public class MainActivity extends AppCompatActivity{
             return null;
         }
     }
-
 }
