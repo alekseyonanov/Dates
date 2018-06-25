@@ -29,6 +29,10 @@ import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 import static com.nollpointer.dates.MainActivity.SORT;
 import static com.nollpointer.dates.MainActivity.SORT_CHECK;
 
+import static com.nollpointer.dates.PractiseConstants.BOUND;
+import static com.nollpointer.dates.PractiseConstants.INFINITIVE;
+import static com.nollpointer.dates.PractiseConstants.POSITION;
+import static com.nollpointer.dates.PractiseConstants.TYPE;
 
 public class SortFragment extends Fragment {
     private Cursor crs;
@@ -53,6 +57,91 @@ public class SortFragment extends Fragment {
     private boolean checkMode = false;
     private GridLayout view;
     private boolean isFirstTimeCheck = true;
+
+
+    public static SortFragment newInstance(ArrayList<Integer> arrayList,int picked_pos,int mode,boolean infinitive){
+        SortFragment sort = new SortFragment();
+        int[] position,bound;
+        if(mode == MainActivity.FULL_DATES_MODE) {
+            if (arrayList.contains(10))
+                for (int i = 0; i < 10; i++)
+                    arrayList.add(i, i);
+            arrayList.remove(Integer.valueOf(10));
+            position = new int[arrayList.size()];
+            bound = new int[arrayList.size()];
+            for (int i = 0; i < arrayList.size(); i++) {
+                switch (arrayList.get(i)) {
+                    case 0:
+                        position[i] = 0;
+                        bound[i] = 21;
+                        break;
+                    case 1:
+                        position[i] = 21;
+                        bound[i] = 20;
+                        break;
+                    case 2:
+                        position[i] = 41;
+                        bound[i] = 35;
+                        break;
+                    case 3:
+                        position[i] = 76;
+                        bound[i] = 31;
+                        break;
+                    case 4:
+                        position[i] = 107;
+                        bound[i] = 40;
+                        break;
+                    case 5:
+                        position[i] = 147;
+                        bound[i] = 48;
+                        break;
+                    case 6:
+                        position[i] = 195;
+                        bound[i] = 48;
+                        break;
+                    case 7:
+                        position[i] = 242;
+                        bound[i] = 42;
+                        break;
+                    case 8:
+                        position[i] = 284;
+                        bound[i] = 50;
+                        break;
+                    case 9:
+                        position[i] = 334;
+                        bound[i] = 50;
+                        break;
+                }
+            }
+        }else{
+            if (arrayList.contains(2))
+                for (int i = 0; i < 2; i++)
+                    arrayList.add(i, i);
+            arrayList.remove(Integer.valueOf(2));
+            position = new int[arrayList.size()];
+            bound = new int[arrayList.size()];
+            for (int i = 0; i < arrayList.size(); i++) {
+                switch (arrayList.get(i)) {
+                    case 0:
+                        position[i] = 0;
+                        bound[i] = 48;
+                        break;
+                    case 1:
+                        position[i] = 48;
+                        bound[i] = 47;
+                        break;
+                }
+            }
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putIntArray(POSITION,position);
+        bundle.putIntArray(BOUND,bound);
+        bundle.putBoolean(INFINITIVE,infinitive);
+        sort.setArguments(bundle);
+        return sort;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,8 +173,7 @@ public class SortFragment extends Fragment {
         Texts[2] = view.findViewById(R.id.textview_cardview_3);
         tree.put(R.id.cardView1,1);
         tree.put(R.id.cardView2,2);
-        tree.put(R.id.cardView3,3);
-//        setQuestions();
+         tree.put(R.id.cardView3,3);
         cards[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,6 +240,10 @@ public class SortFragment extends Fragment {
             }
         });
 
+        Bundle saved = getArguments();
+        bound = saved.getIntArray(BOUND);
+        position = saved.getIntArray(POSITION);
+        isInfinitive = saved.getBoolean(INFINITIVE);
         Appodeal.setBannerViewId(R.id.appodealBannerView_sort);
         Appodeal.show(ctx,Appodeal.BANNER_VIEW);
         mHandler = new Handler();
@@ -237,7 +329,6 @@ public class SortFragment extends Fragment {
                 }
             }
         }
-        //Log.wtf("AFTER_SORT",numbs[0] +"\t" + numbs[1] + "\t" + numbs[2]);
     }
 
     private void setQuestions(){
@@ -323,83 +414,6 @@ public class SortFragment extends Fragment {
         }
         setSequence();
         setQuestionInfo();
-    }
-
-    public SortFragment setCenturies(ArrayList<Integer> arrayList, int type, int mode,boolean infinitive) {
-        isInfinitive = infinitive;
-        if(mode ==0) {
-            if (arrayList.contains(10))
-                for (int i = 0; i < 10; i++)
-                    arrayList.add(i, i);
-            arrayList.remove(Integer.valueOf(10));
-            //Log.wtf("ASDASDA",arrayList.size() + "");
-            position = new int[arrayList.size()];
-            bound = new int[arrayList.size()];
-            for (int i = 0; i < arrayList.size(); i++) {
-                switch (arrayList.get(i)) {
-                    case 0:
-                        position[i] = 0;
-                        bound[i] = 21;
-                        break;
-                    case 1:
-                        position[i] = 21;
-                        bound[i] = 20;
-                        break;
-                    case 2:
-                        position[i] = 41;
-                        bound[i] = 35;
-                        break;
-                    case 3:
-                        position[i] = 76;
-                        bound[i] = 31;
-                        break;
-                    case 4:
-                        position[i] = 107;
-                        bound[i] = 40;
-                        break;
-                    case 5:
-                        position[i] = 147;
-                        bound[i] = 48;
-                        break;
-                    case 6:
-                        position[i] = 195;
-                        bound[i] = 48;
-                        break;
-                    case 7:
-                        position[i] = 242;
-                        bound[i] = 42;
-                        break;
-                    case 8:
-                        position[i] = 284;
-                        bound[i] = 50;
-                        break;
-                    case 9:
-                        position[i] = 334;
-                        bound[i] = 50;
-                        break;
-                }
-            }
-        }else{
-            if (arrayList.contains(2))
-                for (int i = 0; i < 2; i++)
-                    arrayList.add(i, i);
-            arrayList.remove(Integer.valueOf(2));
-            position = new int[arrayList.size()];
-            bound = new int[arrayList.size()];
-            for (int i = 0; i < arrayList.size(); i++) {
-                switch (arrayList.get(i)) {
-                    case 0:
-                        position[i] = 0;
-                        bound[i] = 48;
-                        break;
-                    case 1:
-                        position[i] = 48;
-                        bound[i] = 47;
-                        break;
-                }
-            }
-        }
-        return this;
     }
 
     private void setResultScreen(){

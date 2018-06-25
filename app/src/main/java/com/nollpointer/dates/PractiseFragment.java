@@ -96,28 +96,28 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
         Fragment fragment;
         switch (pressedPosition){
             case 0:
-                fragment = new CardsShowDown().setCenturies(arrayList,type,mAc.getMode());
+                fragment = CardsShowDown.newInstance(arrayList,type,mAc.getMode(),true);
                 break;
             case 2:
-                fragment = new TestFragment().setCenturies(arrayList,type,mAc.getMode(),true);
+                fragment = TestFragment.newInstance(arrayList,type,mAc.getMode(),true);
                 break;
             case 3:
                 showAds();
-                fragment = new TestFragment().setCenturies(arrayList,type,mAc.getMode(),false);
+                fragment = TestFragment.newInstance(arrayList,type,mAc.getMode(),false);
                 break;
             case 5:
-                fragment = new TrueFalseFragment().setCenturies(arrayList,type,mAc.getMode(),true);
+                fragment = TrueFalseFragment.newInstance(arrayList,type,mAc.getMode(),true);
                 break;
             case 6:
                 showAds();
-                fragment = new TrueFalseFragment().setCenturies(arrayList,type,mAc.getMode(),false);
+                fragment = TrueFalseFragment.newInstance(arrayList,type,mAc.getMode(),false);
                 break;
             case 8:
-                fragment = new SortFragment().setCenturies(arrayList,type,mAc.getMode(),true);
+                fragment = SortFragment.newInstance(arrayList,type,mAc.getMode(),true);
                 break;
             case 9:
                 showAds();
-                fragment = new SortFragment().setCenturies(arrayList,type,mAc.getMode(),false);
+                fragment = SortFragment.newInstance(arrayList,type,mAc.getMode(),false);
                 break;
             default:
                 return;

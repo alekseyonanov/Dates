@@ -18,6 +18,10 @@ import java.util.Random;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 
+import static com.nollpointer.dates.PractiseConstants.BOUND;
+import static com.nollpointer.dates.PractiseConstants.POSITION;
+import static com.nollpointer.dates.PractiseConstants.TYPE;
+
 public class CardsShowDown extends Fragment {
     private Cursor crs;
     private int[] position, bound;
@@ -31,51 +35,11 @@ public class CardsShowDown extends Fragment {
         mPick = pick;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cards_show_down, container, false);
-        MainActivity mAc = (MainActivity) getActivity();
-        mAc.getSupportActionBar().hide();
-        //mAc.setTheme(R.style.CardsShowDownStyle);
-        final TextView textView = view.findViewById(R.id.date_cards_text);
-        mAc.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        crs = mAc.getCursor();
-        setRandom();
-        textView.setText(crs.getString(getPick()));
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,45);
-        view.findViewById(R.id.cards_next_date).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,45);
-                setRandom();
-                textView.setText(crs.getString(mPick));
-            }
-        });
-        view.findViewById(R.id.cards_description_date).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                textView.setText(crs.getString(0) + "\n" + crs.getString(1));
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,40);
-            }
-        });
-        if(mAc.isFirstTime(MainActivity.CARDS))
-            new MaterialShowcaseView.Builder(mAc)
-                    .setTarget(view)
-                    .setDelay(200)
-                    .setContentText(R.string.tutorial_cards)
-                    .setDismissText(R.string.got_it)
-                    .setDismissOnTouch(true)
-                    .setDismissTextColor(Color.GREEN)
-                    .setMaskColour(getResources().getColor(R.color.colorMask))
-                    .setShape(new NoShape())
-                    .show();
-        return view;
-    }
 
-    public CardsShowDown setCenturies(ArrayList<Integer> arrayList,int T,int mode){
-        type = T;
-        if(mode ==0) {
+    public static CardsShowDown newInstance(ArrayList<Integer> arrayList,int picked_pos,int mode,boolean infinitive){
+        CardsShowDown cards = new CardsShowDown();
+        int[] position,bound;
+        if(mode == MainActivity.FULL_DATES_MODE) {
             if (arrayList.contains(10))
                 for (int i = 0; i < 10; i++)
                     arrayList.add(i, i);
@@ -146,8 +110,64 @@ public class CardsShowDown extends Fragment {
                 }
             }
         }
-        return this;
+
+        Bundle bundle = new Bundle();
+        bundle.putIntArray(POSITION,position);
+        bundle.putIntArray(BOUND,bound);
+        bundle.putInt(TYPE,picked_pos);
+        cards.setArguments(bundle);
+        return cards;
+
     }
+
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_cards_show_down, container, false);
+        MainActivity mAc = (MainActivity) getActivity();
+        mAc.getSupportActionBar().hide();
+        final TextView textView = view.findViewById(R.id.date_cards_text);
+        mAc.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        crs = mAc.getCursor();
+        Bundle saved = getArguments();
+        type = saved.getInt(TYPE);
+        bound = saved.getIntArray(BOUND);
+        position = saved.getIntArray(POSITION);
+        setRandom();
+        textView.setText(crs.getString(getPick()));
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,45);
+        view.findViewById(R.id.cards_next_date).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,45);
+                setRandom();
+                textView.setText(crs.getString(mPick));
+            }
+        });
+        view.findViewById(R.id.cards_description_date).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textView.setText(crs.getString(0) + "\n" + crs.getString(1));
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,40);
+            }
+        });
+        if(mAc.isFirstTime(MainActivity.CARDS))
+            new MaterialShowcaseView.Builder(mAc)
+                    .setTarget(view)
+                    .setDelay(200)
+                    .setContentText(R.string.tutorial_cards)
+                    .setDismissText(R.string.got_it)
+                    .setDismissOnTouch(true)
+                    .setDismissTextColor(Color.GREEN)
+                    .setMaskColour(getResources().getColor(R.color.colorMask))
+                    .setShape(new NoShape())
+                    .show();
+        return view;
+    }
+
     public void setRandom(){
         Random rnd = new Random();
         int x = rnd.nextInt(position.length);

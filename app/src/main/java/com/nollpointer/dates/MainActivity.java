@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity{
     public static final String SETTINGS = "SETTINGS";
     private TreeMap<String,Boolean> preferences = new TreeMap<>();
 
-
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
@@ -64,7 +63,6 @@ public class MainActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
         SharedPreferences prefs = getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
         Handler handler = new Handler();
-        //this.preferences = prefs.getAll();
         mode = prefs.getInt(MODE,FULL_DATES_MODE);
         handler.post(new Runnable() {
                         @Override
@@ -158,12 +156,11 @@ public class MainActivity extends AppCompatActivity{
                     if (checked) {
                         mode = EASY_DATES_MODE;
                         string_resource_id = R.string.easy_mode;
-                        refreshLook();
                     } else {
                         mode = FULL_DATES_MODE;
                         string_resource_id = R.string.full_mode;
-                        refreshLook();
                     }
+                    refreshLook();
                     if(frg != null && frg instanceof DatesFragment)
                         ((DatesFragment) frg).refresh();
                 }catch (Exception e){

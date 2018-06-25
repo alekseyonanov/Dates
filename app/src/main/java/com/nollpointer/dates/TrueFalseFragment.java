@@ -23,6 +23,11 @@ import java.util.Random;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 
+import static com.nollpointer.dates.PractiseConstants.BOUND;
+import static com.nollpointer.dates.PractiseConstants.INFINITIVE;
+import static com.nollpointer.dates.PractiseConstants.POSITION;
+import static com.nollpointer.dates.PractiseConstants.TYPE;
+
 public class TrueFalseFragment extends Fragment {
     private Cursor cursor;
     private TextView question_date,question_event;
@@ -38,119 +43,15 @@ public class TrueFalseFragment extends Fragment {
     private ArrayList<Integer> questions;
     private int bestResult = 0;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
 
-        if(Build.VERSION.SDK_INT == 19)
-            g = (GridLayout) inflater.inflate(R.layout.fragment_true_false_low_api, container, false);
-        else
-            g =(GridLayout) inflater.inflate(R.layout.fragment_true_false, container, false);
-        rnb = new Runnable() {
-            @Override
-            public void run() {
-                question_date.setTextColor(getResources().getColor(android.R.color.black));
-                question_event.setTextColor(getResources().getColor(android.R.color.black));
-                setClickable(true);
-                if(questions != null && (right_answers_count + wrong_answers_count == 20)) {
-                    setResultScreen();
-                }else {
-                    setQuestions();
-                }
-            }
-        };
-        mHandler = new Handler();
-        MainActivity mAc = (MainActivity) getActivity();
-        trueButton = g.findViewById(R.id.true_button);
-        trueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickResult(true);
-
-            }
-        });
-        falseButton = g.findViewById(R.id.false_button);
-        falseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickResult(false);
-
-            }
-        });
-        Appodeal.setBannerViewId(R.id.appodealBannerView_true);
-        question_date = g.findViewById(R.id.test_info_true_false_date);
-        question_event = g.findViewById(R.id.test_info_true_false_event);
-        RightAnswers = g.findViewById(R.id.right_answers_true_false);
-        WrongAnswers = g.findViewById(R.id.wrong_answers_true_false);
-        WrongAnswers.setText("0");
-        RightAnswers.setText("0");
-        mAc.getSupportActionBar().hide();
-        cursor = mAc.getCursor();
-        setTestInfo();
-        setQuestions();
-        if(mAc.isFirstTime(MainActivity.TRUE_FALSE))
-            new MaterialShowcaseView.Builder(mAc)
-                    .setTarget(g)
-                    .setDelay(200)
-                    .setContentText(R.string.tutorial_true_false)
-                    .setDismissText(R.string.got_it)
-                    .setDismissOnTouch(true)
-                    .setDismissTextColor(Color.GREEN)
-                    .setMaskColour(getResources().getColor(R.color.colorMask))
-                    .setShape(new NoShape())
-                    .show();
-        return g;
-    }
-
-    public void setClickable(boolean b){
-        trueButton.setClickable(b);
-        falseButton.setClickable(b);
-    }
-
-    private void setTestInfo(){
-        Random rnd = new Random();
-        isCorrect = rnd.nextBoolean();
-        int current_pick = rnd.nextInt(position.length);
-        int Answer;
-        if(questions == null)
-            Answer = position[current_pick] + rnd.nextInt(bound[current_pick]);
-        else {
-            if(wrong_answers_count+right_answers_count!=20) {
-                do {
-                    Answer = position[current_pick] + rnd.nextInt(bound[current_pick]);
-                } while (questions.contains(Answer));
-                questions.add(Answer);
-            }else{
-                Answer = position[current_pick] + rnd.nextInt(bound[current_pick]);
-            }
-        }
-        cursor.moveToPosition(Answer);
-        date = cursor.getString(0).trim();
-            if (!isCorrect) {
-                do {
-                    int sAnswer = position[current_pick] + rnd.nextInt(bound[current_pick]);
-                    while (sAnswer == Answer)
-                        sAnswer = position[current_pick] + rnd.nextInt(bound[current_pick]);
-                    cursor.moveToPosition(sAnswer);
-                }while (cursor.getString(0).trim().equals(date));
-            }
-            event = cursor.getString(1);
-    }
-
-    private void setQuestions(){
-        question_date.setText(date);
-        question_event.setText(event);
-    }
-
-    public TrueFalseFragment setCenturies(ArrayList<Integer> arrayList,int type, int mode,boolean infinitive) {
-        if(!infinitive)
-            questions = new ArrayList<>();
-        if(mode ==0) {
+    public static TrueFalseFragment newInstance(ArrayList<Integer> arrayList,int picked_pos,int mode,boolean infinitive){
+        TrueFalseFragment true_false = new TrueFalseFragment();
+        int[] position,bound;
+        if(mode == MainActivity.FULL_DATES_MODE) {
             if (arrayList.contains(10))
                 for (int i = 0; i < 10; i++)
                     arrayList.add(i, i);
             arrayList.remove(Integer.valueOf(10));
-            Log.wtf("ASDASDA",arrayList.size() + "");
             position = new int[arrayList.size()];
             bound = new int[arrayList.size()];
             for (int i = 0; i < arrayList.size(); i++) {
@@ -217,8 +118,125 @@ public class TrueFalseFragment extends Fragment {
                 }
             }
         }
-        return this;
+
+        Bundle bundle = new Bundle();
+        bundle.putIntArray(POSITION,position);
+        bundle.putIntArray(BOUND,bound);
+        bundle.putBoolean(INFINITIVE,infinitive);
+        true_false.setArguments(bundle);
+        return true_false;
+
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        if(Build.VERSION.SDK_INT == 19)
+            g = (GridLayout) inflater.inflate(R.layout.fragment_true_false_low_api, container, false);
+        else
+            g =(GridLayout) inflater.inflate(R.layout.fragment_true_false, container, false);
+        rnb = new Runnable() {
+            @Override
+            public void run() {
+                question_date.setTextColor(getResources().getColor(android.R.color.black));
+                question_event.setTextColor(getResources().getColor(android.R.color.black));
+                setClickable(true);
+                if(questions != null && (right_answers_count + wrong_answers_count == 20)) {
+                    setResultScreen();
+                }else {
+                    setQuestions();
+                }
+            }
+        };
+        mHandler = new Handler();
+        MainActivity mAc = (MainActivity) getActivity();
+        trueButton = g.findViewById(R.id.true_button);
+        trueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickResult(true);
+
+            }
+        });
+        falseButton = g.findViewById(R.id.false_button);
+        falseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickResult(false);
+
+            }
+        });
+        Appodeal.setBannerViewId(R.id.appodealBannerView_true);
+        question_date = g.findViewById(R.id.test_info_true_false_date);
+        question_event = g.findViewById(R.id.test_info_true_false_event);
+        RightAnswers = g.findViewById(R.id.right_answers_true_false);
+        WrongAnswers = g.findViewById(R.id.wrong_answers_true_false);
+        WrongAnswers.setText("0");
+        RightAnswers.setText("0");
+        mAc.getSupportActionBar().hide();
+        cursor = mAc.getCursor();
+        Bundle saved = getArguments();
+        if(!saved.getBoolean(INFINITIVE))
+            questions = new ArrayList<>();
+        bound = saved.getIntArray(BOUND);
+        position = saved.getIntArray(POSITION);
+        setTestInfo();
+        setQuestions();
+        if(mAc.isFirstTime(MainActivity.TRUE_FALSE))
+            new MaterialShowcaseView.Builder(mAc)
+                    .setTarget(g)
+                    .setDelay(200)
+                    .setContentText(R.string.tutorial_true_false)
+                    .setDismissText(R.string.got_it)
+                    .setDismissOnTouch(true)
+                    .setDismissTextColor(Color.GREEN)
+                    .setMaskColour(getResources().getColor(R.color.colorMask))
+                    .setShape(new NoShape())
+                    .show();
+        return g;
+    }
+
+    public void setClickable(boolean b){
+        trueButton.setClickable(b);
+        falseButton.setClickable(b);
+    }
+
+    private void setTestInfo(){
+        Random rnd = new Random();
+        isCorrect = rnd.nextBoolean();
+        int current_pick = rnd.nextInt(position.length);
+        int Answer;
+        if(questions == null)
+            Answer = position[current_pick] + rnd.nextInt(bound[current_pick]);
+        else {
+            if(wrong_answers_count+right_answers_count!=20) {
+                do {
+                    Answer = position[current_pick] + rnd.nextInt(bound[current_pick]);
+                } while (questions.contains(Answer));
+                questions.add(Answer);
+            }else{
+                Answer = position[current_pick] + rnd.nextInt(bound[current_pick]);
+            }
+        }
+        cursor.moveToPosition(Answer);
+        date = cursor.getString(0).trim();
+            if (!isCorrect) {
+                do {
+                    int sAnswer = position[current_pick] + rnd.nextInt(bound[current_pick]);
+                    while (sAnswer == Answer)
+                        sAnswer = position[current_pick] + rnd.nextInt(bound[current_pick]);
+                    cursor.moveToPosition(sAnswer);
+                }while (cursor.getString(0).trim().equals(date));
+            }
+            event = cursor.getString(1);
+    }
+
+    private void setQuestions(){
+        question_date.setText(date);
+        question_event.setText(event);
+    }
+
 
     @Override
     public void onDetach() {
