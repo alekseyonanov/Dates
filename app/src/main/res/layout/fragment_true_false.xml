@@ -122,4 +122,5 @@
         app:layout_gravity="fill_horizontal|end"
         android:theme="@style/ProgressBarStyle"
         />
+
 </android.support.v7.widget.GridLayout>

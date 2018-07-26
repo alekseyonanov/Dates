@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="0dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="7dp">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:columnCount="2"
+        android:layout_margin="7dp"
+        android:rowCount="2"
+        android:background="@android:color/white"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/message_icon"
+            android:layout_row="0"
+            android:background="@android:color/white"
+            android:layout_column="0"
+            android:layout_marginEnd="4dp"
+            android:layout_rowSpan="2"
+            android:layout_gravity="fill_vertical"
+            android:contentDescription="@string/message_developer"
+            android:scaleType="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0"
+            android:textStyle="bold"
+            android:background="@android:color/white"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@android:color/black"
+            android:gravity="start"
+            android:layout_column="1"
+            android:layout_marginStart="5dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/message_title"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="1"
+            android:layout_marginStart="5dp"
+            android:background="@android:color/white"
+            android:layout_column="1"
+            android:id="@+id/message_subtitle" />
+
+    </GridLayout>
+
+</android.support.v7.widget.CardView>

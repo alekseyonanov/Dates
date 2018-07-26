@@ -1,8 +1,10 @@
 package com.nollpointer.dates;
 
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.content.res.Resources;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -14,7 +16,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SwitchCompat;
@@ -23,12 +28,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import com.appodeal.ads.Appodeal;
 import com.flurry.android.FlurryAgent;
 
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
@@ -49,6 +57,10 @@ public class MainActivity extends AppCompatActivity{
             SORT = "SORT",SORT_CHECK = "SORT_CHECK", TRUE_FALSE = "TRUE_FALSE", CARDS = "CARDS";
     public static final String SETTINGS = "SETTINGS";
     private TreeMap<String,Boolean> preferences = new TreeMap<>();
+    private Toolbar toolbar;
+    private SQLiteDatabase sqLiteDatabase;
+    private ArrayList<Date> full_list;
+    private ArrayList<Date> easy_list;
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -57,21 +69,24 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
+        Log.wtf("START",System.currentTimeMillis() + "");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         linearLayout = findViewById(R.id.container_main);
-        Toolbar toolbar = findViewById(R.id.toolbar_actionbar);
+        toolbar = findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(toolbar);
         SharedPreferences prefs = getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
-        Handler handler = new Handler();
+        final Handler handler = new Handler();
         mode = prefs.getInt(MODE,FULL_DATES_MODE);
         handler.post(new Runnable() {
                         @Override
                         public void run() {
                             Cursor m_cursor = null;
                             Cursor e_cursor = null;
-                            try(SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(MainActivity.this).getReadableDatabase()){
-                                String[] cells = new String[]{"DATE","EVENT","REQUEST"};
+                            try{
+                                SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(MainActivity.this).getReadableDatabase();
+                                setSqLiteDatabase(sqLiteDatabase);
+                                String[] cells = new String[]{"DATE","EVENT","REQUEST","CATEGORY"};
                                 m_cursor = sqLiteDatabase
                                         .query("D10",cells,null,null,null,null,null);
                                 e_cursor = sqLiteDatabase
@@ -82,6 +97,8 @@ public class MainActivity extends AppCompatActivity{
                                 Log.e("SQl_DATABASE_EXCEPTION",e.toString());
                             }
                             setCursors(m_cursor,e_cursor);
+                            handler.post(new FillDateArray(e_cursor,EASY_DATES_MODE));
+                            new FillDateArray(m_cursor,FULL_DATES_MODE).run();
                         }
                     });
         preferences.put(DATES,prefs.getBoolean(DATES,true));
@@ -109,13 +126,13 @@ public class MainActivity extends AppCompatActivity{
                 int id = item.getItemId();
                 if (BottomView.getSelectedItemId() != id) {
                     if (item.getItemId() == R.id.navigation_tests) {
-                        FragmentTransaction f_transaction = getFragmentManager().beginTransaction();
+                        FragmentTransaction f_transaction = getSupportFragmentManager().beginTransaction();
                         f_transaction.replace(R.id.frameLayout,new PractiseFragment(),"TAG");
                         f_transaction.addToBackStack(null);
-                        f_transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        //f_transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                         f_transaction.commit();
                     } else
-                        getFragmentManager().popBackStack(null,0);
+                        getSupportFragmentManager().popBackStack(null,0);
                 }else
                     goToStartPosition();
                 return true;
@@ -131,8 +148,16 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void goToStartPosition(){
-        StartPosition fragment=(StartPosition) getFragmentManager().findFragmentById(R.id.frameLayout);
+        StartPosition fragment=(StartPosition) getSupportFragmentManager().findFragmentById(R.id.frameLayout);
         fragment.goToStartPosition();
+    }
+
+    public SQLiteDatabase getSqLiteDatabase() {
+        return sqLiteDatabase;
+    }
+
+    public void setSqLiteDatabase(SQLiteDatabase sqLiteDatabase){
+        this.sqLiteDatabase = sqLiteDatabase;
     }
 
     @Override
@@ -149,7 +174,7 @@ public class MainActivity extends AppCompatActivity{
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                Fragment frg = MainActivity.this.getFragmentManager().findFragmentById(R.id.frameLayout);
+                Fragment frg = MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.frameLayout);
                 int string_resource_id = 0;
                 try {
                     if (checked) {
@@ -159,7 +184,8 @@ public class MainActivity extends AppCompatActivity{
                         mode = FULL_DATES_MODE;
                         string_resource_id = R.string.full_mode;
                     }
-                    refreshLook();
+                    //refreshLook();
+                    animate(toolbar);
                     if(frg != null && frg instanceof DatesFragment)
                         ((DatesFragment) frg).refresh();
                 }catch (Exception e){
@@ -176,8 +202,8 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int x;
-        Fragment frg = getFragmentManager().findFragmentById(R.id.frameLayout);
+        int x = 0;
+        Fragment frg = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
         switch (item.getItemId()){
             case R.id.font_plus:
                 x = 2;
@@ -185,8 +211,9 @@ public class MainActivity extends AppCompatActivity{
             case R.id.font_minus:
                 x = -2;
                 break;
-            default:
-                x = 0;
+            case R.id.message_developer:
+                new MessageDeveloperDialog().show(getSupportFragmentManager(),null);
+                break;
         }
         if(frg instanceof DatesFragment) {
             if(((DatesFragment) frg).setAdapterFontSize(x))
@@ -195,6 +222,30 @@ public class MainActivity extends AppCompatActivity{
                 menu.findItem(R.id.font_minus).setVisible(true);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void animate(final View view){
+        int colorFrom,colorTo;
+        Resources resources = getResources();
+        if(mode == EASY_DATES_MODE){
+            colorFrom = resources.getColor(R.color.colorPrimary);
+            colorTo = resources.getColor(R.color.colorPrimaryEasy);
+            //BottomView.setItemTextColor(ContextCompat.getColorStateList(this, R.color.colorPrimaryEasy));
+        }else{
+            colorFrom = resources.getColor(R.color.colorPrimaryEasy);
+            colorTo = resources.getColor(R.color.colorPrimary);
+            //BottomView.setItemTextColor(ContextCompat.getColorStateList(this, R.color.colorPrimary));
+        }
+        final ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),colorFrom,colorTo);
+        colorAnimator.setDuration(270);
+        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                view.setBackgroundColor((int)valueAnimator.getAnimatedValue());
+            }
+        });
+        colorAnimator.start();
+
     }
 
     public Cursor getCursor(){
@@ -207,7 +258,23 @@ public class MainActivity extends AppCompatActivity{
     public void setCursors(Cursor main_cursor,Cursor easy_cursor){
         this.main_cursor = main_cursor;
         this.easy_cursor = easy_cursor;
-        getFragmentManager().beginTransaction().add(R.id.frameLayout,new DatesFragment(),"TAG").commit();
+
+    }
+
+    public void setDateArray(ArrayList<Date> array, int mode){
+        if(mode == FULL_DATES_MODE)
+            full_list = array;
+        else
+            easy_list = array;
+        if(full_list != null && easy_list != null)
+            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout,new DatesFragment(),"TAG").commit();
+    }
+
+    public ArrayList<Date> getDateList(){
+        if(mode == FULL_DATES_MODE)
+            return full_list;
+        else
+            return easy_list;
     }
 
 
@@ -337,6 +404,24 @@ public class MainActivity extends AppCompatActivity{
             editor.putBoolean(CARDS,prefs.get(CARDS));
             editor.apply();
             return null;
+        }
+    }
+
+    class FillDateArray implements Runnable{
+        Cursor cursor;
+        int mode;
+        FillDateArray(Cursor crs,int mode){
+            cursor = crs;
+            this.mode = mode;
+        }
+
+        @Override
+        public void run() {
+            ArrayList<Date> list = new ArrayList<>();
+            while (cursor.moveToNext())
+                list.add(new Date(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3)));
+            //cursor.close();
+            setDateArray(list,mode);
         }
     }
 }

@@ -36,8 +36,7 @@ public class TypePickDialog extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 setPosition(i);
             }
-        })
-                .setTitle(R.string.type_pick_title)
+        }).setTitle(R.string.type_pick_title)
         .setNegativeButton(R.string.cancel_button, null).setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

@@ -15,6 +15,8 @@
     <string name="mistakes">Mistakes</string>
     <string name="next_sort">Next</string>
 
+    <string name="close_button">Close</string>
+
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="try_again">Try Again</string>
     <string name="easy_mode">Easy Mode</string>
@@ -33,6 +35,8 @@
 
     <string name="check_button">Check</string>
     <string name="sotr_text">Sort in ascending sequence</string>
+
+    <string name="message_developer">Message Developer</string>
 
 
     <string name="reset_button">Reset</string>

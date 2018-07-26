@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class DatesDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME="dates";
-    private static final int DB_VERSION = 13;
+    private static final int DB_VERSION = 15;
     public DatesDatabaseHelper(Context context) {
         super(context,DB_NAME,null,DB_VERSION);
     }
@@ -41,6 +41,7 @@ public class DatesDatabaseHelper extends SQLiteOpenHelper {
         ct.put("DATE",date);
         ct.put("EVENT",event);
         ct.put("REQUEST",request);
+        ct.put("CATEGORY",2);
         db.insert(name,null,ct);
     }
 
@@ -68,8 +69,8 @@ public class DatesDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE D10 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE, REQUEST TEXT);");
-        db.execSQL("CREATE TABLE D1 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE, REQUEST TEXT);");
+        db.execSQL("CREATE TABLE D10 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE, REQUEST TEXT, CATEGORY INTEGER);");
+        db.execSQL("CREATE TABLE D1 (_id INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, EVENT DATE, REQUEST TEXT, CATEGORY INTEGER);");
         parseString(db,"D1","862 # Призвание Рюрика в Новгород#Призвание_варягов\n" +
                 "988–990 # Принятие христианства#Крещение_Руси\n" +
                 "1147 # Первое летописное упоминание о Москве#Основание_Москвы\n" +

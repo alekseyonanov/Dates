@@ -1,7 +1,7 @@
 package com.nollpointer.dates;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -126,7 +126,7 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
     }
 
     private void setFragmentToPractise(Fragment fragment){
-        mMainActivity.getFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null).commit();
+        mMainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null).commit();
     }
 
     public void showAds(){

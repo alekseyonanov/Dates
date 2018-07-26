@@ -24,4 +24,12 @@
         android:visible="false"
         android:icon="@drawable/ic_zoom_out_black_24dp"
         />
+
+    <item
+        android:id="@+id/message_developer"
+        android:orderInCategory="100"
+        android:title="@string/message_developer"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_zoom_out_black_24dp"
+        />
 </menu>

@@ -1,7 +1,7 @@
 package com.nollpointer.dates;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Color;
