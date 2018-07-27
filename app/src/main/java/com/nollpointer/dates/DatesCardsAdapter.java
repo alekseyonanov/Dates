@@ -3,6 +3,7 @@ package com.nollpointer.dates;
 import android.database.Cursor;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,6 @@ import java.util.List;
 import java.util.TreeMap;
 
 public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.ViewHolder>{
-    private Cursor cursor;
 
     private List<Date> dates;
 
@@ -26,6 +26,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     private TreeMap<Integer,String> add_top_texts = new TreeMap<>();
     private int fontSize = 14;
     private Listener listener;
+    private boolean isCategoryShow = false;
 
     public interface Listener{
         void onItemClick(int position);
@@ -42,13 +43,13 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     public DatesCardsAdapter(List<Date> dates, int mode, String[] main_text_tops, String[] additional_text_tops){
         this.dates = dates;
         this.mode = mode;
+        isCategoryShow = false;
         fill_top_texts(main_text_tops,additional_text_tops);
     }
 
-    public DatesCardsAdapter(Cursor cursor,int mode,String[] main_text_tops,String[] additional_text_tops,int fons_size){
-        this.cursor = cursor;
-        this.mode = mode;
-        fontSize = fons_size;
+    public DatesCardsAdapter(List<Date> dates,int mode,String[] main_text_tops,String[] additional_text_tops,int fons_size){
+        this(dates,mode,main_text_tops,additional_text_tops);
+        this.fontSize = fons_size;
         fill_top_texts(main_text_tops,additional_text_tops);
     }
 
@@ -59,18 +60,21 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     @Override
     public DatesCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView c;
-        switch (viewType) {
-            case DATE:
-                c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.dates_cards,parent,false);
-                break;
-            default:
-                c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.dates_cards_top_text,parent,false);
-        }
+        if(isCategoryShow)
+            c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.dates_cards,parent,false);
+        else
+            switch (viewType) {
+                case DATE:
+                    c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.dates_cards,parent,false);
+                    break;
+                default:
+                    c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.dates_cards_top_text,parent,false);
+            }
         return new ViewHolder(c);
     }
 
     @Override
-    public void onBindViewHolder(DatesCardsAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(DatesCardsAdapter.ViewHolder holder,final int position) {
         Date date = dates.get(position);
         final CardView cardView = holder.mCardView;
         TextView textView = cardView.findViewById(R.id.date_number);
@@ -79,7 +83,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
         textView = cardView.findViewById(R.id.date_event);
         textView.setText(date.getEvent());
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        if (main_top_texts.containsKey(position)) {
+        if (getItemViewType(position) == DATE_WITH_MARGIN && !isCategoryShow) {
             textView = cardView.findViewById(R.id.date_top_text);
             textView.setText(main_top_texts.get(Integer.valueOf(position)));
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
@@ -109,27 +113,50 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
         add_top_texts = tree;
     }
 
-    public void refresh(Cursor cursor){
-        change_top_texts();
-        this.cursor = cursor;
-        notifyDataSetChanged();
-    }
-
-    public void refresh(ArrayList<Date> dates){
+    public void refresh(List<Date> dates){
         change_top_texts();
         this.dates = dates;
         notifyDataSetChanged();
+    }
+
+    public void refresh(List<Date> dates, int category){
+        if(category == DatesCategoryConstants.ALL)
+            isCategoryShow = false;
+        else
+            isCategoryShow = true;
+        this.dates = dates;
+        notifyDataSetChanged();
+
     }
 
 
     public boolean changeFontSize(int m){
         fontSize += m;
         notifyDataSetChanged();
-        if(fontSize == DEFAULT_TEXT_SIZE)
-            return true;
-        else
-            return false;
+        return isFontSizeChanged();
     }
+
+    private boolean isFontSizeChanged(){
+        return fontSize == DEFAULT_TEXT_SIZE;
+    }
+
+    @Override
+    public void onViewAttachedToWindow(ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        if(isFontSizeChanged()) {
+            CardView cardView = holder.mCardView;
+            //TextView text = cardView.
+        }
+
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+
+        //CardView cardView = holder.mCardView;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -147,5 +174,4 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
         else
             return DATE;
     }
-
 }

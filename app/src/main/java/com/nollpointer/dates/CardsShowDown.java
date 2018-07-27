@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -35,8 +36,7 @@ public class CardsShowDown extends Fragment {
         mPick = pick;
     }
 
-
-    public static CardsShowDown newInstance(ArrayList<Integer> arrayList,int picked_pos,int mode,boolean infinitive){
+    public static CardsShowDown newInstance(ArrayList<Integer> arrayList, int picked_pos, int mode, boolean infinitive){
         CardsShowDown cards = new CardsShowDown();
         int[] position,bound;
         if(mode == MainActivity.FULL_DATES_MODE) {

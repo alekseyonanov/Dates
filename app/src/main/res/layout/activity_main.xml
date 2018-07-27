@@ -28,6 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="4dp"
+        app:itemIconTint="@drawable/navigation_icon_tint"
+        app:itemTextColor="@drawable/navigation_icon_tint"
         android:layout_gravity="bottom"
         android:background="@android:color/white" />
 

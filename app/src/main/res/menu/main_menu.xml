@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mode_switch"
-        android:orderInCategory="3"
+        android:orderInCategory="10"
         android:title="@string/mode_switch"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 
     <item

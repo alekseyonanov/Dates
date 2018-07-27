@@ -57,6 +57,12 @@
     <string name="mark_5">Отлично</string>
     <string name="mark_20">Превосходно</string>
 
+    <string name="dates_all">Все</string>
+    <string name="dates_management">Правления</string>
+    <string name="dates_war">Войны</string>
+    <string name="dates_reforms">Реформы</string>
+    <string name="dates_revolt">Восстания</string>
+
     <string-array name="tests">
         <item>Карточки</item>
         <item>DIVIDER</item>
@@ -110,7 +116,18 @@
         <item>Только События</item>
         <item>Смешанно</item>
     </string-array>
-    <string name="hello_blank_fragment">Добрый вечер</string>
+
+
+    <string name="gdpr_title">Персонализируйте Вашу рекламу</string>
+    <string name="gdpr_main_text">Даты персонализируют Вашу рекламу, используя Appodeal. Appodeal и его партнеры могут собирать и обрабатывать Ваши такие персональные данные, как идентификатор устройства, демографические данные и другую информацию, которая позволит предоставить Вам рекламу, связанную с Вашими интересами. Соглашаясь с этими условиями, Вы увидите рекламу, которую Appodeal и его партнеры считают более подходящей для Вас. Узнать больше.\n\nСоглашаясь, Вы подтверждаете, что вам уже исполнилось 16 и Вы хотите персональную рекламу.</string>
+    <string name="gdpr_agree_text">Отлично. Мы надеемся, что Вы получите удовольствие от вашей персональной рекламы. Если вы когда-либо передумаете, для этого достаточно переустановить приложение.</string>
+    <string name="gdpr_disagree_text">Appodeal не будет собирать вашу информацию для персональной рекламы в этом приложении. Однако, если вы позволите Appodeal собирать информацию в другом приложении, мы будем собирать вашу информацию в том приложении.</string>
+    <string name="gdpr_agree">Да, я согласен</string>
+    <string name="gdpr_disagree">Нет, спасибо</string>
+    <string name="gdpr_understand">Я понимаю, что буду видеть рекламу, но она может не совпадать с моими интересами.</string>
+    <string name="gdpr_close">Закрыть окно</string>
+
+    <string name="gdpr_learn_more">Узнать больше.</string>
 
 
 

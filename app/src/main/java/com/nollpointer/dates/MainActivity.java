@@ -3,10 +3,10 @@ package com.nollpointer.dates;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.content.res.Resources;
-import android.support.v4.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -16,10 +16,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SwitchCompat;
@@ -28,8 +27,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
@@ -55,10 +52,10 @@ public class MainActivity extends AppCompatActivity{
     private LinearLayout linearLayout;
     public static final String MODE = "MODE", PRACTISE = "PRACTISE", DATES = "DATES",
             SORT = "SORT",SORT_CHECK = "SORT_CHECK", TRUE_FALSE = "TRUE_FALSE", CARDS = "CARDS";
+    public static final String GDPR = "GDPR";
     public static final String SETTINGS = "SETTINGS";
     private TreeMap<String,Boolean> preferences = new TreeMap<>();
     private Toolbar toolbar;
-    private SQLiteDatabase sqLiteDatabase;
     private ArrayList<Date> full_list;
     private ArrayList<Date> easy_list;
 
@@ -83,9 +80,7 @@ public class MainActivity extends AppCompatActivity{
                         public void run() {
                             Cursor m_cursor = null;
                             Cursor e_cursor = null;
-                            try{
-                                SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(MainActivity.this).getReadableDatabase();
-                                setSqLiteDatabase(sqLiteDatabase);
+                            try(SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(MainActivity.this).getReadableDatabase()){
                                 String[] cells = new String[]{"DATE","EVENT","REQUEST","CATEGORY"};
                                 m_cursor = sqLiteDatabase
                                         .query("D10",cells,null,null,null,null,null);
@@ -101,6 +96,7 @@ public class MainActivity extends AppCompatActivity{
                             new FillDateArray(m_cursor,FULL_DATES_MODE).run();
                         }
                     });
+
         preferences.put(DATES,prefs.getBoolean(DATES,true));
         preferences.put(PRACTISE,prefs.getBoolean(PRACTISE,true));
         preferences.put(SORT,prefs.getBoolean(SORT,true));
@@ -108,9 +104,13 @@ public class MainActivity extends AppCompatActivity{
         preferences.put(CARDS,prefs.getBoolean(CARDS,true));
         preferences.put(TRUE_FALSE,prefs.getBoolean(TRUE_FALSE,true));
 
-        Appodeal.disableLocationPermissionCheck();
-        Appodeal.disableNetwork(this, "mmedia");
-        Appodeal.initialize(this, "106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1", Appodeal.INTERSTITIAL | Appodeal.BANNER);
+        if(!prefs.contains(GDPR))
+            startGDPR();
+        else{
+            boolean isGDPRAgree = prefs.getBoolean(DATES,true);
+            preferences.put(GDPR,isGDPRAgree);
+            initializeAdds(isGDPRAgree);
+        }
 
         new FlurryAgent.Builder()
                 .withLogEnabled(true)
@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity{
                 return true;
             }
         });
-
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,12 +151,23 @@ public class MainActivity extends AppCompatActivity{
         fragment.goToStartPosition();
     }
 
-    public SQLiteDatabase getSqLiteDatabase() {
-        return sqLiteDatabase;
+    private void startGDPR(){
+        Intent intent = new Intent(this,GDPRActivity.class);
+        startActivityForResult(intent,1);
     }
 
-    public void setSqLiteDatabase(SQLiteDatabase sqLiteDatabase){
-        this.sqLiteDatabase = sqLiteDatabase;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        boolean result = data.getBooleanExtra(GDPR,true);
+        Log.wtf("RESULT",Boolean.toString(result));
+        initializeAdds(result);
+        preferences.put(GDPR,result);
+    }
+
+    public void initializeAdds(boolean isGdprAgree){
+        Appodeal.disableLocationPermissionCheck();
+        //Appodeal.disableNetwork(this, "mmedia");
+        Appodeal.initialize(this, "106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1", Appodeal.INTERSTITIAL | Appodeal.BANNER,isGdprAgree);
     }
 
     @Override
@@ -186,8 +196,11 @@ public class MainActivity extends AppCompatActivity{
                     }
                     //refreshLook();
                     animate(toolbar);
-                    if(frg != null && frg instanceof DatesFragment)
-                        ((DatesFragment) frg).refresh();
+                    if(frg != null && frg instanceof DatesFragment) {
+                        DatesFragment datesFragment = (DatesFragment) frg;
+                        datesFragment.setTabLayoutIndicatorColor(getCurrentColor());
+                        datesFragment.refresh();
+                    }
                 }catch (Exception e){
                     Log.e("Switch_Exception",e.toString());
                 }
@@ -248,6 +261,12 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    public int getCurrentColor(){
+        if(mode == FULL_DATES_MODE)
+            return getResources().getColor(R.color.colorPrimary);
+        return getResources().getColor(R.color.colorPrimaryEasy);
+    }
+
     public Cursor getCursor(){
         if(mode == FULL_DATES_MODE)
             return main_cursor;
@@ -277,12 +296,15 @@ public class MainActivity extends AppCompatActivity{
             return easy_list;
     }
 
-
     public void changeToolbarItemsVisibility(boolean font_plus,boolean font_minus) {
         if (menu != null) {
             menu.findItem(R.id.font_minus).setVisible(font_minus);
             menu.findItem(R.id.font_plus).setVisible(font_plus);
         }
+    }
+
+    public void setActionBarTitle(int id){
+        getSupportActionBar().setTitle(R.string.title_dates);
     }
 
     public void startFirstTimeUserTutorial(){
@@ -325,10 +347,18 @@ public class MainActivity extends AppCompatActivity{
         sequence.start();
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
         FlurryAgent.onStartSession(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        new setNewPreferences(mode,preferences).execute(this);
+        FlurryAgent.onEndSession(this);
     }
 
     public boolean isFirstTime(String key){
@@ -339,13 +369,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        FlurryAgent.onEndSession(this);
-        new setNewPreferences(mode,preferences).execute(this);
-
-    }
 
     public void hide_bottom_navigation_view(){
         linearLayout.removeView(BottomView);
@@ -380,6 +403,7 @@ public class MainActivity extends AppCompatActivity{
         super.onDestroy();
         easy_cursor.close();
         main_cursor.close();
+        FlurryAgent.onEndSession(this);
     }
 
 
@@ -396,6 +420,8 @@ public class MainActivity extends AppCompatActivity{
         protected Void doInBackground(MainActivity... mainActivities) {
             SharedPreferences.Editor editor = mainActivities[0].getSharedPreferences(SETTINGS,Context.MODE_PRIVATE).edit();
             editor.putInt(MODE,mode);
+            if(prefs.containsKey(GDPR))
+                editor.putBoolean(GDPR,prefs.get(GDPR));
             editor.putBoolean(PRACTISE,prefs.get(PRACTISE));
             editor.putBoolean(DATES,prefs.get(DATES));
             editor.putBoolean(SORT,prefs.get(SORT));
@@ -418,6 +444,7 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public void run() {
             ArrayList<Date> list = new ArrayList<>();
+            list.add(new Date(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3))); // нулевой элемент
             while (cursor.moveToNext())
                 list.add(new Date(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3)));
             //cursor.close();

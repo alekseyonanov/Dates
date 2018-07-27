@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.appodeal.ads.Appodeal;
+import com.flurry.android.FlurryAgent;
 
 import java.util.ArrayList;
 
@@ -94,34 +95,43 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
         MainActivity mAc = mMainActivity;
         mAc.hide_bottom_navigation_view();
         Fragment fragment;
+        String event;
         switch (pressedPosition){
             case 0:
                 fragment = CardsShowDown.newInstance(arrayList,type,mAc.getMode(),true);
+                event = "CardsShowDown";
                 break;
             case 2:
                 fragment = TestFragment.newInstance(arrayList,type,mAc.getMode(),true);
+                event = "Test";
                 break;
             case 3:
                 showAds();
                 fragment = TestFragment.newInstance(arrayList,type,mAc.getMode(),false);
+                event = "Test_20";
                 break;
             case 5:
                 fragment = TrueFalseFragment.newInstance(arrayList,type,mAc.getMode(),true);
+                event = "TrueFalse";
                 break;
             case 6:
                 showAds();
                 fragment = TrueFalseFragment.newInstance(arrayList,type,mAc.getMode(),false);
+                event = "TrueFalse_20";
                 break;
             case 8:
                 fragment = SortFragment.newInstance(arrayList,type,mAc.getMode(),true);
+                event = "Sort";
                 break;
             case 9:
                 showAds();
                 fragment = SortFragment.newInstance(arrayList,type,mAc.getMode(),false);
+                event = "Sort_20";
                 break;
             default:
                 return;
         }
+        FlurryAgent.logEvent(event);
         setFragmentToPractise(fragment);
     }
 

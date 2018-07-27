@@ -17,6 +17,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters "armeabi-v7a", "x86"
+            }
         }
     }
 }
@@ -35,31 +38,31 @@ dependencies {
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.flurry.android:analytics:11.0.0@aar'
     implementation 'com.android.support:gridlayout-v7:26.1.0'
+
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.gms:play-services-gcm:15.0.1'
+
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+//    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+//    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
 
     implementation 'com.github.deano2390:MaterialShowcaseView:1.2.0'
 
-    implementation 'com.squareup.picasso:picasso:2.5.2'
 
-    compile name: 'adcolony-sdk-3.2.1', ext: 'aar'
-    compile name: 'mmedia-6.4.0', ext: 'aar'
-    compile name: 'mobvista_alphab', ext: 'aar'
-    compile name: 'mobvista_appwall', ext: 'aar'
-    compile name: 'mobvista_appwallext', ext: 'aar'
-    compile name: 'mobvista_common', ext: 'aar'
-    compile name: 'mobvista_interstitial', ext: 'aar'
-    compile name: 'mobvista_mvdownloads', ext: 'aar'
-    compile name: 'mobvista_mvjscommon', ext: 'aar'
-    compile name: 'mobvista_mvnative', ext: 'aar'
-    compile name: 'mobvista_nativeex', ext: 'aar'
-    compile name: 'mobvista_offerwall', ext: 'aar'
-    compile name: 'mobvista_playercommon', ext: 'aar'
-    compile name: 'mobvista_reward', ext: 'aar'
-    compile name: 'mobvista_videocommon', ext: 'aar'
-    compile name: 'mobvista_videofeeds', ext: 'aar'
+    implementation name: 'adcolony-3.3.4', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-alphab', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-common', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-interstitial', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-interstitialvideo', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-mvdownloads', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-mvjscommon', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-mvnative', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-nativeex', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-playercommon', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-reward', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-videocommon', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-videofeeds', ext: 'aar'
+    implementation name: 'mobvista-8.11.0-videojs', ext: 'aar'
 
 }

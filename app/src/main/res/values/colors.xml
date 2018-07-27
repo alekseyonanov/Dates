@@ -10,6 +10,8 @@
     <color name="colorBackgroundTest">#efefef</color>
     <color name="colorPrimaryEasy">#2e7d32</color>
 
+    <color name="colorUnselectedTab">#757575</color>
+
     <color name="colorPrimaryMistakeMode">#862414</color>
     <color name="colorPrimaryEasyMistakeMode">#1B5E20</color>
     <color name="colorTrueButton">#43a047</color>
