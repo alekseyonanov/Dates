@@ -1,13 +1,14 @@
 package com.nollpointer.dates;
 
 
-import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,8 @@ import java.util.ArrayList;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 
-import static com.nollpointer.dates.MainActivity.DATES;
+import static com.nollpointer.dates.MainActivity.EASY_DATES_MODE;
+import static com.nollpointer.dates.MainActivity.FULL_DATES_MODE;
 import static com.nollpointer.dates.MainActivity.PRACTISE;
 
 
@@ -49,7 +51,7 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
         mMainActivity.updateBottomNavigationView(R.id.navigation_tests);
         if(!mMainActivity.getSupportActionBar().isShowing()) {
             mMainActivity.show_bottom_navigation_view();
-            mMainActivity.getSupportActionBar().show();
+            mMainActivity.showActionBar();
             mMainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         if(mMainActivity.isFirstTime(PRACTISE))
@@ -88,26 +90,28 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
     @Override
     public void onButtonClicked(ArrayList<Integer> dialog) {
         if(dialog != null)
-            startPractise(dialog,type);
+            startPractise(dialog);
     }
 
-    public void startPractise(ArrayList<Integer> arrayList,int type){
+    public void startPractise(ArrayList<Integer> arrayList){
         MainActivity mAc = mMainActivity;
         mAc.hide_bottom_navigation_view();
+        mAc.hideActionBar();
         Fragment fragment;
         String event;
+        ArrayList<Date> dates = getListForPractise(arrayList);
         switch (pressedPosition){
             case 0:
-                fragment = CardsShowDown.newInstance(arrayList,type,mAc.getMode(),true);
-                event = "CardsShowDown";
+                fragment = CardsFragment.newInstance(dates,type);
+                event = "CardsFragment";
                 break;
             case 2:
-                fragment = TestFragment.newInstance(arrayList,type,mAc.getMode(),true);
+                fragment = TestFragment.newInstance(dates,type,false);
                 event = "Test";
                 break;
             case 3:
                 showAds();
-                fragment = TestFragment.newInstance(arrayList,type,mAc.getMode(),false);
+                fragment = TestFragment.newInstance(dates,type,true);
                 event = "Test_20";
                 break;
             case 5:
@@ -147,6 +151,81 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
     @Override
     public void goToStartPosition() {
         recycler.scrollToPosition(0);
+    }
+
+    private ArrayList<Date> getListForPractise(ArrayList<Integer> arrayList){
+        ArrayList<Date> dates = mMainActivity.getDateList();
+        ArrayList<Date> practiseList = new ArrayList<>();
+        int mode = mMainActivity.getMode();
+
+        if((mode == FULL_DATES_MODE && arrayList.contains(10)) || (mode == EASY_DATES_MODE && arrayList.contains(2))) // Если выбраны все даты
+            return dates;
+        Pair<Integer,Integer> pair;
+        for(Integer number: arrayList){
+            pair = getDatesRange(number,mode);
+            practiseList.addAll(dates.subList(pair.first,pair.second));
+        }
+        return practiseList;
+    }
+
+    private Pair<Integer,Integer> getDatesRange(int pickedCentury,int mode){
+        int start = 0,end = 0;
+        if(mode == FULL_DATES_MODE){
+            switch (pickedCentury) {
+                case 0:
+                    start = 0;
+                    end = start + 21;
+                    break;
+                case 1:
+                    start = 21;
+                    end = start + 20;
+                    break;
+                case 2:
+                    start = 41;
+                    end = start + 35;
+                    break;
+                case 3:
+                    start = 76;
+                    end = start + 31;
+                    break;
+                case 4:
+                    start = 107;
+                    end = start + 40;
+                    break;
+                case 5:
+                    start = 147;
+                    end = start + 48;
+                    break;
+                case 6:
+                    start = 195;
+                    end = start + 48;
+                    break;
+                case 7:
+                    start = 242;
+                    end = start + 42;
+                    break;
+                case 8:
+                    start = 284;
+                    end = start + 50;
+                    break;
+                case 9:
+                    start = 334;
+                    end = start + 50;
+                    break;
+            }
+        }else{
+                switch (pickedCentury) {
+                    case 0:
+                        start = 0;
+                        end = start + 48;
+                        break;
+                    case 1:
+                        start = 48;
+                        end = start + 47;
+                        break;
+                }
+        }
+        return new Pair<>(start,end);
     }
 
 

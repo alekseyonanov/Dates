@@ -1,6 +1,9 @@
 package com.nollpointer.dates;
 
-public class Date {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Date implements Parcelable{
     private String date;
     private String event;
     private String request;
@@ -44,4 +47,41 @@ public class Date {
     public void setType(int type) {
         this.type = type;
     }
+
+    protected Date(Parcel in) {
+        date = in.readString();
+        event = in.readString();
+        request = in.readString();
+        type = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(date);
+        parcel.writeString(event);
+        parcel.writeString(request);
+        parcel.writeInt(type);
+    }
+
+    public static final Parcelable.Creator<Date> CREATOR = new Parcelable.Creator<Date>() {
+        @Override
+        public Date createFromParcel(Parcel in) {
+            return new Date(in);
+        }
+
+        @Override
+        public Date[] newArray(int size) {
+            return new Date[size];
+        }
+    };
+
+    public boolean isSameDate(Date date){
+        return this.getDate().equals(date.getDate());
+    }
 }
+

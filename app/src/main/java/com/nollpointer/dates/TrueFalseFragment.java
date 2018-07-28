@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -158,7 +159,6 @@ public class TrueFalseFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 onClickResult(true);
-
             }
         });
         falseButton = g.findViewById(R.id.false_button);
@@ -242,7 +242,6 @@ public class TrueFalseFragment extends Fragment {
         question_event.setText(event);
     }
 
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -262,8 +261,6 @@ public class TrueFalseFragment extends Fragment {
         super.onStart();
         Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
     }
-
-
 
     public void setResultScreen(){
         int cur_best = bestResult;
@@ -341,6 +338,7 @@ public class TrueFalseFragment extends Fragment {
         setQuestions();
     }
 
+
     public void onClickResult(boolean button){
         boolean correct;
         if(button)
@@ -352,11 +350,13 @@ public class TrueFalseFragment extends Fragment {
             RightAnswers.setText(Integer.toString(right_answers_count));
             question_date.setTextColor(getResources().getColor(R.color.colorTrueButton));
             question_event.setTextColor(getResources().getColor(R.color.colorTrueButton));
+            RightAnswers.animate().rotationBy(360f).setInterpolator(new AccelerateInterpolator()).setDuration(500).start();
         }else{
             wrong_answers_count++;
             WrongAnswers.setText(Integer.toString(wrong_answers_count));
             question_date.setTextColor(getResources().getColor(R.color.colorFalseButton));
             question_event.setTextColor(getResources().getColor(R.color.colorFalseButton));
+            RightAnswers.animate().rotationBy(360f).setInterpolator(new AccelerateInterpolator()).setDuration(500).start();
         }
         if(questions != null)
             progressBar.incrementProgressBy(1);
@@ -364,5 +364,4 @@ public class TrueFalseFragment extends Fragment {
         setTestInfo();
         mHandler.postDelayed(rnb, 1000);
     }
-
 }

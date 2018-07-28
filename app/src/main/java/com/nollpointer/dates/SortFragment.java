@@ -465,7 +465,6 @@ public class SortFragment extends Fragment {
             instructions.setText(getString(R.string.current_result));
         else
             instructions.setText(getString(R.string.best_result) + cur_best + "\n\n" + getString(R.string.current_result));
-
     }
 
     private void resetInfo(){

@@ -126,11 +126,10 @@ public class MainActivity extends AppCompatActivity{
                 int id = item.getItemId();
                 if (BottomView.getSelectedItemId() != id) {
                     if (item.getItemId() == R.id.navigation_tests) {
-                        FragmentTransaction f_transaction = getSupportFragmentManager().beginTransaction();
-                        f_transaction.replace(R.id.frameLayout,new PractiseFragment(),"TAG");
-                        f_transaction.addToBackStack(null);
-                        //f_transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                        f_transaction.commit();
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout,new PractiseFragment(),"TAG");
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                     } else
                         getSupportFragmentManager().popBackStack(null,0);
                 }else
@@ -378,6 +377,14 @@ public class MainActivity extends AppCompatActivity{
         linearLayout.addView(BottomView);
     }
 
+    public void showActionBar(){
+        getSupportActionBar().show();
+    }
+
+    public void hideActionBar(){
+        getSupportActionBar().hide();
+    }
+
     public void updateBottomNavigationView(int id){
         BottomView.setSelectedItemId(id);
     }
@@ -436,6 +443,7 @@ public class MainActivity extends AppCompatActivity{
     class FillDateArray implements Runnable{
         Cursor cursor;
         int mode;
+
         FillDateArray(Cursor crs,int mode){
             cursor = crs;
             this.mode = mode;

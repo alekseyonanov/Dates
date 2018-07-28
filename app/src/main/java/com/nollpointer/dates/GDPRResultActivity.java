@@ -34,7 +34,6 @@ public class GDPRResultActivity extends AppCompatActivity {
         boolean isGdprAgree = getIntent().getBooleanExtra(RESULT_GDPR,false);
         initViews();
         prepareResult(isGdprAgree);
-
     }
 
     private void initViews() {
@@ -52,7 +51,6 @@ public class GDPRResultActivity extends AppCompatActivity {
             info_text.setText(getString(R.string.gdpr_disagree_text));
         }
 
-
         String close = getString(R.string.gdpr_close).toUpperCase();
         SpannableString spannableClose = new SpannableString(close);
         spannableClose.setSpan(new UnderlineSpan(), 0, spannableClose.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -65,6 +63,4 @@ public class GDPRResultActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

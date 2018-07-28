@@ -60,7 +60,6 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
             }
         });
         recycler.setLayoutManager(new LinearLayoutManager(ctx));
-        //String[] titles={"Все","Правления","Войны","Реформы","Восстания"};
         Resources resources = getResources();
         //adapter = new LocalPagerAdapter(getChildFragmentManager(),dates,titles);
         //viewPager.setAdapter(adapter);
