@@ -115,21 +115,21 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
                 event = "Test_20";
                 break;
             case 5:
-                fragment = TrueFalseFragment.newInstance(arrayList,type,mAc.getMode(),true);
+                fragment = TrueFalseFragment.newInstance(dates,false);
                 event = "TrueFalse";
                 break;
             case 6:
                 showAds();
-                fragment = TrueFalseFragment.newInstance(arrayList,type,mAc.getMode(),false);
+                fragment = TrueFalseFragment.newInstance(dates,true);
                 event = "TrueFalse_20";
                 break;
             case 8:
-                fragment = SortFragment.newInstance(arrayList,type,mAc.getMode(),true);
+                fragment = SortFragment.newInstance(dates,false);
                 event = "Sort";
                 break;
             case 9:
                 showAds();
-                fragment = SortFragment.newInstance(arrayList,type,mAc.getMode(),false);
+                fragment = SortFragment.newInstance(dates,true);
                 event = "Sort_20";
                 break;
             default:

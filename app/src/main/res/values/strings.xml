@@ -60,6 +60,8 @@
     <string name="dates_reforms">Reforms</string>
     <string name="dates_revolt">Revolt</string>
 
+    <string name="date_check_text">This was</string>
+
     <string-array name="tests">
         <item>Cards</item>
         <item>DIVIDER</item>

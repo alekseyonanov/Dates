@@ -40,6 +40,7 @@ public class TestFragment extends Fragment {
 
     private boolean testMode;
     private boolean isDateQuestion;
+    private boolean clicked = false;
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener(){
         @Override
@@ -62,11 +63,11 @@ public class TestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        GridLayout view;
+        View view;
         if(Build.VERSION.SDK_INT == 19)
-            view = (GridLayout) inflater.inflate(R.layout.fragment_test_low_api, container, false);
+            view = inflater.inflate(R.layout.fragment_test_low_api, container, false);
         else
-            view =(GridLayout) inflater.inflate(R.layout.fragment_test, container, false);
+            view = inflater.inflate(R.layout.fragment_test, container, false);
         questionView = view.findViewById(R.id.test_info);
         rightAnswersView = view.findViewById(R.id.right_answers);
         wrongAnswersView = view.findViewById(R.id.wrong_answers);
@@ -162,17 +163,20 @@ public class TestFragment extends Fragment {
             else
                 answerButtons[i].setText(date.getEvent());
             answerButtons[i].setBackgroundColor(getResources().getColor(android.R.color.white));
-            answerButtons[i].setClickable(true);
         }
         if(isDateQuestion)
             questionView.setText(questions.get(RightButton).getEvent());
         else
             questionView.setText(questions.get(RightButton).getDate());
+        clicked = false;
     }
 
+
     public void CheckResult(int position) {
-        for(Button button: answerButtons)
-            button.setClickable(false);
+        if(clicked)
+            return;
+        else
+            clicked = true;
         if (position == RightButton) {
             RightAnswers++;
         } else {
@@ -196,9 +200,7 @@ public class TestFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        try {
-            mHandler.removeCallbacks(refreshRunnable);
-        }catch (Exception e){}
+        mHandler.removeCallbacks(refreshRunnable);
     }
 
     @Override

@@ -27,16 +27,17 @@ import java.util.TreeMap;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 
+import static com.nollpointer.dates.MainActivity.DATES;
 import static com.nollpointer.dates.MainActivity.SORT;
 import static com.nollpointer.dates.MainActivity.SORT_CHECK;
 
 import static com.nollpointer.dates.PractiseConstants.BOUND;
 import static com.nollpointer.dates.PractiseConstants.INFINITIVE;
 import static com.nollpointer.dates.PractiseConstants.POSITION;
+import static com.nollpointer.dates.PractiseConstants.TEST_MODE;
 import static com.nollpointer.dates.PractiseConstants.TYPE;
 
 public class SortFragment extends Fragment {
-    private Cursor crs;
     private TextView RightAnswers, WrongAnswers;
     private TextView[] Numbers = new TextView[3];
     private TextView[] Texts = new TextView[3];
@@ -56,90 +57,16 @@ public class SortFragment extends Fragment {
     private boolean isInfinitive;
     private boolean isResultScreenOn = false;
     private boolean checkMode = false;
-    private GridLayout view;
+    private View mainView;
     private boolean isFirstTimeCheck = true;
     private ProgressBar progressBar;
 
 
-    public static SortFragment newInstance(ArrayList<Integer> arrayList,int picked_pos,int mode,boolean infinitive){
+    public static SortFragment newInstance(ArrayList<Date> dates,boolean testMode){
         SortFragment sort = new SortFragment();
-        int[] position,bound;
-        if(mode == MainActivity.FULL_DATES_MODE) {
-            if (arrayList.contains(10))
-                for (int i = 0; i < 10; i++)
-                    arrayList.add(i, i);
-            arrayList.remove(Integer.valueOf(10));
-            position = new int[arrayList.size()];
-            bound = new int[arrayList.size()];
-            for (int i = 0; i < arrayList.size(); i++) {
-                switch (arrayList.get(i)) {
-                    case 0:
-                        position[i] = 0;
-                        bound[i] = 21;
-                        break;
-                    case 1:
-                        position[i] = 21;
-                        bound[i] = 20;
-                        break;
-                    case 2:
-                        position[i] = 41;
-                        bound[i] = 35;
-                        break;
-                    case 3:
-                        position[i] = 76;
-                        bound[i] = 31;
-                        break;
-                    case 4:
-                        position[i] = 107;
-                        bound[i] = 40;
-                        break;
-                    case 5:
-                        position[i] = 147;
-                        bound[i] = 48;
-                        break;
-                    case 6:
-                        position[i] = 195;
-                        bound[i] = 48;
-                        break;
-                    case 7:
-                        position[i] = 242;
-                        bound[i] = 42;
-                        break;
-                    case 8:
-                        position[i] = 284;
-                        bound[i] = 50;
-                        break;
-                    case 9:
-                        position[i] = 334;
-                        bound[i] = 50;
-                        break;
-                }
-            }
-        }else{
-            if (arrayList.contains(2))
-                for (int i = 0; i < 2; i++)
-                    arrayList.add(i, i);
-            arrayList.remove(Integer.valueOf(2));
-            position = new int[arrayList.size()];
-            bound = new int[arrayList.size()];
-            for (int i = 0; i < arrayList.size(); i++) {
-                switch (arrayList.get(i)) {
-                    case 0:
-                        position[i] = 0;
-                        bound[i] = 48;
-                        break;
-                    case 1:
-                        position[i] = 48;
-                        bound[i] = 47;
-                        break;
-                }
-            }
-        }
-
         Bundle bundle = new Bundle();
-        bundle.putIntArray(POSITION,position);
-        bundle.putIntArray(BOUND,bound);
-        bundle.putBoolean(INFINITIVE,infinitive);
+        bundle.putBoolean(TEST_MODE,testMode);
+        bundle.putParcelableArrayList(DATES,dates);
         sort.setArguments(bundle);
         return sort;
     }
@@ -149,31 +76,29 @@ public class SortFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if(Build.VERSION.SDK_INT == 19)
-            view = (GridLayout) inflater.inflate(R.layout.fragment_sort_low_api, container, false);
+            mainView = inflater.inflate(R.layout.fragment_sort_low_api, container, false);
         else
-            view =(GridLayout) inflater.inflate(R.layout.fragment_sort, container, false);
+            mainView = inflater.inflate(R.layout.fragment_sort, container, false);
         final MainActivity ctx = (MainActivity) getActivity();
-        ctx.getSupportActionBar().hide();
-        crs = ctx.getCursor();
-        RightAnswers = view.findViewById(R.id.right_answers);
-        WrongAnswers = view.findViewById(R.id.wrong_answers);
-        instructions = view.findViewById(R.id.instruction_sort);
+        RightAnswers = mainView.findViewById(R.id.right_answers);
+        WrongAnswers = mainView.findViewById(R.id.wrong_answers);
+        instructions = mainView.findViewById(R.id.instruction_sort);
         RightAnswers.setText("0");
         WrongAnswers.setText("0");
-        cards[0] = view.findViewById(R.id.cardView1);
-        cards[1] = view.findViewById(R.id.cardView2);
-        cards[2] = view.findViewById(R.id.cardView3);
-        progressBar = view.findViewById(R.id.sort_progressbar);
+        cards[0] = mainView.findViewById(R.id.cardView1);
+        cards[1] = mainView.findViewById(R.id.cardView2);
+        cards[2] = mainView.findViewById(R.id.cardView3);
+        progressBar = mainView.findViewById(R.id.sort_progressbar);
         int color = Color.WHITE;
         cards[0].setBackgroundColor(color);
         cards[1].setBackgroundColor(color);
         cards[2].setBackgroundColor(color);
-        Numbers[0] = view.findViewById(R.id.button_cardview_1);
-        Numbers[1] = view.findViewById(R.id.button_cardview_2);
-        Numbers[2] = view.findViewById(R.id.button_cardview_3);
-        Texts[0] = view.findViewById(R.id.textview_cardview_1);
-        Texts[1] = view.findViewById(R.id.textview_cardview_2);
-        Texts[2] = view.findViewById(R.id.textview_cardview_3);
+        Numbers[0] = mainView.findViewById(R.id.button_cardview_1);
+        Numbers[1] = mainView.findViewById(R.id.button_cardview_2);
+        Numbers[2] = mainView.findViewById(R.id.button_cardview_3);
+        Texts[0] = mainView.findViewById(R.id.textview_cardview_1);
+        Texts[1] = mainView.findViewById(R.id.textview_cardview_2);
+        Texts[2] = mainView.findViewById(R.id.textview_cardview_3);
         tree.put(R.id.cardView1,1);
         tree.put(R.id.cardView2,2);
          tree.put(R.id.cardView3,3);
@@ -228,7 +153,7 @@ public class SortFragment extends Fragment {
 
             }
         });
-        check_button = view.findViewById(R.id.sort_check);
+        check_button = mainView.findViewById(R.id.sort_check);
         check_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,7 +196,7 @@ public class SortFragment extends Fragment {
         isFirstTimeCheck = ctx.isFirstTime(SORT_CHECK);
         if(ctx.isFirstTime(SORT))
             new MaterialShowcaseView.Builder(ctx)
-                    .setTarget(view)
+                    .setTarget(mainView)
                     .setDelay(200)
                     .setContentText(R.string.tutorial_sort)
                     .setDismissText(R.string.got_it)
@@ -280,7 +205,7 @@ public class SortFragment extends Fragment {
                     .setMaskColour(getResources().getColor(R.color.colorMask))
                     .setShape(new NoShape())
                     .show();
-        return view;
+        return mainView;
     }
 
     private void refreshPage(){
@@ -295,45 +220,7 @@ public class SortFragment extends Fragment {
     }
 
     private void setQuestionInfo(){
-        Random rand = new Random();
-        int[] numbs = new int[3];
-        int start_pos = rand.nextInt(position.length);
-        String date;
-        boolean bln;
-        for(int i=0;i<3;i++){
-            bln = false;
-            numbs[i] = position[start_pos] + rand.nextInt(bound[start_pos]);
-            crs.moveToPosition(numbs[i]);
-            date = crs.getString(0).trim();
-            for(int j=0;j<i;j++){
-                if(numbs[i] == numbs[j]){
-                    i--;
-                    bln = true;
-                    break;
-                }
-            }
-            if(!bln && (dates.contains(date) || date.contains("-") || date.contains("–"))){
-                i--;
-                bln = true;
-            }
-            if(bln)
-                continue;
-            dates.add(date);
-            questions[i] = crs.getString(1).trim();
-        }
-        dates.clear();
-        for(int i=0;i<3;i++){
-            for(int j=i;j<3;j++){
-                if(numbs[j]<numbs[i]){
-                    String d = questions[i];
-                    int k = numbs[i];
-                    numbs[i]=numbs[j];
-                    questions[i]=questions[j];
-                    numbs[j] = k;
-                    questions[j] = d;
-                }
-            }
-        }
+
     }
 
     private void setQuestions(){
@@ -408,7 +295,7 @@ public class SortFragment extends Fragment {
         CheckModeRightSequence = RightSequence;
         if(isFirstTimeCheck) {
             new MaterialShowcaseView.Builder(getActivity())
-                    .setTarget(view)
+                    .setTarget(mainView)
                     .setDelay(150)
                     .setContentText(R.string.tutorial_sort_check)
                     .setDismissText(R.string.got_it)
@@ -488,9 +375,7 @@ public class SortFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        try {
-            mHandler.removeCallbacks(post);
-        }catch (Exception e){}
+        mHandler.removeCallbacks(post);
     }
 
 }

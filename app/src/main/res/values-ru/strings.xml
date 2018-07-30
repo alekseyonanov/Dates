@@ -63,6 +63,8 @@
     <string name="dates_reforms">Реформы</string>
     <string name="dates_revolt">Восстания</string>
 
+    <string name="date_check_text">Это была</string>
+
     <string-array name="tests">
         <item>Карточки</item>
         <item>DIVIDER</item>
