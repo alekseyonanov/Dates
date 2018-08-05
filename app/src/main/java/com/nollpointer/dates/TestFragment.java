@@ -49,7 +49,6 @@ public class TestFragment extends Fragment {
         }
     };
 
-
     public static TestFragment newInstance(ArrayList<Date> dates,int type, boolean testMode){
         TestFragment test = new TestFragment();
         Bundle bundle = new Bundle();

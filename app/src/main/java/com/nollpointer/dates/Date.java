@@ -55,6 +55,18 @@ public class Date implements Parcelable{
         type = in.readInt();
     }
 
+    public boolean isSameDate(Date date){
+        return this.getDate().equals(date.getDate());
+    }
+
+    public boolean isContinuous (){
+        return date.contains("-") || date.contains("–");
+    }
+
+
+
+    //Parcelable implementation
+
     @Override
     public int describeContents() {
         return 0;
@@ -80,8 +92,5 @@ public class Date implements Parcelable{
         }
     };
 
-    public boolean isSameDate(Date date){
-        return this.getDate().equals(date.getDate());
-    }
 }
 

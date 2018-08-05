@@ -47,7 +47,7 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
     public void onResume() {
         super.onResume();
         mMainActivity.changeToolbarItemsVisibility(false,false);
-        mMainActivity.getSupportActionBar().setTitle(R.string.title_tests);
+        mMainActivity.setActionBarTitle(R.string.title_tests);
         mMainActivity.updateBottomNavigationView(R.id.navigation_tests);
         if(!mMainActivity.getSupportActionBar().isShowing()) {
             mMainActivity.show_bottom_navigation_view();
@@ -77,7 +77,6 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
             dialog.show(mMainActivity.getSupportFragmentManager(), null);
         }
     }
-
 
     @Override
     public void typePicked(int type) {
@@ -227,6 +226,4 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
         }
         return new Pair<>(start,end);
     }
-
-
 }

@@ -42,20 +42,23 @@ import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 import uk.co.deanwild.materialshowcaseview.shape.RectangleShape;
 
 public class MainActivity extends AppCompatActivity{
-    private Cursor main_cursor = null;
-    private Cursor easy_cursor = null;
-    private BottomNavigationView BottomView;
     private int mode;
     private Menu menu;
-    public static final int FULL_DATES_MODE = 0;
-    public static final int EASY_DATES_MODE = 1;
+
+    private BottomNavigationView BottomView;
     private LinearLayout linearLayout;
+    private Toolbar toolbar;
+
     public static final String MODE = "MODE", PRACTISE = "PRACTISE", DATES = "DATES",
             SORT = "SORT",SORT_CHECK = "SORT_CHECK", TRUE_FALSE = "TRUE_FALSE", CARDS = "CARDS";
     public static final String GDPR = "GDPR";
     public static final String SETTINGS = "SETTINGS";
+
+    public static final int FULL_DATES_MODE = 0;
+    public static final int EASY_DATES_MODE = 1;
+
     private TreeMap<String,Boolean> preferences = new TreeMap<>();
-    private Toolbar toolbar;
+
     private ArrayList<Date> full_list;
     private ArrayList<Date> easy_list;
 
@@ -91,9 +94,9 @@ public class MainActivity extends AppCompatActivity{
                             }catch (Exception e){
                                 Log.e("SQl_DATABASE_EXCEPTION",e.toString());
                             }
-                            setCursors(m_cursor,e_cursor);
                             handler.post(new FillDateArray(e_cursor,EASY_DATES_MODE));
                             new FillDateArray(m_cursor,FULL_DATES_MODE).run();
+
                         }
                     });
 
@@ -242,11 +245,9 @@ public class MainActivity extends AppCompatActivity{
         if(mode == EASY_DATES_MODE){
             colorFrom = resources.getColor(R.color.colorPrimary);
             colorTo = resources.getColor(R.color.colorPrimaryEasy);
-            //BottomView.setItemTextColor(ContextCompat.getColorStateList(this, R.color.colorPrimaryEasy));
         }else{
             colorFrom = resources.getColor(R.color.colorPrimaryEasy);
             colorTo = resources.getColor(R.color.colorPrimary);
-            //BottomView.setItemTextColor(ContextCompat.getColorStateList(this, R.color.colorPrimary));
         }
         final ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),colorFrom,colorTo);
         colorAnimator.setDuration(270);
@@ -264,19 +265,6 @@ public class MainActivity extends AppCompatActivity{
         if(mode == FULL_DATES_MODE)
             return getResources().getColor(R.color.colorPrimary);
         return getResources().getColor(R.color.colorPrimaryEasy);
-    }
-
-    public Cursor getCursor(){
-        if(mode == FULL_DATES_MODE)
-            return main_cursor;
-        else
-            return easy_cursor;
-    }
-
-    public void setCursors(Cursor main_cursor,Cursor easy_cursor){
-        this.main_cursor = main_cursor;
-        this.easy_cursor = easy_cursor;
-
     }
 
     public void setDateArray(ArrayList<Date> array, int mode){
@@ -302,8 +290,8 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    public void setActionBarTitle(int id){
-        getSupportActionBar().setTitle(R.string.title_dates);
+    public void setActionBarTitle(int resource){
+        getSupportActionBar().setTitle(resource);
     }
 
     public void startFirstTimeUserTutorial(){
@@ -408,8 +396,6 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        easy_cursor.close();
-        main_cursor.close();
         FlurryAgent.onEndSession(this);
     }
 
@@ -455,7 +441,7 @@ public class MainActivity extends AppCompatActivity{
             list.add(new Date(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3))); // нулевой элемент
             while (cursor.moveToNext())
                 list.add(new Date(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3)));
-            //cursor.close();
+            cursor.close();
             setDateArray(list,mode);
         }
     }
