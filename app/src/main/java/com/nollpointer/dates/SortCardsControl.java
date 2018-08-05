@@ -12,4 +12,6 @@ public interface SortCardsControl{
     int getAnswerSequence();
 
     void setCheckMode(boolean state);
+
+    void setColors(int g,int r);
 }

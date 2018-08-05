@@ -46,12 +46,51 @@
         android:background="@color/colorBackgroundTest"
         />
 
-    <include layout="@layout/sort_main_content"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_column="0"
         app:layout_row="2"
         app:layout_columnSpan="2"
         app:layout_rowWeight="1"
-        android:id="@+id/sort_main_content" />
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:id="@+id/instruction_sort"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@android:color/black"
+            android:layout_gravity="fill"
+            android:gravity="center"
+            android:text="@string/sotr_text"/>
+
+        <include layout="@layout/sort_card"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginBottom="12dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardView0" />
+
+        <include layout="@layout/sort_card"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginBottom="12dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardView1" />
+
+        <include layout="@layout/sort_card"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginBottom="12dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardView2" />
+
+    </LinearLayout>
 
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->

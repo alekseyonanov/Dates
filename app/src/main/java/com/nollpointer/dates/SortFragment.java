@@ -1,6 +1,7 @@
 package com.nollpointer.dates;
 
 
+import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
@@ -90,6 +91,7 @@ public class SortFragment extends Fragment {
 
         initViews();
 
+
         if(testMode)
             progressBar.setVisibility(View.VISIBLE);
 
@@ -116,7 +118,7 @@ public class SortFragment extends Fragment {
         instructions = mainView.findViewById(R.id.instruction_sort);
         progressBar = mainView.findViewById(R.id.sort_progressbar);
         check_button = mainView.findViewById(R.id.sort_check);
-        cardsControl = SortCards.newInstance(mainView.findViewById(R.id.sort_main_content));
+        cardsControl = SortCards.newInstance(mainView);
 
         RightAnswers.setText("0");
         WrongAnswers.setText("0");
@@ -128,20 +130,26 @@ public class SortFragment extends Fragment {
             }
         });
 
+        Resources resources = getResources();
+        cardsControl.setColors(resources.getColor(android.R.color.holo_green_light),resources.getColor(android.R.color.holo_red_light));
+
         Appodeal.setBannerViewId(R.id.appodealBannerView_sort);
     }
 
     public void check(){
+
+        isCheckMode = !isCheckMode;
+
         if (isCheckMode) {
-            check_button.setText(R.string.check_button);
-            setQuestions();
-        } else {
             boolean isCorrect = cardsControl.check();
             incrementScore(isCorrect);
             check_button.setText(R.string.next_sort);
             setQuestionInfo();
+        } else {
+            check_button.setText(R.string.check_button);
+            setQuestions();
         }
-        isCheckMode = !isCheckMode;
+
         cardsControl.setCheckMode(isCheckMode);
     }
 
@@ -229,7 +237,7 @@ public class SortFragment extends Fragment {
         cardsControl.setAnswerSequence(RightSequence);
         cardsControl.setQuestions(events);
 
-        Log.wtf("TEST","" + RightSequence[0] + RightSequence[1] + RightSequence[2]);
+        Log.wtf("TEST_FRAGMENT","" + RightSequence[0] + RightSequence[1] + RightSequence[2]);
     }
 //
 //    private void OnGoingCheck(){

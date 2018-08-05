@@ -17,9 +17,12 @@ public class SortCards implements SortCardsControl{
 
     private ArrayList<SortCardView> cards;
     private int[] currentSequence = new int[MAX_COUNT];
-    private int[] answerSequence;
+    private int[] answerSequence = new int[MAX_COUNT];
 
     private boolean isCheckMode = false;
+
+    private int GREEN = Color.GREEN;
+    private int RED = Color.RED;
 
     private View.OnClickListener listener = new View.OnClickListener(){
         @Override
@@ -28,6 +31,12 @@ public class SortCards implements SortCardsControl{
                 onCardClick(pos);
         }
     };
+
+    @Override
+    public void setColors(int green,int red){
+        GREEN = green;
+        RED = red;
+    }
 
     public static SortCardsControl newInstance(View mainView){
         SortCards sorts = new SortCards();
@@ -61,6 +70,9 @@ public class SortCards implements SortCardsControl{
         cards.get(position).setNumber(sequenceNumber);
         if(isCheckMode)
             singleCardCheck(position);
+
+        Log.wtf("CURRENT_SEQUENCE","" + currentSequence[0] + currentSequence[1] +currentSequence[2]);
+        Log.wtf("ANSWER_SEQUENCE","" + answerSequence[0] + answerSequence[1] +answerSequence[2]);
     }
 
 
@@ -83,7 +95,9 @@ public class SortCards implements SortCardsControl{
 
     @Override
     public void setAnswerSequence(int[] sequence){
-        answerSequence = sequence;
+        for(int i=0;i<MAX_COUNT;i++)
+            answerSequence[i] = sequence[i];
+        Log.wtf("TEST_CARDS","" + answerSequence[0] + answerSequence[1] +answerSequence[2]);
     }
 
     private int getPosition(int id){
@@ -131,20 +145,19 @@ public class SortCards implements SortCardsControl{
         }else{
             for(int i=0;i<MAX_COUNT;i++){
                 if(currentSequence[i] == answerSequence[i])
-                    cards.get(i).setBackgroundColor(Color.GREEN);
+                    cards.get(i).setBackgroundColor(GREEN);
                 else
-                    cards.get(i).setBackgroundColor(Color.RED);
+                    cards.get(i).setBackgroundColor(RED);
             }
         }
-        isCheckMode = true;
         return isCorrect;
     }
 
     private void singleCardCheck(int position){
         if(answerSequence[position] == currentSequence[position])
-            cards.get(position).setBackgroundColor(Color.GREEN);
+            cards.get(position).setBackgroundColor(GREEN);
         else
-            cards.get(position).setBackgroundColor(Color.RED);
+            cards.get(position).setBackgroundColor(RED);
 
     }
 
