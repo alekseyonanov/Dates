@@ -2,7 +2,6 @@ package com.nollpointer.dates;
 
 
 import android.content.pm.ActivityInfo;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,12 +17,10 @@ import java.util.Random;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 
-import static com.nollpointer.dates.PractiseConstants.BOUND;
 import static com.nollpointer.dates.PractiseConstants.DATES;
 import static com.nollpointer.dates.PractiseConstants.MIXED;
 import static com.nollpointer.dates.PractiseConstants.ONLY_DATES;
 import static com.nollpointer.dates.PractiseConstants.ONLY_EVENTS;
-import static com.nollpointer.dates.PractiseConstants.POSITION;
 import static com.nollpointer.dates.PractiseConstants.TYPE;
 
 public class CardsFragment extends Fragment {
@@ -45,7 +42,7 @@ public class CardsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cards_show_down, container, false);
+        View view = inflater.inflate(R.layout.fragment_cards, container, false);
         MainActivity ctx = (MainActivity)getActivity();
         ctx.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 

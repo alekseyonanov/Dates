@@ -1,18 +1,12 @@
 package com.nollpointer.dates;
 
 
-import android.content.res.Resources;
-import android.support.v4.app.Fragment;
 import android.content.res.ColorStateList;
-import android.database.Cursor;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayout;
-import android.util.Log;
-import android.util.Pair;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +16,9 @@ import android.widget.TextView;
 
 import com.appodeal.ads.Appodeal;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
 
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.shape.NoShape;
@@ -35,14 +26,11 @@ import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 import static com.nollpointer.dates.MainActivity.DATES;
 import static com.nollpointer.dates.MainActivity.SORT;
 import static com.nollpointer.dates.MainActivity.SORT_CHECK;
-
-import static com.nollpointer.dates.PractiseConstants.BOUND;
-import static com.nollpointer.dates.PractiseConstants.INFINITIVE;
-import static com.nollpointer.dates.PractiseConstants.POSITION;
 import static com.nollpointer.dates.PractiseConstants.TEST_MODE;
-import static com.nollpointer.dates.PractiseConstants.TYPE;
 
-public class SortFragment extends Fragment {
+public class  SortFragment extends Fragment implements ResultDialog.ResultDialogCallbackListener{
+
+    private View mainView;
     private TextView RightAnswers, WrongAnswers;
     private TextView instructions;
     private ProgressBar progressBar;
@@ -51,19 +39,17 @@ public class SortFragment extends Fragment {
 
     private int[] RightSequence = new int[3];
     private List<String> events;
-    private int Answer = 123;
-    private int CheckModeRightSequence = -1;
     private int right_answers_count=0,wrong_answers_count=0,best_result = 0;
+
 
     private ArrayList<Date> dates;
     private Button check_button;
 
+
     //private boolean isResultScreenOn = false;
     private boolean isCheckMode = false;
     private boolean testMode;
-    private View mainView;
-    //private boolean isFirstTimeCheck = true;
-
+    private boolean isFirstTimeCheck = true;
 
 
     public static SortFragment newInstance(ArrayList<Date> dates,boolean testMode){
@@ -79,10 +65,11 @@ public class SortFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(Build.VERSION.SDK_INT == 19)
-            mainView = inflater.inflate(R.layout.fragment_sort_low_api, container, false);
-        else
-            mainView = inflater.inflate(R.layout.fragment_sort, container, false);
+        //if(Build.VERSION.SDK_INT == 19)
+        //    mainView = inflater.inflate(R.layout.fragment_sort_low_api, container, false);
+        //else
+
+        mainView = inflater.inflate(R.layout.fragment_sort, container, false);
         MainActivity ctx = (MainActivity) getActivity();
 
         Bundle saved = getArguments();
@@ -91,13 +78,13 @@ public class SortFragment extends Fragment {
 
         initViews();
 
-
         if(testMode)
             progressBar.setVisibility(View.VISIBLE);
 
         setQuestionInfo();
         setQuestions();
 
+        isFirstTimeCheck = ctx.isFirstTime(SORT_CHECK);
         if(ctx.isFirstTime(SORT))
             new MaterialShowcaseView.Builder(ctx)
                     .setTarget(mainView)
@@ -134,6 +121,9 @@ public class SortFragment extends Fragment {
         cardsControl.setColors(resources.getColor(android.R.color.holo_green_light),resources.getColor(android.R.color.holo_red_light));
 
         Appodeal.setBannerViewId(R.id.appodealBannerView_sort);
+
+        WrongAnswers.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.thumb_down_selector,0);
+        RightAnswers.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector,0,0,0);
     }
 
     public void check(){
@@ -141,8 +131,13 @@ public class SortFragment extends Fragment {
         isCheckMode = !isCheckMode;
 
         if (isCheckMode) {
+            if(isFirstTimeCheck)
+                showFirstTimeCheck();
             boolean isCorrect = cardsControl.check();
             incrementScore(isCorrect);
+
+            if(testMode && wrong_answers_count + right_answers_count == 20)
+                setResultScreen();
             check_button.setText(R.string.next_sort);
             setQuestionInfo();
         } else {
@@ -153,6 +148,20 @@ public class SortFragment extends Fragment {
         cardsControl.setCheckMode(isCheckMode);
     }
 
+    public void showFirstTimeCheck(){
+            new MaterialShowcaseView.Builder(getActivity())
+                    .setTarget(mainView)
+                    .setDelay(150)
+                    .setContentText(R.string.tutorial_sort_check)
+                    .setDismissText(R.string.got_it)
+                    .setDismissOnTouch(true)
+                    .setDismissTextColor(Color.GREEN)
+                    .setMaskColour(getResources().getColor(R.color.colorMask))
+                    .setShape(new NoShape())
+                    .show();
+            isFirstTimeCheck = false;
+    }
+
     public void incrementScore(boolean isCorrect){
         if(isCorrect)
             right_answers_count++;
@@ -160,6 +169,8 @@ public class SortFragment extends Fragment {
             wrong_answers_count++;
         WrongAnswers.setText(Integer.toString(wrong_answers_count));
         RightAnswers.setText(Integer.toString(right_answers_count));
+        if(testMode)
+            progressBar.incrementProgressBy(1);
     }
 
     @Override
@@ -174,17 +185,24 @@ public class SortFragment extends Fragment {
         Appodeal.hide(getActivity(), Appodeal.BANNER_VIEW);
     }
 
+    @Override
+    public void reset() {
 
-//    private void refreshPage(){
-//        int color = getResources().getColor(android.R.color.white);
-//        for(CardView c:cards)
-//            c.setBackgroundColor(color);
-//        check_button.setClickable(true);
-////        if(!isInfinitive && wrong_answers_count+right_answers_count==20)
-////            setResultScreen();
-////        else
-////            setQuestions();
-//    }
+        if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
+            Appodeal.show(getActivity(),Appodeal.INTERSTITIAL);
+
+        wrong_answers_count=right_answers_count=0;
+        WrongAnswers.setText(Integer.toString(wrong_answers_count));
+        RightAnswers.setText(Integer.toString(right_answers_count));
+        progressBar.setProgress(0);
+
+        setQuestions();
+    }
+
+    @Override
+    public void exit() {
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
 
     private void setQuestionInfo(){
         Random random = new Random();
@@ -236,120 +254,31 @@ public class SortFragment extends Fragment {
     private void setQuestions(){
         cardsControl.setAnswerSequence(RightSequence);
         cardsControl.setQuestions(events);
-
-        Log.wtf("TEST_FRAGMENT","" + RightSequence[0] + RightSequence[1] + RightSequence[2]);
     }
-//
-//    private void OnGoingCheck(){
-//        setColoredCards(CheckModeRightSequence);
-//    }
 
-//    private void setColoredCards(int RightSequence){
-//        boolean[] ar = new boolean[3];
-//        ar[0] = RightSequence/100 == Answer/100;
-//        ar[1] = (RightSequence/10)%10 == (Answer/10)%10;
-//        ar[2] = RightSequence%10 == Answer%10;
-//        int colorR = getResources().getColor(android.R.color.holo_green_dark);
-//        int colorW = getResources().getColor(android.R.color.holo_red_light);
-//        for(int i =0;i<3;i++){
-//            if(ar[i])
-//                cards[i].setBackgroundColor(colorR);
-//            else
-//                cards[i].setBackgroundColor(colorW);
-//        }
-//    }
 
-//    private void Check(){
-//        if(Answer == RightSequence) {
-//            right_answers_count++;
-//            RightAnswers.setText(Integer.toString(right_answers_count));
-//            int color = getResources().getColor(android.R.color.holo_green_dark);
-//            for(CardView c:cards)
-//                c.setBackgroundColor(color);
-//        }else{
-//            wrong_answers_count++;
-//            WrongAnswers.setText(Integer.toString(wrong_answers_count));
-//            setColoredCards(RightSequence);
-//        }
-//        if(!isInfinitive)
-//            progressBar.incrementProgressBy(1);
-//        CheckModeRightSequence = RightSequence;
-//        if(isFirstTimeCheck) {
-//            new MaterialShowcaseView.Builder(getActivity())
-//                    .setTarget(mainView)
-//                    .setDelay(150)
-//                    .setContentText(R.string.tutorial_sort_check)
-//                    .setDismissText(R.string.got_it)
-//                    .setDismissOnTouch(true)
-//                    .setDismissTextColor(Color.GREEN)
-//                    .setMaskColour(getResources().getColor(R.color.colorMask))
-//                    .setShape(new NoShape())
-//                    .show();
-//            isFirstTimeCheck = false;
-//        }
-//        setSequence();
-//        setQuestionInfo();
-//    }
-//
-//    private void setResultScreen(){
-//        isResultScreenOn = true;
-//        check_button.setVisibility(View.INVISIBLE);
-//        check_button.setClickable(false);
-//        Texts[1].setText(R.string.reset_button);
-//        Texts[2].setText(R.string.exit_button);
-//        cards[1].setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
-//        cards[2].setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
-//        int cur_best = best_result;
-//        if(right_answers_count > best_result) {
-//            best_result = right_answers_count ;
-//        }
-//        String mark;
-//        int color;
-//        if(right_answers_count < 5) {
-//            mark = getString(R.string.mark_2);
-//            color = getResources().getColor(android.R.color.holo_red_light);
-//        }else if (right_answers_count < 10) {
-//            mark = getString(R.string.mark_3);
-//            color = getResources().getColor(android.R.color.holo_red_light);
-//        }else if (right_answers_count < 15) {
-//            mark = getString(R.string.mark_4);
-//            color = getResources().getColor(android.R.color.holo_green_light);
-//        }else if (right_answers_count < 20) {
-//            mark = getString(R.string.mark_5);
-//            color = getResources().getColor(android.R.color.holo_green_light);
-//        }else if (right_answers_count==20) {
-//            mark = getString(R.string.mark_20);
-//            color = getResources().getColor(android.R.color.holo_green_light);
-//        }else {
-//            mark = "WOW";
-//            color = getResources().getColor(android.R.color.holo_green_light);
-//        }
-//        Numbers[0].setText(Integer.toString(right_answers_count));
-//        Numbers[1].setText(">");
-//        Numbers[2].setText("<");
-//        Texts[0].setText(mark);
-//        Texts[0].setTextColor(color);
-//        if(cur_best == 0)
-//            instructions.setText(getString(R.string.current_result));
-//        else
-//            instructions.setText(getString(R.string.best_result) + cur_best + "\n\n" + getString(R.string.current_result));
-//    }
-//
-//    private void resetInfo(){
-//        if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
-//            Appodeal.show(getActivity(),Appodeal.INTERSTITIAL);
-//        wrong_answers_count=right_answers_count=0;
-//        WrongAnswers.setText(Integer.toString(wrong_answers_count));
-//        RightAnswers.setText(Integer.toString(right_answers_count));
-//        isResultScreenOn = false;
-//        check_button.setVisibility(View.VISIBLE);
-//        check_button.setClickable(true);
-//        ColorStateList cols = Texts[1].getTextColors();
-//        Texts[0].setTextColor(cols);
-//        cards[1].setBackgroundColor(getResources().getColor(android.R.color.white));
-//        cards[2].setBackgroundColor(getResources().getColor(android.R.color.white));
-//        instructions.setText(getString(R.string.sotr_text));
-//        progressBar.setProgress(0);
-//        setQuestions();
-//    }
+    private void setResultScreen(){
+
+        String mark;
+        int color;
+
+        if(right_answers_count < 5)
+            mark = getString(R.string.mark_very_bad);
+        else if(right_answers_count < 9)
+            mark = getString(R.string.mark_bad);
+        else if(right_answers_count < 13)
+            mark = getString(R.string.mark_neutral);
+        else if(right_answers_count < 17)
+            mark = getString(R.string.mark_good);
+        else
+            mark = getString(R.string.mark_very_good);
+
+        if(right_answers_count > 9)
+            color = getResources().getColor(android.R.color.holo_green_light);
+        else
+            color = getResources().getColor(android.R.color.holo_red_light);
+
+        new ResultDialog(right_answers_count,mark,color,this).showDialog(getActivity());
+
+    }
 }

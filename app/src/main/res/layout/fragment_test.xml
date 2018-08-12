@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_green_dark"
         android:textAppearance="?android:textAppearanceMedium"
-        android:drawableStart="@drawable/thumb_up_selector"
         android:id="@+id/right_answers"
         android:background="@color/colorBackgroundTest" />
 
@@ -39,7 +38,6 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_red_light"
         android:textAppearance="?android:textAppearanceMedium"
-        android:drawableEnd="@drawable/thumb_down_selector"
         android:id="@+id/wrong_answers"
         android:background="@color/colorBackgroundTest" />
 

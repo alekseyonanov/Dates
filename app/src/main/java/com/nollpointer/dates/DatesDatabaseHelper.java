@@ -52,7 +52,6 @@ public class DatesDatabaseHelper extends SQLiteOpenHelper {
         //Log.v("DATES",text);
         while (scan.hasNextLine()) {
             str = scan.nextLine().split("#");
-            Log.wtf(str[0],str[1]);
             if(table_name.equals("D1"))
                 insertDate(db, table_name, str[0].trim(), str[1].trim(),str[2].trim(),Integer.parseInt(str[3]));
             else

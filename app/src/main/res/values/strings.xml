@@ -48,11 +48,11 @@
     <string name="best_result">Your best result in session: </string>
     <string name="cur_mark">Your current mark: </string>
 
-    <string name="mark_2">Very Bad</string>
-    <string name="mark_3">Pretty Bad</string>
-    <string name="mark_4">Not Bad</string>
-    <string name="mark_5">Very Good</string>
-    <string name="mark_20">Damn Boii</string>
+    <string name="mark_very_bad">Very Bad</string>
+    <string name="mark_bad">Bad</string>
+    <string name="mark_neutral">Satisfactorily</string>
+    <string name="mark_good">Good</string>
+    <string name="mark_very_good">Very Good</string>
 
     <string name="dates_all">All</string>
     <string name="dates_management">Management</string>

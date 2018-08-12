@@ -1,11 +1,9 @@
 package com.nollpointer.dates;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,15 +68,6 @@ public class SortCards implements SortCardsControl{
         cards.get(position).setNumber(sequenceNumber);
         if(isCheckMode)
             singleCardCheck(position);
-
-        Log.wtf("CURRENT_SEQUENCE","" + currentSequence[0] + currentSequence[1] +currentSequence[2]);
-        Log.wtf("ANSWER_SEQUENCE","" + answerSequence[0] + answerSequence[1] +answerSequence[2]);
-    }
-
-
-    @Override
-    public void refresh() {
-
     }
 
 
@@ -95,9 +84,7 @@ public class SortCards implements SortCardsControl{
 
     @Override
     public void setAnswerSequence(int[] sequence){
-        for(int i=0;i<MAX_COUNT;i++)
-            answerSequence[i] = sequence[i];
-        Log.wtf("TEST_CARDS","" + answerSequence[0] + answerSequence[1] +answerSequence[2]);
+        System.arraycopy(sequence,0,answerSequence,0,MAX_COUNT);
     }
 
     private int getPosition(int id){
@@ -116,24 +103,9 @@ public class SortCards implements SortCardsControl{
         return position;
     }
 
-//    @Override
-//    public void setOnCardClickListener() {
-//
-//    }
-
     @Override
     public void setCheckMode(boolean state) {
         isCheckMode = state;
-    }
-
-    @Override
-    public void setResultScreen() {
-
-    }
-
-    @Override
-    public int getAnswerSequence() {
-        return 0;
     }
 
     @Override
@@ -160,6 +132,4 @@ public class SortCards implements SortCardsControl{
             cards.get(position).setBackgroundColor(RED);
 
     }
-
-
 }

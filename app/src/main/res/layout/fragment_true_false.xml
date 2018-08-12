@@ -25,7 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceMedium"
-        android:drawableStart="@drawable/thumb_up_selector"
         android:background="@color/colorBackgroundTest"
         android:textColor="@android:color/holo_green_dark"
         android:id="@+id/right_answers_true_false" />
@@ -37,7 +36,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceMedium"
-        android:drawableEnd="@drawable/thumb_down_selector"
         android:background="@color/colorBackgroundTest"
         android:textColor="@android:color/holo_red_light"
         android:id="@+id/wrong_answers_true_false" />

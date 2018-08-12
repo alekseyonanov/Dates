@@ -32,7 +32,7 @@ public class SortCardView{
         this.number.setText(Integer.toString(number));
     }
 
-
+    //public void setResultScreenText(String)
 
 
 }

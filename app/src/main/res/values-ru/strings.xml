@@ -44,18 +44,18 @@
 
     <string name="message_developer">Связаться с разработчиком</string>
 
-    <string name="reset_button">Заново</string>
+    <string name="reset_button">Еще раз!</string>
     <string name="exit_button">Выход</string>
 
     <string name="current_result">Ваш текущий результат: </string>
     <string name="best_result">Ваш лучший результат за эту сессию: </string>
     <string name="cur_mark">Ваша текущая оценка: </string>
 
-    <string name="mark_2">Ужасно</string>
-    <string name="mark_3">Удовлетворительно</string>
-    <string name="mark_4">Хорошо</string>
-    <string name="mark_5">Отлично</string>
-    <string name="mark_20">Превосходно</string>
+    <string name="mark_very_bad">Очень Плохо</string>
+    <string name="mark_bad">Плохо</string>
+    <string name="mark_neutral">Удовлетворительно</string>
+    <string name="mark_good">Хорошо</string>
+    <string name="mark_very_good">Отлично</string>
 
     <string name="dates_all">Все</string>
     <string name="dates_management">Правления</string>

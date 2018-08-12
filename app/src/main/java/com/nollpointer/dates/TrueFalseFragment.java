@@ -33,7 +33,7 @@ import static com.nollpointer.dates.PractiseConstants.POSITION;
 import static com.nollpointer.dates.PractiseConstants.TEST_MODE;
 import static com.nollpointer.dates.PractiseConstants.TYPE;
 
-public class TrueFalseFragment extends Fragment {
+public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDialogCallbackListener {
 
     private TextView QuestionDate,QuestionEvent;
     private TextView RightAnswerCountView,WrongAnswersCountView;
@@ -70,11 +70,10 @@ public class TrueFalseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View mainView;
-        if(Build.VERSION.SDK_INT == 19)
-            mainView =inflater.inflate(R.layout.fragment_true_false_low_api, container, false);
-        else
-            mainView =inflater.inflate(R.layout.fragment_true_false, container, false);
+        //if(Build.VERSION.SDK_INT == 19)
+        //    mainView =inflater.inflate(R.layout.fragment_true_false_low_api, container, false);
+        //else
+        View mainView =inflater.inflate(R.layout.fragment_true_false, container, false);
         initViews(mainView);
         WrongAnswersCountView.setText("0");
         RightAnswerCountView.setText("0");
@@ -84,7 +83,7 @@ public class TrueFalseFragment extends Fragment {
         testMode = saved.getBoolean(TEST_MODE);
         if(testMode) {
             uniqueDates = new ArrayList<>(20);
-            progressBar = mainView.findViewById(R.id.true_false_progressbar);
+            progressBar.setVisibility(View.VISIBLE);
         }
         mHandler = new Handler();
         RefreshRunnable = new Runnable() {
@@ -129,6 +128,7 @@ public class TrueFalseFragment extends Fragment {
         QuestionEvent = mainView.findViewById(R.id.test_info_true_false_event);
         RightAnswerCountView = mainView.findViewById(R.id.right_answers_true_false);
         WrongAnswersCountView = mainView.findViewById(R.id.wrong_answers_true_false);
+        progressBar = mainView.findViewById(R.id.true_false_progressbar);
         trueButton = mainView.findViewById(R.id.true_button);
         trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +149,9 @@ public class TrueFalseFragment extends Fragment {
                 }
             }
         });
+
+        WrongAnswersCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.thumb_down_selector,0);
+        RightAnswerCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector,0,0,0);
     }
 
     private void checkResult(boolean opinion){
@@ -220,88 +223,47 @@ public class TrueFalseFragment extends Fragment {
         Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
     }
 
-    public void setResultScreen(){
-        int cur_best = bestResult;
-        if(bestResult<right_answers_count)
-            bestResult = right_answers_count;
-        RightAnswerCountView.setText(Integer.toString(right_answers_count));
-        WrongAnswersCountView.setText(Integer.toString(wrong_answers_count));
-        trueButton.setText(R.string.reset_button);
-        falseButton.setText(R.string.exit_button);
-        falseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
-        trueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                restartInfo();
-            }
-        });
-        String mark;
-        int color;
-        if(right_answers_count < 5) {
-            mark = getString(R.string.mark_2);
-            color = getResources().getColor(android.R.color.holo_red_light);
-        }else if (right_answers_count < 10) {
-            mark = getString(R.string.mark_3);
-            color = getResources().getColor(android.R.color.holo_red_light);
-        }else if (right_answers_count < 15) {
-            mark = getString(R.string.mark_4);
-            color = getResources().getColor(android.R.color.holo_green_light);
-        }else if (right_answers_count < 20) {
-            mark = getString(R.string.mark_5);
-            color = getResources().getColor(android.R.color.holo_green_light);
-        }else if (right_answers_count==20) {
-            mark = getString(R.string.mark_20);
-            color = getResources().getColor(android.R.color.holo_green_light);
-        }else {
-            mark = "WOW";
-            color = getResources().getColor(android.R.color.holo_green_light);
-        }
-        if(cur_best==0)
-            QuestionDate.setText(getString(R.string.current_result) + " " + right_answers_count +"\n\n"+ getString(R.string.cur_mark));
-        else
-            QuestionDate.setText(getString(R.string.current_result) + " " + right_answers_count + "\n\n"
-                    + getString(R.string.best_result) + " " + cur_best +"\n\n"+ getString(R.string.cur_mark));
-        QuestionEvent.setTextColor(color);
-        QuestionEvent.setText(mark);
-    }
+    @Override
+    public void reset() {
 
-    public void restartInfo(){
         if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
             Appodeal.show(getActivity(),Appodeal.INTERSTITIAL);
-        right_answers_count = wrong_answers_count = 0;
-        RightAnswerCountView.setText(Integer.toString(right_answers_count));
+
+        wrong_answers_count=right_answers_count=0;
         WrongAnswersCountView.setText(Integer.toString(wrong_answers_count));
-        trueButton.setText(R.string.true_button);
-        falseButton.setText(R.string.false_button);
-        trueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!clicked) {
-                    checkResult(true);
-                    clicked = true;
-                }
-            }
-        });
-        falseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!clicked) {
-                    checkResult(false);
-                    clicked = true;
-                }
-            }
-        });
-        QuestionEvent.setTextColor(getResources().getColor(android.R.color.black));
-        uniqueDates.clear();
+        RightAnswerCountView.setText(Integer.toString(right_answers_count));
         progressBar.setProgress(0);
+
         setQuestions();
     }
 
+    @Override
+    public void exit() {
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
 
+    private void setResultScreen(){
 
+        String mark;
+        int color;
+
+        if(right_answers_count < 5)
+            mark = getString(R.string.mark_very_bad);
+        else if(right_answers_count < 9)
+            mark = getString(R.string.mark_bad);
+        else if(right_answers_count < 13)
+            mark = getString(R.string.mark_neutral);
+        else if(right_answers_count < 17)
+            mark = getString(R.string.mark_good);
+        else
+            mark = getString(R.string.mark_very_good);
+
+        if(right_answers_count > 9)
+            color = getResources().getColor(android.R.color.holo_green_light);
+        else
+            color = getResources().getColor(android.R.color.holo_red_light);
+
+        new ResultDialog(right_answers_count,mark,color,this).showDialog(getActivity());
+
+    }
 }
