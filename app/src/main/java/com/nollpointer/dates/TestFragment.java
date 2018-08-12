@@ -66,7 +66,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         //if(Build.VERSION.SDK_INT == 19)
         //    view = inflater.inflate(R.layout.fragment_test_low_api, container, false);
         //else
-        View view = inflater.inflate(R.layout.fragment_test_low_api, container, false);
+        View view = inflater.inflate(R.layout.fragment_test, container, false);
 
         initViews(view);
 

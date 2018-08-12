@@ -30,8 +30,6 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
         recycler = view.findViewById(R.id.recyclerView_dates);
         ctx = (MainActivity) getActivity();
         tabLayout = view.findViewById(R.id.id_tabs);
-        //viewPager = view.findViewById(R.id.viewpager_dates);
-        //tabLayout.setupWithViewPager(viewPager);
         dates = ctx.getDateList();
         tabLayout.setSelectedTabIndicatorColor(ctx.getCurrentColor());
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -61,9 +59,6 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
         });
         recycler.setLayoutManager(new LinearLayoutManager(ctx));
         Resources resources = getResources();
-        //adapter = new LocalPagerAdapter(getChildFragmentManager(),dates,titles);
-        //viewPager.setAdapter(adapter);
-        Log.wtf("121",dates.size() + "");
         adapter = new DatesCardsAdapter(dates, ctx.getMode(), resources.getStringArray(R.array.centuries), resources.getStringArray(R.array.centuries_easy));
         adapter.setListener(this);
         recycler.setAdapter(adapter);
@@ -85,13 +80,24 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
         else
             ctx.changeToolbarItemsVisibility(true, true);
         ctx.setActionBarTitle(R.string.title_dates);
-        //ctx.updateBottomNavigationView(R.id.navigetion_dates);
 
     }
 
     public void refresh() {
         this.dates = ctx.getDateList();
-        adapter.refresh(dates);
+
+        final int selectedTab = tabLayout.getSelectedTabPosition();
+        if(selectedTab == ALL)
+            adapter.refresh(dates);
+        else{
+            adapter.change_top_texts();
+            ArrayList<Date> list = new ArrayList<>();
+            for(Date date: dates){
+                if(date.getType() == selectedTab)
+                    list.add(date);
+            }
+            adapter.refresh(list,selectedTab);
+        }
     }
 
     public boolean setAdapterFontSize(int m) {
@@ -106,67 +112,4 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
     public void setTabLayoutIndicatorColor(int color){
         tabLayout.setSelectedTabIndicatorColor(color);
     }
-
-//    public class LocalPagerAdapter extends FragmentStatePagerAdapter {
-////        private List<Date> pagerData;
-////        private String[] titles;
-////        private TreeMap<Integer,StartPosition> startPositions = new TreeMap<>();
-////
-////        public LocalPagerAdapter(FragmentManager fm, List<Date> pagerData,String[] titles) {
-////            super(fm);
-////            this.pagerData = pagerData;
-////            this.titles = titles;
-////        }
-////
-////        @Override
-////        public DatesListFragment getItem(int position) {
-////            DatesListFragment fragment;
-////            if(position != ALL) {
-////                ArrayList<Date> dates_list = new ArrayList<>();
-////                for (Date date : pagerData) {
-////                    if (date.getType() == position)
-////                        dates_list.add(date);
-////                }
-////                fragment = DatesListFragment.newInstance(dates_list,position);
-////            }else
-////                fragment = DatesListFragment.newInstance(pagerData,position);
-////            if(!startPositions.containsValue(fragment))
-////                startPositions.put(position,fragment);
-////            return fragment;
-////
-////        }
-////
-////        @Override
-////        public int getItemPosition(Object object) {
-////            return POSITION_NONE;
-////        }
-////
-////        @Override
-////        public int getCount() {
-////            return titles.length;
-////        }
-////
-////        @Override
-////        public CharSequence getPageTitle(int position) {
-////            return titles[position];
-////        }
-////
-////        public void refresh(List<Date> list){
-////            pagerData = list;
-////            notifyDataSetChanged();
-////        }
-////
-////        @Override
-////        public Object instantiateItem(ViewGroup container, int position) {
-////            return super.instantiateItem(container, position);
-////        }
-////
-////        public StartPosition getStartPosition(int position) {
-////            if(startPositions.size() == 0)
-////                return null;
-////            return startPositions.get(position);
-////        }
-////    }
-
-
 }

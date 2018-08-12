@@ -107,7 +107,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
                 change_top_texts();
     }
 
-    private void change_top_texts(){
+    public void change_top_texts(){
         TreeMap<Integer,String> tree = main_top_texts;
         main_top_texts = add_top_texts;
         add_top_texts = tree;
@@ -116,17 +116,24 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     public void refresh(List<Date> dates){
         change_top_texts();
         this.dates = dates;
+        //refreshMarginDates();
         notifyDataSetChanged();
     }
 
     public void refresh(List<Date> dates, int category){
-        if(category == DatesCategoryConstants.ALL)
-            isCategoryShow = false;
-        else
-            isCategoryShow = true;
-        this.dates = dates;
-        notifyDataSetChanged();
 
+        isCategoryShow =  category != DatesCategoryConstants.ALL;
+        this.dates = dates;
+
+        refreshMarginDates();
+
+        notifyDataSetChanged();
+    }
+
+    private void refreshMarginDates(){
+        for(int position : main_top_texts.keySet()){
+            notifyItemChanged(position);
+        }
     }
 
 
@@ -169,6 +176,8 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
 
     @Override
     public int getItemViewType(int position) {
+        if(isCategoryShow)
+            return DATE;
         if(main_top_texts.containsKey(position))
             return DATE_WITH_MARGIN;
         else

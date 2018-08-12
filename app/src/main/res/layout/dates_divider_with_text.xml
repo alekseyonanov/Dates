@@ -16,12 +16,12 @@
         android:layout_height="match_parent">
 
 
-    <View
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/colorBackground" />
+        <View
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorBackground" />
 
         <TextView
             android:layout_width="wrap_content"
