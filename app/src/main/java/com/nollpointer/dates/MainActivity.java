@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity{
 
     public static final String MODE = "MODE", PRACTISE = "PRACTISE", DATES = "DATES",
             SORT = "SORT",SORT_CHECK = "SORT_CHECK", TRUE_FALSE = "TRUE_FALSE", CARDS = "CARDS";
-    public static final String GDPR = "GDPR";
+    public static final String GDPR = "GDPR", GDPR_SHOW = "GDPR_SHOW";
     public static final String SETTINGS = "SETTINGS";
 
     public static final int FULL_DATES_MODE = 0;
@@ -106,13 +106,15 @@ public class MainActivity extends AppCompatActivity{
         preferences.put(SORT_CHECK,prefs.getBoolean(SORT_CHECK,true));
         preferences.put(CARDS,prefs.getBoolean(CARDS,true));
         preferences.put(TRUE_FALSE,prefs.getBoolean(TRUE_FALSE,true));
+        preferences.put(GDPR_SHOW,prefs.getBoolean(GDPR_SHOW,true));
 
-        if(!prefs.contains(GDPR))
-            startGDPR();
-        else{
-            boolean isGDPRAgree = prefs.getBoolean(DATES,true);
+        if(prefs.contains(GDPR)){
+            boolean isGDPRAgree = prefs.getBoolean(GDPR,false);
             preferences.put(GDPR,isGDPRAgree);
             initializeAdds(isGDPRAgree);
+        }else{
+            preferences.put(GDPR,false);
+            initializeAdds(false);
         }
 
         new FlurryAgent.Builder()
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity{
         fragment.goToStartPosition();
     }
 
-    private void startGDPR(){
+    public void startGDPR(){
         Intent intent = new Intent(this,GDPRActivity.class);
         startActivityForResult(intent,1);
     }
@@ -161,8 +163,6 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         boolean result = data.getBooleanExtra(GDPR,true);
-        Log.wtf("RESULT",Boolean.toString(result));
-        initializeAdds(result);
         preferences.put(GDPR,result);
     }
 
@@ -294,6 +294,10 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().setTitle(resource);
     }
 
+    public boolean isActionBarShowing(){
+        return getSupportActionBar().isShowing();
+    }
+
     public void startFirstTimeUserTutorial(){
         MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this);
         View switch_compat = menu.findItem(R.id.mode_switch).getActionView();
@@ -415,6 +419,8 @@ public class MainActivity extends AppCompatActivity{
             editor.putInt(MODE,mode);
             if(prefs.containsKey(GDPR))
                 editor.putBoolean(GDPR,prefs.get(GDPR));
+
+            editor.putBoolean(GDPR_SHOW,prefs.get(GDPR_SHOW));
             editor.putBoolean(PRACTISE,prefs.get(PRACTISE));
             editor.putBoolean(DATES,prefs.get(DATES));
             editor.putBoolean(SORT,prefs.get(SORT));

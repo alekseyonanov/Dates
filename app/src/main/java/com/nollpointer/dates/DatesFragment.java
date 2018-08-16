@@ -5,9 +5,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,17 +57,24 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
                 goToStartPosition();
             }
         });
-        recycler.setLayoutManager(new LinearLayoutManager(ctx));
         Resources resources = getResources();
         adapter = new DatesCardsAdapter(dates, ctx.getMode(), resources.getStringArray(R.array.centuries), resources.getStringArray(R.array.centuries_easy));
         adapter.setListener(this);
+
+        LinearLayoutManager linearLayout = new LinearLayoutManager(ctx);
+
+        DividerItemDecoration dividerItemDecoration =new DividerItemDecoration(recycler.getContext(),
+                linearLayout.getOrientation());
+
+        recycler.setLayoutManager(linearLayout);
+        recycler.addItemDecoration(dividerItemDecoration);
         recycler.setAdapter(adapter);
         return view;
     }
 
     @Override
-    public void onItemClick(int position) {
-        String request = dates.get(position).getRequest();
+    public void onItemClick(Date clickedDate) {
+        String request = clickedDate.getRequest();
         MoreInfoDialog more = MoreInfoDialog.newInstance(request);
         more.show(ctx.getSupportFragmentManager(), null);
     }

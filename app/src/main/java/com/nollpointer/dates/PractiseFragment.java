@@ -23,6 +23,7 @@ import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 
 import static com.nollpointer.dates.MainActivity.EASY_DATES_MODE;
 import static com.nollpointer.dates.MainActivity.FULL_DATES_MODE;
+import static com.nollpointer.dates.MainActivity.GDPR_SHOW;
 import static com.nollpointer.dates.MainActivity.PRACTISE;
 
 
@@ -49,15 +50,18 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
         mMainActivity.changeToolbarItemsVisibility(false,false);
         mMainActivity.setActionBarTitle(R.string.title_tests);
         mMainActivity.updateBottomNavigationView(R.id.navigation_tests);
-        if(!mMainActivity.getSupportActionBar().isShowing()) {
+        if(!mMainActivity.isActionBarShowing()) {
             mMainActivity.show_bottom_navigation_view();
             mMainActivity.showActionBar();
             mMainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+        if(mMainActivity.isFirstTime(GDPR_SHOW))
+            mMainActivity.startGDPR();
+
         if(mMainActivity.isFirstTime(PRACTISE))
             new MaterialShowcaseView.Builder(mMainActivity)
                     .setTarget(recycler)
-                    .setDelay(200)
+                    .setDelay(300)
                     .setContentText(R.string.tutorial_practise)
                     .setDismissText(R.string.got_it)
                     .setDismissOnTouch(true)

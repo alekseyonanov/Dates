@@ -1,10 +1,8 @@
 package com.nollpointer.dates;
 
 
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -65,9 +63,6 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //if(Build.VERSION.SDK_INT == 19)
-        //    mainView = inflater.inflate(R.layout.fragment_sort_low_api, container, false);
-        //else
 
         mainView = inflater.inflate(R.layout.fragment_sort, container, false);
         MainActivity ctx = (MainActivity) getActivity();

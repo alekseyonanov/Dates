@@ -62,15 +62,25 @@ public class GDPRActivity extends AppCompatActivity {
     }
 
     private void showResultView(boolean result){
+        sendResult(result);
+        startActivity(GDPRResultActivity.getIntent(this,result));
+        finish();
+    }
+
+    private void sendResult(boolean result){
         Intent intent = new Intent();
         intent.putExtra(MainActivity.GDPR,result);
         setResult(1,intent);
-        startActivity(GDPRResultActivity.getIntent(this,result));
-        finish();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        sendResult(false);
+        super.onBackPressed();
     }
 }

@@ -28,8 +28,9 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     private Listener listener;
     private boolean isCategoryShow = false;
 
+
     public interface Listener{
-        void onItemClick(int position);
+        void onItemClick(Date clickedDate);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -91,7 +92,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClick(position);
+                listener.onItemClick(dates.get(position));
             }
         });
     }
