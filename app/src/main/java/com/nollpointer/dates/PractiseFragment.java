@@ -17,6 +17,7 @@ import com.appodeal.ads.Appodeal;
 import com.flurry.android.FlurryAgent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.shape.NoShape;
@@ -164,6 +165,7 @@ public class PractiseFragment extends Fragment implements TestMenuCardsAdapter.L
         if((mode == FULL_DATES_MODE && arrayList.contains(10)) || (mode == EASY_DATES_MODE && arrayList.contains(2))) // Если выбраны все даты
             return dates;
         Pair<Integer,Integer> pair;
+        Collections.sort(arrayList);
         for(Integer number: arrayList){
             pair = getDatesRange(number,mode);
             practiseList.addAll(dates.subList(pair.first,pair.second));
