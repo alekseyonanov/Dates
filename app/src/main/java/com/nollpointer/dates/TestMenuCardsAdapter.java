@@ -32,6 +32,7 @@ public class TestMenuCardsAdapter extends RecyclerView.Adapter<TestMenuCardsAdap
         }
 
     }
+
     public TestMenuCardsAdapter(String[] title,String[] subtitle,int[] i){
         title_texts = title;
         subtitle_texts = subtitle;
