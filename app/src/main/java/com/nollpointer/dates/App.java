@@ -2,6 +2,8 @@ package com.nollpointer.dates;
 
 import android.support.multidex.MultiDexApplication;
 
+import com.nollpointer.dates.api.WikipediaApi;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

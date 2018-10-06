@@ -31,11 +31,16 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import com.appodeal.ads.Appodeal;
+import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
+import com.nollpointer.dates.dialogs.MessageDeveloperDialog;
+import com.nollpointer.dates.fragments.DatesFragment;
+import com.nollpointer.dates.fragments.PractiseFragment;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import io.fabric.sdk.android.Fabric;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.shape.NoShape;
@@ -69,12 +74,10 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
-        Log.wtf("START",System.currentTimeMillis() + "");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        linearLayout = findViewById(R.id.container_main);
-        toolbar = findViewById(R.id.toolbar_actionbar);
-        setSupportActionBar(toolbar);
+
+
         SharedPreferences prefs = getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
         final Handler handler = new Handler();
         mode = prefs.getInt(MODE,FULL_DATES_MODE);
@@ -122,7 +125,18 @@ public class MainActivity extends AppCompatActivity{
                 .withCaptureUncaughtExceptions(true)
                 .build(this, "52ZN7BKTNFZ8M26Q2VPN");
 
+        Fabric.with(this, new Crashlytics());
+
+        initViews();
+    }
+
+    private void initViews(){
+        linearLayout = findViewById(R.id.container_main);
+        toolbar = findViewById(R.id.toolbar_actionbar);
         BottomView = findViewById(R.id.navigation);
+
+        setSupportActionBar(toolbar);
+
         BottomView.inflateMenu(R.menu.navigation);
         BottomView.setSelectedItemId(R.id.navigetion_dates);
         BottomView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -153,6 +167,13 @@ public class MainActivity extends AppCompatActivity{
     private void goToStartPosition(){
         StartPosition fragment=(StartPosition) getSupportFragmentManager().findFragmentById(R.id.frameLayout);
         fragment.goToStartPosition();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isFirstTime(GDPR_SHOW))
+            startGDPR();
     }
 
     public void startGDPR(){
@@ -362,11 +383,13 @@ public class MainActivity extends AppCompatActivity{
 
 
     public void hide_bottom_navigation_view(){
-        linearLayout.removeView(BottomView);
+        BottomView.setVisibility(View.GONE);
+        //linearLayout.removeView(BottomView);
     }
 
     public void show_bottom_navigation_view() {
-        linearLayout.addView(BottomView);
+        BottomView.setVisibility(View.VISIBLE);
+        //linearLayout.addView(BottomView);
     }
 
     public void showActionBar(){
