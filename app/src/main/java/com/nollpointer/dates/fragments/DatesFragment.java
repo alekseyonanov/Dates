@@ -5,10 +5,13 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,12 +34,15 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
     private RecyclerView recycler;
     private List<Date> dates;
 
+    private Toolbar toolbar;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dates, container, false);
-        recycler = view.findViewById(R.id.recyclerView_dates);
+        recycler = view.findViewById(R.id.dates_recycler_view);
         ctx = (MainActivity) getActivity();
         tabLayout = view.findViewById(R.id.id_tabs);
+        toolbar = view.findViewById(R.id.dates_toolbar);
         dates = ctx.getDateList();
         tabLayout.setSelectedTabIndicatorColor(ctx.getCurrentColor());
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -64,6 +70,9 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
                 goToStartPosition();
             }
         });
+
+        initializeMenu();
+
         Resources resources = getResources();
         adapter = new DatesCardsAdapter(dates, ctx.getMode(), resources.getStringArray(R.array.centuries), resources.getStringArray(R.array.centuries_easy));
         adapter.setListener(this);
@@ -76,7 +85,79 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
         recycler.setLayoutManager(linearLayout);
         recycler.addItemDecoration(dividerItemDecoration);
         recycler.setAdapter(adapter);
+
         return view;
+    }
+
+    private void initializeMenu(){
+        toolbar.inflateMenu(R.menu.dates_menu);
+
+        toolbar.getMenu().findItem(R.id.dates_app_bar_search).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                ((AppCompatActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new SearchFragment()).addToBackStack(null).commit();
+                return true;
+            }
+        });
+
+//        Menu menu = toolbar.getMenu();
+//        final MenuItem switchItem = menu.findItem(R.id.dates_app_bar_switch);
+//        final SearchView searchView = ((SearchView) menu.findItem(R.id.dates_app_bar_search).getActionView());
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
+//
+//        menu.findItem(R.id.dates_app_bar_search).setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+//            @Override
+//            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+//
+//                switchItem.setVisible(false);
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+//                switchItem.setVisible(true);
+//                return true;
+//            }
+//        });
+//        searchView.setOnSearchClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            }
+//        });
+
+//        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+//            @Override
+//            public boolean onClose() {
+//                switchItem.setVisible(true);
+//                return false;
+//            }
+//        });
+
+//        EditText editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+//        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+//                return false;
+//            }
+//        });
+//
+//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//
+//                return true;
+//            }
+//        });
     }
 
     @Override
@@ -89,11 +170,11 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
     @Override
     public void onResume() {
         super.onResume();
-        if(adapter.getFontSize() == DatesCardsAdapter.DEFAULT_TEXT_SIZE)
-            ctx.changeToolbarItemsVisibility(true, false);
-        else
-            ctx.changeToolbarItemsVisibility(true, true);
-        ctx.setActionBarTitle(R.string.title_dates);
+//        if(adapter.getFontSize() == DatesCardsAdapter.DEFAULT_TEXT_SIZE)
+//            ctx.changeToolbarItemsVisibility(true, false);
+//        else
+//            ctx.changeToolbarItemsVisibility(true, true);
+//        ctx.setActionBarTitle(R.string.title_dates);
 
     }
 
@@ -120,7 +201,7 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
 
     @Override
     public void goToStartPosition(){
-        recycler.scrollToPosition(0);
+        recycler.smoothScrollToPosition(0);
     }
 
     public void setTabLayoutIndicatorColor(int color){

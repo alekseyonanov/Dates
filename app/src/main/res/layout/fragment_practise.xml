@@ -1,10 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/practise_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="@color/colorPrimary"
+        app:theme="@style/ToolBarStyle"
+        app:title="@string/title_tests"
+        app:titleTextColor="@android:color/white" />
 
-<android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/practise_toolbar"
+        android:id="@+id/practise_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerView_practise"
-        android:background="@android:color/white"
         android:layout_gravity="top"
+        android:background="@android:color/white"
         android:scrollbars="vertical" />
+
+
+</RelativeLayout>

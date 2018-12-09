@@ -62,6 +62,11 @@
 
     <string name="date_check_text">This was</string>
 
+    <string-array name="search_titles">
+        <item>Full Mode</item>
+        <item>Easy Mode</item>
+    </string-array>
+
     <string-array name="tests">
         <item>Cards</item>
         <item>DIVIDER</item>
@@ -127,5 +132,8 @@
     <string name="gdpr_close">Close window</string>
 
     <string name="gdpr_learn_more">Learn more.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

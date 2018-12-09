@@ -63,6 +63,9 @@ public class Date implements Parcelable{
         return date.contains("-") || date.contains("–");
     }
 
+    public boolean contains(String query){
+        return date.contains(query) || event.contains(query);
+    }
 
 
     //Parcelable implementation

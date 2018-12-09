@@ -65,6 +65,11 @@
 
     <string name="date_check_text">Это была</string>
 
+    <string-array name="search_titles">
+        <item>Расширенный режим</item>
+        <item>Необходимый минимум</item>
+    </string-array>
+
     <string-array name="tests">
         <item>Карточки</item>
         <item>DIVIDER</item>

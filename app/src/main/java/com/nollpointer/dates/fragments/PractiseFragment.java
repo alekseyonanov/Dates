@@ -42,26 +42,20 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        recycler = (RecyclerView) inflater.inflate(R.layout.fragment_practise, container, false);
+        View mainView = inflater.inflate(R.layout.fragment_practise, container, false);
+        recycler = (RecyclerView) mainView.findViewById(R.id.practise_recycler_view);
         PractiseCardsAdapter adapter = new PractiseCardsAdapter(getResources().getStringArray(R.array.tests),
                 getResources().getStringArray(R.array.tests_description),new int[]{R.mipmap.ic_dates_cards_round,-1,R.mipmap.ic_tests_round,R.mipmap.ic_tests_real_round,-1,R.mipmap.ic_true_false_inf_round,R.mipmap.ic_true_false_real_round,-1,R.mipmap.ic_sort_infinite_round,R.mipmap.ic_sort_real_round});
         adapter.setListener(this);
         mMainActivity = (MainActivity)getActivity();
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(mMainActivity));
-        return recycler;
+        return mainView;
     }
 
     public void onResume() {
         super.onResume();
-        mMainActivity.changeToolbarItemsVisibility(false,false);
-        mMainActivity.setActionBarTitle(R.string.title_tests);
         mMainActivity.updateBottomNavigationView(R.id.navigation_tests);
-        if(!mMainActivity.isActionBarShowing()) {
-            mMainActivity.show_bottom_navigation_view();
-            mMainActivity.showActionBar();
-            mMainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
 
         if(mMainActivity.isFirstTime(PRACTISE))
             new MaterialShowcaseView.Builder(mMainActivity)
@@ -104,7 +98,6 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
     public void startPractise(ArrayList<Integer> arrayList){
         MainActivity mAc = mMainActivity;
         mAc.hide_bottom_navigation_view();
-        mAc.hideActionBar();
         Fragment fragment;
         String event;
         ArrayList<Date> dates = getListForPractise(arrayList);

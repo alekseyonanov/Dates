@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
 
     private BottomNavigationView BottomView;
     private LinearLayout linearLayout;
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
 
     public static final String MODE = "MODE", PRACTISE = "PRACTISE", DATES = "DATES",
             SORT = "SORT",SORT_CHECK = "SORT_CHECK", TRUE_FALSE = "TRUE_FALSE", CARDS = "CARDS";
@@ -132,10 +132,10 @@ public class MainActivity extends AppCompatActivity{
 
     private void initViews(){
         linearLayout = findViewById(R.id.container_main);
-        toolbar = findViewById(R.id.toolbar_actionbar);
+        //toolbar = findViewById(R.id.toolbar_actionbar);
         BottomView = findViewById(R.id.navigation);
 
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         BottomView.inflateMenu(R.menu.navigation);
         BottomView.setSelectedItemId(R.id.navigetion_dates);
@@ -156,12 +156,12 @@ public class MainActivity extends AppCompatActivity{
                 return true;
             }
         });
-        toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToStartPosition();
-            }
-        });
+//        toolbar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                goToStartPosition();
+//            }
+//        });
     }
 
     private void goToStartPosition(){
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity{
                         string_resource_id = R.string.full_mode;
                     }
                     //refreshLook();
-                    animate(toolbar);
+                    //animate(toolbar);
                     if(frg != null && frg instanceof DatesFragment) {
                         DatesFragment datesFragment = (DatesFragment) frg;
                         datesFragment.setTabLayoutIndicatorColor(getCurrentColor());
