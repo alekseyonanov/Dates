@@ -21,12 +21,12 @@ public class InsideBoundsFragment extends Fragment {
     private ArrayList<Date> dates;
 
 
-    public static InsideBoundsFragment newInstance(ArrayList<Date> dates, int type, boolean testMode){
+    public static InsideBoundsFragment newInstance(ArrayList<Date> dates, int type, boolean testMode) {
         InsideBoundsFragment fragment = new InsideBoundsFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(TEST_MODE,testMode);
+        bundle.putBoolean(TEST_MODE, testMode);
         bundle.putInt(TYPE, type);
-        bundle.putParcelableArrayList(DATES,dates);
+        bundle.putParcelableArrayList(DATES, dates);
         fragment.setArguments(bundle);
         return fragment;
     }

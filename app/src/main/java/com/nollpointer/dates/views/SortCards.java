@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SortCards implements SortCardsControl{
+public class SortCards implements SortCardsControl {
 
     private static final int MAX_COUNT = 3;
 
@@ -23,21 +23,21 @@ public class SortCards implements SortCardsControl{
     private int GREEN = Color.GREEN;
     private int RED = Color.RED;
 
-    private View.OnClickListener listener = new View.OnClickListener(){
+    private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-                int pos = getPosition(view.getId());
-                onCardClick(pos);
+            int pos = getPosition(view.getId());
+            onCardClick(pos);
         }
     };
 
     @Override
-    public void setColors(int green,int red){
+    public void setColors(int green, int red) {
         GREEN = green;
         RED = red;
     }
 
-    public static SortCardsControl newInstance(View mainView){
+    public static SortCardsControl newInstance(View mainView) {
         SortCards sorts = new SortCards();
         sorts.cards = new ArrayList<>(MAX_COUNT);
 
@@ -52,8 +52,8 @@ public class SortCards implements SortCardsControl{
         return sorts;
     }
 
-    private void initialize(){
-        for(int i=0;i<MAX_COUNT;i++) {
+    private void initialize() {
+        for (int i = 0; i < MAX_COUNT; i++) {
             SortCardView card = cards.get(i);
             card.setOnClickListener(listener);
             card.setNumber(i + 1);
@@ -61,36 +61,36 @@ public class SortCards implements SortCardsControl{
         }
     }
 
-    private void onCardClick(int position){
+    private void onCardClick(int position) {
         int sequenceNumber = currentSequence[position];
         sequenceNumber %= MAX_COUNT;
         sequenceNumber++;
         currentSequence[position] = sequenceNumber;
         cards.get(position).setNumber(sequenceNumber);
-        if(isCheckMode)
+        if (isCheckMode)
             singleCardCheck(position);
     }
 
 
     @Override
     public void setQuestions(List<String> list) {
-        for(int i=0;i<MAX_COUNT;i++){
+        for (int i = 0; i < MAX_COUNT; i++) {
             SortCardView card = cards.get(i);
             card.setBackgroundColor(Color.WHITE);
             card.setEvent(list.get(i));
-            card.setNumber(i+1);
-            currentSequence[i] = i+1;
+            card.setNumber(i + 1);
+            currentSequence[i] = i + 1;
         }
     }
 
     @Override
-    public void setAnswerSequence(int[] sequence){
-        System.arraycopy(sequence,0,answerSequence,0,MAX_COUNT);
+    public void setAnswerSequence(int[] sequence) {
+        System.arraycopy(sequence, 0, answerSequence, 0, MAX_COUNT);
     }
 
-    private int getPosition(int id){
+    private int getPosition(int id) {
         int position = -1;
-        switch (id){
+        switch (id) {
             case R.id.cardView0:
                 position = 0;
                 break;
@@ -111,13 +111,13 @@ public class SortCards implements SortCardsControl{
 
     @Override
     public boolean check() {
-        boolean isCorrect = Arrays.equals(answerSequence,currentSequence);
-        if(isCorrect){
-            for(SortCardView card: cards)
+        boolean isCorrect = Arrays.equals(answerSequence, currentSequence);
+        if (isCorrect) {
+            for (SortCardView card : cards)
                 card.setBackgroundColor(Color.GREEN);
-        }else{
-            for(int i=0;i<MAX_COUNT;i++){
-                if(currentSequence[i] == answerSequence[i])
+        } else {
+            for (int i = 0; i < MAX_COUNT; i++) {
+                if (currentSequence[i] == answerSequence[i])
                     cards.get(i).setBackgroundColor(GREEN);
                 else
                     cards.get(i).setBackgroundColor(RED);
@@ -126,8 +126,8 @@ public class SortCards implements SortCardsControl{
         return isCorrect;
     }
 
-    private void singleCardCheck(int position){
-        if(answerSequence[position] == currentSequence[position])
+    private void singleCardCheck(int position) {
+        if (answerSequence[position] == currentSequence[position])
             cards.get(position).setBackgroundColor(GREEN);
         else
             cards.get(position).setBackgroundColor(RED);

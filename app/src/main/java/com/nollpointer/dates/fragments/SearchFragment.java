@@ -53,10 +53,10 @@ public class SearchFragment extends Fragment {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() == R.id.search_clear) {
-                    editText.setText("",TextView.BufferType.EDITABLE);
+                if (item.getItemId() == R.id.search_clear) {
+                    editText.setText("", TextView.BufferType.EDITABLE);
                     return true;
-                }else
+                } else
                     return false;
             }
         });
@@ -83,19 +83,18 @@ public class SearchFragment extends Fragment {
         ArrayList<FrameLayout> list = new ArrayList<>();
         list.add(new FrameLayout(getContext()));
         list.add(new FrameLayout(getContext()));
-        viewPager.setAdapter(new SearchPagerAdapter(list,getResources().getStringArray(R.array.search_titles)));
+        viewPager.setAdapter(new SearchPagerAdapter(list, getResources().getStringArray(R.array.search_titles)));
 
         return mainView;
     }
 
 
-
-    class SearchPagerAdapter extends PagerAdapter{
+    class SearchPagerAdapter extends PagerAdapter {
 
         List<FrameLayout> list;
         String[] titles;
 
-        public SearchPagerAdapter(List<FrameLayout> list,String[] titles) {
+        public SearchPagerAdapter(List<FrameLayout> list, String[] titles) {
             this.list = list;
             this.titles = titles;
         }

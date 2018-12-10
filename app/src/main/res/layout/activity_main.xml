@@ -3,34 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_main"
-    android:orientation="vertical"
-    android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context="com.nollpointer.dates.MainActivity">
 
     <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar_actionbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--app:theme="@style/ToolBarStyle"-->
-        <!--android:layout_height="?android:actionBarSize"-->
-        <!--android:background="@color/colorPrimary"/>-->
+    <!--android:id="@+id/toolbar_actionbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--app:theme="@style/ToolBarStyle"-->
+    <!--android:layout_height="?android:actionBarSize"-->
+    <!--android:background="@color/colorPrimary"/>-->
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/frameLayout" />
+        android:layout_weight="1" />
 
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
         app:elevation="4dp"
         app:itemIconTint="@drawable/navigation_icon_tint"
         app:itemTextColor="@drawable/navigation_icon_tint"
-        android:layout_gravity="bottom"
-        android:background="@android:color/white" />
+        />
 
 </LinearLayout>

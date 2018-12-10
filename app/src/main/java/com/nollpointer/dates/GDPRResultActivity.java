@@ -27,11 +27,12 @@ public class GDPRResultActivity extends AppCompatActivity {
 
         return intent;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gdpr_result);
-        boolean isGdprAgree = getIntent().getBooleanExtra(RESULT_GDPR,false);
+        boolean isGdprAgree = getIntent().getBooleanExtra(RESULT_GDPR, false);
         initViews();
         prepareResult(isGdprAgree);
     }
@@ -42,7 +43,7 @@ public class GDPRResultActivity extends AppCompatActivity {
         close_text = findViewById(R.id.close_text);
     }
 
-    private void prepareResult(boolean isGdprAgree){
+    private void prepareResult(boolean isGdprAgree) {
         info_text.setMovementMethod(LinkMovementMethod.getInstance());
 
         if (isGdprAgree) {

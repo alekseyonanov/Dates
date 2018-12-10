@@ -1,101 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:id="@+id/dialog_framelayout"
-    android:padding="8dp"
-    android:layout_height="match_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
     <ProgressBar
+        android:id="@+id/dialog_progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:theme="@style/AppTheme"
-        android:id="@+id/dialog_progressbar"/>
+        android:theme="@style/AppTheme" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
         android:id="@+id/dialog_no_internet"
-        android:visibility="invisible"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <ImageButton
+            android:id="@+id/dialog_close_button_no"
+            style="?android:borderlessButtonStyle"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="end|top"
             android:layout_margin="5dp"
-            android:id="@+id/dialog_close_button_no"
             android:background="?selectableItemBackgroundBorderless"
-            style="?android:borderlessButtonStyle"
-            app:srcCompat="@drawable/ic_clear_black_24dp"/>
+            app:srcCompat="@drawable/ic_clear_black_24dp" />
 
         <TextView
+            android:id="@+id/dialog_info_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="@string/no_internet_connection"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/dialog_info_no"
-            />
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/black" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            />
+            android:background="@android:color/darker_gray" />
 
         <Button
+            android:id="@+id/dialog_try_again"
+            style="?android:borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            style="?android:borderlessButtonStyle"
             android:text="@string/try_again"
-            android:id="@+id/dialog_try_again"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
         android:id="@+id/dialog_content"
-        android:visibility="invisible"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <ImageButton
+            android:id="@+id/dialog_close_button"
+            style="?android:borderlessButtonStyle"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="end|top"
             android:layout_margin="5dp"
-            android:id="@+id/dialog_close_button"
             android:background="?selectableItemBackgroundBorderless"
-            style="?android:borderlessButtonStyle"
-            app:srcCompat="@drawable/ic_clear_black_24dp"/>
+            app:srcCompat="@drawable/ic_clear_black_24dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/dialog_info"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            />
+            android:background="@android:color/darker_gray" />
 
         <Button
+            android:id="@+id/dialog_go_to_source_button"
+            style="?android:borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            style="?android:borderlessButtonStyle"
-            android:id="@+id/dialog_go_to_source_button"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 

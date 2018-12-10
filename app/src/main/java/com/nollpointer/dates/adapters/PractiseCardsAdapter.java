@@ -18,7 +18,7 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
     private Listener mListener;
     private static final int DIVIDER = 0, CONTENT = 1;
 
-    public interface Listener{
+    public interface Listener {
         void onClick(int position);
     }
 
@@ -26,16 +26,17 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
         mListener = listener;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView mCardView;
-        ViewHolder(CardView c){
+
+        ViewHolder(CardView c) {
             super(c);
             mCardView = c;
         }
 
     }
 
-    public PractiseCardsAdapter(String[] title, String[] subtitle, int[] i){
+    public PractiseCardsAdapter(String[] title, String[] subtitle, int[] i) {
         title_texts = title;
         subtitle_texts = subtitle;
         imageIds = i;
@@ -44,16 +45,16 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
     @Override
     public PractiseCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView c;
-        if(viewType == CONTENT)
-            c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.test_menu_cards,parent,false);
+        if (viewType == CONTENT)
+            c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.practise_card, parent, false);
         else
-            c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.divider_layout,parent,false);
+            c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.divider_layout, parent, false);
         return new ViewHolder(c);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        if(getItemViewType(position) == CONTENT) {
+        if (getItemViewType(position) == CONTENT) {
             CardView cardView = holder.mCardView;
             TextView textView = cardView.findViewById(R.id.info_text_title);
             textView.setText(title_texts[position]);
@@ -79,7 +80,7 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
 
     @Override
     public int getItemViewType(int position) {
-        if(title_texts[position].equals("DIVIDER"))
+        if (title_texts[position].equals("DIVIDER"))
             return DIVIDER;
         else return CONTENT;
     }

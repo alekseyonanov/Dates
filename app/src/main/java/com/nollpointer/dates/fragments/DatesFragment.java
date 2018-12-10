@@ -49,15 +49,15 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
-                if(tab.getPosition() != ALL){
+                if (tab.getPosition() != ALL) {
                     ArrayList<Date> list = new ArrayList<>();
-                    for(Date date: dates){
-                        if(date.getType() == position)
+                    for (Date date : dates) {
+                        if (date.getType() == position)
                             list.add(date);
                     }
-                    adapter.refresh(list,position);
-                }else
-                    adapter.refresh(dates,ALL);
+                    adapter.refresh(list, position);
+                } else
+                    adapter.refresh(dates, ALL);
             }
 
             @Override
@@ -79,7 +79,7 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
 
         LinearLayoutManager linearLayout = new LinearLayoutManager(ctx);
 
-        DividerItemDecoration dividerItemDecoration =new DividerItemDecoration(recycler.getContext(),
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recycler.getContext(),
                 linearLayout.getOrientation());
 
         recycler.setLayoutManager(linearLayout);
@@ -89,13 +89,13 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
         return view;
     }
 
-    private void initializeMenu(){
+    private void initializeMenu() {
         toolbar.inflateMenu(R.menu.dates_menu);
 
         toolbar.getMenu().findItem(R.id.dates_app_bar_search).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                ((AppCompatActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new SearchFragment()).addToBackStack(null).commit();
+                ((AppCompatActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new SearchFragment()).addToBackStack(null).commit();
                 return true;
             }
         });
@@ -167,44 +167,29 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
         more.show(ctx.getSupportFragmentManager(), null);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        if(adapter.getFontSize() == DatesCardsAdapter.DEFAULT_TEXT_SIZE)
-//            ctx.changeToolbarItemsVisibility(true, false);
-//        else
-//            ctx.changeToolbarItemsVisibility(true, true);
-//        ctx.setActionBarTitle(R.string.title_dates);
-
-    }
-
     public void refresh() {
         this.dates = ctx.getDateList();
 
         final int selectedTab = tabLayout.getSelectedTabPosition();
-        if(selectedTab == ALL)
+        if (selectedTab == ALL)
             adapter.refresh(dates);
-        else{
+        else {
             adapter.change_top_texts();
             ArrayList<Date> list = new ArrayList<>();
-            for(Date date: dates){
-                if(date.getType() == selectedTab)
+            for (Date date : dates) {
+                if (date.getType() == selectedTab)
                     list.add(date);
             }
-            adapter.refresh(list,selectedTab);
+            adapter.refresh(list, selectedTab);
         }
     }
 
-    public boolean setAdapterFontSize(int m) {
-        return adapter.changeFontSize(m);
-    }
-
     @Override
-    public void goToStartPosition(){
+    public void goToStartPosition() {
         recycler.smoothScrollToPosition(0);
     }
 
-    public void setTabLayoutIndicatorColor(int color){
+    public void setTabLayoutIndicatorColor(int color) {
         tabLayout.setSelectedTabIndicatorColor(color);
     }
 }

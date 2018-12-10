@@ -21,11 +21,11 @@ public class TypePickDialog extends DialogFragment {
         mPosition = position;
     }
 
-    public void setListener(Listener listener){
+    public void setListener(Listener listener) {
         this.listener = listener;
     }
 
-    public static interface Listener{
+    public static interface Listener {
         void typePicked(int type);
     }
 
@@ -39,7 +39,7 @@ public class TypePickDialog extends DialogFragment {
                 setPosition(i);
             }
         }).setTitle(R.string.type_pick_title)
-        .setNegativeButton(R.string.cancel_button, null).setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel_button, null).setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 listener.typePicked(getPosition());

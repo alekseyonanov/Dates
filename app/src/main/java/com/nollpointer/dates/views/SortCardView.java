@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.nollpointer.dates.R;
 
-public class SortCardView{
+public class SortCardView {
     CardView card;
 
     TextView number;
@@ -18,19 +18,19 @@ public class SortCardView{
         event = card.findViewById(R.id.textview_cardview);
     }
 
-    public void setBackgroundColor(int color){
+    public void setBackgroundColor(int color) {
         card.setCardBackgroundColor(color);
     }
 
-    public void setOnClickListener(View.OnClickListener listener){
+    public void setOnClickListener(View.OnClickListener listener) {
         card.setOnClickListener(listener);
     }
 
-    public void setEvent(String text){
+    public void setEvent(String text) {
         event.setText(text);
     }
 
-    public void setNumber(int number){
+    public void setNumber(int number) {
         this.number.setText(Integer.toString(number));
     }
 

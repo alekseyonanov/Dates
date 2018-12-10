@@ -30,12 +30,12 @@ import static com.nollpointer.dates.constants.PractiseConstants.TEST_MODE;
 
 public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDialogCallbackListener {
 
-    private TextView QuestionDate,QuestionEvent;
-    private TextView RightAnswerCountView,WrongAnswersCountView;
-    private Button trueButton,falseButton;
+    private TextView QuestionDate, QuestionEvent;
+    private TextView RightAnswerCountView, WrongAnswersCountView;
+    private Button trueButton, falseButton;
     private ProgressBar progressBar;
 
-    private int right_answers_count=0,wrong_answers_count=0;
+    private int right_answers_count = 0, wrong_answers_count = 0;
 
     private Handler mHandler;
     private Runnable RefreshRunnable;
@@ -51,13 +51,13 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
     private boolean clicked = false;
     private boolean testMode;
 
-    private int greenColor,redColor,blackColor;
+    private int greenColor, redColor, blackColor;
 
-    public static TrueFalseFragment newInstance(ArrayList<Date> dates, boolean testMode){
+    public static TrueFalseFragment newInstance(ArrayList<Date> dates, boolean testMode) {
         TrueFalseFragment fragment = new TrueFalseFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(TEST_MODE,testMode);
-        bundle.putParcelableArrayList(DATES,dates);
+        bundle.putBoolean(TEST_MODE, testMode);
+        bundle.putParcelableArrayList(DATES, dates);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -68,7 +68,7 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
         //if(Build.VERSION.SDK_INT == 19)
         //    mainView =inflater.inflate(R.layout.fragment_true_false_low_api, container, false);
         //else
-        View mainView =inflater.inflate(R.layout.fragment_true_false, container, false);
+        View mainView = inflater.inflate(R.layout.fragment_true_false, container, false);
         initViews(mainView);
         WrongAnswersCountView.setText("0");
         RightAnswerCountView.setText("0");
@@ -76,7 +76,7 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
         Bundle saved = getArguments();
         dates = saved.getParcelableArrayList(DATES);
         testMode = saved.getBoolean(TEST_MODE);
-        if(testMode) {
+        if (testMode) {
             uniqueDates = new ArrayList<>(20);
             progressBar.setVisibility(View.VISIBLE);
         }
@@ -87,7 +87,7 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
                 clicked = false;
                 QuestionDate.setTextColor(blackColor);
                 QuestionEvent.setTextColor(blackColor);
-                if(testMode && wrong_answers_count+right_answers_count==20)
+                if (testMode && wrong_answers_count + right_answers_count == 20)
                     setResultScreen();
                 else
                     setQuestions();
@@ -102,7 +102,7 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
         setQuestions();
 
         MainActivity activity = (MainActivity) getActivity();
-        if(activity.isFirstTime(MainActivity.TRUE_FALSE))
+        if (activity.isFirstTime(MainActivity.TRUE_FALSE))
             new MaterialShowcaseView.Builder(activity)
                     .setTarget(mainView)
                     .setDelay(200)
@@ -116,7 +116,7 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
         return mainView;
     }
 
-    private void initViews(View mainView){
+    private void initViews(View mainView) {
         progressBar = mainView.findViewById(R.id.true_false_progressbar);
         Appodeal.setBannerViewId(R.id.appodealBannerView_true);
         QuestionDate = mainView.findViewById(R.id.test_info_true_false_date);
@@ -138,33 +138,33 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
         falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!clicked) {
+                if (!clicked) {
                     checkResult(false);
                     clicked = true;
                 }
             }
         });
 
-        WrongAnswersCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.thumb_down_selector,0);
-        RightAnswerCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector,0,0,0);
+        WrongAnswersCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.thumb_down_selector, 0);
+        RightAnswerCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector, 0, 0, 0);
     }
 
-    private void checkResult(boolean opinion){
-        if(isCorrect == opinion){
+    private void checkResult(boolean opinion) {
+        if (isCorrect == opinion) {
             right_answers_count++;
             RightAnswerCountView.setText(Integer.toString(right_answers_count));
             QuestionDate.setTextColor(greenColor);
             QuestionEvent.setTextColor(greenColor);
-        }else{
+        } else {
             wrong_answers_count++;
             WrongAnswersCountView.setText(Integer.toString(wrong_answers_count));
             QuestionDate.setTextColor(redColor);
             QuestionEvent.setTextColor(redColor);
         }
-        if(testMode)
+        if (testMode)
             progressBar.incrementProgressBy(1);
         setTestInfo();
-        mHandler.postDelayed(RefreshRunnable,850);
+        mHandler.postDelayed(RefreshRunnable, 850);
 
     }
 
@@ -175,13 +175,13 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
         Date randomDate;
         int size = dates.size();
         r = random.nextInt(size);
-        if(testMode) {
-            while(uniqueDates.contains(r))
+        if (testMode) {
+            while (uniqueDates.contains(r))
                 r = random.nextInt(size);
             uniqueDates.add(r);
         }
-            randomDate = dates.get(r);
-            date = randomDate.getDate();
+        randomDate = dates.get(r);
+        date = randomDate.getDate();
         if (isCorrect)
             event = randomDate.getEvent();
         else {
@@ -195,7 +195,7 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
         }
     }
 
-    private void setQuestions(){
+    private void setQuestions() {
         QuestionDate.setText(date);
         QuestionEvent.setText(event);
     }
@@ -221,10 +221,10 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
     @Override
     public void reset() {
 
-        if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
-            Appodeal.show(getActivity(),Appodeal.INTERSTITIAL);
+        if (Appodeal.isLoaded(Appodeal.INTERSTITIAL))
+            Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
 
-        wrong_answers_count=right_answers_count=0;
+        wrong_answers_count = right_answers_count = 0;
         WrongAnswersCountView.setText(Integer.toString(wrong_answers_count));
         RightAnswerCountView.setText(Integer.toString(right_answers_count));
         progressBar.setProgress(0);
@@ -237,28 +237,28 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
-    private void setResultScreen(){
+    private void setResultScreen() {
 
         String mark;
         int color;
 
-        if(right_answers_count < 5)
+        if (right_answers_count < 5)
             mark = getString(R.string.mark_very_bad);
-        else if(right_answers_count < 9)
+        else if (right_answers_count < 9)
             mark = getString(R.string.mark_bad);
-        else if(right_answers_count < 13)
+        else if (right_answers_count < 13)
             mark = getString(R.string.mark_neutral);
-        else if(right_answers_count < 17)
+        else if (right_answers_count < 17)
             mark = getString(R.string.mark_good);
         else
             mark = getString(R.string.mark_very_good);
 
-        if(right_answers_count > 9)
+        if (right_answers_count > 9)
             color = getResources().getColor(android.R.color.holo_green_light);
         else
             color = getResources().getColor(android.R.color.holo_red_light);
 
-        new ResultDialog(right_answers_count,mark,color,this).showDialog(getActivity());
+        new ResultDialog(right_answers_count, mark, color, this).showDialog(getActivity());
 
     }
 }

@@ -2,7 +2,6 @@ package com.nollpointer.dates.fragments;
 
 
 import android.app.FragmentTransaction;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,9 +44,9 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
         View mainView = inflater.inflate(R.layout.fragment_practise, container, false);
         recycler = (RecyclerView) mainView.findViewById(R.id.practise_recycler_view);
         PractiseCardsAdapter adapter = new PractiseCardsAdapter(getResources().getStringArray(R.array.tests),
-                getResources().getStringArray(R.array.tests_description),new int[]{R.mipmap.ic_dates_cards_round,-1,R.mipmap.ic_tests_round,R.mipmap.ic_tests_real_round,-1,R.mipmap.ic_true_false_inf_round,R.mipmap.ic_true_false_real_round,-1,R.mipmap.ic_sort_infinite_round,R.mipmap.ic_sort_real_round});
+                getResources().getStringArray(R.array.tests_description), new int[]{R.mipmap.ic_dates_cards_round, -1, R.mipmap.ic_tests_round, R.mipmap.ic_tests_real_round, -1, R.mipmap.ic_true_false_inf_round, R.mipmap.ic_true_false_real_round, -1, R.mipmap.ic_sort_infinite_round, R.mipmap.ic_sort_real_round});
         adapter.setListener(this);
-        mMainActivity = (MainActivity)getActivity();
+        mMainActivity = (MainActivity) getActivity();
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(mMainActivity));
         return mainView;
@@ -56,8 +55,9 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
     public void onResume() {
         super.onResume();
         mMainActivity.updateBottomNavigationView(R.id.navigation_tests);
+        mMainActivity.showBottomNavigationView();
 
-        if(mMainActivity.isFirstTime(PRACTISE))
+        if (mMainActivity.isFirstTime(PRACTISE))
             new MaterialShowcaseView.Builder(mMainActivity)
                     .setTarget(recycler)
                     .setDelay(300)
@@ -70,11 +70,11 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
                     .show();
     }
 
-    public void onClick(int position){
+    public void onClick(int position) {
         pressedPosition = position;
-        if(position == 5 || position == 6 || position == 8 || position==9) {
+        if (position == 5 || position == 6 || position == 8 || position == 9) {
             typePicked(1);
-        }else {
+        } else {
             TypePickDialog dialog = new TypePickDialog();
             dialog.setListener(this);
             dialog.show(mMainActivity.getSupportFragmentManager(), null);
@@ -84,53 +84,53 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
     @Override
     public void typePicked(int type) {
         this.type = type;
-        CenturyPickDialog centuries = new  CenturyPickDialog();
+        CenturyPickDialog centuries = new CenturyPickDialog();
         centuries.setListener(this);
-        centuries.show(mMainActivity.getSupportFragmentManager(),Integer.toString(mMainActivity.getMode()));
+        centuries.show(mMainActivity.getSupportFragmentManager(), Integer.toString(mMainActivity.getMode()));
     }
 
     @Override
     public void onButtonClicked(ArrayList<Integer> dialog) {
-        if(dialog != null)
+        if (dialog != null)
             startPractise(dialog);
     }
 
-    public void startPractise(ArrayList<Integer> arrayList){
+    public void startPractise(ArrayList<Integer> arrayList) {
         MainActivity mAc = mMainActivity;
-        mAc.hide_bottom_navigation_view();
+        mAc.hideBottomNavigationView();
         Fragment fragment;
         String event;
         ArrayList<Date> dates = getListForPractise(arrayList);
-        switch (pressedPosition){
+        switch (pressedPosition) {
             case 0:
-                fragment = CardsFragment.newInstance(dates,type);
+                fragment = CardsFragment.newInstance(dates, type);
                 event = "CardsFragment";
                 break;
             case 2:
-                fragment = TestFragment.newInstance(dates,type,false);
+                fragment = TestFragment.newInstance(dates, type, false);
                 event = "Test";
                 break;
             case 3:
                 showAds();
-                fragment = TestFragment.newInstance(dates,type,true);
+                fragment = TestFragment.newInstance(dates, type, true);
                 event = "Test_20";
                 break;
             case 5:
-                fragment = TrueFalseFragment.newInstance(dates,false);
+                fragment = TrueFalseFragment.newInstance(dates, false);
                 event = "TrueFalse";
                 break;
             case 6:
                 showAds();
-                fragment = TrueFalseFragment.newInstance(dates,true);
+                fragment = TrueFalseFragment.newInstance(dates, true);
                 event = "TrueFalse_20";
                 break;
             case 8:
-                fragment = SortFragment.newInstance(dates,false);
+                fragment = SortFragment.newInstance(dates, false);
                 event = "Sort";
                 break;
             case 9:
                 showAds();
-                fragment = SortFragment.newInstance(dates,true);
+                fragment = SortFragment.newInstance(dates, true);
                 event = "Sort_20";
                 break;
             default:
@@ -140,13 +140,13 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
         setFragmentToPractise(fragment);
     }
 
-    private void setFragmentToPractise(Fragment fragment){
-        mMainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null).commit();
+    private void setFragmentToPractise(Fragment fragment) {
+        mMainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null).commit();
     }
 
-    public void showAds(){
-        if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
-            Appodeal.show(mMainActivity,Appodeal.INTERSTITIAL);
+    public void showAds() {
+        if (Appodeal.isLoaded(Appodeal.INTERSTITIAL))
+            Appodeal.show(mMainActivity, Appodeal.INTERSTITIAL);
     }
 
     @Override
@@ -154,25 +154,25 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
         recycler.scrollToPosition(0);
     }
 
-    private ArrayList<Date> getListForPractise(ArrayList<Integer> arrayList){
+    private ArrayList<Date> getListForPractise(ArrayList<Integer> arrayList) {
         ArrayList<Date> dates = mMainActivity.getDateList();
         ArrayList<Date> practiseList = new ArrayList<>();
         int mode = mMainActivity.getMode();
 
-        if((mode == FULL_DATES_MODE && arrayList.contains(10)) || (mode == EASY_DATES_MODE && arrayList.contains(2))) // Если выбраны все даты
+        if ((mode == FULL_DATES_MODE && arrayList.contains(10)) || (mode == EASY_DATES_MODE && arrayList.contains(2))) // Если выбраны все даты
             return dates;
-        Pair<Integer,Integer> pair;
+        Pair<Integer, Integer> pair;
         Collections.sort(arrayList);
-        for(Integer number: arrayList){
-            pair = getDatesRange(number,mode);
-            practiseList.addAll(dates.subList(pair.first,pair.second));
+        for (Integer number : arrayList) {
+            pair = getDatesRange(number, mode);
+            practiseList.addAll(dates.subList(pair.first, pair.second));
         }
         return practiseList;
     }
 
-    private Pair<Integer,Integer> getDatesRange(int pickedCentury,int mode){
-        int start = 0,end = 0;
-        if(mode == FULL_DATES_MODE){
+    private Pair<Integer, Integer> getDatesRange(int pickedCentury, int mode) {
+        int start = 0, end = 0;
+        if (mode == FULL_DATES_MODE) {
             switch (pickedCentury) {
                 case 0:
                     start = 0;
@@ -215,18 +215,18 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
                     end = start + 50;
                     break;
             }
-        }else{
-                switch (pickedCentury) {
-                    case 0:
-                        start = 0;
-                        end = start + 48;
-                        break;
-                    case 1:
-                        start = 48;
-                        end = start + 47;
-                        break;
-                }
+        } else {
+            switch (pickedCentury) {
+                case 0:
+                    start = 0;
+                    end = start + 48;
+                    break;
+                case 1:
+                    start = 48;
+                    end = start + 47;
+                    break;
+            }
         }
-        return new Pair<>(start,end);
+        return new Pair<>(start, end);
     }
 }

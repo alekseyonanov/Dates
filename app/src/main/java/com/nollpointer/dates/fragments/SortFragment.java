@@ -32,7 +32,7 @@ import static com.nollpointer.dates.MainActivity.SORT;
 import static com.nollpointer.dates.MainActivity.SORT_CHECK;
 import static com.nollpointer.dates.constants.PractiseConstants.TEST_MODE;
 
-public class  SortFragment extends Fragment implements ResultDialog.ResultDialogCallbackListener {
+public class SortFragment extends Fragment implements ResultDialog.ResultDialogCallbackListener {
 
     private View mainView;
     private TextView RightAnswers, WrongAnswers;
@@ -43,7 +43,7 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
 
     private int[] RightSequence = new int[3];
     private List<String> events;
-    private int right_answers_count=0,wrong_answers_count=0,best_result = 0;
+    private int right_answers_count = 0, wrong_answers_count = 0, best_result = 0;
 
 
     private ArrayList<Date> dates;
@@ -56,11 +56,11 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
     private boolean isFirstTimeCheck = true;
 
 
-    public static SortFragment newInstance(ArrayList<Date> dates,boolean testMode){
+    public static SortFragment newInstance(ArrayList<Date> dates, boolean testMode) {
         SortFragment sort = new SortFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(TEST_MODE,testMode);
-        bundle.putParcelableArrayList(DATES,dates);
+        bundle.putBoolean(TEST_MODE, testMode);
+        bundle.putParcelableArrayList(DATES, dates);
         sort.setArguments(bundle);
         return sort;
     }
@@ -79,14 +79,14 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
 
         initViews();
 
-        if(testMode)
+        if (testMode)
             progressBar.setVisibility(View.VISIBLE);
 
         setQuestionInfo();
         setQuestions();
 
         isFirstTimeCheck = ctx.isFirstTime(SORT_CHECK);
-        if(ctx.isFirstTime(SORT))
+        if (ctx.isFirstTime(SORT))
             new MaterialShowcaseView.Builder(ctx)
                     .setTarget(mainView)
                     .setDelay(200)
@@ -100,7 +100,7 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
         return mainView;
     }
 
-    private void initViews(){
+    private void initViews() {
         RightAnswers = mainView.findViewById(R.id.right_answers);
         WrongAnswers = mainView.findViewById(R.id.wrong_answers);
         instructions = mainView.findViewById(R.id.instruction_sort);
@@ -119,25 +119,25 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
         });
 
         Resources resources = getResources();
-        cardsControl.setColors(resources.getColor(android.R.color.holo_green_light),resources.getColor(android.R.color.holo_red_light));
+        cardsControl.setColors(resources.getColor(android.R.color.holo_green_light), resources.getColor(android.R.color.holo_red_light));
 
         Appodeal.setBannerViewId(R.id.appodealBannerView_sort);
 
-        WrongAnswers.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.thumb_down_selector,0);
-        RightAnswers.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector,0,0,0);
+        WrongAnswers.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.thumb_down_selector, 0);
+        RightAnswers.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector, 0, 0, 0);
     }
 
-    public void check(){
+    public void check() {
 
         isCheckMode = !isCheckMode;
 
         if (isCheckMode) {
-            if(isFirstTimeCheck)
+            if (isFirstTimeCheck)
                 showFirstTimeCheck();
             boolean isCorrect = cardsControl.check();
             incrementScore(isCorrect);
 
-            if(testMode && wrong_answers_count + right_answers_count == 20)
+            if (testMode && wrong_answers_count + right_answers_count == 20)
                 setResultScreen();
             check_button.setText(R.string.next_sort);
             setQuestionInfo();
@@ -149,28 +149,28 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
         cardsControl.setCheckMode(isCheckMode);
     }
 
-    public void showFirstTimeCheck(){
-            new MaterialShowcaseView.Builder(getActivity())
-                    .setTarget(mainView)
-                    .setDelay(150)
-                    .setContentText(R.string.tutorial_sort_check)
-                    .setDismissText(R.string.got_it)
-                    .setDismissOnTouch(true)
-                    .setDismissTextColor(Color.GREEN)
-                    .setMaskColour(getResources().getColor(R.color.colorMask))
-                    .setShape(new NoShape())
-                    .show();
-            isFirstTimeCheck = false;
+    public void showFirstTimeCheck() {
+        new MaterialShowcaseView.Builder(getActivity())
+                .setTarget(mainView)
+                .setDelay(150)
+                .setContentText(R.string.tutorial_sort_check)
+                .setDismissText(R.string.got_it)
+                .setDismissOnTouch(true)
+                .setDismissTextColor(Color.GREEN)
+                .setMaskColour(getResources().getColor(R.color.colorMask))
+                .setShape(new NoShape())
+                .show();
+        isFirstTimeCheck = false;
     }
 
-    public void incrementScore(boolean isCorrect){
-        if(isCorrect)
+    public void incrementScore(boolean isCorrect) {
+        if (isCorrect)
             right_answers_count++;
         else
             wrong_answers_count++;
         WrongAnswers.setText(Integer.toString(wrong_answers_count));
         RightAnswers.setText(Integer.toString(right_answers_count));
-        if(testMode)
+        if (testMode)
             progressBar.incrementProgressBy(1);
     }
 
@@ -189,10 +189,10 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
     @Override
     public void reset() {
 
-        if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
-            Appodeal.show(getActivity(),Appodeal.INTERSTITIAL);
+        if (Appodeal.isLoaded(Appodeal.INTERSTITIAL))
+            Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
 
-        wrong_answers_count=right_answers_count=0;
+        wrong_answers_count = right_answers_count = 0;
         WrongAnswers.setText(Integer.toString(wrong_answers_count));
         RightAnswers.setText(Integer.toString(right_answers_count));
         progressBar.setProgress(0);
@@ -205,14 +205,14 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
-    private void setQuestionInfo(){
+    private void setQuestionInfo() {
         Random random = new Random();
         ArrayList<Date> list = new ArrayList<>(3);
         int length = dates.size();
-        for(int i=0;i<3;i++){
+        for (int i = 0; i < 3; i++) {
             int rand = random.nextInt(length);
             Date date = dates.get(rand);
-            if(list.contains(date) || date.isContinuous()) {
+            if (list.contains(date) || date.isContinuous()) {
                 i--;
                 continue;
             }
@@ -223,26 +223,26 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
         prepareRightSequence();
     }
 
-    private void prepareEventList(List<Date> dateList){
+    private void prepareEventList(List<Date> dateList) {
         ArrayList<String> eventList = new ArrayList<>(3);
-        for(Date date:dateList){
+        for (Date date : dateList) {
             eventList.add(date.getEvent());
         }
         events = eventList;
     }
 
-    private void prepareRightSequence(){
+    private void prepareRightSequence() {
         int maxIndex = 0;
         int minIndex = 0;
         int middleIndex = 0;
-        for(int i=0;i<3;i++){
-            if(RightSequence[maxIndex] < RightSequence[i])
+        for (int i = 0; i < 3; i++) {
+            if (RightSequence[maxIndex] < RightSequence[i])
                 maxIndex = i;
-            if(RightSequence[minIndex] > RightSequence[i])
+            if (RightSequence[minIndex] > RightSequence[i])
                 minIndex = i;
         }
-        for(int i =0;i<3;i++)
-            if(i != minIndex && i != maxIndex) {
+        for (int i = 0; i < 3; i++)
+            if (i != minIndex && i != maxIndex) {
                 middleIndex = i;
                 break;
             }
@@ -252,34 +252,34 @@ public class  SortFragment extends Fragment implements ResultDialog.ResultDialog
         RightSequence[maxIndex] = 3;
     }
 
-    private void setQuestions(){
+    private void setQuestions() {
         cardsControl.setAnswerSequence(RightSequence);
         cardsControl.setQuestions(events);
     }
 
 
-    private void setResultScreen(){
+    private void setResultScreen() {
 
         String mark;
         int color;
 
-        if(right_answers_count < 5)
+        if (right_answers_count < 5)
             mark = getString(R.string.mark_very_bad);
-        else if(right_answers_count < 9)
+        else if (right_answers_count < 9)
             mark = getString(R.string.mark_bad);
-        else if(right_answers_count < 13)
+        else if (right_answers_count < 13)
             mark = getString(R.string.mark_neutral);
-        else if(right_answers_count < 17)
+        else if (right_answers_count < 17)
             mark = getString(R.string.mark_good);
         else
             mark = getString(R.string.mark_very_good);
 
-        if(right_answers_count > 9)
+        if (right_answers_count > 9)
             color = getResources().getColor(android.R.color.holo_green_light);
         else
             color = getResources().getColor(android.R.color.holo_red_light);
 
-        new ResultDialog(right_answers_count,mark,color,this).showDialog(getActivity());
+        new ResultDialog(right_answers_count, mark, color, this).showDialog(getActivity());
 
     }
 }

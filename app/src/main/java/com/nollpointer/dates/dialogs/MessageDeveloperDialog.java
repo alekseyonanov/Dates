@@ -22,7 +22,7 @@ public class MessageDeveloperDialog extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        main_view = inflater.inflate(R.layout.message_developer_dialog,container,false);
+        main_view = inflater.inflate(R.layout.message_developer_dialog, container, false);
 //        main_view.findViewById(R.id.message_close_button).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -53,7 +53,7 @@ public class MessageDeveloperDialog extends BottomSheetDialogFragment {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setData(Uri.parse("mailto:"));
-                intent.putExtra(Intent.EXTRA_EMAIL,new String[]{"nollpointer@gmail.com"});
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"nollpointer@gmail.com"});
                 startActivity(intent);
             }
         });

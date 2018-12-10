@@ -1,42 +1,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:gravity="center"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="horizontal"
     tools:context="com.nollpointer.dates.CardsShowDown">
+
     <Button
+        android:id="@+id/cards_description_date"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:layout_gravity="fill_vertical"
+        android:background="@android:color/white"
+        android:gravity="center"
         android:text="\?"
-        android:textSize="72sp"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@android:color/holo_blue_dark"
-        android:background="@android:color/white"
-        style="?android:attr/borderlessButtonStyle"
-        android:id="@+id/cards_description_date"/>
+        android:textSize="72sp" />
+
     <TextView
+        android:id="@+id/date_cards_text"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="@android:color/white"
         android:layout_weight="1"
-        android:id="@+id/date_cards_text"
+        android:background="@android:color/white"
+        android:gravity="center"
         android:textColor="@android:color/holo_blue_dark" />
+
     <Button
+        android:id="@+id/cards_next_date"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:layout_gravity="fill_vertical"
-        android:text=">"
-        android:textColor="@android:color/holo_blue_dark"
         android:background="@android:color/white"
-        android:textSize="72sp"
-        style="?android:attr/borderlessButtonStyle"
+        android:gravity="center"
+        android:text=">"
         android:textAppearance="?android:textAppearanceLarge"
-        android:id="@+id/cards_next_date"/>
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="72sp" />
 </LinearLayout>

@@ -43,19 +43,19 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
     private boolean isDateQuestion;
     private boolean clicked = false;
 
-    private View.OnClickListener buttonClickListener = new View.OnClickListener(){
+    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             CheckResult((int) view.getTag());
         }
     };
 
-    public static TestFragment newInstance(ArrayList<Date> dates,int type, boolean testMode){
+    public static TestFragment newInstance(ArrayList<Date> dates, int type, boolean testMode) {
         TestFragment test = new TestFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(TEST_MODE,testMode);
+        bundle.putBoolean(TEST_MODE, testMode);
         bundle.putInt(TYPE, type);
-        bundle.putParcelableArrayList(DATES,dates);
+        bundle.putParcelableArrayList(DATES, dates);
         test.setArguments(bundle);
         return test;
     }
@@ -77,7 +77,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         refreshRunnable = new Runnable() {
             @Override
             public void run() {
-                if(testMode && (WrongAnswers + RightAnswers == 20))
+                if (testMode && (WrongAnswers + RightAnswers == 20))
                     setResultScreen();
                 else
                     setQuestions();
@@ -90,7 +90,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         dates = saved.getParcelableArrayList(DATES);
         questions = new ArrayList<>(4);
 
-        switch (type){
+        switch (type) {
             case ONLY_DATES:
                 isDateQuestion = true;
                 break;
@@ -98,7 +98,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
                 isDateQuestion = false;
                 break;
         }
-        if(testMode) {
+        if (testMode) {
             progressBar.setVisibility(View.VISIBLE);
             uniqueQuestionIndexes = new ArrayList<>(20);
         }
@@ -108,7 +108,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         return view;
     }
 
-    private void initViews(View view){
+    private void initViews(View view) {
         questionView = view.findViewById(R.id.test_info);
         rightAnswersView = view.findViewById(R.id.right_answers);
         wrongAnswersView = view.findViewById(R.id.wrong_answers);
@@ -123,23 +123,23 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             answerButtons[i].setTag(i);
             answerButtons[i].setOnClickListener(buttonClickListener);
         }
-        wrongAnswersView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.thumb_down_selector,0);
-        rightAnswersView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector,0,0,0);
+        wrongAnswersView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.thumb_down_selector, 0);
+        rightAnswersView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector, 0, 0, 0);
     }
 
     private void setTestInfo() {
         Random random = new Random();
         int length = dates.size();
         RightButton = random.nextInt(4);
-        for(int i=0;i<4;i++){
+        for (int i = 0; i < 4; i++) {
             int r = random.nextInt(length);
             Date date = (dates.get(r));
-            if(isDateAlreadyUsed(date,i))
+            if (isDateAlreadyUsed(date, i))
                 i--;                       //Повторить итерацию заново
             else
                 questions.add(date);
 
-            if(testMode && i == RightButton) { //В случае режима теста
+            if (testMode && i == RightButton) { //В случае режима теста
                 if (uniqueQuestionIndexes.contains(r))
                     i--;
                 else
@@ -147,17 +147,16 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             }
 
         }
-        if(type == MIXED)
+        if (type == MIXED)
             isDateQuestion = random.nextBoolean();
     }
 
 
-
-    private boolean isDateAlreadyUsed(Date date,int index){   //Проверить, если дата уже есть в списке или если событие с такой же датой уже присутствует
-        if(questions.contains(date))
+    private boolean isDateAlreadyUsed(Date date, int index) {   //Проверить, если дата уже есть в списке или если событие с такой же датой уже присутствует
+        if (questions.contains(date))
             return true;
-        for(int i=0;i<index;i++){
-            if(questions.get(i).isSameDate(date))
+        for (int i = 0; i < index; i++) {
+            if (questions.get(i).isSameDate(date))
                 return true;
         }
         return false;
@@ -167,13 +166,13 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         Date date;
         for (int i = 0; i < 4; i++) {
             date = questions.get(i);
-            if(isDateQuestion)
+            if (isDateQuestion)
                 answerButtons[i].setText(date.getDate());
             else
                 answerButtons[i].setText(date.getEvent());
             answerButtons[i].setBackgroundColor(getResources().getColor(android.R.color.white));
         }
-        if(isDateQuestion)
+        if (isDateQuestion)
             questionView.setText(questions.get(RightButton).getEvent());
         else
             questionView.setText(questions.get(RightButton).getDate());
@@ -182,7 +181,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
 
 
     public void CheckResult(int position) {
-        if(clicked)
+        if (clicked)
             return;
         else
             clicked = true;
@@ -193,7 +192,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             answerButtons[position].setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
         }
         refreshAnswerCount();
-        if(testMode)
+        if (testMode)
             progressBar.incrementProgressBy(1);
         answerButtons[RightButton].setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
         questions.clear();
@@ -201,7 +200,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         setTestInfo();
     }
 
-    private void refreshAnswerCount(){
+    private void refreshAnswerCount() {
         wrongAnswersView.setText(Integer.toString(WrongAnswers));
         rightAnswersView.setText(Integer.toString(RightAnswers));
     }
@@ -227,10 +226,10 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
     @Override
     public void reset() {
 
-        if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
-            Appodeal.show(getActivity(),Appodeal.INTERSTITIAL);
+        if (Appodeal.isLoaded(Appodeal.INTERSTITIAL))
+            Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
 
-        WrongAnswers=RightAnswers=0;
+        WrongAnswers = RightAnswers = 0;
         rightAnswersView.setText(Integer.toString(WrongAnswers));
         wrongAnswersView.setText(Integer.toString(RightAnswers));
         progressBar.setProgress(0);
@@ -243,28 +242,28 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
-    private void setResultScreen(){
+    private void setResultScreen() {
 
         String mark;
         int color;
 
-        if(RightAnswers < 5)
+        if (RightAnswers < 5)
             mark = getString(R.string.mark_very_bad);
-        else if(RightAnswers < 9)
+        else if (RightAnswers < 9)
             mark = getString(R.string.mark_bad);
-        else if(RightAnswers < 13)
+        else if (RightAnswers < 13)
             mark = getString(R.string.mark_neutral);
-        else if(RightAnswers < 17)
+        else if (RightAnswers < 17)
             mark = getString(R.string.mark_good);
         else
             mark = getString(R.string.mark_very_good);
 
-        if(RightAnswers > 9)
+        if (RightAnswers > 9)
             color = getResources().getColor(android.R.color.holo_green_light);
         else
             color = getResources().getColor(android.R.color.holo_red_light);
 
-        new ResultDialog(RightAnswers,mark,color,this).showDialog(getActivity());
+        new ResultDialog(RightAnswers, mark, color, this).showDialog(getActivity());
 
     }
 

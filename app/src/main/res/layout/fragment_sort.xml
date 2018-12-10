@@ -3,121 +3,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:columnCount="2"
-    android:padding="8dp"
     android:layout_gravity="center"
-    android:background="@color/colorBackgroundTest">
+    android:background="@color/colorBackgroundTest"
+    android:padding="8dp"
+    app:columnCount="2">
 
     <com.appodeal.ads.BannerView
         android:id="@+id/appodealBannerView_sort"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_row="0"
         android:background="@color/colorBackgroundTest"
-        app:layout_gravity="top"
+        android:visibility="gone"
         app:layout_column="0"
         app:layout_columnSpan="2"
-        android:visibility="gone" />
+        app:layout_gravity="top"
+        app:layout_row="0" />
 
     <TextView
-        app:layout_row="1"
+        android:id="@+id/right_answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackgroundTest"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@android:color/holo_green_dark"
         app:layout_column="0"
         app:layout_gravity="start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_green_dark"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/right_answers"
-        android:background="@color/colorBackgroundTest"
-        />
+        app:layout_row="1" />
 
     <TextView
-        app:layout_row="1"
-        app:layout_column="1"
-        app:layout_gravity="end"
-        android:gravity="end"
+        android:id="@+id/wrong_answers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_red_light"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/wrong_answers"
         android:background="@color/colorBackgroundTest"
-        />
+        android:gravity="end"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@android:color/holo_red_light"
+        app:layout_column="1"
+        app:layout_gravity="end"
+        app:layout_row="1" />
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_column="0"
-        app:layout_row="2"
         app:layout_columnSpan="2"
-        app:layout_rowWeight="1"
-        android:gravity="center" >
+        app:layout_row="2"
+        app:layout_rowWeight="1">
 
         <TextView
+            android:id="@+id/instruction_sort"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
-            android:id="@+id/instruction_sort"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@android:color/black"
             android:layout_gravity="fill"
+            android:layout_weight="3"
             android:gravity="center"
-            android:text="@string/sotr_text"/>
+            android:text="@string/sotr_text"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@android:color/black" />
 
-        <include layout="@layout/sort_card"
+        <include
+            android:id="@+id/cardView0"
+            layout="@layout/sort_card"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_marginBottom="12dp"
             android:layout_height="wrap_content"
-            android:id="@+id/cardView0" />
+            android:layout_marginBottom="12dp"
+            android:layout_weight="1" />
 
-        <include layout="@layout/sort_card"
+        <include
+            android:id="@+id/cardView1"
+            layout="@layout/sort_card"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_marginBottom="12dp"
             android:layout_height="wrap_content"
-            android:id="@+id/cardView1" />
+            android:layout_marginBottom="12dp"
+            android:layout_weight="1" />
 
-        <include layout="@layout/sort_card"
+        <include
+            android:id="@+id/cardView2"
+            layout="@layout/sort_card"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_marginBottom="12dp"
             android:layout_height="wrap_content"
-            android:id="@+id/cardView2" />
+            android:layout_marginBottom="12dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
     <Button
-        app:layout_row="3"
-        app:layout_column="0"
-        app:layout_columnSpan="2"
+        android:id="@+id/sort_check"
+        style="?android:borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:background="@color/colorBackgroundDivider"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/check_button"
         android:textAppearance="?android:textAppearanceMedium"
-        android:foreground="?android:attr/selectableItemBackground"
-        style="?android:borderlessButtonStyle"
-        android:background="@color/colorBackgroundDivider"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="15dp"
-        android:id="@+id/sort_check" />
-
-    <ProgressBar
-        android:layout_height="3dp"
-        android:layout_width="match_parent"
-        android:id="@+id/sort_progressbar"
-        app:layout_row="4"
         app:layout_column="0"
         app:layout_columnSpan="2"
-        android:visibility="invisible"
+        app:layout_row="3" />
+
+    <ProgressBar
+        android:id="@+id/sort_progressbar"
         style="?android:progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
         android:max="20"
         android:progress="0"
-        app:layout_gravity="fill_horizontal|end"
         android:theme="@style/ProgressBarStyle"
-        />
+        android:visibility="invisible"
+        app:layout_column="0"
+        app:layout_columnSpan="2"
+        app:layout_gravity="fill_horizontal|end"
+        app:layout_row="4" />
 
 </android.support.v7.widget.GridLayout>

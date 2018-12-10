@@ -22,7 +22,7 @@ public class App extends MultiDexApplication {
         wiki = retrofit.create(WikipediaApi.class);
     }
 
-    public static WikipediaApi getApi(){
+    public static WikipediaApi getApi() {
         return wiki;
     }
 }

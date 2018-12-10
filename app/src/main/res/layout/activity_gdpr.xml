@@ -28,8 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginRight="30dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -63,8 +63,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_gdpr"
-                        android:gravity="center_horizontal"
                         android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
                         android:padding="15dp"
                         android:text="@string/gdpr_agree"
                         android:textAllCaps="true"
@@ -78,8 +78,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:gravity="center_horizontal"
-                        android:paddingBottom="10dp"
                         android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
                         android:text="@string/gdpr_disagree"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"

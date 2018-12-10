@@ -16,9 +16,10 @@ public class CenturyPickDialog extends DialogFragment {
     public static interface NoticeDialogListener {
         void onButtonClicked(ArrayList<Integer> dialog);
     }
+
     private NoticeDialogListener NListener;
 
-    public void setListener(NoticeDialogListener listener){
+    public void setListener(NoticeDialogListener listener) {
         NListener = listener;
     }
 
@@ -28,19 +29,19 @@ public class CenturyPickDialog extends DialogFragment {
         int mode = Integer.parseInt(getTag());
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.dialog_title)
-                .setMultiChoiceItems(mode==0 ? R.array.centuries : R.array.centuries_easy, null, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                if(b)
-                    mSelectedItems.add(i);
-                else
-                    mSelectedItems.remove(Integer.valueOf(i));
+                .setMultiChoiceItems(mode == 0 ? R.array.centuries : R.array.centuries_easy, null, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                        if (b)
+                            mSelectedItems.add(i);
+                        else
+                            mSelectedItems.remove(Integer.valueOf(i));
 
-            }
-        }).setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
+                    }
+                }).setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(mSelectedItems.isEmpty())
+                if (mSelectedItems.isEmpty())
                     NListener.onButtonClicked(null);
                 else
                     NListener.onButtonClicked(mSelectedItems);

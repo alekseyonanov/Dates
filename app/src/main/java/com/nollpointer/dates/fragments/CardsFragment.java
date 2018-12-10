@@ -34,11 +34,11 @@ public class CardsFragment extends Fragment {
     private TextView mainTextView;
     private boolean isDateQuestion = false;
 
-    public static CardsFragment newInstance(ArrayList<Date> dates,int type){
+    public static CardsFragment newInstance(ArrayList<Date> dates, int type) {
         CardsFragment test = new CardsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(TYPE, type);
-        bundle.putParcelableArrayList(DATES,dates);
+        bundle.putParcelableArrayList(DATES, dates);
         test.setArguments(bundle);
         return test;
     }
@@ -47,13 +47,13 @@ public class CardsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cards, container, false);
-        MainActivity ctx = (MainActivity)getActivity();
+        MainActivity ctx = (MainActivity) getActivity();
         ctx.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         Bundle saved = getArguments();
         type = saved.getInt(TYPE);
         dates = saved.getParcelableArrayList(DATES);
-        switch (type){
+        switch (type) {
             case ONLY_DATES:
                 isDateQuestion = true;
                 break;
@@ -78,7 +78,7 @@ public class CardsFragment extends Fragment {
 
         setQuestion();
 
-        if(ctx.isFirstTime(MainActivity.CARDS))
+        if (ctx.isFirstTime(MainActivity.CARDS))
             new MaterialShowcaseView.Builder(ctx)
                     .setTarget(view)
                     .setDelay(200)
@@ -92,25 +92,25 @@ public class CardsFragment extends Fragment {
         return view;
     }
 
-    public void setAnswer(){
-        mainTextView.setText(currentDate.getDate()+ "\n" + currentDate.getEvent());
-        mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,40);
+    public void setAnswer() {
+        mainTextView.setText(currentDate.getDate() + "\n" + currentDate.getEvent());
+        mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
     }
 
-    public void setQuestion(){
+    public void setQuestion() {
         setRandomDate();
-        mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,45);
-        if(isDateQuestion)
+        mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
+        if (isDateQuestion)
             mainTextView.setText(currentDate.getDate());
         else
             mainTextView.setText(currentDate.getEvent());
     }
 
-    public void setRandomDate(){
+    public void setRandomDate() {
         Random random = new Random();
         int x = random.nextInt(dates.size());
         currentDate = dates.get(x);
-        if(type == MIXED)
+        if (type == MIXED)
             isDateQuestion = random.nextBoolean();
     }
 }

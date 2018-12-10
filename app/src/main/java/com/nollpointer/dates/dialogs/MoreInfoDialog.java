@@ -25,7 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MoreInfoDialog extends BottomSheetDialogFragment{
+public class MoreInfoDialog extends BottomSheetDialogFragment {
     public static final String REQUEST_URL = "request_url";
 
     String request;
@@ -36,10 +36,10 @@ public class MoreInfoDialog extends BottomSheetDialogFragment{
     View content;
     View no_internet;
 
-    public static MoreInfoDialog newInstance(String url){
+    public static MoreInfoDialog newInstance(String url) {
         MoreInfoDialog dialog = new MoreInfoDialog();
         Bundle args = new Bundle();
-        args.putString(REQUEST_URL,url);
+        args.putString(REQUEST_URL, url);
         dialog.setArguments(args);
         return dialog;
     }
@@ -48,7 +48,7 @@ public class MoreInfoDialog extends BottomSheetDialogFragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        main_view = inflater.inflate(R.layout.dialog_more_info,container,false);
+        main_view = inflater.inflate(R.layout.dialog_more_info, container, false);
         main_view.findViewById(R.id.dialog_close_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,13 +59,13 @@ public class MoreInfoDialog extends BottomSheetDialogFragment{
         goToSourceButton = main_view.findViewById(R.id.dialog_go_to_source_button);
         progressBar = main_view.findViewById(R.id.dialog_progressbar);
         content = main_view.findViewById(R.id.dialog_content);
-        no_internet =main_view.findViewById(R.id.dialog_no_internet);
+        no_internet = main_view.findViewById(R.id.dialog_no_internet);
         request = getArguments().getString(REQUEST_URL);
         connectWikipedia();
         return main_view;
     }
 
-    public void setInfo(String data,final String wiki_url){
+    public void setInfo(String data, final String wiki_url) {
         no_internet.setVisibility(View.INVISIBLE);
         content.setVisibility(View.VISIBLE);
         hideProgressBar();
@@ -81,13 +81,13 @@ public class MoreInfoDialog extends BottomSheetDialogFragment{
         });
     }
 
-    private void hideProgressBar(){
+    private void hideProgressBar() {
         progressBar.setClickable(false);
         progressBar.setVisibility(View.INVISIBLE);
         progressBar.setEnabled(false);
     }
 
-    private void showProgressBar(){
+    private void showProgressBar() {
         progressBar.setClickable(true);
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setEnabled(true);
@@ -95,7 +95,7 @@ public class MoreInfoDialog extends BottomSheetDialogFragment{
         no_internet.setVisibility(View.INVISIBLE);
     }
 
-    private void connectWikipedia(){
+    private void connectWikipedia() {
         App.getApi().getData(request).enqueue(new Callback<WikipediaResponseModel>() {
             @Override
             public void onResponse(Call<WikipediaResponseModel> call, Response<WikipediaResponseModel> response) {
@@ -105,9 +105,9 @@ public class MoreInfoDialog extends BottomSheetDialogFragment{
                     wiki = response.body();
                     data = wiki.getExtractHtml();
                     url = wiki.getContentUrls().getMobile().getPage();
-                    setInfo(data,url);
-                }catch (Exception e){
-                    Log.wtf("ERROR_RESPONSE",e.toString());
+                    setInfo(data, url);
+                } catch (Exception e) {
+                    Log.wtf("ERROR_RESPONSE", e.toString());
                 }
             }
 
@@ -119,7 +119,7 @@ public class MoreInfoDialog extends BottomSheetDialogFragment{
         });
     }
 
-    public void noInternetConnection(){
+    public void noInternetConnection() {
         hideProgressBar();
         content.setVisibility(View.INVISIBLE);
         no_internet.setVisibility(View.VISIBLE);

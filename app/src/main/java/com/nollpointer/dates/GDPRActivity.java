@@ -24,13 +24,13 @@ public class GDPRActivity extends AppCompatActivity {
         prepareForGDPR();
     }
 
-    private void initViews(){
+    private void initViews() {
         yes_text = findViewById(R.id.yes_text);
         no_text = findViewById(R.id.no_text);
         info_text = findViewById(R.id.info_text);
     }
 
-    private void prepareForGDPR(){
+    private void prepareForGDPR() {
         String learnMore = getString(R.string.gdpr_learn_more);
         String mainText = getString(R.string.gdpr_main_text);
         int startPosition = mainText.indexOf(learnMore);
@@ -61,16 +61,16 @@ public class GDPRActivity extends AppCompatActivity {
         });
     }
 
-    private void showResultView(boolean result){
+    private void showResultView(boolean result) {
         sendResult(result);
-        startActivity(GDPRResultActivity.getIntent(this,result));
+        startActivity(GDPRResultActivity.getIntent(this, result));
         finish();
     }
 
-    private void sendResult(boolean result){
+    private void sendResult(boolean result) {
         Intent intent = new Intent();
-        intent.putExtra(MainActivity.GDPR,result);
-        setResult(1,intent);
+        intent.putExtra(MainActivity.GDPR, result);
+        setResult(1, intent);
     }
 
     @Override

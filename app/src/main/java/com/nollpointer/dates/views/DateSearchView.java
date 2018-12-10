@@ -15,7 +15,7 @@ public class DateSearchView extends RelativeLayout {
         super(context);
     }
 
-    public void search(String query){
+    public void search(String query) {
 
     }
 

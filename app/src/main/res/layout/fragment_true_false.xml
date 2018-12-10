@@ -2,127 +2,127 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:columnCount="2"
     android:layout_gravity="center"
+    android:background="@color/colorBackgroundTest"
     android:padding="8dp"
-    android:background="@color/colorBackgroundTest">
+    app:columnCount="2">
 
     <com.appodeal.ads.BannerView
         android:id="@+id/appodealBannerView_true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_row="0"
         android:background="@color/colorBackgroundTest"
-        app:layout_gravity="top"
+        android:visibility="gone"
         app:layout_column="0"
         app:layout_columnSpan="2"
-        android:visibility="gone" />
+        app:layout_gravity="top"
+        app:layout_row="0" />
 
     <TextView
-        app:layout_row="1"
+        android:id="@+id/right_answers_true_false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackgroundTest"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@android:color/holo_green_dark"
         app:layout_column="0"
         app:layout_gravity="start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:background="@color/colorBackgroundTest"
-        android:textColor="@android:color/holo_green_dark"
-        android:id="@+id/right_answers_true_false" />
+        app:layout_row="1" />
 
     <TextView
-        app:layout_row="1"
-        app:layout_column="1"
-        app:layout_gravity="end"
+        android:id="@+id/wrong_answers_true_false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
         android:background="@color/colorBackgroundTest"
+        android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@android:color/holo_red_light"
-        android:id="@+id/wrong_answers_true_false" />
+        app:layout_column="1"
+        app:layout_gravity="end"
+        app:layout_row="1" />
 
     <LinearLayout
-        app:layout_row="2"
-        app:layout_gravity="fill"
-        android:gravity="center"
-        app:layout_column="0"
-        app:layout_rowWeight="3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:background="@color/colorBackgroundTest"
-        app:layout_columnSpan="2">
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_column="0"
+        app:layout_columnSpan="2"
+        app:layout_gravity="fill"
+        app:layout_row="2"
+        app:layout_rowWeight="3">
 
         <TextView
+            android:id="@+id/test_info_true_false_date"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="2"
             android:background="@color/colorBackgroundTest"
-            android:textAppearance="?android:textAppearanceLarge"
             android:gravity="bottom|center"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/test_info_true_false_date"/>
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/test_info_true_false_event"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorBackgroundTest"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:layout_width="match_parent"
-            app:layout_rowWeight="2"
             android:gravity="top|center"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@android:color/black"
             app:layout_columnSpan="2"
-            android:textColor="@android:color/black" />
+            app:layout_rowWeight="2" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        app:layout_columnSpan="2"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:layout_height="0dp"
         android:background="@color/colorBackgroundTest"
         android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_columnSpan="2"
         app:layout_rowWeight="1">
 
         <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
             android:id="@+id/true_button"
             style="?android:borderlessButtonStyle"
-            android:background="@color/colorTrueButton"
-            app:layout_gravity="start"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/true_button"/>
+            android:layout_weight="1"
+            android:background="@color/colorTrueButton"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/true_button"
+            app:layout_gravity="start" />
 
         <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
             android:id="@+id/false_button"
-            android:background="@color/colorFalseButton"
             style="?android:borderlessButtonStyle"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:layout_gravity="end"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/false_button"/>
+            android:layout_weight="1"
+            android:background="@color/colorFalseButton"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/false_button"
+            app:layout_gravity="end" />
 
     </LinearLayout>
 
     <ProgressBar
-        android:layout_height="3dp"
-        android:layout_width="match_parent"
         android:id="@+id/true_false_progressbar"
-        app:layout_column="0"
-        app:layout_columnSpan="2"
-        android:visibility="invisible"
         style="?android:progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
         android:max="20"
         android:progress="0"
-        app:layout_gravity="fill_horizontal|end"
-        android:theme="@style/ProgressBarStyle" />
+        android:theme="@style/ProgressBarStyle"
+        android:visibility="invisible"
+        app:layout_column="0"
+        app:layout_columnSpan="2"
+        app:layout_gravity="fill_horizontal|end" />
 
 </android.support.v7.widget.GridLayout>
