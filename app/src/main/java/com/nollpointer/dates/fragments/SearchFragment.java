@@ -1,6 +1,8 @@
 package com.nollpointer.dates.fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,12 +17,17 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.mobvista.msdk.shell.MVActivity;
+import com.nollpointer.dates.Date;
+import com.nollpointer.dates.MainActivity;
 import com.nollpointer.dates.R;
+import com.nollpointer.dates.views.DateSearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,22 +86,42 @@ public class SearchFragment extends Fragment {
 
             }
         });
+        viewPager.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                    hideKeyboardFrom();
+            }
+        });
 
-        ArrayList<FrameLayout> list = new ArrayList<>();
-        list.add(new FrameLayout(getContext()));
-        list.add(new FrameLayout(getContext()));
+        List<Date> dates = ((MainActivity) getActivity()).getDateList();
+
+        ArrayList<DateSearchView> list = new ArrayList<>();
+        DateSearchView view = new DateSearchView(getContext());
+        view.setDates(dates);
+        list.add(view);
+
+        view = new DateSearchView(getContext());
+        view.setDates(dates);
+        list.add(view);
+
         viewPager.setAdapter(new SearchPagerAdapter(list, getResources().getStringArray(R.array.search_titles)));
 
         return mainView;
     }
 
+    public void hideKeyboardFrom() {
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(viewPager.getWindowToken(), 0);
+    }
+
 
     class SearchPagerAdapter extends PagerAdapter {
 
-        List<FrameLayout> list;
+        List<DateSearchView> list;
         String[] titles;
 
-        public SearchPagerAdapter(List<FrameLayout> list, String[] titles) {
+        public SearchPagerAdapter(List<DateSearchView> list, String[] titles) {
             this.list = list;
             this.titles = titles;
         }
@@ -106,6 +133,7 @@ public class SearchFragment extends Fragment {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
+            container.addView(list.get(position));
             return list.get(position);
         }
 

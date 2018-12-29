@@ -31,7 +31,6 @@
         android:background="@android:color/white"
         app:elevation="4dp"
         app:itemIconTint="@drawable/navigation_icon_tint"
-        app:itemTextColor="@drawable/navigation_icon_tint"
-        />
+        app:itemTextColor="@drawable/navigation_icon_tint" />
 
 </LinearLayout>
