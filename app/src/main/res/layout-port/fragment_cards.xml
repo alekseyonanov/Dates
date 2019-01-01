@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/date_cards_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:textColor="@android:color/holo_blue_dark"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="28sp"
+        app:autoSizeMaxTextSize="68sp"
+        app:autoSizeStepGranularity="2sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cards_description_date"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="\?"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="72sp" />
+
+        <Button
+            android:id="@+id/cards_next_date"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text=">"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="72sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

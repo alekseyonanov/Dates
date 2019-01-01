@@ -21,7 +21,9 @@
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:singleLine="true"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textColorLink="@android:color/secondary_text_dark_nodisable"
+            android:textColorHint="@android:color/secondary_text_dark_nodisable"/>
 
     </android.support.v7.widget.Toolbar>
 

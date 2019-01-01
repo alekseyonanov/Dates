@@ -4,7 +4,9 @@ import android.content.Context;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.nollpointer.dates.Date;
 import com.nollpointer.dates.adapters.SearchCardsAdapter;
@@ -16,12 +18,17 @@ public class DateSearchView extends RelativeLayout {
 
     List<Date> dates;
     RecyclerView recyclerView;
+    TextView textView;
 
     public DateSearchView(Context context) {
         super(context);
         setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
         recyclerView = new RecyclerView(context);
+        textView = new TextView(context);
         addView(recyclerView,new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+        addView(textView,new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+        textView.setGravity(Gravity.CENTER);
+        textView.setVisibility(GONE);
     }
 
     public void setDates(List<Date> dates){

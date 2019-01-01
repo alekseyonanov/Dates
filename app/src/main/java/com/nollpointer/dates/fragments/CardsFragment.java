@@ -1,14 +1,15 @@
 package com.nollpointer.dates.fragments;
 
 
-import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.TypedValue;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.nollpointer.dates.Date;
@@ -48,7 +49,7 @@ public class CardsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cards, container, false);
         MainActivity ctx = (MainActivity) getActivity();
-        ctx.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        //ctx.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         Bundle saved = getArguments();
         type = saved.getInt(TYPE);
@@ -63,13 +64,17 @@ public class CardsFragment extends Fragment {
         }
 
         mainTextView = view.findViewById(R.id.date_cards_text);
-        view.findViewById(R.id.cards_next_date).setOnClickListener(new View.OnClickListener() {
+
+        Button nextDateButton = view.findViewById(R.id.cards_next_date);
+        nextDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setQuestion();
             }
         });
-        view.findViewById(R.id.cards_description_date).setOnClickListener(new View.OnClickListener() {
+
+        Button descriptionButton = view.findViewById(R.id.cards_description_date);
+        descriptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setAnswer();
@@ -92,14 +97,31 @@ public class CardsFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            Toast.makeText(getContext(), "landscape", Toast.LENGTH_SHORT).show();
+//        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+//            Toast.makeText(getContext(), "portrait", Toast.LENGTH_SHORT).show();
+//        }
+
+        try {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(this).attach(this).commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setAnswer() {
         mainTextView.setText(currentDate.getDate() + "\n" + currentDate.getEvent());
-        mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
+        //mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
     }
 
     public void setQuestion() {
         setRandomDate();
-        mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
+        //mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
         if (isDateQuestion)
             mainTextView.setText(currentDate.getDate());
         else
