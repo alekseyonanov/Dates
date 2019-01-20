@@ -68,21 +68,26 @@ public class MainActivity extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                Cursor m_cursor = null;
-                Cursor e_cursor = null;
-                try (SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(MainActivity.this).getReadableDatabase()) {
-                    String[] cells = new String[]{"DATE", "EVENT", "REQUEST", "CATEGORY"};
-                    m_cursor = sqLiteDatabase
-                            .query("D10", cells, null, null, null, null, null);
-                    e_cursor = sqLiteDatabase
-                            .query("D1", cells, null, null, null, null, null);
-                    m_cursor.moveToFirst();
-                    e_cursor.moveToFirst();
-                } catch (Exception e) {
-                    Log.e("SQl_DATABASE_EXCEPTION", e.toString());
-                }
-                handler.post(new FillDateArray(e_cursor, EASY_DATES_MODE));
-                new FillDateArray(m_cursor, FULL_DATES_MODE).run();
+
+                setDateList(Misc.getDates(FULL_DATES_MODE),FULL_DATES_MODE);
+                setDateList(Misc.getDates(EASY_DATES_MODE),EASY_DATES_MODE);
+
+
+//                Cursor m_cursor = null;
+//                Cursor e_cursor = null;
+//                try (SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(MainActivity.this).getReadableDatabase()) {
+//                    String[] cells = new String[]{"DATE", "EVENT", "REQUEST", "CATEGORY"};
+//                    m_cursor = sqLiteDatabase
+//                            .query("D10", cells, null, null, null, null, null);
+//                    e_cursor = sqLiteDatabase
+//                            .query("D1", cells, null, null, null, null, null);
+//                    m_cursor.moveToFirst();
+//                    e_cursor.moveToFirst();
+//                } catch (Exception e) {
+//                    Log.e("SQl_DATABASE_EXCEPTION", e.toString());
+//                }
+//                handler.post(new FillDateArray(e_cursor, EASY_DATES_MODE));
+//                new FillDateArray(m_cursor, FULL_DATES_MODE).run();
 
             }
         });

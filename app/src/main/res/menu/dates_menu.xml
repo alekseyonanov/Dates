@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <item
-        app:showAsAction="ifRoom"
-        android:orderInCategory="11"
         android:id="@+id/dates_app_bar_switch"
+        android:orderInCategory="11"
         android:title="@string/mode_switch"
-        app:actionLayout="@layout/switch_item" />
+        app:actionLayout="@layout/switch_item"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/dates_app_bar_search"
@@ -18,15 +18,15 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:icon="@drawable/ic_search_white_24dp"
+        android:id="@+id/messageDeveloper"
         android:orderInCategory="13"
-        android:title="Search"
+        android:title="Message"
         app:showAsAction="never" />
     <item
-        app:showAsAction="never"
         android:orderInCategory="14"
         android:title="@string/mode_switch"
-        app:actionLayout="@layout/switch_item" />
+        app:actionLayout="@layout/switch_item"
+        app:showAsAction="never" />
 
 
 </menu>

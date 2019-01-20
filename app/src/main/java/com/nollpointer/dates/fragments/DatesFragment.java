@@ -3,6 +3,7 @@ package com.nollpointer.dates.fragments;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import com.nollpointer.dates.Date;
 import com.nollpointer.dates.adapters.DatesCardsAdapter;
 import com.nollpointer.dates.MainActivity;
+import com.nollpointer.dates.dialogs.MessageDeveloperDialog;
 import com.nollpointer.dates.dialogs.MoreInfoDialog;
 import com.nollpointer.dates.R;
 import com.nollpointer.dates.StartPosition;
@@ -34,6 +36,8 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
     private RecyclerView recycler;
     private List<Date> dates;
 
+    private AppBarLayout appBarLayout;
+
     private Toolbar toolbar;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +47,7 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
         ctx = (MainActivity) getActivity();
         tabLayout = view.findViewById(R.id.id_tabs);
         toolbar = view.findViewById(R.id.dates_toolbar);
+        appBarLayout = view.findViewById(R.id.id_appbar);
         dates = ctx.getDateList();
         tabLayout.setSelectedTabIndicatorColor(ctx.getCurrentColor());
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -85,18 +90,29 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
         recycler.setLayoutManager(linearLayout);
         recycler.addItemDecoration(dividerItemDecoration);
         recycler.setAdapter(adapter);
-
         return view;
     }
 
     private void initializeMenu() {
         toolbar.inflateMenu(R.menu.dates_menu);
 
-        toolbar.getMenu().findItem(R.id.dates_app_bar_search).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                ((AppCompatActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new SearchFragment()).addToBackStack(null).commit();
+                if (menuItem.getItemId() == R.id.dates_app_bar_search) {
+                    ((AppCompatActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new SearchFragment()).addToBackStack(null).commit();
+                } else {
+                    new MessageDeveloperDialog().show(getFragmentManager(), null);
+                }
                 return true;
+            }
+        });
+
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToStartPosition();
+                appBarLayout.setExpanded(true);
             }
         });
 
