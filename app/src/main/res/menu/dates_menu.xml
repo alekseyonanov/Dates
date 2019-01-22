@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <item
-        android:id="@+id/dates_app_bar_switch"
-        android:orderInCategory="11"
-        android:title="@string/mode_switch"
-        app:actionLayout="@layout/switch_item"
-        app:showAsAction="ifRoom" />
+    <!--<item-->
+    <!--android:id="@+id/dates_app_bar_switch"-->
+    <!--android:orderInCategory="11"-->
+    <!--android:title="@string/mode_switch"-->
+    <!--app:actionLayout="@layout/switch_item"-->
+    <!--app:showAsAction="ifRoom" />-->
 
     <item
         android:id="@+id/dates_app_bar_search"
@@ -17,16 +17,16 @@
         android:title="Search"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/messageDeveloper"
-        android:orderInCategory="13"
-        android:title="Message"
-        app:showAsAction="never" />
-    <item
-        android:orderInCategory="14"
-        android:title="@string/mode_switch"
-        app:actionLayout="@layout/switch_item"
-        app:showAsAction="never" />
+    <!--<item-->
+    <!--android:id="@+id/messageDeveloper"-->
+    <!--android:orderInCategory="13"-->
+    <!--android:title="Message"-->
+    <!--app:showAsAction="never" />-->
+    <!--<item-->
+    <!--android:orderInCategory="14"-->
+    <!--android:title="@string/mode_switch"-->
+    <!--app:actionLayout="@layout/switch_item"-->
+    <!--app:showAsAction="never" />-->
 
 
 </menu>

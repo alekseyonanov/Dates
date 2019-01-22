@@ -20,17 +20,24 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <include layout="@layout/loader"
+            android:id="@+id/loader"/>
+
+    </FrameLayout>
 
 
-    <android.support.design.widget.BottomNavigationView
+    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+        android:visibility="gone"
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_gravity="bottom"
         android:background="@android:color/white"
         app:elevation="4dp"
         app:itemIconTint="@drawable/navigation_icon_tint"
-        app:itemTextColor="@drawable/navigation_icon_tint" />
+        app:itemTextColor="@drawable/navigation_icon_tint"
+        app:menu="@menu/navigation"/>
 
 </LinearLayout>

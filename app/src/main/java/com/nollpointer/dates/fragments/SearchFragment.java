@@ -2,7 +2,6 @@ package com.nollpointer.dates.fragments;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,19 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.mobvista.msdk.shell.MVActivity;
 import com.nollpointer.dates.Date;
 import com.nollpointer.dates.MainActivity;
 import com.nollpointer.dates.R;

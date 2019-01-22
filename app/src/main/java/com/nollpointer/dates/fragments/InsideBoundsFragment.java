@@ -20,7 +20,6 @@ import static com.nollpointer.dates.constants.PractiseConstants.TYPE;
 public class InsideBoundsFragment extends Fragment {
     private ArrayList<Date> dates;
 
-
     public static InsideBoundsFragment newInstance(ArrayList<Date> dates, int type, boolean testMode) {
         InsideBoundsFragment fragment = new InsideBoundsFragment();
         Bundle bundle = new Bundle();

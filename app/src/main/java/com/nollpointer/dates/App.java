@@ -2,6 +2,7 @@ package com.nollpointer.dates;
 
 import android.support.multidex.MultiDexApplication;
 
+import com.flurry.android.FlurryAgent;
 import com.nollpointer.dates.api.WikipediaApi;
 
 import retrofit2.Retrofit;
@@ -14,6 +15,11 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        new FlurryAgent.Builder()
+                .withLogEnabled(true)
+                .withCaptureUncaughtExceptions(true)
+                .build(this, "52ZN7BKTNFZ8M26Q2VPN");
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://ru.wikipedia.org")

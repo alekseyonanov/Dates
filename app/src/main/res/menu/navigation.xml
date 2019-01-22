@@ -2,12 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigetion_dates"
-        android:icon="@drawable/ic_format_list_numbered_black_24dp"
-        android:title="@string/title_dates"/>
+        android:id="@+id/navigation_dates"
+        android:icon="@drawable/ic_dates"
+        android:title=""/>
 
     <item
-        android:id="@+id/navigation_tests"
+        android:id="@+id/navigation_practise"
         android:icon="@drawable/ic_school_black_24dp"
-        android:title="@string/title_tests"/>
+        android:title=""/>
+
+    <item
+        android:id="@+id/navigation_calendar"
+        android:icon="@drawable/ic_calendar"
+        android:title=""/>
+
+    <item
+        android:id="@+id/navigation_menu"
+        android:icon="@drawable/ic_menu"
+        android:title=""/>
 </menu>

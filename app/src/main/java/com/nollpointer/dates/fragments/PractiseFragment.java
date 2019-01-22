@@ -54,20 +54,20 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
 
     public void onResume() {
         super.onResume();
-        mMainActivity.updateBottomNavigationView(R.id.navigation_tests);
-        mMainActivity.showBottomNavigationView();
-
-        if (mMainActivity.isFirstTime(PRACTISE))
-            new MaterialShowcaseView.Builder(mMainActivity)
-                    .setTarget(recycler)
-                    .setDelay(300)
-                    .setContentText(R.string.tutorial_practise)
-                    .setDismissText(R.string.got_it)
-                    .setDismissOnTouch(true)
-                    .setDismissTextColor(Color.GREEN)
-                    .setMaskColour(getResources().getColor(R.color.colorMask))
-                    .setShape(new NoShape())
-                    .show();
+//        mMainActivity.updateBottomNavigationView(R.id.navigation_dates);
+//        mMainActivity.showBottomNavigationView();
+//
+//        if (mMainActivity.isFirstTime(PRACTISE))
+//            new MaterialShowcaseView.Builder(mMainActivity)
+//                    .setTarget(recycler)
+//                    .setDelay(300)
+//                    .setContentText(R.string.tutorial_practise)
+//                    .setDismissText(R.string.got_it)
+//                    .setDismissOnTouch(true)
+//                    .setDismissTextColor(Color.GREEN)
+//                    .setMaskColour(getResources().getColor(R.color.colorMask))
+//                    .setShape(new NoShape())
+//                    .show();
     }
 
     public void onClick(int position) {

@@ -2,6 +2,9 @@
     <string name="app_name">Dates</string>
     <string name="title_tests">Tests</string>
     <string name="title_dates">Dates</string>
+    <string name="title_menu">Menu</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_details_picker">Details Picker</string>
     <string name="title_notifications">Notifications</string>
     <string name="settings">Settings</string>
     <string name="title_activity_settings">Settings</string>

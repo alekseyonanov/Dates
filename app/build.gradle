@@ -40,9 +40,11 @@ dependencies {
 
     implementation 'com.android.support:support-v4:28.0.0'
 
-    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
+//    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 
-    implementation 'com.flurry.android:analytics:11.0.0@aar'
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.2'
+
+    implementation 'com.flurry.android:analytics:11.4.0@aar'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true;
     }
@@ -61,18 +63,18 @@ dependencies {
 
 
     implementation name: 'adcolony-3.3.4', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-alphab', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-common', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-interstitial', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-interstitialvideo', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-mvdownloads', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-mvjscommon', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-mvnative', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-nativeex', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-playercommon', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-reward', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-videocommon', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-videofeeds', ext: 'aar'
-    implementation name: 'mobvista-8.11.0-videojs', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-alphab', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-common', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-interstitial', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-interstitialvideo', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-mtgdownloads', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-mtgjscommon', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-mtgnative', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-nativeex', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-playercommon', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-reward', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-videocommon', ext: 'aar'
+    implementation name: 'mobvista-9.0.0-videojs', ext: 'aar'
+    implementation name: 'ogury-3.0.13', ext: 'aar'
 
 }

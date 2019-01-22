@@ -2,6 +2,9 @@
     <string name="app_name">Даты</string>
     <string name="title_tests">Практика</string>
     <string name="title_dates">Даты</string>
+    <string name="title_menu">Меню</string>
+    <string name="title_calendar">Календарь</string>
+    <string name="title_details_picker">Выбор настроек</string>
     <string name="title_notifications">Уведомления</string>
     <string name="settings">Настройки</string>
     <string name="title_activity_settings">Настройки</string>
@@ -135,6 +138,10 @@
     <string name="gdpr_close">Закрыть окно</string>
 
     <string name="gdpr_learn_more">Узнать больше.</string>
+
+
+
+    <string name="hello_blank_fragment">Привет от пустого бланка!</string>
 
 
 
