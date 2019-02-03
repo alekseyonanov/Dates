@@ -4,8 +4,27 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@color/colorBackgroundTest"
-    android:padding="8dp"
     app:columnCount="2">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/true_false_back_button"
+        android:background="@drawable/practise_back_button"
+        app:layout_gravity="start"
+        app:layout_row="0"
+        app:layout_column="0"
+        android:src="@drawable/ic_arrow_back"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/practise_rating_button"
+        android:id="@+id/true_false_help_button"
+        app:layout_gravity="end"
+        app:layout_row="0"
+        app:layout_column="1"
+        android:src="@drawable/ic_help"/>
 
     <com.appodeal.ads.BannerView
         android:id="@+id/appodealBannerView_true"
@@ -16,29 +35,29 @@
         app:layout_column="0"
         app:layout_columnSpan="2"
         app:layout_gravity="top"
-        app:layout_row="0" />
-
-    <TextView
-        android:id="@+id/right_answers_true_false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBackgroundTest"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@android:color/holo_green_dark"
-        app:layout_column="0"
-        app:layout_gravity="start"
         app:layout_row="1" />
 
-    <TextView
-        android:id="@+id/wrong_answers_true_false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBackgroundTest"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@android:color/holo_red_light"
-        app:layout_column="1"
-        app:layout_gravity="end"
-        app:layout_row="1" />
+    <!--<TextView-->
+        <!--android:id="@+id/right_answers_true_false"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorBackgroundTest"-->
+        <!--android:textAppearance="?android:textAppearanceMedium"-->
+        <!--android:textColor="@android:color/holo_green_dark"-->
+        <!--app:layout_column="0"-->
+        <!--app:layout_gravity="start"-->
+        <!--app:layout_row="2" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/wrong_answers_true_false"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorBackgroundTest"-->
+        <!--android:textAppearance="?android:textAppearanceMedium"-->
+        <!--android:textColor="@android:color/holo_red_light"-->
+        <!--app:layout_column="1"-->
+        <!--app:layout_gravity="end"-->
+        <!--app:layout_row="2" />-->
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -20,12 +20,7 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <include layout="@layout/loader"
-            android:id="@+id/loader"/>
-
-    </FrameLayout>
+        android:layout_weight="1" />
 
 
     <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx

@@ -15,6 +15,7 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
     private String[] title_texts;
     private String[] subtitle_texts;
     private int[] imageIds;
+    private int[] backgrounds;
     private Listener mListener;
     private static final int DIVIDER = 0, CONTENT = 1;
 
@@ -26,20 +27,27 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
         mListener = listener;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private CardView mCardView;
 
         ViewHolder(CardView c) {
             super(c);
             mCardView = c;
+            c.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null)
+                        mListener.onClick(getAdapterPosition());
+                }
+            });
         }
-
     }
 
-    public PractiseCardsAdapter(String[] title, String[] subtitle, int[] i) {
+    public PractiseCardsAdapter(String[] title, String[] subtitle, int[] i, int[] backgrounds) {
         title_texts = title;
         subtitle_texts = subtitle;
         imageIds = i;
+        this.backgrounds = backgrounds;
     }
 
     @Override
@@ -62,26 +70,21 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
             textView.setText(subtitle_texts[position]);
             ImageView imageView = cardView.findViewById(R.id.info_image);
             imageView.setImageResource(imageIds[position]);
+            imageView.setBackgroundResource(backgrounds[position]);
             imageView.setContentDescription(title_texts[position]);
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mListener != null)
-                        mListener.onClick(position);
-                }
-            });
         }
     }
 
     @Override
     public int getItemCount() {
-        return title_texts.length;
+        return imageIds.length;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (title_texts[position].equals("DIVIDER"))
-            return DIVIDER;
-        else return CONTENT;
+//        if (title_texts[position].equals("DIVIDER"))
+//            return DIVIDER;
+//        else
+            return CONTENT;
     }
 }

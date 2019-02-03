@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,9 +32,10 @@ import static com.nollpointer.dates.constants.PractiseConstants.TEST_MODE;
 public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDialogCallbackListener {
 
     private TextView QuestionDate, QuestionEvent;
-    private TextView RightAnswerCountView, WrongAnswersCountView;
+//    private TextView RightAnswerCountView, WrongAnswersCountView;
     private Button trueButton, falseButton;
     private ProgressBar progressBar;
+    private ImageButton backButton, helpButton;
 
     private int right_answers_count = 0, wrong_answers_count = 0;
 
@@ -70,8 +72,8 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
         //else
         View mainView = inflater.inflate(R.layout.fragment_true_false, container, false);
         initViews(mainView);
-        WrongAnswersCountView.setText("0");
-        RightAnswerCountView.setText("0");
+//        WrongAnswersCountView.setText("0");
+//        RightAnswerCountView.setText("0");
 
         Bundle saved = getArguments();
         dates = saved.getParcelableArrayList(DATES);
@@ -121,8 +123,10 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
         Appodeal.setBannerViewId(R.id.appodealBannerView_true);
         QuestionDate = mainView.findViewById(R.id.test_info_true_false_date);
         QuestionEvent = mainView.findViewById(R.id.test_info_true_false_event);
-        RightAnswerCountView = mainView.findViewById(R.id.right_answers_true_false);
-        WrongAnswersCountView = mainView.findViewById(R.id.wrong_answers_true_false);
+//        RightAnswerCountView = mainView.findViewById(R.id.right_answers_true_false);
+//        WrongAnswersCountView = mainView.findViewById(R.id.wrong_answers_true_false);
+        backButton = mainView.findViewById(R.id.true_false_back_button);
+        helpButton = mainView.findViewById(R.id.true_false_help_button);
         progressBar = mainView.findViewById(R.id.true_false_progressbar);
         trueButton = mainView.findViewById(R.id.true_button);
         trueButton.setOnClickListener(new View.OnClickListener() {
@@ -145,19 +149,34 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
             }
         });
 
-        WrongAnswersCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.thumb_down_selector, 0);
-        RightAnswerCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector, 0, 0, 0);
+//        WrongAnswersCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.thumb_down_selector, 0);
+//        RightAnswerCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector, 0, 0, 0);
+        backButton.setImageResource(R.drawable.ic_arrow_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
+
+        helpButton.setImageResource(R.drawable.ic_help);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void checkResult(boolean opinion) {
         if (isCorrect == opinion) {
             right_answers_count++;
-            RightAnswerCountView.setText(Integer.toString(right_answers_count));
+            //RightAnswerCountView.setText(Integer.toString(right_answers_count));
             QuestionDate.setTextColor(greenColor);
             QuestionEvent.setTextColor(greenColor);
         } else {
             wrong_answers_count++;
-            WrongAnswersCountView.setText(Integer.toString(wrong_answers_count));
+            //WrongAnswersCountView.setText(Integer.toString(wrong_answers_count));
             QuestionDate.setTextColor(redColor);
             QuestionEvent.setTextColor(redColor);
         }
@@ -225,8 +244,8 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
             Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
 
         wrong_answers_count = right_answers_count = 0;
-        WrongAnswersCountView.setText(Integer.toString(wrong_answers_count));
-        RightAnswerCountView.setText(Integer.toString(right_answers_count));
+//        WrongAnswersCountView.setText(Integer.toString(wrong_answers_count));
+//        RightAnswerCountView.setText(Integer.toString(right_answers_count));
         progressBar.setProgress(0);
 
         setQuestions();

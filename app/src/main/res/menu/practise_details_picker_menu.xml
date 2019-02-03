@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!--<item-->
+    <!--android:id="@+id/dates_app_bar_switch"-->
+    <!--android:orderInCategory="11"-->
+    <!--android:title="@string/mode_switch"-->
+    <!--app:actionLayout="@layout/switch_item"-->
+    <!--app:showAsAction="ifRoom" />-->
+
+    <item
+        android:id="@+id/practise_details_picker_random"
+        android:icon="@drawable/ic_random"
+        android:orderInCategory="12"
+        android:title="Random"
+        app:showAsAction="ifRoom" />
+
+    <!--<item-->
+    <!--android:id="@+id/messageDeveloper"-->
+    <!--android:orderInCategory="13"-->
+    <!--android:title="Message"-->
+    <!--app:showAsAction="never" />-->
+    <!--<item-->
+    <!--android:orderInCategory="14"-->
+    <!--android:title="@string/mode_switch"-->
+    <!--app:actionLayout="@layout/switch_item"-->
+    <!--app:showAsAction="never" />-->
+
+
+</menu>

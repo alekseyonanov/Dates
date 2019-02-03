@@ -46,6 +46,7 @@
     <string name="sotr_text">Расположите в хронологической последовательности</string>
 
     <string name="message_developer">Связаться с разработчиком</string>
+    <string name="message_developer_title">Егэ История России Даты</string>
 
     <string name="reset_button">Еще раз!</string>
     <string name="exit_button">Выход</string>
@@ -75,28 +76,36 @@
 
     <string-array name="tests">
         <item>Карточки</item>
-        <item>DIVIDER</item>
         <item>Тест</item>
         <item>Тест</item>
-        <item>DIVIDER</item>
         <item>Правда/Ложь</item>
         <item>Правда/Ложь</item>
-        <item>DIVIDER</item>
         <item>Сортировка</item>
         <item>Сортировка</item>
         <!-- <item>Соответствие</item> -->
         <!-- <item>Множественный выбор</item> -->
     </string-array>
 
+    <string-array name="practise_titles">
+        <item>Карточки</item>
+        <item>Тест</item>
+        <item>Правда или Ложь</item>
+        <item>Сортировка</item>
+    </string-array>
+
+    <string-array name="practise_description">
+        <item>Карточки с датами</item>
+        <item>Бесконечный тест</item>
+        <item>Бесконечная проверка</item>
+        <item>Сортировка без конца</item>
+    </string-array>
+
     <string-array name="tests_description">
         <item>Карточки с датами</item>
-        <item>DIVIDER</item>
         <item>Бесконечный тест</item>
         <item>20 вопросов</item>
-        <item>DIVIDER</item>
         <item>Бесконечная проверка</item>
         <item>20 вопросов</item>
-        <item>DIVIDER</item>
         <item>Сортировка без конца</item>
         <item>20 вопросов</item>
     </string-array>
@@ -142,7 +151,5 @@
 
 
     <string name="hello_blank_fragment">Привет от пустого бланка!</string>
-
-
 
 </resources>

@@ -2,7 +2,6 @@ package com.nollpointer.dates;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         initializeBottomView();
         FrameLayout frameLayout = findViewById(R.id.frameLayout);
-        new LoadData(bottomView, frameLayout).execute();
+        new LoadData(bottomView).execute();
 
 //        if (prefs.contains(GDPR)) {
 //            boolean isGDPRAgree = prefs.getBoolean(GDPR, false);
@@ -208,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        bottomView.setVisibility(View.VISIBLE);
+        //bottomView.setVisibility(View.VISIBLE);
 //        if (isFirstTime(GDPR_SHOW))
 //            startGDPR();
     }
@@ -401,6 +400,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     protected static class setNewPreferences extends AsyncTask<MainActivity, Void, Void> {
         TreeMap<String, Boolean> prefs;
         int mode;
@@ -433,25 +434,19 @@ public class MainActivity extends AppCompatActivity {
 
         RelativeLayout loader;
         BottomNavigationView bottomNavigationView;
-        FrameLayout frameLayout;
 
-        TextView textView;
-
-        public   LoadData(BottomNavigationView bottomNavigationView, FrameLayout frameLayout) {
+        public LoadData(BottomNavigationView bottomNavigationView) {
             this.bottomNavigationView = bottomNavigationView;
-            this.frameLayout = frameLayout;
         }
 
         @Override
         protected void onPreExecute() {
-            loader = findViewById(R.id.loader);
             //frameLayout.addView(loader);
-            textView = loader.findViewById(R.id.loaderText);
+            hideBottomNavigationView();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            frameLayout.removeView(loader);
             //bottomNavigationView.setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, new GDPRFragment(), "TAG").commit();
         }

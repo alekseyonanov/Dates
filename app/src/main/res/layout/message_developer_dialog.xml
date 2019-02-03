@@ -12,12 +12,25 @@
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/telegram"
         android:drawablePadding="36dp"
-        android:foreground="?attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:padding="10dp"
         android:textAppearance="?android:textAppearanceLarge"
+        android:text="title"
         android:textColor="#808080" />
 
+    <TextView
+        android:id="@+id/twitter_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/twitter"
+        android:drawablePadding="36dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:text="title"
+        android:padding="10dp"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="#808080" />
 
     <TextView
         android:id="@+id/mail_message"
@@ -25,21 +38,11 @@
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/email"
         android:drawablePadding="36dp"
-        android:foreground="?attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
-
+        android:text="title"
         android:padding="10dp"
-
         android:textAppearance="?android:textAppearanceLarge"
-
         android:textColor="#808080" />
-
-    <!--<include layout="@layout/message_cardview"-->
-    <!--android:id="@+id/telegram_message" />-->
-
-    <!--<include layout="@layout/divider_layout" />-->
-
-    <!--<include layout="@layout/message_cardview"-->
-    <!--android:id="@+id/mail_message" />-->
 
 </LinearLayout>

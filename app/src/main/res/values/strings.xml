@@ -42,6 +42,7 @@
     <string name="sotr_text">Sort in ascending sequence</string>
 
     <string name="message_developer">Message Developer</string>
+    <string name="message_developer_title">Dates Application</string>
 
 
     <string name="reset_button">Reset</string>
@@ -72,28 +73,36 @@
 
     <string-array name="tests">
         <item>Cards</item>
-        <item>DIVIDER</item>
         <item>Test</item>
         <item>Test</item>
-        <item>DIVIDER</item>
         <item>True/False</item>
         <item>True/False</item>
-        <item>DIVIDER</item>
         <item>Sort</item>
         <item>Sort</item>
         <!-- <item>Choose test</item> -->
         <!-- <item>Multiple pick</item> -->
     </string-array>
 
+    <string-array name="practise_titles">
+        <item>Cards</item>
+        <item>Test</item>
+        <item>True/False</item>
+        <item>Sort</item>
+    </string-array>
+
+    <string-array name="practise_description">
+        <item>Cards with dates</item>
+        <item>Test just like in school</item>
+        <item>Truth test</item>
+        <item>Sort test</item>
+    </string-array>
+
     <string-array name="tests_description">
         <item>Cards with dates</item>
-        <item>DIVIDER</item>
         <item>Infinite</item>
         <item>Test just like in school</item>
-        <item>DIVIDER</item>
         <item>Infinite</item>
         <item>Truth test</item>
-        <item>DIVIDER</item>
         <item>Infinite sort</item>
         <item>Sort test</item>
     </string-array>

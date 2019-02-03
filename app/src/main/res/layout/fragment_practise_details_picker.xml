@@ -1,16 +1,123 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/practise_details_picker_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back"
         app:theme="@style/ToolBarStyle"
         app:title="@string/title_details_picker"
-        app:navigationIcon="@drawable/ic_arrow_back"
         app:titleTextColor="@android:color/white" />
 
-</RelativeLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/practise_details_picker_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/typeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dip"
+                        android:layout_marginLeft="12dip"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Type"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/tertiary_text_dark"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/typeDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/typeTitle"
+                        android:background="#E0E0E0" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/typeRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/typeDivider" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/centuryTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dip"
+                        android:layout_marginLeft="12dip"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Century"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/tertiary_text_dark"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/centuryDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/centuryTitle"
+                        android:background="#E0E0E0" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/centuriesRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/centuryDivider" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/practise_details_picker_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?android:attr/textColorLink"
+        android:gravity="center"
+        android:text="Тестирование"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

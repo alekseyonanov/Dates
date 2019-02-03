@@ -30,7 +30,10 @@ import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 
 import static com.nollpointer.dates.MainActivity.EASY_DATES_MODE;
 import static com.nollpointer.dates.MainActivity.FULL_DATES_MODE;
-import static com.nollpointer.dates.MainActivity.PRACTISE;
+import static com.nollpointer.dates.constants.PractiseConstants.CARDS;
+import static com.nollpointer.dates.constants.PractiseConstants.SORT;
+import static com.nollpointer.dates.constants.PractiseConstants.TEST;
+import static com.nollpointer.dates.constants.PractiseConstants.TRUE_FALSE;
 
 
 public class PractiseFragment extends Fragment implements PractiseCardsAdapter.Listener, CenturyPickDialog.NoticeDialogListener, TypePickDialog.Listener, StartPosition {
@@ -43,8 +46,11 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
                              Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.fragment_practise, container, false);
         recycler = (RecyclerView) mainView.findViewById(R.id.practise_recycler_view);
-        PractiseCardsAdapter adapter = new PractiseCardsAdapter(getResources().getStringArray(R.array.tests),
-                getResources().getStringArray(R.array.tests_description), new int[]{R.mipmap.ic_dates_cards_round, -1, R.mipmap.ic_tests_round, R.mipmap.ic_tests_real_round, -1, R.mipmap.ic_true_false_inf_round, R.mipmap.ic_true_false_real_round, -1, R.mipmap.ic_sort_infinite_round, R.mipmap.ic_sort_real_round});
+        PractiseCardsAdapter adapter = new PractiseCardsAdapter(getResources().getStringArray(R.array.practise_titles),
+                getResources().getStringArray(R.array.practise_description),
+                new int[]{R.drawable.ic_cards, R.drawable.ic_test, R.drawable.ic_true_false,
+                R.drawable.ic_sort},
+                new int[]{R.drawable.ic_practise_background_cards,R.drawable.ic_practise_background_test,R.drawable.ic_practise_background_true_false,R.drawable.ic_practise_background_sort,});
         adapter.setListener(this);
         mMainActivity = (MainActivity) getActivity();
         recycler.setAdapter(adapter);
@@ -70,15 +76,40 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
 //                    .show();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainActivity) getActivity()).showBottomNavigationView();
+    }
+
     public void onClick(int position) {
-        pressedPosition = position;
-        if (position == 5 || position == 6 || position == 8 || position == 9) {
-            typePicked(1);
-        } else {
-            TypePickDialog dialog = new TypePickDialog();
-            dialog.setListener(this);
-            dialog.show(mMainActivity.getSupportFragmentManager(), null);
+//        pressedPosition = position;
+//        if (position == 5 || position == 6 || position == 8 || position == 9) {
+//            typePicked(1);
+//        } else {
+//            TypePickDialog dialog = new TypePickDialog();
+//            dialog.setListener(this);
+//            dialog.show(mMainActivity.getSupportFragmentManager(), null);
+//        }
+        String practise;
+        switch (position) {
+            case 0:
+                practise = CARDS;
+                break;
+            case 1:
+                practise = TEST;
+                break;
+            case 2:
+                practise = TRUE_FALSE;
+                break;
+            case 3:
+                practise = SORT;
+                break;
+            default:
+                return;
         }
+        mMainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseDetailsPickerFragment.newInstance(practise)).addToBackStack(null).commit();
+
     }
 
     @Override
@@ -158,7 +189,6 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
         ArrayList<Date> dates = mMainActivity.getDateList();
         ArrayList<Date> practiseList = new ArrayList<>();
         int mode = mMainActivity.getMode();
-
         if ((mode == FULL_DATES_MODE && arrayList.contains(10)) || (mode == EASY_DATES_MODE && arrayList.contains(2))) // Если выбраны все даты
             return dates;
         Pair<Integer, Integer> pair;

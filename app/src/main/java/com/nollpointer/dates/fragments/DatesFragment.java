@@ -78,6 +78,8 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
 
         initializeMenu();
 
+        ((MainActivity) getActivity()).showBottomNavigationView();
+
         Resources resources = getResources();
         adapter = new DatesCardsAdapter(dates, ctx.getMode(), resources.getStringArray(R.array.centuries), resources.getStringArray(R.array.centuries_easy));
         adapter.setListener(this);
