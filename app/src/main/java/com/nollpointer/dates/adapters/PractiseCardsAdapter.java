@@ -17,7 +17,7 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
     private int[] imageIds;
     private int[] backgrounds;
     private Listener mListener;
-    private static final int DIVIDER = 0, CONTENT = 1;
+    //private static final int DIVIDER = 0, CONTENT = 1;
 
     public interface Listener {
         void onClick(int position);
@@ -53,16 +53,15 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
     @Override
     public PractiseCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView c;
-        if (viewType == CONTENT)
+        //if (viewType == CONTENT)
             c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.practise_card, parent, false);
-        else
-            c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.divider_layout, parent, false);
+        //else
+        //    c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.divider_layout, parent, false);
         return new ViewHolder(c);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        if (getItemViewType(position) == CONTENT) {
             CardView cardView = holder.mCardView;
             TextView textView = cardView.findViewById(R.id.info_text_title);
             textView.setText(title_texts[position]);
@@ -72,7 +71,6 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
             imageView.setImageResource(imageIds[position]);
             imageView.setBackgroundResource(backgrounds[position]);
             imageView.setContentDescription(title_texts[position]);
-        }
     }
 
     @Override
@@ -80,11 +78,11 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
         return imageIds.length;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-//        if (title_texts[position].equals("DIVIDER"))
-//            return DIVIDER;
-//        else
-            return CONTENT;
-    }
+//    @Override
+//    public int getItemViewType(int position) {
+////        if (title_texts[position].equals("DIVIDER"))
+////            return DIVIDER;
+////        else
+//            return CONTENT;
+//    }
 }

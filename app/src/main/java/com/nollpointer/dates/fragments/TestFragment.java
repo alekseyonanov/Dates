@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -29,12 +30,14 @@ import static com.nollpointer.dates.constants.PractiseConstants.TYPE;
 public class TestFragment extends Fragment implements ResultDialog.ResultDialogCallbackListener {
     private int RightButton, RightAnswers = 0, WrongAnswers = 0, type = 0;
     private Button answerButtons[];
-    private TextView questionView, rightAnswersView, wrongAnswersView;
+    private TextView questionView;
+    //private TextView rightAnswersView, wrongAnswersView;
     private Handler mHandler;
     private Runnable refreshRunnable;
     private ArrayList<Integer> uniqueQuestionIndexes;
     private int bestResult = 0;
     private ProgressBar progressBar;
+    private ImageButton backButton, helpButton;
 
     private ArrayList<Date> dates;
     private ArrayList<Date> questions;
@@ -110,8 +113,10 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
 
     private void initViews(View view) {
         questionView = view.findViewById(R.id.test_info);
-        rightAnswersView = view.findViewById(R.id.right_answers);
-        wrongAnswersView = view.findViewById(R.id.wrong_answers);
+//        rightAnswersView = view.findViewById(R.id.right_answers);
+//        wrongAnswersView = view.findViewById(R.id.wrong_answers);
+        backButton = view.findViewById(R.id.test_back_button);
+        helpButton = view.findViewById(R.id.test_help_button);
         progressBar = view.findViewById(R.id.test_progressbar);
         answerButtons = new Button[4];
         Appodeal.setBannerViewId(R.id.appodealBannerView);
@@ -123,8 +128,24 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             answerButtons[i].setTag(i);
             answerButtons[i].setOnClickListener(buttonClickListener);
         }
-        wrongAnswersView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.thumb_down_selector, 0);
-        rightAnswersView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector, 0, 0, 0);
+
+        backButton.setImageResource(R.drawable.ic_arrow_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
+
+        helpButton.setImageResource(R.drawable.ic_help);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+//        wrongAnswersView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.thumb_down_selector, 0);
+//        rightAnswersView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector, 0, 0, 0);
     }
 
     private void setTestInfo() {
@@ -201,8 +222,8 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
     }
 
     private void refreshAnswerCount() {
-        wrongAnswersView.setText(Integer.toString(WrongAnswers));
-        rightAnswersView.setText(Integer.toString(RightAnswers));
+//        wrongAnswersView.setText(Integer.toString(WrongAnswers));
+//        rightAnswersView.setText(Integer.toString(RightAnswers));
     }
 
     @Override
@@ -230,8 +251,8 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
 
         WrongAnswers = RightAnswers = 0;
-        rightAnswersView.setText(Integer.toString(WrongAnswers));
-        wrongAnswersView.setText(Integer.toString(RightAnswers));
+//        rightAnswersView.setText(Integer.toString(WrongAnswers));
+//        wrongAnswersView.setText(Integer.toString(RightAnswers));
         progressBar.setProgress(0);
 
         setQuestions();

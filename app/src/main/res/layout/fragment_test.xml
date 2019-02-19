@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@color/colorBackgroundTest"
-    android:padding="8dp"
     app:columnCount="2">
 
     <com.appodeal.ads.BannerView
@@ -19,27 +18,45 @@
         app:layout_gravity="top"
         app:layout_row="0" />
 
-    <TextView
-        android:id="@+id/right_answers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBackgroundTest"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@android:color/holo_green_dark"
-        app:layout_column="0"
-        app:layout_gravity="start"
-        app:layout_row="1" />
+    <!--<TextView-->
+        <!--android:id="@+id/right_answers"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorBackgroundTest"-->
+        <!--android:textAppearance="?android:textAppearanceMedium"-->
+        <!--android:textColor="@android:color/holo_green_dark"-->
+        <!--app:layout_column="0"-->
+        <!--app:layout_gravity="start"-->
+        <!--app:layout_row="1" />-->
 
-    <TextView
-        android:id="@+id/wrong_answers"
+    <!--<TextView-->
+        <!--android:id="@+id/wrong_answers"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorBackgroundTest"-->
+        <!--android:textAppearance="?android:textAppearanceMedium"-->
+        <!--android:textColor="@android:color/holo_red_light"-->
+        <!--app:layout_column="1"-->
+        <!--app:layout_gravity="end"-->
+        <!--app:layout_row="1" />-->
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorBackgroundTest"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@android:color/holo_red_light"
-        app:layout_column="1"
+        android:id="@+id/test_back_button"
+        android:background="@drawable/practise_back_button"
+        app:layout_gravity="start"
+        app:layout_row="0"
+        app:layout_column="0"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/practise_rating_button"
+        android:id="@+id/test_help_button"
         app:layout_gravity="end"
-        app:layout_row="1" />
+        app:layout_row="0"
+        app:layout_column="1"/>
 
     <TextView
         android:id="@+id/test_info"

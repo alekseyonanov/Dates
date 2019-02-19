@@ -12,9 +12,7 @@
         android:background="@color/colorPrimary"
         app:theme="@style/ToolBarStyle"
         app:title="@string/title_dates"
-        app:titleTextColor="@android:color/white">
-
-    </android.support.v7.widget.Toolbar>
+        app:titleTextColor="@android:color/white" />
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

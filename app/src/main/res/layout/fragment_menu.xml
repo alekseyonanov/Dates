@@ -5,7 +5,7 @@
     android:background="#EEEEEE">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/practise_details_picker_toolbar"
+        android:id="@+id/menu_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorPrimary"
@@ -14,9 +14,10 @@
         app:titleTextColor="@android:color/white" />
 
     <android.support.v7.widget.CardView
+        android:id="@+id/feedback_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/practise_details_picker_toolbar"
+        android:layout_below="@id/menu_toolbar"
         android:layout_margin="4dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/white">
@@ -94,6 +95,29 @@
             </LinearLayout>
 
         </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/feedback_card_view"
+        android:layout_margin="4dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/game_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/ic_game_icon_foreground"
+            android:drawablePadding="36dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="title"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="#808080" />
 
     </android.support.v7.widget.CardView>
 
