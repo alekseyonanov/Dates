@@ -1,5 +1,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory
+        android:title="Основные">
+
     <SwitchPreference
         android:defaultValue="true"
         android:key="example_switch"
@@ -29,5 +32,17 @@
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
         android:title="@string/pref_title_add_friends_to_messages" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Информация">
+
+        <Preference android:title="FAQ">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://n0llpointer.github.io/Dates/" />
+        </Preference>
+
+    </PreferenceCategory>
 
 </PreferenceScreen>
