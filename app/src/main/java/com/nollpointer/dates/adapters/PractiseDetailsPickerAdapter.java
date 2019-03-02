@@ -1,6 +1,7 @@
 package com.nollpointer.dates.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.CheckedTextView;
 import com.nollpointer.dates.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -61,11 +63,21 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
         return titles.length;
     }
 
-    public int getPickedType() {
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setCenturies(ArrayList<Integer> centuries) {
+        this.centuries = centuries;
+    }
+
+    public int getType() {
         return type;
     }
 
-    public List<Integer> getPickedCenturies() {
+    public List<Integer> getCenturies() {
+        Collections.sort(centuries);
+        Log.e("ADAPTER", "getCenturies: " + centuries.toString());
         return centuries;
     }
 

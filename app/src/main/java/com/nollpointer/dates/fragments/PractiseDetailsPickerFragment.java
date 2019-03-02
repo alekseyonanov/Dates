@@ -2,8 +2,12 @@ package com.nollpointer.dates.fragments;
 
 
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,16 +22,21 @@ import android.widget.Button;
 
 import com.nollpointer.dates.Date;
 import com.nollpointer.dates.MainActivity;
+import com.nollpointer.dates.Misc;
 import com.nollpointer.dates.R;
 import com.nollpointer.dates.adapters.PractiseDetailsPickerAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeMap;
 
 import static com.nollpointer.dates.MainActivity.EASY_DATES_MODE;
 import static com.nollpointer.dates.MainActivity.FULL_DATES_MODE;
+import static com.nollpointer.dates.MainActivity.MODE;
 import static com.nollpointer.dates.constants.PractiseConstants.CARDS;
+import static com.nollpointer.dates.constants.PractiseConstants.DISTRIBUTE;
 import static com.nollpointer.dates.constants.PractiseConstants.SORT;
 import static com.nollpointer.dates.constants.PractiseConstants.TEST;
 import static com.nollpointer.dates.constants.PractiseConstants.TRUE_FALSE;
@@ -41,10 +50,11 @@ public class PractiseDetailsPickerFragment extends Fragment {
     private static final String TAG = "PractiseDetailsPicker";
 
 
-    public static PractiseDetailsPickerFragment newInstance(String practise) {
+    public static PractiseDetailsPickerFragment newInstance(String practise, int mode) {
         PractiseDetailsPickerFragment practiseDetailsPickerFragment = new PractiseDetailsPickerFragment();
         Bundle bundle = new Bundle();
         bundle.putString(PRACTISE, practise);
+        bundle.putInt(MODE, mode);
         practiseDetailsPickerFragment.setArguments(bundle);
         return practiseDetailsPickerFragment;
     }
@@ -74,7 +84,18 @@ public class PractiseDetailsPickerFragment extends Fragment {
             }
         });
 
+        Button practiseButton = mainView.findViewById(R.id.practise_details_picker_button);
+        practiseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPractise();
+            }
+        });
+
         Resources resources = getResources();
+
+
+
 
         RecyclerView typeRecyclerView = mainView.findViewById(R.id.typeRecyclerView);
         typeAdapter = new PractiseDetailsPickerAdapter(resources.getTextArray(R.array.pick_type),
@@ -100,20 +121,28 @@ public class PractiseDetailsPickerFragment extends Fragment {
             }
         });
 
-        Button practiseButton = mainView.findViewById(R.id.practise_details_picker_button);
-        practiseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startPractise();
-            }
-        });
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Bundle bundle = getArguments();
+        boolean saveCurrentState = preferences.getBoolean("save_current_state",true);
+        int mode = bundle.getInt(MODE,FULL_DATES_MODE);
+
+        if(saveCurrentState) {
+            int type = preferences.getInt("practise_type",0);
+            ArrayList<Integer> list = Misc.getIntegerListFromString(preferences.getString("practise_centuries",null));
+
+            typeAdapter.setType(type);
+            centuryAdapter.setCenturies(list);
+        }
 
         return mainView;
     }
 
+
     public void startPractise() {
-        int type = typeAdapter.getPickedType();
-        List<Integer> centuries = centuryAdapter.getPickedCenturies();
+        int type = typeAdapter.getType();
+        List<Integer> centuries = centuryAdapter.getCenturies();
+
+        new SaveCurrentState(getContext(),type,centuries).execute();
 
         if(centuries.size() == 0)
             return;
@@ -136,6 +165,9 @@ public class PractiseDetailsPickerFragment extends Fragment {
                 break;
             case SORT:
                 fragment = SortFragment.newInstance(dates, false);
+                break;
+            case DISTRIBUTE:
+                fragment = new DistributeFragment();
                 break;
             default:
                 fragment = CardsFragment.newInstance(dates, type);
@@ -232,6 +264,32 @@ public class PractiseDetailsPickerFragment extends Fragment {
             }
         }
         return new Pair<>(start, end);
+    }
+
+
+    protected static class SaveCurrentState extends AsyncTask<Void, Void, Void> {
+        int type;
+        List<Integer> centuries;
+        Context context;
+
+        SaveCurrentState(Context context,int type, List<Integer> centuries) {
+            this.context = context;
+            this.type = type;
+            this.centuries = centuries;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            SharedPreferences.Editor editor =   PreferenceManager.getDefaultSharedPreferences(context).edit();
+
+            String numberString = Misc.getStringFromIntegerList(centuries);
+
+            editor.putInt("practise_type",type);
+            editor.putString("practise_centuries",numberString);
+
+            editor.apply();
+            return null;
+        }
     }
 
 }

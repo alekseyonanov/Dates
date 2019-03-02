@@ -5,33 +5,34 @@
 
     <SwitchPreference
         android:defaultValue="true"
-        android:key="example_switch"
-        android:summary="@string/pref_description_social_recommendations"
-        android:title="@string/pref_title_social_recommendations" />
+        android:key="save_current_state"
+        android:summary="Предыдущий выбор типа и веков сохраняется и автоматически выставляется при выборе настроек для практики. "
+        android:title="Сохранение состояния" />
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
-    <EditTextPreference
-        android:capitalize="words"
-        android:defaultValue="@string/pref_default_display_name"
-        android:inputType="textCapWords"
-        android:key="example_text"
-        android:maxLines="1"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:title="@string/pref_title_display_name" />
+    <!--<EditTextPreference-->
+        <!--android:capitalize="words"-->
+        <!--android:defaultValue="@string/pref_default_display_name"-->
+        <!--android:inputType="textCapWords"-->
+        <!--android:key="example_text"-->
+        <!--android:maxLines="1"-->
+        <!--android:selectAllOnFocus="true"-->
+        <!--android:singleLine="true"-->
+        <!--android:title="@string/pref_title_display_name" />-->
 
     <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
          dismiss it. -->
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
-        android:defaultValue="-1"
-        android:entries="@array/pref_example_list_titles"
-        android:entryValues="@array/pref_example_list_values"
-        android:key="example_list"
+        android:defaultValue="0"
+        android:entries="@array/dates_cards_types_entries"
+        android:entryValues="@array/dates_cards_types_values"
+        android:key="dates_card_type"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
-        android:title="@string/pref_title_add_friends_to_messages" />
+        android:title="Вид карточки с датами"
+        android:summary="По умолчанию"/>
 
     </PreferenceCategory>
 
@@ -42,6 +43,15 @@
             <intent android:action="android.intent.action.VIEW"
                 android:data="https://n0llpointer.github.io/Dates/" />
         </Preference>
+
+        <Preference android:title="Beta Testing">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://play.google.com/apps/testing/com.nollpointer.dates" />
+        </Preference>
+        <!--<Preference android:title="Страница Разработчика">-->
+            <!--<intent android:action="android.intent.action.VIEW"-->
+                <!--android:data="market://dev?id=5700313618786177705" />-->
+        <!--</Preference>-->
 
     </PreferenceCategory>
 

@@ -13,112 +13,155 @@
         app:title="@string/title_menu"
         app:titleTextColor="@android:color/white" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/feedback_card_view"
+    <com.nollpointer.dates.views.ModeViewPager
+        android:id="@+id/menu_view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/menu_toolbar"
-        android:layout_margin="4dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/white">
+        android:background="@color/colorPrimary" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/typeTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dip"
-                android:layout_marginLeft="12dip"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:text="FeedBack"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/tertiary_text_dark"
-                android:textStyle="bold" />
-
-            <View
-                android:id="@+id/typeDivider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/typeTitle"
-                android:background="#E0E0E0" />
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/typeDivider"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/telegram_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:drawableStart="@drawable/telegram"
-                    android:drawablePadding="36dp"
-                    android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:text="title"
-                    android:textAppearance="?android:textAppearanceLarge"
-                    android:textColor="#808080" />
-
-                <TextView
-                    android:id="@+id/twitter_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:drawableStart="@drawable/twitter"
-                    android:drawablePadding="36dp"
-                    android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:text="title"
-                    android:textAppearance="?android:textAppearanceLarge"
-                    android:textColor="#808080" />
-
-                <TextView
-                    android:id="@+id/mail_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:drawableStart="@drawable/email"
-                    android:drawablePadding="36dp"
-                    android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:text="title"
-                    android:textAppearance="?android:textAppearanceLarge"
-                    android:textColor="#808080" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
+    <android.support.design.widget.TabLayout
+        android:id="@+id/menu_tab_dots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/feedback_card_view"
-        android:layout_margin="4dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/white">
+        android:layout_below="@id/menu_view_pager"
+        android:background="@color/colorPrimary"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp" />
 
-        <TextView
-            android:id="@+id/game_start"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/menu_tab_dots">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:drawableStart="@drawable/ic_game_icon_foreground"
-            android:drawablePadding="36dp"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:text="title"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="#808080" />
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
 
-    </android.support.v7.widget.CardView>
+            <Button
+                android:id="@+id/menu_select_current_mode"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="16dp"
+                android:foreground="?selectableItemBackgroundBorderless"
+                android:text="Выбрать этот режим"/>
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/menu_game_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:id="@+id/game_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:drawableStart="@drawable/ic_game_icon_foreground"
+                    android:drawablePadding="36dp"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="title"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    android:textColor="#808080" />
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/feedback_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/white">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/typeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dip"
+                        android:layout_marginLeft="12dip"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="FeedBack"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@android:color/tertiary_text_dark" />
+
+                    <View
+                        android:id="@+id/typeDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/typeTitle"
+                        android:background="#E0E0E0" />
+
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/typeDivider"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/telegram_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:drawableStart="@drawable/telegram"
+                            android:drawablePadding="36dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="title"
+                            android:textAppearance="?android:textAppearanceLarge"
+                            android:textColor="#808080" />
+
+                        <TextView
+                            android:id="@+id/twitter_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:drawableStart="@drawable/twitter"
+                            android:drawablePadding="36dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="title"
+                            android:textAppearance="?android:textAppearanceLarge"
+                            android:textColor="#808080" />
+
+                        <TextView
+                            android:id="@+id/mail_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:drawableStart="@drawable/email"
+                            android:drawablePadding="36dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="title"
+                            android:textAppearance="?android:textAppearanceLarge"
+                            android:textColor="#808080" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

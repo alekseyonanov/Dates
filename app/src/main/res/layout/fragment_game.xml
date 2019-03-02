@@ -9,16 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorPrimary"
-        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIcon="@drawable/ic_arrow_back_white"
         app:theme="@style/ToolBarStyle"
-        app:title="@string/title_tests"
+        app:title="@string/title_game"
         app:titleTextColor="@android:color/white" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/game_toolbar"
-        android:background="@color/colorGameCards">
+        android:background="#C62828">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,9 +28,9 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="Угадай карту"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -38,9 +38,9 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:text="Переверните 3 карты за просмотр рекламы"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -48,37 +48,40 @@
 
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="15dp"
                 android:id="@+id/game_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" />
 
 
             <TextView
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:text="Правила"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@android:color/white" />
 
 
             <TextView
-                android:layout_marginTop="15dp"
+                android:id="@+id/game_instructions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Переверните 3 карты за просмотр рекламы"
-                android:id="@+id/game_instructions"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@android:color/white"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="50dp"
-                android:layout_marginLeft="4dp"/>
+                android:text="Переверните 3 карты за просмотр рекламы"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
 
 
         </LinearLayout>
 
 
     </android.support.v4.widget.NestedScrollView>
+
+
+
 
 
 </RelativeLayout>

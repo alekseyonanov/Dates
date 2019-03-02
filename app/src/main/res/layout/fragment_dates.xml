@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,17 +8,67 @@
         android:id="@+id/dates_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
-        android:layout_gravity="top"
+        android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
         app:theme="@style/ToolBarStyle"
         app:title="@string/title_dates"
         app:titleTextColor="@android:color/white" />
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/dates_card_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="2dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_search"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <ImageView
+                android:id="@+id/dates_image_search_back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Search"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/dates_edit_text_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:hint="Поиск"
+                android:imeOptions="actionSearch"
+                android:inputType="textCapWords"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:singleLine="true" />
+
+            <ImageView
+                android:id="@+id/dates_search_multi_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Cancel"
+                android:padding="12dp" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/dates_toolbar">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/id_appbar"
@@ -83,5 +133,5 @@
     </android.support.design.widget.CoordinatorLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
 

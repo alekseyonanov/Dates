@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorPrimary"
-        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIcon="@drawable/ic_arrow_back_white"
         app:theme="@style/ToolBarStyle"
         app:title="@string/title_details_picker"
         app:titleTextColor="@android:color/white" />
@@ -30,7 +30,7 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                android:layout_marginTop="8dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -41,13 +41,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dip"
-                        android:layout_marginLeft="12dip"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
                         android:text="Type"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@android:color/tertiary_text_dark"
-                        android:textStyle="bold" />
+                        android:textColor="@android:color/tertiary_text_dark" />
 
                     <View
                         android:id="@+id/typeDivider"
@@ -70,7 +68,7 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                android:layout_marginTop="8dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -86,8 +84,7 @@
                         android:layout_marginBottom="4dp"
                         android:text="Century"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@android:color/tertiary_text_dark"
-                        android:textStyle="bold" />
+                        android:textColor="@android:color/tertiary_text_dark" />
 
                     <View
                         android:id="@+id/centuryDivider"

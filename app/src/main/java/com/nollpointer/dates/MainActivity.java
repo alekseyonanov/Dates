@@ -4,27 +4,25 @@ package com.nollpointer.dates;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.appodeal.ads.Appodeal;
 import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.nollpointer.dates.fragments.CalendarFragment;
+import com.nollpointer.dates.fragments.StatisticsFragment;
 import com.nollpointer.dates.fragments.DatesFragment;
 import com.nollpointer.dates.fragments.GDPRFragment;
 import com.nollpointer.dates.fragments.MenuFragment;
@@ -37,11 +35,13 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG = "MainActivity";
+
     private int mode;
 
     private BottomNavigationViewEx bottomView;
 
-    public static final String MODE = "MODE", PRACTISE = "PRACTISE", DATES = "DATES",
+    public static final String MODE = "MODE123", PRACTISE = "PRACTISE", DATES = "DATES",
             SORT = "SORT", SORT_CHECK = "SORT_CHECK", TRUE_FALSE = "TRUE_FALSE", CARDS = "CARDS";
     public static final String GDPR = "GDPR", GDPR_SHOW = "GDPR_SHOW";
     public static final String SETTINGS = "SETTINGS";
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DatesFragment datesFragment;
     private PractiseFragment practiseFragment;
-    private CalendarFragment calendarFragment;
+    private StatisticsFragment statisticsFragment;
     private MenuFragment menuFragment;
 
     static {
@@ -69,39 +69,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //SharedPreferences prefs = getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
-        //final Handler handler = new Handler();
-        //mode = prefs.getInt(MODE, FULL_DATES_MODE);
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                setDateList(Misc.getDates(FULL_DATES_MODE),FULL_DATES_MODE);
-//                setDateList(Misc.getDates(EASY_DATES_MODE),EASY_DATES_MODE);
-//
-//
-////                Cursor m_cursor = null;
-////                Cursor e_cursor = null;
-////                try (SQLiteDatabase sqLiteDatabase = new DatesDatabaseHelper(MainActivity.this).getReadableDatabase()) {
-////                    String[] cells = new String[]{"DATE", "EVENT", "REQUEST", "CATEGORY"};
-////                    m_cursor = sqLiteDatabase
-////                            .query("D10", cells, null, null, null, null, null);
-////                    e_cursor = sqLiteDatabase
-////                            .query("D1", cells, null, null, null, null, null);
-////                    m_cursor.moveToFirst();
-////                    e_cursor.moveToFirst();
-////                } catch (Exception e) {
-////                    Log.e("SQl_DATABASE_EXCEPTION", e.toString());
-////                }
-////                handler.post(new FillDateArray(e_cursor, EASY_DATES_MODE));
-////                new FillDateArray(m_cursor, FULL_DATES_MODE).run();
-//
-//            }
-//        });
-
         datesFragment = new DatesFragment();
         practiseFragment = new PractiseFragment();
-        calendarFragment = new CalendarFragment();
+        statisticsFragment = new StatisticsFragment();
         menuFragment = new MenuFragment();
 
 //        preferences.put(DATES, prefs.getBoolean(DATES, true));
@@ -114,7 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
         initializeBottomView();
         FrameLayout frameLayout = findViewById(R.id.frameLayout);
-        new LoadData(bottomView).execute();
+        new LoadData(bottomView, datesFragment).execute();
+
+        SharedPreferences preferences =   PreferenceManager.getDefaultSharedPreferences(this);
+
+        mode = preferences.getInt("mode",FULL_DATES_MODE);
 
 //        if (prefs.contains(GDPR)) {
 //            boolean isGDPRAgree = prefs.getBoolean(GDPR, false);
@@ -153,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = practiseFragment;
                         break;
                     case R.id.navigation_calendar:
-                        fragment = calendarFragment;
+                        fragment = statisticsFragment;
                         break;
                     case R.id.navigation_menu:
                         fragment = menuFragment;
@@ -167,36 +141,9 @@ public class MainActivity extends AppCompatActivity {
                 //transaction.addToBackStack(null);
                 transaction.commit();
 
-//                if (bottomView.getSelectedItemId() != id) {
-//                    if (item.getItemId() == R.id.navigation_tests) {
-//                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                        transaction.replace(R.id.frameLayout, practiseFragment, "TAG");
-//                        transaction.addToBackStack(null);
-//                        transaction.commit();
-//                    } else
-//                        getSupportFragmentManager().popBackStack(null, 0);
-//                } else
-//                    goToStartPosition();
                 return true;
             }
         });
-//        bottomView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                int id = item.getItemId();
-//                if (bottomView.getSelectedItemId() != id) {
-//                    if (item.getItemId() == R.id.navigation_tests) {
-//                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                        transaction.replace(R.id.frameLayout, practiseFragment, "TAG");
-//                        transaction.addToBackStack(null);
-//                        transaction.commit();
-//                    } else
-//                        getSupportFragmentManager().popBackStack(null, 0);
-//                } else
-//                    goToStartPosition();
-//                return true;
-//            }
-//        });
     }
 
     private void goToStartPosition() {
@@ -204,88 +151,11 @@ public class MainActivity extends AppCompatActivity {
         fragment.goToStartPosition();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //bottomView.setVisibility(View.VISIBLE);
-//        if (isFirstTime(GDPR_SHOW))
-//            startGDPR();
-    }
-
-    public void startGDPR() {
-//        Intent intent = new Intent(this, GDPRActivity.class);
-//        startActivityForResult(intent, 1);
-    }
-
     public void initializeAdds(boolean isGdprAgree) {
         Appodeal.disableLocationPermissionCheck();
         //Appodeal.disableNetwork(this, "mmedia");
-        Appodeal.initialize(this, "106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1", Appodeal.INTERSTITIAL | Appodeal.BANNER, isGdprAgree);
+        Appodeal.initialize(this, "106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1", Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.NON_SKIPPABLE_VIDEO, isGdprAgree);
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main_menu,menu);
-//        MenuItem mI = menu.findItem(R.id.mode_switch);
-//        mI.setActionView(R.layout.switch_layout);
-//        SwitchCompat switchCompat = (SwitchCompat) mI.getActionView();
-//        if(mode == EASY_DATES_MODE) {
-//            switchCompat.setChecked(true);
-//            //refreshLook();
-//        }
-//        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-//                Fragment frg = MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.frameLayout);
-//                int string_resource_id = 0;
-//                try {
-//                    if (checked) {
-//                        mode = EASY_DATES_MODE;
-//                        string_resource_id = R.string.easy_mode;
-//                    } else {
-//                        mode = FULL_DATES_MODE;
-//                        string_resource_id = R.string.full_mode;
-//                    }
-//                    //refreshLook();
-//                    //animate(toolbar);
-//                    if(frg != null && frg instanceof DatesFragment) {
-//                        DatesFragment datesFragment = (DatesFragment) frg;
-//                        datesFragment.setTabLayoutIndicatorColor(getCurrentColor());
-//                        datesFragment.refresh();
-//                    }
-//                }catch (Exception e){
-//                    Log.e("Switch_Exception",e.toString());
-//                }
-//                Snackbar.make(MainActivity.this.findViewById(R.id.frameLayout), string_resource_id,Snackbar.LENGTH_SHORT).show();
-//
-//            }
-//        });
-////        if(isFirstTime(DATES))
-////            startFirstTimeUserTutorial();
-//        return true;
-//    }
-//
-//    public void animate(final View view){
-//        int colorFrom,colorTo;
-//        Resources resources = getResources();
-//        if(mode == EASY_DATES_MODE){
-//            colorFrom = resources.getColor(R.color.colorPrimary);
-//            colorTo = resources.getColor(R.color.colorPrimaryEasy);
-//        }else{
-//            colorFrom = resources.getColor(R.color.colorPrimaryEasy);
-//            colorTo = resources.getColor(R.color.colorPrimary);
-//        }
-//        final ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),colorFrom,colorTo);
-//        colorAnimator.setDuration(270);
-//        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                view.setBackgroundColor((int)valueAnimator.getAnimatedValue());
-//            }
-//        });
-//        colorAnimator.start();
-//
-//    }
 
     public int getCurrentColor() {
         if (mode == FULL_DATES_MODE)
@@ -308,47 +178,6 @@ public class MainActivity extends AppCompatActivity {
         else
             return easy_list;
     }
-
-//    public void startFirstTimeUserTutorial(){
-//        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this);
-//        View switch_compat = menu.findItem(R.id.mode_switch).getActionView();
-//        View main_frame = findViewById(R.id.frameLayout);
-//        MaterialShowcaseView bottom_showcase,switch_showcase,dates_showcase;
-//        int mask_color = getResources().getColor(R.color.colorMask);
-//        int dismiss_color = Color.GREEN;
-//        bottom_showcase = new MaterialShowcaseView.Builder(this)
-//                .setTarget(bottomView)
-//                .setContentText(R.string.tutorial_bottom_view)
-//                .setDismissText(R.string.got_it)
-//                .setDismissOnTouch(true)
-//                .setShape(new RectangleShape(bottomView.getWidth(),bottomView.getHeight()))
-//                .setMaskColour(mask_color)
-//                .setDismissTextColor(dismiss_color)
-//                .build();
-//        sequence.addSequenceItem(bottom_showcase);
-//        switch_showcase = new MaterialShowcaseView.Builder(this)
-//                .setTarget(switch_compat)
-//                .setContentText(R.string.tutorial_switch)
-//                .setDismissText(R.string.got_it)
-//                .setTargetTouchable(true)
-//                .setDismissOnTouch(true)
-//                .setMaskColour(mask_color)
-//                .setDismissTextColor(dismiss_color)
-//                .build();
-//        sequence.addSequenceItem(switch_showcase);
-//        dates_showcase = new MaterialShowcaseView.Builder(this)
-//                .setTarget(main_frame)
-//                .setContentText(R.string.tutorial_dates)
-//                .setDismissText(R.string.got_it)
-//                .setDismissOnTouch(true)
-//                .setShape(new NoShape())
-//                .setMaskColour(mask_color)
-//                .setDismissTextColor(dismiss_color)
-//                .build();
-//        sequence.addSequenceItem(dates_showcase);
-//        sequence.start();
-//    }
-
 
     @Override
     protected void onStart() {
@@ -388,19 +217,9 @@ public class MainActivity extends AppCompatActivity {
         return mode;
     }
 
-    public void refreshLook() {
-        try {
-            if (mode == FULL_DATES_MODE) {
-                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
-            } else {
-                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimaryEasy)));
-            }
-        } catch (Exception e) {
-            Log.e("Error", e.toString());
-        }
+    public void setMode(int mode){
+        this.mode = mode;
     }
-
-
 
     protected static class setNewPreferences extends AsyncTask<MainActivity, Void, Void> {
         TreeMap<String, Boolean> prefs;
@@ -432,11 +251,12 @@ public class MainActivity extends AppCompatActivity {
 
     class LoadData extends AsyncTask<Void, Void, Void> {
 
-        RelativeLayout loader;
         BottomNavigationView bottomNavigationView;
+        DatesFragment datesFragment;
 
-        public LoadData(BottomNavigationView bottomNavigationView) {
+        public LoadData(BottomNavigationView bottomNavigationView, DatesFragment datesFragment) {
             this.bottomNavigationView = bottomNavigationView;
+            this.datesFragment = datesFragment;
         }
 
         @Override
@@ -448,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             //bottomNavigationView.setVisibility(View.VISIBLE);
-            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, new GDPRFragment(), "TAG").commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, datesFragment, "TAG").commit();
         }
 
         @Override
@@ -456,26 +276,6 @@ public class MainActivity extends AppCompatActivity {
             setDateList(Misc.getDates(FULL_DATES_MODE), FULL_DATES_MODE);
             setDateList(Misc.getDates(EASY_DATES_MODE), EASY_DATES_MODE);
             return null;
-        }
-    }
-
-    class FillDateArray implements Runnable {
-        Cursor cursor;
-        int mode;
-
-        FillDateArray(Cursor crs, int mode) {
-            cursor = crs;
-            this.mode = mode;
-        }
-
-        @Override
-        public void run() {
-            ArrayList<Date> list = new ArrayList<>();
-            list.add(new Date(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3))); // нулевой элемент
-            while (cursor.moveToNext())
-                list.add(new Date(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3)));
-            cursor.close();
-            setDateList(list, mode);
         }
     }
 }

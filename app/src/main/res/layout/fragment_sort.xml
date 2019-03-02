@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/colorBackgroundTest"
-    android:padding="8dp"
+    android:background="#EEEEEE"
     app:columnCount="2">
 
     <com.appodeal.ads.BannerView

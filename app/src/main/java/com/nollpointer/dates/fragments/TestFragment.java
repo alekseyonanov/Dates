@@ -129,7 +129,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             answerButtons[i].setOnClickListener(buttonClickListener);
         }
 
-        backButton.setImageResource(R.drawable.ic_arrow_back);
+        backButton.setImageResource(R.drawable.ic_arrow_back_white);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

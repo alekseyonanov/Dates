@@ -31,6 +31,7 @@ import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 import static com.nollpointer.dates.MainActivity.EASY_DATES_MODE;
 import static com.nollpointer.dates.MainActivity.FULL_DATES_MODE;
 import static com.nollpointer.dates.constants.PractiseConstants.CARDS;
+import static com.nollpointer.dates.constants.PractiseConstants.DISTRIBUTE;
 import static com.nollpointer.dates.constants.PractiseConstants.SORT;
 import static com.nollpointer.dates.constants.PractiseConstants.TEST;
 import static com.nollpointer.dates.constants.PractiseConstants.TRUE_FALSE;
@@ -49,8 +50,9 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
         PractiseCardsAdapter adapter = new PractiseCardsAdapter(getResources().getStringArray(R.array.practise_titles),
                 getResources().getStringArray(R.array.practise_description),
                 new int[]{R.drawable.ic_cards, R.drawable.ic_test, R.drawable.ic_true_false,
-                R.drawable.ic_sort},
-                new int[]{R.drawable.ic_practise_background_cards,R.drawable.ic_practise_background_test,R.drawable.ic_practise_background_true_false,R.drawable.ic_practise_background_sort,});
+                R.drawable.ic_sort,R.drawable.ic_distribution},
+                new int[]{R.drawable.ic_practise_background_cards,R.drawable.ic_practise_background_test,R.drawable.ic_practise_background_true_false,
+                        R.drawable.ic_practise_background_sort,R.drawable.ic_practise_background_distribution});
         adapter.setListener(this);
         mMainActivity = (MainActivity) getActivity();
         recycler.setAdapter(adapter);
@@ -105,10 +107,13 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
             case 3:
                 practise = SORT;
                 break;
+            case 4:
+                practise = DISTRIBUTE;
+                break;
             default:
                 return;
         }
-        mMainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseDetailsPickerFragment.newInstance(practise)).addToBackStack(null).commit();
+        mMainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseDetailsPickerFragment.newInstance(practise,mMainActivity.getMode())).addToBackStack(null).commit();
 
     }
 

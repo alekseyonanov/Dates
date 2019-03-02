@@ -23,6 +23,7 @@
     <color name="colorTest">#23A527</color>
     <color name="colorTrueFalse">#ABA619</color>
     <color name="colorSort">#00BBD2</color>
+    <color name="colorDistribution">#2962FF</color>
 
     <color name="colorGameBackground">#0D47A1</color>
     <color name="colorGameCards">#827717</color>

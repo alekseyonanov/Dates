@@ -1,17 +1,15 @@
 package com.nollpointer.dates.adapters;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nollpointer.dates.Date;
-import com.nollpointer.dates.constants.DatesCategoryConstants;
 import com.nollpointer.dates.MainActivity;
 import com.nollpointer.dates.R;
+import com.nollpointer.dates.constants.DatesCategoryConstants;
 
 import java.util.List;
 import java.util.TreeMap;
@@ -28,33 +26,25 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     private TreeMap<Integer, String> add_top_texts = new TreeMap<>();
     private int fontSize = 14;
     private Listener listener;
-    private boolean isCategoryShow = false;
+    private boolean searchMode = false;
+
+    private int dateCardId;
+    private int dateCardTopTextId;
 
 
     public interface Listener {
         void onItemClick(Date clickedDate);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView mCardView;
-
-        ViewHolder(CardView c) {
-            super(c);
-            mCardView = c;
-        }
-    }
-
     public DatesCardsAdapter(List<Date> dates, int mode, String[] main_text_tops, String[] additional_text_tops) {
         this.dates = dates;
         this.mode = mode;
-        isCategoryShow = false;
         fill_top_texts(main_text_tops, additional_text_tops);
     }
 
-    public DatesCardsAdapter(List<Date> dates, int mode, String[] main_text_tops, String[] additional_text_tops, int fons_size) {
-        this(dates, mode, main_text_tops, additional_text_tops);
-        this.fontSize = fons_size;
-        fill_top_texts(main_text_tops, additional_text_tops);
+    public void setViewIds(int dateCardId, int dateCardTopTextId) {
+        this.dateCardId = dateCardId;
+        this.dateCardTopTextId = dateCardTopTextId;
     }
 
     public int getFontSize() {
@@ -63,35 +53,38 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
 
     @Override
     public DatesCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CardView c;
-        if (isCategoryShow)
-            c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.dates_cards, parent, false);
-        else
-            switch (viewType) {
-                case DATE:
-                    c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.dates_cards, parent, false);
-                    break;
-                default:
-                    c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.dates_cards_top_text, parent, false);
-            }
-        return new ViewHolder(c);
+        View view;
+        switch (viewType) {
+            case DATE:
+                view = LayoutInflater.from(parent.getContext()).inflate(dateCardId, parent, false);
+                break;
+            default:
+                view = LayoutInflater.from(parent.getContext()).inflate(dateCardTopTextId, parent, false);
+        }
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(DatesCardsAdapter.ViewHolder holder, final int position) {
         Date date = dates.get(position);
-        final CardView cardView = holder.mCardView;
-        TextView textView = cardView.findViewById(R.id.date_number);
+        final View cardView = holder.itemView;
+        TextView textView = cardView.findViewById(R.id.text1);
         textView.setText(date.getDate());
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize + 4);
-        textView = cardView.findViewById(R.id.date_event);
+        //textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize + 4);
+        textView = cardView.findViewById(R.id.text2);
         textView.setText(date.getEvent());
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        if (getItemViewType(position) == DATE_WITH_MARGIN && !isCategoryShow) {
-            textView = cardView.findViewById(R.id.date_top_text);
+        //textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        textView = cardView.findViewById(R.id.text3);
+        if (date.containsMonth())
+            textView.setText(date.getMonth());
+        else
+            textView.setText("");
+        if (getItemViewType(position) == DATE_WITH_MARGIN) {
+            textView = cardView.findViewById(R.id.textTitle);
             textView.setText(main_top_texts.get(Integer.valueOf(position)));
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        }
+            //textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        }else
+
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +110,20 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
         add_top_texts = tree;
     }
 
+    public void startSearchMode(){
+        searchMode = true;
+        for(Integer position: main_top_texts.keySet())
+            notifyItemChanged(position);
+        for(Integer position: add_top_texts.keySet())
+            notifyItemChanged(position);
+    }
+
+    public void stopSearchMode(List<Date> dates){
+        searchMode = false;
+        this.dates = dates;
+        notifyDataSetChanged();
+    }
+
     public void refresh(List<Date> dates) {
         change_top_texts();
         this.dates = dates;
@@ -126,7 +133,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
 
     public void refresh(List<Date> dates, int category) {
 
-        isCategoryShow = category != DatesCategoryConstants.ALL;
+        searchMode = category != DatesCategoryConstants.ALL;
         this.dates = dates;
 
         refreshMarginDates();
@@ -154,10 +161,10 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     @Override
     public void onViewAttachedToWindow(ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        if (isFontSizeChanged()) {
-            CardView cardView = holder.mCardView;
-            //TextView text = cardView.
-        }
+//        if (isFontSizeChanged()) {
+//            CardView cardView = holder.mCardView;
+//            //TextView text = cardView.
+//        }
 
     }
 
@@ -178,13 +185,23 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
         this.listener = listener;
     }
 
+    public void setDates(List<Date> dates) {
+        this.dates = dates;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position) {
-        if (isCategoryShow)
-            return DATE;
-        if (main_top_texts.containsKey(position))
+        if (!searchMode && main_top_texts.containsKey(position))
             return DATE_WITH_MARGIN;
         else
             return DATE;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        ViewHolder(View c) {
+            super(c);
+        }
     }
 }

@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Dates</string>
-    <string name="title_tests">Tests</string>
+    <string name="title_practise">Tests</string>
     <string name="title_dates">Dates</string>
     <string name="title_menu">Menu</string>
-    <string name="title_calendar">Calendar</string>
+    <string name="title_statistics">Statistics</string>
     <string name="title_details_picker">Details Picker</string>
+    <string name="title_game">Game</string>
     <string name="title_notifications">Notifications</string>
     <string name="settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
@@ -88,12 +89,14 @@
         <item>Test</item>
         <item>True/False</item>
         <item>Sort</item>
+        <item>Distribution</item>
     </string-array>
 
     <string-array name="practise_description">
         <item>Cards with dates</item>
         <item>Test just like in school</item>
         <item>Truth test</item>
+        <item>Sort test</item>
         <item>Sort test</item>
     </string-array>
 
@@ -133,6 +136,15 @@
         <item>Mixed</item>
     </string-array>
 
+    <string-array name="mode_titles">
+        <item>Стандартный</item>
+        <item>Простой</item>
+    </string-array>
+
+    <string-array name="mode_count">
+        <item>383 дат</item>
+        <item>94 дат</item>
+    </string-array>
 
     <string name="gdpr_title">Personalize Your Ad Experience</string>
     <string name="gdpr_main_text">Dates personalizes your advertising experience using Appodeal. Appodeal and its partners may collect and process personal data such as device identifiers, location data, and other demographic and interest data to provide advertising experience tailored to you. By consenting to this improved ad experience, you`ll see ads that Appodeal and its partners believe are more relevant to you. Learn more.\n\nBy agreeing, you confirm that you are over the age of 16 and would like a personalized ad experience.</string>
@@ -162,15 +174,15 @@
     <string name="pref_default_display_name">John Smith</string>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
+
+    <string-array name="dates_cards_types_entries">
+        <item>Default</item>
+        <item>Adapted</item>
     </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
+
+    <string-array name="dates_cards_types_values">
         <item>0</item>
-        <item>-1</item>
+        <item>1</item>
     </string-array>
 
     <!-- Example settings for Data & Sync -->

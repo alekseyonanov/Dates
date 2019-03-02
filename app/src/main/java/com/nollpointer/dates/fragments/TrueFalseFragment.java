@@ -151,7 +151,7 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
 
 //        WrongAnswersCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.thumb_down_selector, 0);
 //        RightAnswerCountView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector, 0, 0, 0);
-        backButton.setImageResource(R.drawable.ic_arrow_back);
+        backButton.setImageResource(R.drawable.ic_arrow_back_white);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

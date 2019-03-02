@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Даты</string>
-    <string name="title_tests">Практика</string>
+    <string name="title_practise">Практика</string>
     <string name="title_dates">Даты</string>
     <string name="title_menu">Меню</string>
-    <string name="title_calendar">Календарь</string>
+    <string name="title_statistics">Статистика</string>
     <string name="title_details_picker">Выбор настроек</string>
+    <string name="title_game">Игра</string>
     <string name="title_notifications">Уведомления</string>
     <string name="settings">Настройки</string>
     <string name="title_activity_settings">Настройки</string>
@@ -91,12 +92,14 @@
         <item>Тест</item>
         <item>Правда или Ложь</item>
         <item>Сортировка</item>
+        <item>Распределение</item>
     </string-array>
 
     <string-array name="practise_description">
         <item>Карточки с датами</item>
         <item>Бесконечный тест</item>
         <item>Бесконечная проверка</item>
+        <item>Сортировка без конца</item>
         <item>Сортировка без конца</item>
     </string-array>
 
@@ -137,6 +140,17 @@
     </string-array>
 
 
+    <string-array name="mode_titles">
+        <item>Стандартный</item>
+        <item>Простой</item>
+    </string-array>
+
+    <string-array name="mode_count">
+        <item>383 дат</item>
+        <item>94 дат</item>
+    </string-array>
+
+
     <string name="gdpr_title">Персонализируйте Вашу рекламу</string>
     <string name="gdpr_main_text">Даты персонализируют Вашу рекламу, используя Appodeal. Appodeal и его партнеры могут собирать и обрабатывать Ваши такие персональные данные, как идентификатор устройства, демографические данные и другую информацию, которая позволит предоставить Вам рекламу, связанную с Вашими интересами. Соглашаясь с этими условиями, Вы увидите рекламу, которую Appodeal и его партнеры считают более подходящей для Вас. Узнать больше.\n\nСоглашаясь, Вы подтверждаете, что вам уже исполнилось 16 и Вы хотите персональную рекламу.</string>
     <string name="gdpr_agree_text">Отлично. Мы надеемся, что Вы получите удовольствие от вашей персональной рекламы. Если вы когда-либо передумаете, для этого достаточно переустановить приложение.</string>
@@ -151,5 +165,16 @@
 
 
     <string name="hello_blank_fragment">Привет от пустого бланка!</string>
+
+    <string-array name="dates_cards_types_entries">
+        <item>Стандартные</item>
+        <item>Адаптированные</item>
+    </string-array>
+
+    <string-array name="dates_cards_types_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
 
 </resources>

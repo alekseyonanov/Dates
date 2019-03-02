@@ -10,7 +10,7 @@
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorPrimary"
         app:theme="@style/ToolBarStyle"
-        app:title="@string/title_tests"
+        app:title="@string/title_practise"
         app:titleTextColor="@android:color/white" />
 
     <android.support.v7.widget.RecyclerView

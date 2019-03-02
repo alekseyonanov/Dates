@@ -36,9 +36,11 @@ public class GameFragment extends Fragment {
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
         TextView instructions = mainView.findViewById(R.id.game_instructions);
-        instructions.setText(Html.fromHtml("<li>создание пунктуальности (никогда не будете никуда опаздывать);</li>" +
-                "    <li>излечение от пунктуальности (никогда никуда не будете торопиться);</li>" +
-                "    <li>изменение восприятия времени и часов.</li>"));
+        instructions.setText(Html.fromHtml("<li>Одна игра стоит один просмотр рекламы. Если вы выйдите из игры, не закончив ее, вам придется заново смотреть рекламу, чтобы попробовать заново</li>" +
+                "    <li>В каждой игре можно перевернуть 3 карты, после чего вы увидите, выиграли ли вы или нет. </li>" +
+                "    <li>Вы выигрываете, если получили 3 желтых звезды.</li>" +
+                "    <li>В случае выигрыша у вас отключается реклама на следующие 12 часов.</li>" +
+                "    <li>В игру можно играть сколько угодно, пока реклама прогружается</li>"));
 
         Toolbar toolbar = mainView.findViewById(R.id.game_toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

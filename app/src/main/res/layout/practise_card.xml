@@ -103,29 +103,6 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <View
-            android:id="@+id/practise_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/container"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="#EEEEEE" />
-
-        <TextView
-            android:id="@+id/twitter_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/practise_divider"
-            android:background="?attr/selectableItemBackground"
-            android:drawableStart="@drawable/twitter"
-            android:drawablePadding="12dp"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:text="title"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="#808080" />
-
 
     </RelativeLayout>
 
