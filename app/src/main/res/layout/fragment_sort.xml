@@ -1,4 +1,4 @@
-<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -89,7 +89,7 @@
 
     </LinearLayout>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/sort_check"
         style="?android:borderlessButtonStyle"
         android:layout_width="match_parent"
@@ -118,4 +118,4 @@
         app:layout_gravity="fill_horizontal|end"
         app:layout_row="4" />
 
-</android.support.v7.widget.GridLayout>
+</androidx.gridlayout.widget.GridLayout>

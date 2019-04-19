@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/statistics_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        app:theme="@style/ToolBarStyle"
+        app:title="@string/title_statistics"
+        app:titleTextColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/statistics_dummy_crane"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="В разработке :)"
+        android:textSize="18dp" />
+
+    <ImageView
+        android:id="@+id/statistics_dummy_crane"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <android.widget.Button
+        android:id="@+id/statistics_dummy_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statistics_dummy_crane"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:background="?android:selectableItemBackground"
+        android:text="Проверить обновление"
+        android:textColor="#5DA62D" />
+
+</RelativeLayout>

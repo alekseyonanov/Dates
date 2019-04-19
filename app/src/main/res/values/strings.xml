@@ -121,13 +121,11 @@
         <item>XIX second half</item>
         <item>XX first half</item>
         <item>XX second half</item>
-        <item>All dates</item>
     </string-array>
 
     <string-array name="centuries_easy">
         <item>first half</item>
         <item>second half</item>
-        <item>All</item>
     </string-array>
 
     <string-array name="pick_type">
@@ -142,8 +140,8 @@
     </string-array>
 
     <string-array name="mode_count">
-        <item>383 дат</item>
-        <item>94 дат</item>
+        <item>383 даты</item>
+        <item>94 даты</item>
     </string-array>
 
     <string name="gdpr_title">Personalize Your Ad Experience</string>

@@ -124,13 +124,11 @@
         <item>XIX (2 часть)</item>
         <item>XX (1 часть)</item>
         <item>XX (2 часть)</item>
-        <item>Все Даты</item>
     </string-array>
 
     <string-array name="centuries_easy">
         <item>Первая Часть</item>
         <item>Вторая Часть</item>
-        <item>Все Даты</item>
     </string-array>
 
     <string-array name="pick_type">
@@ -146,8 +144,8 @@
     </string-array>
 
     <string-array name="mode_count">
-        <item>383 дат</item>
-        <item>94 дат</item>
+        <item>383 даты</item>
+        <item>94 даты</item>
     </string-array>
 
 

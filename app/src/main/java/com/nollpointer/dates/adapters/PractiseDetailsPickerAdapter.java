@@ -1,6 +1,6 @@
 package com.nollpointer.dates.adapters;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    CharSequence[] titles;
+    private CharSequence[] titles;
     private int mode;
     private int type = 0;
     private ArrayList<Integer> centuries = new ArrayList<>();
@@ -23,6 +23,8 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
 
     public static final int CENTURY = 1;
     public static final int TYPE = 0;
+
+    private boolean isLocked = false;
 
     public PractiseDetailsPickerAdapter(CharSequence[] positions, int mode) {
         this.titles = positions;
@@ -56,6 +58,8 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
             else
                 view.setChecked(false);
         }
+
+        view.setEnabled(!isLocked);
     }
 
     @Override
@@ -79,6 +83,10 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
         Collections.sort(centuries);
         Log.e("ADAPTER", "getCenturies: " + centuries.toString());
         return centuries;
+    }
+
+    public void setLocked(){
+        isLocked = true;
     }
 
     public void makeRandomValues() {

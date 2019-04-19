@@ -1,7 +1,7 @@
 package com.nollpointer.dates.adapters;
 
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,7 @@ import com.nollpointer.dates.R;
 import java.util.List;
 
 public class GameCardsAdapter extends RecyclerView.Adapter<GameCardsAdapter.ViewHolder> {
-    private GameCardsAdapter.FinalResultListener mListener;
+    private GameCardsListener listener;
 
     private boolean isGameMode = false;
     private int rightAnswered = 0;
@@ -22,15 +22,13 @@ public class GameCardsAdapter extends RecyclerView.Adapter<GameCardsAdapter.View
 
     private List<Integer> rightAnswers;
 
-    public interface FinalResultListener {
-        void onClick(boolean result);
+    public interface GameCardsListener {
+        void onGameStart();
+        void onGameEnd(boolean result);
     }
 
-    public void setListener(GameCardsAdapter.FinalResultListener listener) {
-        mListener = listener;
-    }
-
-    public GameCardsAdapter() {
+    public GameCardsAdapter(GameCardsListener listener) {
+        this.listener = listener;
         rightAnswers = Misc.getRightAnswersList(5);
     }
 
@@ -79,8 +77,11 @@ public class GameCardsAdapter extends RecyclerView.Adapter<GameCardsAdapter.View
                         c.findViewById(R.id.game_card_image).setVisibility(View.VISIBLE);
                     }
 
-                    if(!isGameMode && getAdapterPosition() == 4)
+                    if(!isGameMode && getAdapterPosition() == 4) {
+                        if(listener != null)
+                            listener.onGameStart();
                         startGameMode();
+                    }
 
                 }
             });

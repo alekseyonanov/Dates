@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialog_framelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:background="@drawable/more_info_dialog_background">
 
     <ProgressBar
         android:id="@+id/dialog_progressbar"
@@ -20,39 +19,49 @@
         android:orientation="vertical"
         android:visibility="invisible">
 
-        <ImageButton
-            android:id="@+id/dialog_close_button_no"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end|top"
-            android:layout_margin="5dp"
-            android:background="?selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_clear_black_24dp" />
+        <View
+            android:background="@drawable/dialog_drag_image"
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp" />
+
 
         <TextView
-            android:id="@+id/dialog_info_no"
+            android:id="@+id/dialog_info_no_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:text="Подключитесь к Интернету"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dialog_info_no_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="@string/no_internet_connection"
+            android:text="Проверьте подключение к сети."
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@android:color/black" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
-
-        <Button
+        <TextView
             android:id="@+id/dialog_try_again"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/try_again"
-            android:textColor="@color/colorAccent" />
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-light"
+            android:padding="16dp"
+            android:text="ПОВТОРИТЬ"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -64,33 +73,29 @@
         android:orientation="vertical"
         android:visibility="invisible">
 
-        <ImageButton
-            android:id="@+id/dialog_close_button"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end|top"
-            android:layout_margin="5dp"
-            android:background="?selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_clear_black_24dp" />
+        <View
+            android:background="@drawable/dialog_drag_image"
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp" />
 
         <TextView
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
             android:id="@+id/dialog_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
-
-        <Button
+        <android.widget.Button
             android:id="@+id/dialog_go_to_source_button"
-            style="?android:borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:textColor="@color/colorAccent" />
+            android:background="@color/colorAccent"
+            android:text="@string/go_to_wikipedia"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

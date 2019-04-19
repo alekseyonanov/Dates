@@ -3,17 +3,17 @@ package com.nollpointer.dates.fragments;
 
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.appodeal.ads.Appodeal;
 import com.nollpointer.dates.MainActivity;
 import com.nollpointer.dates.R;
 import com.nollpointer.dates.adapters.GameCardsAdapter;
@@ -30,7 +30,18 @@ public class GameFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3){
 
         });
-        recyclerView.setAdapter(new GameCardsAdapter());
+        recyclerView.setAdapter(new GameCardsAdapter(new GameCardsAdapter.GameCardsListener() {
+            @Override
+            public void onGameStart() {
+//                if(Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
+//                    Appodeal.show(getActivity(),Appodeal.NON_SKIPPABLE_VIDEO);
+            }
+
+            @Override
+            public void onGameEnd(boolean result) {
+
+            }
+        }));
 
         int spacingInPixels = 16;
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
@@ -85,6 +96,5 @@ public class GameFragment extends Fragment {
 
         }
     }
-
 
 }

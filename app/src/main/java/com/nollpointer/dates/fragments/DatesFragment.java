@@ -10,18 +10,17 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -44,7 +43,7 @@ import com.nollpointer.dates.dialogs.MoreInfoDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
+import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 import static android.view.View.VISIBLE;
 import static com.nollpointer.dates.constants.DatesCategoryConstants.ALL;
 
@@ -75,7 +74,7 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
         toolbar = view.findViewById(R.id.dates_toolbar);
         searchContainer = view.findViewById(R.id.dates_card_search);
         appBarLayout = view.findViewById(R.id.id_appbar);
-        dates = mainActivity.getDateList();
+        dates = mainActivity.getDates();
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -361,7 +360,7 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
     }
 
     public void refresh() {
-        this.dates = mainActivity.getDateList();
+        this.dates = mainActivity.getDates();
 
         final int selectedTab = tabLayout.getSelectedTabPosition();
         if (selectedTab == ALL)

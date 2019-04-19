@@ -5,7 +5,7 @@
     android:background="#EEEEEE"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/practise_details_picker_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
@@ -15,7 +15,7 @@
         app:title="@string/title_details_picker"
         app:titleTextColor="@android:color/white" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/practise_details_picker_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -27,7 +27,98 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/difficultyTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dip"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Сложность"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/tertiary_text_dark" />
+
+                    <View
+                        android:id="@+id/difficultyDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/difficultyTitle"
+                        android:background="#E0E0E0" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/difficultyDivider"
+                        android:minHeight="?android:attr/listPreferredItemHeight">
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/difficulty_chip_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            app:singleLine="true"
+                            app:singleSelection="true">
+
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/difficulty_chip_easy"
+                                style="@style/CustomChipChoice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dip"
+                                android:text="Легко"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                app:chipStrokeColor="#808080"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/difficulty_chip_medium"
+                                style="@style/CustomChipChoice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Средне"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                app:chipStrokeColor="#808080"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/difficulty_chip_difficult"
+                                style="@style/CustomChipChoice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Сложно"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                app:chipStrokeColor="#808080"
+                                app:chipStrokeWidth="1dp" />
+
+                            <!--<com.google.android.material.chip.Chip-->
+                                <!--style="@style/CustomChipChoice"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="Сложно"-->
+                                <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                                <!--app:chipStrokeColor="#808080"-->
+                                <!--app:chipStrokeWidth="1dp" />-->
+
+                        </com.google.android.material.chip.ChipGroup>
+                    </HorizontalScrollView>
+
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
@@ -43,7 +134,7 @@
                         android:layout_marginStart="12dip"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
-                        android:text="Type"
+                        android:text="Тип"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@android:color/tertiary_text_dark" />
 
@@ -54,7 +145,7 @@
                         android:layout_below="@id/typeTitle"
                         android:background="#E0E0E0" />
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/typeRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -62,10 +153,10 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
@@ -74,15 +165,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
+                    <!--<TextView-->
+                    <!--android:id="@+id/centuryTitle"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="12dip"-->
+                    <!--android:layout_marginLeft="12dip"-->
+                    <!--android:layout_marginTop="4dp"-->
+                    <!--android:layout_marginBottom="4dp"-->
+                    <!--android:text="Century"-->
+                    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                    <!--android:textColor="@android:color/tertiary_text_dark" />-->
+
+                    <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/centuryTitle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dip"
-                        android:layout_marginLeft="12dip"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:text="Century"
+                        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                        android:ellipsize="marquee"
+                        android:gravity="center_vertical"
+                        android:paddingStart="12dip"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="7dip"
+                        android:paddingBottom="4dp"
+                        android:text="Столетия"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@android:color/tertiary_text_dark" />
 
@@ -93,7 +199,7 @@
                         android:layout_below="@id/centuryTitle"
                         android:background="#E0E0E0" />
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/centuriesRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -101,13 +207,13 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/practise_details_picker_button"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#EEEEEE">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/menu_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
@@ -20,7 +20,7 @@
         android:layout_below="@id/menu_toolbar"
         android:background="@color/colorPrimary" />
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/menu_tab_dots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/menu_select_current_mode"
                 android:visibility="gone"
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:text="Выбрать этот режим"/>
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/menu_game_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,10 +74,10 @@
                     android:textAppearance="?android:textAppearanceLarge"
                     android:textColor="#808080" />
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/feedback_card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
         </LinearLayout>

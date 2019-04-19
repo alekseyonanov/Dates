@@ -3,13 +3,12 @@ package com.nollpointer.dates.dialogs;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.widget.CardView;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nollpointer.dates.R;
@@ -23,14 +22,14 @@ public class MessageDeveloperDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         main_view = inflater.inflate(R.layout.message_developer_dialog, container, false);
-//        main_view.findViewById(R.id.message_close_button).setOnClickListener(new View.OnClickListener() {
+//        mainView.findViewById(R.id.message_close_button).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                MessageDeveloperDialog.this.dismiss();
 //            }
 //        });
 
-//        CardView card = main_view.findViewById(R.id.telegram_message);
+//        CardView card = mainView.findViewById(R.id.telegram_message);
 //        ((ImageView)card.findViewById(R.id.message_icon)).setImageResource(R.drawable.ic_telegram_message);
 //        ((TextView)card.findViewById(R.id.message_title)).setText("Telegram");
 //        ((TextView)card.findViewById(R.id.message_subtitle)).setText("@nollpointer");
@@ -59,7 +58,7 @@ public class MessageDeveloperDialog extends BottomSheetDialogFragment {
         });
 
 
-//        card = main_view.findViewById(R.id.mail_message);
+//        card = mainView.findViewById(R.id.mail_message);
 //        ((ImageView)card.findViewById(R.id.message_icon)).setImageResource(R.drawable.ic_mail_message);
 //        ((TextView)card.findViewById(R.id.message_title)).setText("Email");
 //        ((TextView)card.findViewById(R.id.message_subtitle)).setText("nollpointer@gmail.com");

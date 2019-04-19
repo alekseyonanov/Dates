@@ -1,11 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
     <style name="SettingsActivityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -13,11 +19,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="AppTheme.Launcher">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
     <style name="CardsShowDownStyle" parent="Theme.AppCompat.Light.NoActionBar">
@@ -39,6 +40,22 @@
     <style name="LoaderProgressBarHorizontal" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:minHeight">5dp</item>
         <item name="android:maxHeight">5dp</item>
+    </style>
+
+    <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@drawable/difficulty_chip_back_ground</item>
+        <item name="android:textColor">@drawable/difficulty_chip_text_color</item>
+    </style>
+
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/more_info_dialog_background</item>
     </style>
 
 </resources>

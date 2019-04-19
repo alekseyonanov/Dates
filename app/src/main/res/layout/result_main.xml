@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/results_tabs"
+        android:orientation="horizontal">
+
+        <com.nollpointer.dates.views.SquareRelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:layout_weight="1">
+
+            <com.nollpointer.dates.views.SquareImageView
+                android:id="@+id/result_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_result_image_background"
+                android:src="@drawable/ic_sentiment_very_good" />
+
+        </com.nollpointer.dates.views.SquareRelativeLayout>
+
+        <com.nollpointer.dates.views.SquareRelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/results_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/results_tabs"
+                android:layout_marginStart="16dp"
+                android:fontFamily="sans-serif-light"
+                android:text="18/20"
+                android:textColor="@android:color/black"
+                android:textSize="42sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:visibility="visible"
+                android:id="@+id/results_mark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/results_stats"
+                android:layout_marginStart="16dp"
+                android:text="отлично"
+                android:textAllCaps="true"
+                android:textSize="32sp" />
+
+        </com.nollpointer.dates.views.SquareRelativeLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/results_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

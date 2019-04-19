@@ -1,7 +1,7 @@
 package com.nollpointer.dates.views;
 
 import android.graphics.Color;
-import android.support.v7.widget.CardView;
+import androidx.cardview.widget.CardView;
 import android.view.View;
 
 import com.nollpointer.dates.R;

@@ -16,7 +16,7 @@
         <!--android:scaleType="fitStart"-->
         <!--android:src="@drawable/ic_launcher_foreground_png" />-->
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/dates_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/dates_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
@@ -14,7 +14,7 @@
         app:title="@string/title_dates"
         app:titleTextColor="@android:color/white" />
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/dates_card_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,26 +61,26 @@
                 android:padding="12dp" />
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/dates_toolbar">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/id_appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways">
 
-                <android.support.design.widget.TabLayout
+                <com.google.android.material.tabs.TabLayout
                     android:id="@+id/id_tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -90,37 +90,37 @@
                     app:tabSelectedTextColor="@android:color/black"
                     app:tabTextColor="@color/colorMask">
 
-                    <android.support.design.widget.TabItem
+                    <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dates_all" />
 
-                    <android.support.design.widget.TabItem
+                    <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dates_management" />
 
-                    <android.support.design.widget.TabItem
+                    <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dates_war" />
 
-                    <android.support.design.widget.TabItem
+                    <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dates_reforms" />
 
-                    <android.support.design.widget.TabItem
+                    <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dates_revolt" />
 
-                </android.support.design.widget.TabLayout>
-            </android.support.design.widget.CollapsingToolbarLayout>
+                </com.google.android.material.tabs.TabLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dates_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -130,7 +130,7 @@
             />
 
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 </RelativeLayout>

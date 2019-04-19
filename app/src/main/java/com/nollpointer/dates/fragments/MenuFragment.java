@@ -9,11 +9,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.nollpointer.dates.MainActivity;
+import com.nollpointer.dates.OnDatesLoadListener;
 import com.nollpointer.dates.R;
 import com.nollpointer.dates.SettingsActivity;
 
@@ -146,7 +147,17 @@ public class MenuFragment extends Fragment {
             public void onClick(View v) {
                 MainActivity mainActivity = (MainActivity) getActivity();
                 currentMode = modeViewPager.getCurrentItem();
-                mainActivity.setMode(currentMode);
+                mainActivity.updateMode(currentMode, new OnDatesLoadListener() {
+                    @Override
+                    public void onLoadStart() {
+                        Log.e("TAG", "onLoadStart: " + System.currentTimeMillis());
+                    }
+
+                    @Override
+                    public void onLoadEnd() {
+                        Log.e("TAG", "onLoadEnd: " + System.currentTimeMillis());
+                    }
+                });
 
                 Log.e("TAG", "onClick: " + currentMode);
 

@@ -2,13 +2,11 @@ package com.nollpointer.dates;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.SwitchPreference;
-import android.support.v7.app.ActionBar;
-import android.util.Log;
+import androidx.appcompat.app.ActionBar;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

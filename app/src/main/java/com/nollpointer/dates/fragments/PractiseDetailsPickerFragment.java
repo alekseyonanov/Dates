@@ -1,18 +1,12 @@
 package com.nollpointer.dates.fragments;
 
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.nollpointer.dates.Date;
 import com.nollpointer.dates.MainActivity;
 import com.nollpointer.dates.Misc;
@@ -27,11 +23,15 @@ import com.nollpointer.dates.R;
 import com.nollpointer.dates.adapters.PractiseDetailsPickerAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.TreeMap;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import static android.view.View.NO_ID;
 import static com.nollpointer.dates.MainActivity.EASY_DATES_MODE;
 import static com.nollpointer.dates.MainActivity.FULL_DATES_MODE;
 import static com.nollpointer.dates.MainActivity.MODE;
@@ -45,6 +45,8 @@ public class PractiseDetailsPickerFragment extends Fragment {
 
     PractiseDetailsPickerAdapter typeAdapter;
     PractiseDetailsPickerAdapter centuryAdapter;
+
+    ChipGroup difficultyChipGroup;
 
     private static final String PRACTISE = "practise";
     private static final String TAG = "PractiseDetailsPicker";
@@ -64,16 +66,19 @@ public class PractiseDetailsPickerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.fragment_practise_details_picker, container, false);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Bundle bundle = getArguments();
+        boolean saveCurrentState = preferences.getBoolean("save_current_state", true);
+        int mode = bundle.getInt(MODE, FULL_DATES_MODE);
+        final String practise = bundle.getString(PRACTISE);
+
         Toolbar toolbar = mainView.findViewById(R.id.practise_details_picker_toolbar);
         toolbar.inflateMenu(R.menu.practise_details_picker_menu);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.practise_details_picker_random:
-                        setRandomValues();
-                        break;
-                }
+                if (menuItem.getItemId() == R.id.practise_details_picker_random)
+                    setRandomValues(isLockedType(practise));
                 return true;
             }
         });
@@ -84,6 +89,8 @@ public class PractiseDetailsPickerFragment extends Fragment {
             }
         });
 
+
+
         Button practiseButton = mainView.findViewById(R.id.practise_details_picker_button);
         practiseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,8 +100,6 @@ public class PractiseDetailsPickerFragment extends Fragment {
         });
 
         Resources resources = getResources();
-
-
 
 
         RecyclerView typeRecyclerView = mainView.findViewById(R.id.typeRecyclerView);
@@ -121,20 +126,62 @@ public class PractiseDetailsPickerFragment extends Fragment {
             }
         });
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Bundle bundle = getArguments();
-        boolean saveCurrentState = preferences.getBoolean("save_current_state",true);
-        int mode = bundle.getInt(MODE,FULL_DATES_MODE);
+        difficultyChipGroup = mainView.findViewById(R.id.difficulty_chip_group);
+        difficultyChipGroup.check(R.id.difficulty_chip_easy);
+        difficultyChipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+            int previousSelection = R.id.difficulty_chip_easy;
 
-        if(saveCurrentState) {
-            int type = preferences.getInt("practise_type",0);
-            ArrayList<Integer> list = Misc.getIntegerListFromString(preferences.getString("practise_centuries",null));
+            @Override
+            public void onCheckedChanged(ChipGroup chipGroup, int id) {
 
-            typeAdapter.setType(type);
+                if(id == NO_ID)
+                    chipGroup.check(previousSelection);
+                else
+                    previousSelection = id;
+
+            }
+        });
+
+
+        //TODO добавить выбор сразу всех веков по кнопке
+        if (saveCurrentState) {
+            int type = preferences.getInt("practise_type", 0);
+            ArrayList<Integer> list = Misc.getIntegerListFromString(preferences.getString("practise_centuries", null));
+
+            if (isLockedType(practise))
+                setLockedType(practise);
+            else
+                typeAdapter.setType(type);
+
             centuryAdapter.setCenturies(list);
+        } else {
+            if (isLockedType(practise))
+                setLockedType(practise);
         }
 
         return mainView;
+    }
+
+    private void setLockedType(String practise) {
+        switch (practise) {
+            case CARDS:
+                typeAdapter.setType(1);
+                break;
+            case TRUE_FALSE:
+                typeAdapter.setType(2);
+                break;
+            case SORT:
+                typeAdapter.setType(1);
+                break;
+            case DISTRIBUTE:
+                typeAdapter.setType(1);
+                break;
+        }
+        typeAdapter.setLocked();
+    }
+
+    private boolean isLockedType(String practise) {
+        return practise.equals(CARDS) || practise.equals(TRUE_FALSE) || practise.equals(SORT) || practise.equals(DISTRIBUTE);
     }
 
 
@@ -142,9 +189,9 @@ public class PractiseDetailsPickerFragment extends Fragment {
         int type = typeAdapter.getType();
         List<Integer> centuries = centuryAdapter.getCenturies();
 
-        new SaveCurrentState(getContext(),type,centuries).execute();
+        new SaveCurrentState(getContext(), type, centuries).execute();
 
-        if(centuries.size() == 0)
+        if (centuries.size() == 0)
             return;
 
         ArrayList<Date> dates = getListForPractise(centuries);
@@ -158,10 +205,10 @@ public class PractiseDetailsPickerFragment extends Fragment {
                 fragment = CardsFragment.newInstance(dates, type);
                 break;
             case TEST:
-                fragment = TestFragment.newInstance(dates, type,false);
+                fragment = TestFragment.newInstance(dates, type, false);
                 break;
             case TRUE_FALSE:
-                fragment = TrueFalseFragment.newInstance(dates,false);
+                fragment = TrueFalseFragment.newInstance(dates, false);
                 break;
             case SORT:
                 fragment = SortFragment.newInstance(dates, false);
@@ -178,9 +225,10 @@ public class PractiseDetailsPickerFragment extends Fragment {
 
     }
 
-    public void setRandomValues() {
-        typeAdapter.makeRandomValues();
+    public void setRandomValues(boolean isTypeLocked) {
         centuryAdapter.makeRandomValues();
+        if(!isTypeLocked)
+            typeAdapter.makeRandomValues();
     }
 
 
@@ -192,7 +240,7 @@ public class PractiseDetailsPickerFragment extends Fragment {
 
     private ArrayList<Date> getListForPractise(List<Integer> centuriesList) {
         MainActivity mainActivity = (MainActivity) getActivity();
-        ArrayList<Date> dates = mainActivity.getDateList();
+        ArrayList<Date> dates = mainActivity.getDates();
         ArrayList<Date> practiseList = new ArrayList<>();
         int mode = mainActivity.getMode();
         if ((mode == FULL_DATES_MODE && centuriesList.contains(10)) || (mode == EASY_DATES_MODE && centuriesList.contains(2))) // Если выбраны все даты
@@ -268,24 +316,31 @@ public class PractiseDetailsPickerFragment extends Fragment {
 
 
     protected static class SaveCurrentState extends AsyncTask<Void, Void, Void> {
-        int type;
+        int type = -1;
         List<Integer> centuries;
         Context context;
 
-        SaveCurrentState(Context context,int type, List<Integer> centuries) {
+        SaveCurrentState(Context context, int type, List<Integer> centuries) {
             this.context = context;
             this.type = type;
             this.centuries = centuries;
         }
 
+        SaveCurrentState(Context context, List<Integer> centuries) {
+            this.context = context;
+            this.centuries = centuries;
+        }
+
         @Override
         protected Void doInBackground(Void... voids) {
-            SharedPreferences.Editor editor =   PreferenceManager.getDefaultSharedPreferences(context).edit();
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
 
             String numberString = Misc.getStringFromIntegerList(centuries);
 
-            editor.putInt("practise_type",type);
-            editor.putString("practise_centuries",numberString);
+            if(type != -1)
+                editor.putInt("practise_type", type);
+
+            editor.putString("practise_centuries", numberString);
 
             editor.apply();
             return null;

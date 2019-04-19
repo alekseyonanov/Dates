@@ -1,6 +1,6 @@
 package com.nollpointer.dates;
 
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 
 import com.flurry.android.FlurryAgent;
 import com.nollpointer.dates.api.WikipediaApi;

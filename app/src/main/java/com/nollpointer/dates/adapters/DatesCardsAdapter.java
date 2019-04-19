@@ -1,6 +1,6 @@
 package com.nollpointer.dates.adapters;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +39,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     public DatesCardsAdapter(List<Date> dates, int mode, String[] main_text_tops, String[] additional_text_tops) {
         this.dates = dates;
         this.mode = mode;
-        fill_top_texts(main_text_tops, additional_text_tops);
+        fillTopTexts(main_text_tops, additional_text_tops);
     }
 
     public void setViewIds(int dateCardId, int dateCardTopTextId) {
@@ -70,20 +70,20 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
         final View cardView = holder.itemView;
         TextView textView = cardView.findViewById(R.id.text1);
         textView.setText(date.getDate());
-        //textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize + 4);
         textView = cardView.findViewById(R.id.text2);
         textView.setText(date.getEvent());
-        //textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textView = cardView.findViewById(R.id.text3);
+
         if (date.containsMonth())
             textView.setText(date.getMonth());
         else
             textView.setText("");
+
         if (getItemViewType(position) == DATE_WITH_MARGIN) {
             textView = cardView.findViewById(R.id.textTitle);
             textView.setText(main_top_texts.get(Integer.valueOf(position)));
             //textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        }else
+        }
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +93,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
         });
     }
 
-    private void fill_top_texts(String[] texts, String[] add_texts) {
+    private void fillTopTexts(String[] texts, String[] add_texts) {
         int[] positions_main = {0, 21, 41, 76, 107, 147, 195, 242, 284, 334};
         int[] positions_easy = {0, 48};
         for (int i = 0; i < positions_main.length; i++)
@@ -157,24 +157,6 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     private boolean isFontSizeChanged() {
         return fontSize == DEFAULT_TEXT_SIZE;
     }
-
-    @Override
-    public void onViewAttachedToWindow(ViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
-//        if (isFontSizeChanged()) {
-//            CardView cardView = holder.mCardView;
-//            //TextView text = cardView.
-//        }
-
-    }
-
-    @Override
-    public void onViewDetachedFromWindow(ViewHolder holder) {
-        super.onViewDetachedFromWindow(holder);
-
-        //CardView cardView = holder.mCardView;
-    }
-
 
     @Override
     public int getItemCount() {

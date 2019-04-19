@@ -1,12 +1,15 @@
 package com.nollpointer.dates.dialogs;
 
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,12 +32,12 @@ public class MoreInfoDialog extends BottomSheetDialogFragment {
     public static final String REQUEST_URL = "request_url";
 
     String request;
-    View main_view;
-    TextView textView_info;
-    Button goToSourceButton;
+    View mainView;
+    TextView contentTextView;
+    Button goToWikiButton;
     ProgressBar progressBar;
-    View content;
-    View no_internet;
+    View contentContainer;
+    View noInternetView;
 
     public static MoreInfoDialog newInstance(String url) {
         MoreInfoDialog dialog = new MoreInfoDialog();
@@ -48,30 +51,28 @@ public class MoreInfoDialog extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        main_view = inflater.inflate(R.layout.dialog_more_info, container, false);
-        main_view.findViewById(R.id.dialog_close_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MoreInfoDialog.this.dismiss();
-            }
-        });
-        textView_info = main_view.findViewById(R.id.dialog_info);
-        goToSourceButton = main_view.findViewById(R.id.dialog_go_to_source_button);
-        progressBar = main_view.findViewById(R.id.dialog_progressbar);
-        content = main_view.findViewById(R.id.dialog_content);
-        no_internet = main_view.findViewById(R.id.dialog_no_internet);
+        mainView = inflater.inflate(R.layout.dialog_more_info, container, false);
+
+        contentTextView = mainView.findViewById(R.id.dialog_info);
+        goToWikiButton = mainView.findViewById(R.id.dialog_go_to_source_button);
+        progressBar = mainView.findViewById(R.id.dialog_progressbar);
+        contentContainer = mainView.findViewById(R.id.dialog_content);
+        noInternetView = mainView.findViewById(R.id.dialog_no_internet);
         request = getArguments().getString(REQUEST_URL);
+
+
+
         connectWikipedia();
-        return main_view;
+        return mainView;
     }
 
     public void setInfo(String data, final String wiki_url) {
-        no_internet.setVisibility(View.INVISIBLE);
-        content.setVisibility(View.VISIBLE);
+        noInternetView.setVisibility(View.INVISIBLE);
+        contentContainer.setVisibility(View.VISIBLE);
         hideProgressBar();
-        textView_info.setText(Html.fromHtml(data));
-        goToSourceButton.setText(R.string.go_to_wikipedia);
-        goToSourceButton.setOnClickListener(new View.OnClickListener() {
+        contentTextView.setText(Html.fromHtml(data));
+        goToWikiButton.setText(R.string.go_to_wikipedia);
+        goToWikiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -83,7 +84,7 @@ public class MoreInfoDialog extends BottomSheetDialogFragment {
 
     private void hideProgressBar() {
         progressBar.setClickable(false);
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.GONE);
         progressBar.setEnabled(false);
     }
 
@@ -91,8 +92,8 @@ public class MoreInfoDialog extends BottomSheetDialogFragment {
         progressBar.setClickable(true);
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setEnabled(true);
-        content.setVisibility(View.INVISIBLE);
-        no_internet.setVisibility(View.INVISIBLE);
+        contentContainer.setVisibility(View.INVISIBLE);
+        noInternetView.setVisibility(View.INVISIBLE);
     }
 
     private void connectWikipedia() {
@@ -121,21 +122,17 @@ public class MoreInfoDialog extends BottomSheetDialogFragment {
 
     public void noInternetConnection() {
         hideProgressBar();
-        content.setVisibility(View.INVISIBLE);
-        no_internet.setVisibility(View.VISIBLE);
-        no_internet.findViewById(R.id.dialog_try_again).setOnClickListener(new View.OnClickListener() {
+        contentContainer.setVisibility(View.INVISIBLE);
+        noInternetView.setVisibility(View.VISIBLE);
+        noInternetView.findViewById(R.id.dialog_try_again).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 connectWikipedia();
                 showProgressBar();
             }
         });
-        no_internet.findViewById(R.id.dialog_close_button_no).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+
+
 
     }
 }

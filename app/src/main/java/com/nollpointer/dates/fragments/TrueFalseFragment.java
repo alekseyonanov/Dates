@@ -2,7 +2,7 @@ package com.nollpointer.dates.fragments;
 
 
 import android.content.res.Resources;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -67,9 +67,6 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //if(Build.VERSION.SDK_INT == 19)
-        //    mainView =inflater.inflate(R.layout.fragment_true_false_low_api, container, false);
-        //else
         View mainView = inflater.inflate(R.layout.fragment_true_false, container, false);
         initViews(mainView);
 //        WrongAnswersCountView.setText("0");

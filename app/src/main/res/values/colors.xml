@@ -19,6 +19,8 @@
     <color name="colorFalseButton">#ff5252</color>
     <color name="colorMask">#ea37474F</color>
 
+    <!--<color name="colorResultTabsUnselected">#FFFFFF</color>-->
+
     <color name="colorCards">#164FA5</color>
     <color name="colorTest">#23A527</color>
     <color name="colorTrueFalse">#ABA619</color>

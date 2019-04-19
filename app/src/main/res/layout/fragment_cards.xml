@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-    <Button
+    <android.widget.Button
         android:id="@+id/cards_description_date"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         app:autoSizeStepGranularity="2sp"
         />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/cards_next_date"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"

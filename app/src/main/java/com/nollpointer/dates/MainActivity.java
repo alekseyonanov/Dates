@@ -3,30 +3,29 @@ package com.nollpointer.dates;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import com.appodeal.ads.Appodeal;
 import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.nollpointer.dates.fragments.StatisticsFragment;
 import com.nollpointer.dates.fragments.DatesFragment;
 import com.nollpointer.dates.fragments.GDPRFragment;
 import com.nollpointer.dates.fragments.MenuFragment;
 import com.nollpointer.dates.fragments.PractiseFragment;
+import com.nollpointer.dates.fragments.PractiseResultFragment;
+import com.nollpointer.dates.fragments.StatisticsFragment;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -51,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TreeMap<String, Boolean> preferences = new TreeMap<>();
 
-    private ArrayList<Date> full_list;
-    private ArrayList<Date> easy_list;
+    private ArrayList<Date> dates;
 
     private DatesFragment datesFragment;
     private PractiseFragment practiseFragment;
@@ -69,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        mode = preferences.getInt("mode", FULL_DATES_MODE);
+        boolean isAppodealInitialized = preferences.contains("gdpr_result");
+        boolean isGdprAgree = preferences.getBoolean("gdpr_result", false);
+
+        initializeAdds(isGdprAgree);
+
+
         datesFragment = new DatesFragment();
         practiseFragment = new PractiseFragment();
         statisticsFragment = new StatisticsFragment();
@@ -83,12 +91,8 @@ public class MainActivity extends AppCompatActivity {
 //        preferences.put(GDPR_SHOW, prefs.getBoolean(GDPR_SHOW, true));
 
         initializeBottomView();
-        FrameLayout frameLayout = findViewById(R.id.frameLayout);
-        new LoadData(bottomView, datesFragment).execute();
+        new InitialLoadData(mode, isAppodealInitialized, bottomView, datesFragment).execute();
 
-        SharedPreferences preferences =   PreferenceManager.getDefaultSharedPreferences(this);
-
-        mode = preferences.getInt("mode",FULL_DATES_MODE);
 
 //        if (prefs.contains(GDPR)) {
 //            boolean isGDPRAgree = prefs.getBoolean(GDPR, false);
@@ -106,9 +110,6 @@ public class MainActivity extends AppCompatActivity {
         //toolbar = findViewById(R.id.toolbar_actionbar);
         bottomView = (BottomNavigationViewEx) findViewById(R.id.navigation);
 
-        //setSupportActionBar(toolbar);
-
-        //bottomView.inflateMenu(R.menu.navigation);
         bottomView.setSelectedItemId(R.id.navigation_dates);
         bottomView.enableAnimation(false);
         bottomView.enableShiftingMode(false);
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameLayout, fragment, "TAG");
                 //transaction.addToBackStack(null);
-                transaction.commit();
+                transaction.commitAllowingStateLoss();
 
                 return true;
             }
@@ -153,30 +154,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void initializeAdds(boolean isGdprAgree) {
         Appodeal.disableLocationPermissionCheck();
-        //Appodeal.disableNetwork(this, "mmedia");
         Appodeal.initialize(this, "106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1", Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.NON_SKIPPABLE_VIDEO, isGdprAgree);
     }
 
-    public int getCurrentColor() {
-        if (mode == FULL_DATES_MODE)
-            return getResources().getColor(R.color.colorPrimary);
-        return getResources().getColor(R.color.colorPrimaryEasy);
+    public void setDates(ArrayList<Date> dates) {
+        this.dates = dates;
     }
 
-    public void setDateList(ArrayList<Date> array, int mode) {
-        if (mode == FULL_DATES_MODE)
-            full_list = array;
-        else
-            easy_list = array;
-//        if (full_list != null && easy_list != null)
-////            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, datesFragment, "TAG").commit();
-    }
-
-    public ArrayList<Date> getDateList() {
-        if (mode == FULL_DATES_MODE)
-            return full_list;
-        else
-            return easy_list;
+    public ArrayList<Date> getDates() {
+        return dates;
     }
 
     @Override
@@ -188,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        //new setNewPreferences(mode, preferences).execute(this);
         FlurryAgent.onEndSession(this);
     }
 
@@ -217,8 +202,13 @@ public class MainActivity extends AppCompatActivity {
         return mode;
     }
 
-    public void setMode(int mode){
+    public void setMode(int mode) {
         this.mode = mode;
+    }
+
+    public void updateMode(int mode, OnDatesLoadListener listener) {
+        this.mode = mode;
+        new LoadDates(mode, listener).execute();
     }
 
     protected static class setNewPreferences extends AsyncTask<MainActivity, Void, Void> {
@@ -249,32 +239,72 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class LoadData extends AsyncTask<Void, Void, Void> {
+
+    class InitialLoadData extends AsyncTask<Void, Void, Void> {
 
         BottomNavigationView bottomNavigationView;
         DatesFragment datesFragment;
+        int mode;
+        boolean isAppodealInitialized;
 
-        public LoadData(BottomNavigationView bottomNavigationView, DatesFragment datesFragment) {
+        public InitialLoadData(int mode, boolean isAppodealInitialized, BottomNavigationView bottomNavigationView, DatesFragment datesFragment) {
+            this.mode = mode;
+            this.isAppodealInitialized = isAppodealInitialized;
             this.bottomNavigationView = bottomNavigationView;
             this.datesFragment = datesFragment;
         }
 
         @Override
         protected void onPreExecute() {
-            //frameLayout.addView(loader);
             hideBottomNavigationView();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            //bottomNavigationView.setVisibility(View.VISIBLE);
-            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, datesFragment, "TAG").commit();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            if (isAppodealInitialized)
+                fragmentTransaction.add(R.id.frameLayout, datesFragment, null);
+            else
+                fragmentTransaction.add(R.id.frameLayout, new GDPRFragment(), null);
+
+            fragmentTransaction.commitAllowingStateLoss();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            setDateList(Misc.getDates(FULL_DATES_MODE), FULL_DATES_MODE);
-            setDateList(Misc.getDates(EASY_DATES_MODE), EASY_DATES_MODE);
+            setDates(Misc.getDates(mode));
+            return null;
+        }
+    }
+
+
+    class LoadDates extends AsyncTask<Void, Void, Void> {
+
+        OnDatesLoadListener listener;
+        int mode;
+
+        public LoadDates(int mode, OnDatesLoadListener listener) {
+            this.listener = listener;
+            this.mode = mode;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            listener.onLoadStart();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            listener.onLoadEnd();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            setDates(Misc.getDates(mode));
+
             return null;
         }
     }

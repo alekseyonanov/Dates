@@ -2,11 +2,11 @@ package com.nollpointer.dates.fragments;
 
 
 import android.app.FragmentTransaction;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +24,6 @@ import com.nollpointer.dates.dialogs.TypePickDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
-import uk.co.deanwild.materialshowcaseview.shape.NoShape;
 
 import static com.nollpointer.dates.MainActivity.EASY_DATES_MODE;
 import static com.nollpointer.dates.MainActivity.FULL_DATES_MODE;
@@ -57,6 +54,7 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
         mMainActivity = (MainActivity) getActivity();
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(mMainActivity));
+
         return mainView;
     }
 
@@ -191,7 +189,7 @@ public class PractiseFragment extends Fragment implements PractiseCardsAdapter.L
     }
 
     private ArrayList<Date> getListForPractise(ArrayList<Integer> arrayList) {
-        ArrayList<Date> dates = mMainActivity.getDateList();
+        ArrayList<Date> dates = mMainActivity.getDates();
         ArrayList<Date> practiseList = new ArrayList<>();
         int mode = mMainActivity.getMode();
         if ((mode == FULL_DATES_MODE && arrayList.contains(10)) || (mode == EASY_DATES_MODE && arrayList.contains(2))) // Если выбраны все даты

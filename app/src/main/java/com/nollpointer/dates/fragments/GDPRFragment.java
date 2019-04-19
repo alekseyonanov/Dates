@@ -1,8 +1,12 @@
 package com.nollpointer.dates.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.preference.PreferenceManager;
+import androidx.fragment.app.Fragment;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -13,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.nollpointer.dates.R;
 
 /**
@@ -28,12 +33,12 @@ public class GDPRFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gdpr, container, false);
-        initViews(view);
+        initializeViews(view);
         prepareForGDPR();
         return view;
     }
 
-    private void initViews(View mainView) {
+    private void initializeViews(View mainView) {
         yesText = mainView.findViewById(R.id.yes_text);
         noText = mainView.findViewById(R.id.no_text);
         infoText = mainView.findViewById(R.id.info_text);
@@ -53,7 +58,7 @@ public class GDPRFragment extends Fragment {
         yesText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showResultView(true);
+                showResultFragment(true);
             }
         });
 
@@ -65,21 +70,43 @@ public class GDPRFragment extends Fragment {
         noText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showResultView(false);
+                showResultFragment(false);
             }
         });
     }
 
-    private void showResultView(boolean result) {
+    private void showResultFragment(boolean result) {
+
+        new SaveGdprResult(getContext(),result).execute();
+
         //sendResult(result);
         GDPRFragmentResult fragmentResult = GDPRFragmentResult.getInstance(result);
         getFragmentManager().beginTransaction().replace(R.id.frameLayout,fragmentResult).commit();
     }
 
-    private void sendResult(boolean result) {
-//        Intent intent = new Intent();
-//        intent.putExtra(MainActivity.GDPR, result);
-//        setResult(1, intent);
+    protected static class SaveGdprResult extends AsyncTask<Void, Void, Void> {
+        boolean result;
+        Context context;
+
+        SaveGdprResult(Context context,boolean result) {
+            this.context = context;
+            this.result = result;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            FlurryAgent.logEvent("Is_GDPR_Agree " + result);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+
+            editor.putBoolean("gdpr_result",result);
+
+            editor.apply();
+            return null;
+        }
     }
 
 }

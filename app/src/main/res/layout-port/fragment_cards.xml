@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/cards_description_date"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
@@ -37,7 +37,7 @@
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="72sp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/cards_next_date"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
