@@ -53,6 +53,8 @@
         android:fontFamily="sans-serif-light"
         android:textStyle="bold"
         android:textAppearance="?android:textAppearanceLarge"
+        android:textSize="32sp"
+        android:text="1962"
         android:textColor="@android:color/black" />
 
     <LinearLayout

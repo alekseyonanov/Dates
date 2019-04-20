@@ -23,8 +23,8 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.nollpointer.dates.fragments.DatesFragment;
 import com.nollpointer.dates.fragments.GDPRFragment;
 import com.nollpointer.dates.fragments.MenuFragment;
+import com.nollpointer.dates.fragments.PractiseCellFragment;
 import com.nollpointer.dates.fragments.PractiseFragment;
-import com.nollpointer.dates.fragments.PractiseResultFragment;
 import com.nollpointer.dates.fragments.StatisticsFragment;
 
 import java.util.ArrayList;

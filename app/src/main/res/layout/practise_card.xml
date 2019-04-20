@@ -1,125 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
     android:background="@android:color/white"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:paddingStart="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingEnd="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp">
 
-    <!--<GridLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_margin="7dp"-->
-    <!--android:columnCount="2"-->
-    <!--android:rowCount="2">-->
+    <ImageView
+        android:id="@+id/info_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_vertical"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_practise_background_cards"
+        android:scaleType="center" />
 
-    <!--<ImageView-->
-    <!--android:id="@+id/info_image"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_row="0"-->
-    <!--android:layout_rowSpan="2"-->
-    <!--android:layout_column="0"-->
-    <!--android:layout_gravity="fill_vertical"-->
-    <!--android:layout_marginEnd="4dp"-->
-    <!--android:background="@android:color/white"-->
-    <!--android:scaleType="center" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/info_text_title"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_row="0"-->
-    <!--android:layout_column="1"-->
-    <!--android:layout_gravity="fill_horizontal"-->
-    <!--android:background="@android:color/white"-->
-    <!--android:gravity="start"-->
-    <!--android:textAppearance="?android:textAppearanceLarge"-->
-    <!--android:textColor="@android:color/black"-->
-    <!--android:textStyle="bold" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/info_text_subtitle"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_row="1"-->
-    <!--android:layout_column="1"-->
-    <!--android:layout_gravity="fill_horizontal"-->
-    <!--android:layout_marginTop="5dp"-->
-    <!--android:background="@android:color/white"-->
-    <!--android:gravity="start"-->
-    <!--android:textAppearance="?android:textAppearanceMedium" />-->
-
-    <!--</GridLayout>-->
-    <RelativeLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp">
+        android:layout_centerInParent="true"
+        android:layout_toEndOf="@+id/info_image"
+        android:layout_toRightOf="@+id/info_image"
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/container"
+        <TextView
+            android:id="@+id/info_text_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/info_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="fill_vertical"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_practise_background_cards"
-                android:scaleType="center" />
+        <TextView
+            android:id="@+id/info_text_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SubTitile"
+            android:textSize="16sp" />
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/info_image"
-                android:layout_toRightOf="@+id/info_image"
-                android:layout_centerInParent="true"
-                android:orientation="vertical">
+    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/info_text_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Title"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+    <TextView
+        android:id="@+id/info_text_mark"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3.3"
+        android:textSize="30sp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorPrimary"/>
 
-                <TextView
-                    android:id="@+id/info_text_subtitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="SubTitile"
-                    android:textSize="16sp" />
+</RelativeLayout>
 
-            </LinearLayout>
-        </RelativeLayout>
-
-
-    </RelativeLayout>
-
-    <!--<TextView-->
-    <!--android:id="@+id/practice_info_text"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:drawableStart="@drawable/email"-->
-    <!--android:drawablePadding="36dp"-->
-    <!--android:background="?attr/selectableItemBackground"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:text="title"-->
-    <!--android:padding="10dp"-->
-
-    <!--android:textAppearance="?android:textAppearanceLarge"-->
-
-    <!--android:textColor="#808080" />-->
-
-
-</androidx.cardview.widget.CardView>

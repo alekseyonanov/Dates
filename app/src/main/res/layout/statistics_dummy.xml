@@ -32,6 +32,8 @@
         android:layout_centerInParent="true" />
 
     <android.widget.Button
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:id="@+id/statistics_dummy_button"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"

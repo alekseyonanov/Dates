@@ -13,13 +13,36 @@
         app:title="@string/title_practise"
         app:titleTextColor="@android:color/white" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/practise_recycler_view"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/practise_tabs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/practise_toolbar"
         android:layout_gravity="top"
-        android:scrollbars="vertical" />
+        android:background="@color/colorPrimary"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="#D0FFFFFF">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Бесконечный" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Тестирование" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/practise_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/practise_tabs" />
 
 
 </RelativeLayout>

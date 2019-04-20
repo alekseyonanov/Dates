@@ -48,6 +48,11 @@
             <intent android:action="android.intent.action.VIEW"
                 android:data="https://play.google.com/apps/testing/com.nollpointer.dates" />
         </Preference>
+
+        <Preference android:title="Privacy Policy">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://www.freeprivacypolicy.com/privacy/view/c2d1b7e42bda8303e1b3c50a6755a6fa" />
+        </Preference>
         <!--<Preference android:title="Страница Разработчика">-->
             <!--<intent android:action="android.intent.action.VIEW"-->
                 <!--android:data="market://dev?id=5700313618786177705" />-->
