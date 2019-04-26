@@ -1,9 +1,6 @@
 package com.nollpointer.dates.fragments;
 
 
-import android.content.res.Resources;
-import androidx.fragment.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -11,24 +8,334 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.appodeal.ads.Appodeal;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.chip.Chip;
 import com.nollpointer.dates.Date;
-import com.nollpointer.dates.MainActivity;
 import com.nollpointer.dates.R;
-import com.nollpointer.dates.dialogs.ResultDialog;
+import com.nollpointer.dates.dialogs.TestSettingsDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
-import uk.co.deanwild.materialshowcaseview.shape.NoShape;
-
 import static com.nollpointer.dates.constants.PractiseConstants.DATES;
+import static com.nollpointer.dates.constants.PractiseConstants.DIFFICULTY;
 import static com.nollpointer.dates.constants.PractiseConstants.TEST_MODE;
+import static com.nollpointer.dates.constants.PractiseConstants.TYPE;
 
+public class TrueFalseFragment extends Fragment {
+
+    private Button trueButton;
+    private Button falseButton;
+
+    private TextView dateTextView;
+    private TextView eventTextView;
+
+    private Chip questionNumberChip;
+    private Chip rightAnswersChip;
+    private Chip wrongAnswersChip;
+
+    private ImageView resultImage;
+
+    private boolean isLocked = false;
+    private boolean isTrue = false;
+
+    private List<Date> dates;
+    private int difficulty;
+    private boolean isTestMode;
+
+    private View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if(isLocked)
+                return;
+
+            lockAnswerButtons();
+
+
+            int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
+            int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
+
+            if(isTrue && v.equals(trueButton) || !isTrue && v.equals(falseButton)){
+                showCorrectImage();
+                rightAnswersCount++;
+            }else {
+                showMistakeImage();
+                wrongAnswersCount++;
+            }
+
+            rightAnswersChip.setText(Integer.toString(rightAnswersCount));
+            wrongAnswersChip.setText(Integer.toString(wrongAnswersCount));
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    generateAndSetInfo();
+                }
+            },900);
+        }
+    };
+
+    public static TrueFalseFragment newInstance(ArrayList<Date> dates, int difficulty, boolean testMode) {
+        TrueFalseFragment fragment = new TrueFalseFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(TEST_MODE, testMode);
+        bundle.putInt(DIFFICULTY, difficulty);
+        bundle.putParcelableArrayList(DATES, dates);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View mainView = inflater.inflate(R.layout.fragment_true_false, container, false);
+
+
+        Bundle arguments = getArguments();
+
+        dates = arguments.getParcelableArrayList(DATES);
+        difficulty = arguments.getInt(DIFFICULTY);
+        isTestMode = arguments.getBoolean(TEST_MODE);
+
+        initializeViews(mainView);
+
+        generateAndSetInfo();
+
+        return mainView;
+    }
+
+    private void initializeViews(View mainView) {
+        //Appodeal.setBannerViewId(R.id.appodealBannerView_true);
+        dateTextView = mainView.findViewById(R.id.test_info_true_false_date);
+        eventTextView = mainView.findViewById(R.id.test_info_true_false_event);
+
+        ImageButton backButton = mainView.findViewById(R.id.true_false_back_button);
+        ImageButton settingsButton = mainView.findViewById(R.id.true_false_settings_button);
+
+        trueButton = mainView.findViewById(R.id.true_button);
+        trueButton.setOnClickListener(listener);
+
+        falseButton = mainView.findViewById(R.id.false_button);
+        falseButton.setOnClickListener(listener);
+
+        backButton.setImageResource(R.drawable.ic_arrow_back_white);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
+
+        settingsButton.setImageResource(R.drawable.ic_settings);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestSettingsDialog settingsDialog = new TestSettingsDialog();
+                settingsDialog.show(getActivity().getSupportFragmentManager(), null);
+            }
+        });
+
+        questionNumberChip = mainView.findViewById(R.id.trueFalseQuestionNumber);
+        rightAnswersChip = mainView.findViewById(R.id.trueFalseRightAnswers);
+        wrongAnswersChip = mainView.findViewById(R.id.trueFalseWrongAnswers);
+
+        resultImage = mainView.findViewById(R.id.true_false_result_image);
+
+    }
+
+    private void lockAnswerButtons() {
+        isLocked = true;
+    }
+
+    private void unlockAnswerButtons() {
+        isLocked = false;
+    }
+
+    private void generateAndSetInfo() {
+
+        isTrue = generateRandomBoolean();
+
+        Date questionDate = generateDate();
+
+        String date = questionDate.getDate();
+        String event;
+
+        if(isTrue)
+            event = questionDate.getEvent();
+        else{
+            Date anotherDate = generateDate();
+            while(anotherDate.equals(questionDate))
+                anotherDate = generateDate();
+
+            event = anotherDate.getEvent();
+        }
+
+        hideResultImage();
+
+        setInfo(date,event);
+        unlockAnswerButtons();
+    }
+
+    private boolean generateRandomBoolean(){
+
+        Random random = new Random(System.currentTimeMillis());
+
+        return random.nextBoolean();
+
+    }
+
+    private Date generateDate(){
+
+        Random random = new Random(System.currentTimeMillis());
+
+        return dates.get(random.nextInt(dates.size()));
+    }
+
+    private void setInfo(String date, String event){
+        dateTextView.setText(date);
+        eventTextView.setText(event);
+
+        int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
+        int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
+        questionNumberChip.setText("#" + (rightAnswersCount + wrongAnswersCount + 1));
+    }
+
+    private void showCorrectImage(){
+        resultImage.setImageResource(R.drawable.ic_correct);
+        resultImage.setVisibility(View.VISIBLE);
+    }
+
+    private void showMistakeImage(){
+        resultImage.setImageResource(R.drawable.ic_mistake);
+        resultImage.setVisibility(View.VISIBLE);
+    }
+
+    private void hideResultImage(){
+        resultImage.setVisibility(View.INVISIBLE);
+    }
+
+//    private void checkResult(boolean opinion) {
+//        if (isCorrect == opinion) {
+//            right_answers_count++;
+//            //RightAnswerCountView.setText(Integer.toString(right_answers_count));
+//            QuestionDate.setTextColor(greenColor);
+//            QuestionEvent.setTextColor(greenColor);
+//        } else {
+//            wrong_answers_count++;
+//            //WrongAnswersCountView.setText(Integer.toString(wrong_answers_count));
+//            QuestionDate.setTextColor(redColor);
+//            QuestionEvent.setTextColor(redColor);
+//        }
+//        if (testMode)
+//            progressBar.incrementProgressBy(1);
+//        setTestInfo();
+//        mHandler.postDelayed(RefreshRunnable, 850);
+//
+//    }
+//
+//    private void setTestInfo() {
+//        Random random = new Random();
+//        isCorrect = random.nextBoolean();
+//        int r;
+//        Date randomDate;
+//        int size = dates.size();
+//        r = random.nextInt(size);
+//        if (testMode) {
+//            while (uniqueDates.contains(r))
+//                r = random.nextInt(size);
+//            uniqueDates.add(r);
+//        }
+//        randomDate = dates.get(r);
+//        date = randomDate.getDate();
+//        if (isCorrect)
+//            event = randomDate.getEvent();
+//        else {
+//            r = random.nextInt(size);
+//            randomDate = dates.get(r);
+//            while (date.equals(randomDate.getDate())) {
+//                r = random.nextInt(dates.size());
+//                randomDate = dates.get(r);
+//            }
+//            event = randomDate.getEvent();
+//        }
+//    }
+//
+//    private void setQuestions() {
+//        QuestionDate.setText(date);
+//        QuestionEvent.setText(event);
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        mHandler.removeCallbacks(RefreshRunnable);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        Appodeal.hide(getActivity(), Appodeal.BANNER_VIEW);
+//    }
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
+//    }
+//
+//    @Override
+//    public void reset() {
+//
+//        if (Appodeal.isLoaded(Appodeal.INTERSTITIAL))
+//            Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
+//
+//        wrong_answers_count = right_answers_count = 0;
+////        WrongAnswersCountView.setText(Integer.toString(wrong_answers_count));
+////        RightAnswerCountView.setText(Integer.toString(right_answers_count));
+//        progressBar.setProgress(0);
+//
+//        setQuestions();
+//    }
+//
+//    @Override
+//    public void exit() {
+//        getActivity().getSupportFragmentManager().popBackStack();
+//    }
+//
+//    private void setResultScreen() {
+//
+//        String mark;
+//        int color;
+//
+//        if (right_answers_count < 5)
+//            mark = getString(R.string.mark_very_bad);
+//        else if (right_answers_count < 9)
+//            mark = getString(R.string.mark_bad);
+//        else if (right_answers_count < 13)
+//            mark = getString(R.string.mark_neutral);
+//        else if (right_answers_count < 17)
+//            mark = getString(R.string.mark_good);
+//        else
+//            mark = getString(R.string.mark_very_good);
+//
+//        if (right_answers_count > 9)
+//            color = getResources().getColor(android.R.color.holo_green_light);
+//        else
+//            color = getResources().getColor(android.R.color.holo_red_light);
+//
+//        new ResultDialog(right_answers_count, mark, color, this).showDialog(getActivity());
+//
+//    }
+}
+
+
+/*
 public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDialogCallbackListener {
 
     private TextView QuestionDate, QuestionEvent;
@@ -278,3 +585,6 @@ public class TrueFalseFragment extends Fragment implements ResultDialog.ResultDi
 
     }
 }
+
+
+*/

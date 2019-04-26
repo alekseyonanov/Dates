@@ -13,8 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 
-import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.nollpointer.dates.Date;
 import com.nollpointer.dates.MainActivity;
@@ -25,6 +25,7 @@ import com.nollpointer.dates.adapters.PractiseDetailsPickerAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -36,6 +37,9 @@ import static com.nollpointer.dates.MainActivity.EASY_DATES_MODE;
 import static com.nollpointer.dates.MainActivity.FULL_DATES_MODE;
 import static com.nollpointer.dates.MainActivity.MODE;
 import static com.nollpointer.dates.constants.PractiseConstants.CARDS;
+import static com.nollpointer.dates.constants.PractiseConstants.DIFFICULTY_EASY;
+import static com.nollpointer.dates.constants.PractiseConstants.DIFFICULTY_HARD;
+import static com.nollpointer.dates.constants.PractiseConstants.DIFFICULTY_MEDIUM;
 import static com.nollpointer.dates.constants.PractiseConstants.DISTRIBUTE;
 import static com.nollpointer.dates.constants.PractiseConstants.SORT;
 import static com.nollpointer.dates.constants.PractiseConstants.TEST;
@@ -79,6 +83,8 @@ public class PractiseDetailsPickerFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.practise_details_picker_random)
                     setRandomValues(isLockedType(practise));
+
+
                 return true;
             }
         });
@@ -101,12 +107,28 @@ public class PractiseDetailsPickerFragment extends Fragment {
 
         Resources resources = getResources();
 
+        CheckedTextView centuryTitle = mainView.findViewById(R.id.centuryTitle);
+        centuryTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckedTextView view = (CheckedTextView) v;
+                if (view.isChecked()) {
+                    if(!centuryAdapter.getCenturies().equals(generateFullCenturiesList()))
+                        view.setChecked(false);
+                } else {
+                    view.setChecked(true);
+                    centuryAdapter.setCenturies(generateFullCenturiesList());
+                    centuryAdapter.notifyDataSetChanged();
+                }
+            }
+        });
 
         RecyclerView typeRecyclerView = mainView.findViewById(R.id.typeRecyclerView);
         typeAdapter = new PractiseDetailsPickerAdapter(resources.getTextArray(R.array.pick_type),
                 PractiseDetailsPickerAdapter.TYPE);
 
         typeRecyclerView.setAdapter(typeAdapter);
+        typeAdapter.setTitleCheckedTextView(centuryTitle);
         typeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
@@ -115,9 +137,10 @@ public class PractiseDetailsPickerFragment extends Fragment {
         });
 
 
-        RecyclerView centuryRecyclerView = mainView.findViewById(R.id.centuriesRecyclerView);
+        final RecyclerView centuryRecyclerView = mainView.findViewById(R.id.centuriesRecyclerView);
         centuryAdapter = new PractiseDetailsPickerAdapter(resources.getTextArray(R.array.centuries),
                 PractiseDetailsPickerAdapter.CENTURY);
+        centuryAdapter.setTitleCheckedTextView(centuryTitle);
         centuryRecyclerView.setAdapter(centuryAdapter);
         centuryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()) {
             @Override
@@ -143,6 +166,8 @@ public class PractiseDetailsPickerFragment extends Fragment {
         });
 
 
+
+
         //TODO добавить выбор сразу всех веков по кнопке
         if (saveCurrentState) {
             int type = preferences.getInt("practise_type", 0);
@@ -154,12 +179,23 @@ public class PractiseDetailsPickerFragment extends Fragment {
                 typeAdapter.setType(type);
 
             centuryAdapter.setCenturies(list);
+            if(list.size() == 10)
+                centuryTitle.setChecked(true);
         } else {
             if (isLockedType(practise))
                 setLockedType(practise);
         }
 
         return mainView;
+    }
+
+    private ArrayList<Integer> generateFullCenturiesList(){
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add(i);
+        }
+
+        return list;
     }
 
     private void setLockedType(String practise) {
@@ -205,13 +241,13 @@ public class PractiseDetailsPickerFragment extends Fragment {
                 fragment = CardsFragment.newInstance(dates, type);
                 break;
             case TEST:
-                fragment = TestFragment.newInstance(dates, type, false);
+                fragment = TestFragment.newInstance(dates, type, getDifficulty(),false);
                 break;
             case TRUE_FALSE:
-                fragment = TrueFalseFragment.newInstance(dates, false);
+                fragment = TrueFalseFragment.newInstance(dates, getDifficulty(),false);
                 break;
             case SORT:
-                fragment = SortFragment.newInstance(dates, false);
+                fragment = SortFragment.newInstance(dates, getDifficulty(),false);
                 break;
             case DISTRIBUTE:
                 fragment = new DistributeFragment();
@@ -225,10 +261,31 @@ public class PractiseDetailsPickerFragment extends Fragment {
 
     }
 
+    private int getDifficulty(){
+        int checkedId = difficultyChipGroup.getCheckedChipId();
+
+        switch (checkedId){
+            case R.id.difficulty_chip_easy:
+                return DIFFICULTY_EASY;
+            case R.id.difficulty_chip_medium:
+                return DIFFICULTY_MEDIUM;
+            case R.id.difficulty_chip_hard:
+                return DIFFICULTY_HARD;
+        }
+
+        return DIFFICULTY_EASY;
+    }
+
     public void setRandomValues(boolean isTypeLocked) {
         centuryAdapter.makeRandomValues();
+        setRandomDifficulty();
         if(!isTypeLocked)
             typeAdapter.makeRandomValues();
+    }
+
+    private void setRandomDifficulty(){
+        Random random = new Random(System.currentTimeMillis());
+        difficultyChipGroup.check(difficultyChipGroup.getChildAt(random.nextInt(3)).getId());
     }
 
 

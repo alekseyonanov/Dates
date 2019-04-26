@@ -41,11 +41,11 @@ public class SortCards implements SortCardsControl {
         SortCards sorts = new SortCards();
         sorts.cards = new ArrayList<>(MAX_COUNT);
 
-        CardView cardView = mainView.findViewById(R.id.cardView0);
+        CardView cardView = mainView.findViewById(0);
         sorts.cards.add(new SortCardView(cardView));
-        cardView = mainView.findViewById(R.id.cardView1);
+        cardView = mainView.findViewById(0);
         sorts.cards.add(new SortCardView(cardView));
-        cardView = mainView.findViewById(R.id.cardView2);
+        cardView = mainView.findViewById(0);
         sorts.cards.add(new SortCardView(cardView));
 
         sorts.initialize();
@@ -91,13 +91,13 @@ public class SortCards implements SortCardsControl {
     private int getPosition(int id) {
         int position = -1;
         switch (id) {
-            case R.id.cardView0:
+            case 0:
                 position = 0;
                 break;
-            case R.id.cardView1:
+            case 1:
                 position = 1;
                 break;
-            case R.id.cardView2:
+            case 2:
                 position = 2;
                 break;
         }

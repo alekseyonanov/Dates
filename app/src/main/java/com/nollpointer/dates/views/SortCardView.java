@@ -14,8 +14,8 @@ public class SortCardView {
 
     SortCardView(CardView card) {
         this.card = card;
-        number = card.findViewById(R.id.button_cardview);
-        event = card.findViewById(R.id.textview_cardview);
+        number = card.findViewById(R.id.text1);
+        event = card.findViewById(R.id.text2);
     }
 
     public void setBackgroundColor(int color) {

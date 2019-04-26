@@ -3,9 +3,13 @@ package com.nollpointer.dates.fragments;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +51,8 @@ public class CardsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cards, container, false);
+        View mainView = inflater.inflate(R.layout.fragment_cards, container, false);
         MainActivity ctx = (MainActivity) getActivity();
-        //ctx.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         Bundle saved = getArguments();
         type = saved.getInt(TYPE);
@@ -63,29 +66,13 @@ public class CardsFragment extends Fragment {
                 break;
         }
 
-        mainTextView = view.findViewById(R.id.date_cards_text);
-
-        Button nextDateButton = view.findViewById(R.id.cards_next_date);
-        nextDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setQuestion();
-            }
-        });
-
-        Button descriptionButton = view.findViewById(R.id.cards_description_date);
-        descriptionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAnswer();
-            }
-        });
+        initializeViews(mainView);
 
         setQuestion();
 
         if (ctx.isFirstTime(MainActivity.CARDS))
             new MaterialShowcaseView.Builder(ctx)
-                    .setTarget(view)
+                    .setTarget(mainView)
                     .setDelay(200)
                     .setContentText(R.string.tutorial_cards)
                     .setDismissText(R.string.got_it)
@@ -94,7 +81,31 @@ public class CardsFragment extends Fragment {
                     .setMaskColour(getResources().getColor(R.color.colorMask))
                     .setShape(new NoShape())
                     .show();
-        return view;
+        return mainView;
+    }
+
+    private void initializeViews(View mainView){
+        mainTextView = mainView.findViewById(R.id.date_cards_text);
+
+        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            mainTextView.setBreakStrategy(Layout.BREAK_STRATEGY_SIMPLE);
+
+        Button nextButton = mainView.findViewById(R.id.cards_next_date);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setQuestion();
+            }
+        });
+
+        Button descriptionButton = mainView.findViewById(R.id.cards_description_date);
+        descriptionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setAnswer();
+            }
+        });
+
     }
 
     @Override

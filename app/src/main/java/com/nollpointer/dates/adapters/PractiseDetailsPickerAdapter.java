@@ -1,11 +1,12 @@
 package com.nollpointer.dates.adapters;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.nollpointer.dates.R;
 
@@ -20,6 +21,8 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
     private int type = 0;
     private ArrayList<Integer> centuries = new ArrayList<>();
     private CheckedTextView previousPickedType;
+
+    private CheckedTextView titleCheckedTextView;
 
     public static final int CENTURY = 1;
     public static final int TYPE = 0;
@@ -71,6 +74,10 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
         this.type = type;
     }
 
+    public void setTitleCheckedTextView(CheckedTextView titleCheckedTextView) {
+        this.titleCheckedTextView = titleCheckedTextView;
+    }
+
     public void setCenturies(ArrayList<Integer> centuries) {
         this.centuries = centuries;
     }
@@ -85,7 +92,7 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
         return centuries;
     }
 
-    public void setLocked(){
+    public void setLocked() {
         isLocked = true;
     }
 
@@ -94,13 +101,19 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
         type = random.nextInt(3);
         int size = random.nextInt(titles.length);
         centuries.clear();
-        if (size == titles.length - 1)
+        if (size == titles.length - 1) {
             for (int i = 0; i < titles.length; i++) {
                 centuries.add(i);
             }
-        else
+
+        }else {
             for (int i = 0; i < size; i++)
                 centuries.add(random.nextInt(titles.length - 1));
+        }
+
+        if (mode == CENTURY)
+            titleCheckedTextView.setChecked(size == titles.length - 1);
+
         notifyDataSetChanged();
     }
 
@@ -135,6 +148,8 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
                             view.setChecked(true);
                             centuries.add(getAdapterPosition());
                         }
+
+                        titleCheckedTextView.setChecked(centuries.size() == 10);
                     }
                 });
         }

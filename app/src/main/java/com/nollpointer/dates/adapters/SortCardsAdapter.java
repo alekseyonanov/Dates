@@ -1,43 +1,46 @@
 package com.nollpointer.dates.adapters;
 
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.nollpointer.dates.Date;
 import com.nollpointer.dates.R;
 
-public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.ViewHolder>{
-    private SortCardsAdapter.Listener mListener;
+import java.util.List;
+
+public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.ViewHolder> {
+    private SortCardsAdapter.Listener listener;
+
+    private int itemCount = 3;
+    private List<Date> dates;
 
     public interface Listener {
         void onClick(int position);
     }
 
-    public void setListener(SortCardsAdapter.Listener listener) {
-        mListener = listener;
-    }
-
-
-    public SortCardsAdapter() {
-
-    }
-
     @Override
     public SortCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CardView c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.statistics_card, parent, false);
-        return new SortCardsAdapter.ViewHolder(c);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sort_card, parent, false);
+        return new SortCardsAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(SortCardsAdapter.ViewHolder holder, final int position) {
+        View view = holder.itemView;
+        TextView mainTextView = view.findViewById(R.id.textMain);
+        TextView numberTextView = view.findViewById(R.id.textNumber);
 
-
+        numberTextView.setText(Integer.toString(position + 1));
+        mainTextView.setText(dates.get(position).getEvent());
     }
 
     @Override
     public int getItemCount() {
-        return 16;
+        return itemCount;
     }
 
     public boolean onItemMove(int fromPosition, int toPosition) {
@@ -46,10 +49,31 @@ public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.View
     }
 
 
+    public void setListener(SortCardsAdapter.Listener listener) {
+        this.listener = listener;
+    }
+
+    public void setItemCount(int count) {
+        this.itemCount = count;
+    }
+
+    public void setDates(List<Date> dates) {
+        this.dates = dates;
+    }
+
+    public int getAnswerSequence(){
+        return 0;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ViewHolder(CardView c) {
-            super(c);
+        ViewHolder(View view) {
+            super(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

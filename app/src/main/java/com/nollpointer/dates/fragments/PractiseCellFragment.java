@@ -127,30 +127,30 @@ public class PractiseCellFragment extends Fragment implements PractiseCardsAdapt
                 event = "CardsFragment";
                 break;
             case 2:
-                fragment = TestFragment.newInstance(dates, type, false);
+                fragment = TestFragment.newInstance(dates, type,0, false);
                 event = "Test";
                 break;
             case 3:
                 showAds();
-                fragment = TestFragment.newInstance(dates, type, true);
+                fragment = TestFragment.newInstance(dates, type,0, true);
                 event = "Test_20";
                 break;
             case 5:
-                fragment = TrueFalseFragment.newInstance(dates, false);
+                fragment = TrueFalseFragment.newInstance(dates, 0,false);
                 event = "TrueFalse";
                 break;
             case 6:
                 showAds();
-                fragment = TrueFalseFragment.newInstance(dates, true);
+                fragment = TrueFalseFragment.newInstance(dates, 0,true);
                 event = "TrueFalse_20";
                 break;
             case 8:
-                fragment = SortFragment.newInstance(dates, false);
+                fragment = SortFragment.newInstance(dates, 0,false);
                 event = "Sort";
                 break;
             case 9:
                 showAds();
-                fragment = SortFragment.newInstance(dates, true);
+                fragment = SortFragment.newInstance(dates, 0,true);
                 event = "Sort_20";
                 break;
             default:

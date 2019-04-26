@@ -92,7 +92,7 @@
                                 app:chipStrokeWidth="1dp" />
 
                             <com.google.android.material.chip.Chip
-                                android:id="@+id/difficulty_chip_difficult"
+                                android:id="@+id/difficulty_chip_hard"
                                 style="@style/CustomChipChoice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -177,7 +177,7 @@
                     <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
                     <!--android:textColor="@android:color/tertiary_text_dark" />-->
 
-                    <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                    <CheckedTextView
                         android:id="@+id/centuryTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

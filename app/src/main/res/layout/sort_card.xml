@@ -1,44 +1,43 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:id="@android:id/text1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="?android:attr/selectableItemBackground"-->
+    <!--android:ellipsize="marquee"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:minHeight="?android:attr/listPreferredItemHeight"-->
+    <!--android:paddingStart="12dip"-->
+    <!--android:paddingEnd="7dip"-->
+    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+    <!--android:textColor="@android:color/black" />-->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:textAppearance="?android:textAppearanceMedium"
-    app:cardElevation="0dp">
+    android:layout_width="match_parent">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+        android:minHeight="?android:attr/listPreferredItemHeight" />
 
-        <TextView
-            android:id="@+id/button_cardview"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="4dp"
-            android:textAppearance="?android:textAppearanceLarge" />
+    <TextView
+        android:id="@+id/textNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:layout_margin="4dp"
+        android:text="1"/>
 
-        <View
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_margin="2dp"
-            android:background="@color/colorBackgroundDivider" />
-
-        <TextView
-            android:id="@+id/textview_cardview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="5dp"
-            android:layout_weight="9"
-            android:gravity="center_vertical"
-            android:textAppearance="?android:textAppearanceMedium" />
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</RelativeLayout>

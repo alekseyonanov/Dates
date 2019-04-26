@@ -18,4 +18,10 @@ public class PractiseConstants {
     public static final int ONLY_DATES = 0;
     public static final int ONLY_EVENTS = 1;
     public static final int MIXED = 2;
+
+    public static final String DIFFICULTY = "difficulty";
+
+    public static final int DIFFICULTY_EASY = 0;
+    public static final int DIFFICULTY_MEDIUM = 1;
+    public static final int DIFFICULTY_HARD = 2;
 }
