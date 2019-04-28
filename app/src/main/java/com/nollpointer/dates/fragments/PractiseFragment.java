@@ -1,30 +1,18 @@
 package com.nollpointer.dates.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.material.tabs.TabLayout;
-import com.mintegral.msdk.shell.MTGActivity;
-import com.nollpointer.dates.MainActivity;
-import com.nollpointer.dates.R;
-import com.nollpointer.dates.adapters.PractiseCardsAdapter;
-import com.nollpointer.dates.views.PractiseCellView;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import static com.nollpointer.dates.MainActivity.FULL_DATES_MODE;
-import static com.nollpointer.dates.constants.PractiseConstants.CARDS;
-import static com.nollpointer.dates.constants.PractiseConstants.DISTRIBUTE;
-import static com.nollpointer.dates.constants.PractiseConstants.SORT;
-import static com.nollpointer.dates.constants.PractiseConstants.TEST;
-import static com.nollpointer.dates.constants.PractiseConstants.TEST_MODE;
-import static com.nollpointer.dates.constants.PractiseConstants.TRUE_FALSE;
+import com.google.android.material.tabs.TabLayout;
+import com.nollpointer.dates.MainActivity;
+import com.nollpointer.dates.R;
+import com.nollpointer.dates.views.PractiseCellView;
 
 
 public class PractiseFragment extends Fragment implements PractiseCellView.OnClickListener {
@@ -54,6 +42,48 @@ public class PractiseFragment extends Fragment implements PractiseCellView.OnCli
         MainActivity mainActivity = ((MainActivity) getActivity());
         mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseDetailsPickerFragment.newInstance(practise, mainActivity.getMode())).addToBackStack(null).commit();
 
+    }
+
+
+    public class PractiseCellAdapter extends PagerAdapter {
+
+        @Override
+        public Object instantiateItem(ViewGroup collection, int position) {
+            PractiseCellView recyclerView = new PractiseCellView(getContext());
+            recyclerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            recyclerView.setListener(PractiseFragment.this);
+            //if(position == 1)
+            recyclerView.setPractiseMode(position);
+
+            collection.addView(recyclerView);
+
+            return recyclerView;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup collection, int position, Object view) {
+            collection.removeView((View) view);
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            String title;
+            if (position == 0)
+                title = "Тренировка";
+            else
+                title = "Тестирование";
+            return title;
+        }
     }
 
 //    @Override
@@ -247,45 +277,5 @@ public class PractiseFragment extends Fragment implements PractiseCellView.OnCli
 //        return new Pair<>(start, end);
 //    }
 
-    public class PractiseCellAdapter extends PagerAdapter {
-
-        @Override
-        public Object instantiateItem(ViewGroup collection, int position) {
-            PractiseCellView recyclerView = new PractiseCellView(getContext());
-            recyclerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            recyclerView.setListener(PractiseFragment.this);
-            //if(position == 1)
-                recyclerView.setPractiseMode(position);
-
-            collection.addView(recyclerView);
-
-            return recyclerView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup collection, int position, Object view) {
-            collection.removeView((View) view);
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            String title;
-            if (position == 0)
-                title = "Тренировка";
-            else
-                title = "Тестирование";
-            return title;
-        }
-    }
 
 }

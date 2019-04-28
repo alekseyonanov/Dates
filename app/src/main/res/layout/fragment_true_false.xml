@@ -12,12 +12,30 @@
         android:layout_alignParentStart="true"
         android:background="@drawable/practise_back_button" />
 
-    <ImageButton
-        android:id="@+id/true_false_settings_button"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/practise_rating_button" />
+        android:orientation="horizontal"
+        android:background="@drawable/practise_rating_button">
+
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_help"
+            android:id="@+id/true_false_help_button"
+            android:layout_width="64dp"
+            android:layout_height="56dp" />
+
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_settings"
+            android:id="@+id/true_false_settings_button"
+            android:layout_width="64dp"
+            android:layout_height="56dp" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,6 +44,9 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_gravity="fill">
+
+
+        <!--android:animateLayoutChanges="true"-->
 
         <TextView
             android:id="@+id/test_info_true_false_date"

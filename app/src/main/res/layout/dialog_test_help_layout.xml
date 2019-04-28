@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_framelayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/more_info_dialog_background">
+
+    <View
+        android:background="@drawable/dialog_drag_image"
+        android:id="@+id/test_help_dialog_drag"
+        android:layout_width="32dp"
+        android:layout_height="4dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/test_help_dialog_text"
+        android:layout_below="@id/test_help_dialog_drag"
+        android:layout_width="match_parent"
+        android:padding="4dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        android:layout_height="wrap_content" />
+
+    <android.widget.Button
+        android:layout_below="@id/test_help_dialog_text"
+        android:id="@+id/test_help_dialog_done_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@color/colorAccent"
+        android:text="Готово"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

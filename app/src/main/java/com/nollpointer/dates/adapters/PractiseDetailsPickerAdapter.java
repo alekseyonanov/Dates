@@ -38,9 +38,9 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         if (mode == TYPE)
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.select_singlechoice, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_select_singlechoice, parent, false);
         else
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.select_multichoice, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_select_multichoice, parent, false);
         return new ViewHolder(view);
     }
 

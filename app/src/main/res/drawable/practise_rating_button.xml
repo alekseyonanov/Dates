@@ -6,7 +6,7 @@
         android:color="@color/colorPrimary" />
 
     <size
-        android:width="64dp"
+        android:width="128dp"
         android:height="56dp" />
 
     <corners

@@ -32,7 +32,7 @@ public class ResultDialog {
 
     public void showDialog(Context context) {
         LayoutInflater factory = LayoutInflater.from(context);
-        View dialogView = factory.inflate(R.layout.result_dialog_layout, null);
+        View dialogView = factory.inflate(R.layout.dialog_result_layout, null);
         final AlertDialog dialog = new AlertDialog.Builder(context).create();
         dialog.setCancelable(false);
         dialog.setView(dialogView);

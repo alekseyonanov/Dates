@@ -34,7 +34,7 @@ public class GameCardsAdapter extends RecyclerView.Adapter<GameCardsAdapter.View
 
     @Override
     public GameCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CardView c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.game_card, parent, false);
+        CardView c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.card_game, parent, false);
         return new GameCardsAdapter.ViewHolder(c);
     }
 

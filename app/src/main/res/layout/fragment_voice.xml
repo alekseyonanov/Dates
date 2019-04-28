@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
+
+
+    <ImageButton
+        android:id="@+id/voice_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/practise_back_button"
+        android:src="@drawable/ic_arrow_back_white" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/practise_rating_button"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/voice_help_button"
+            android:layout_width="64dp"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_help" />
+
+        <ImageButton
+            android:id="@+id/voice_settings_button"
+            android:layout_width="64dp"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_settings" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

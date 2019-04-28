@@ -28,13 +28,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         setupActionBar();
+
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         CharSequence[] texts = getResources().getTextArray(R.array.dates_cards_types_entries);
+        CharSequence[] languageTexts = getResources().getTextArray(R.array.languages_entries);
         boolean saveCurrentState = sharedPreferences.getBoolean("save_current_state",true);
+
         ListPreference listPreference = (ListPreference) findPreference("dates_card_type");
+        ListPreference languagesPreference = (ListPreference) findPreference("Locale");
         SwitchPreference switchPreference = (SwitchPreference) findPreference("save_current_state");
+
         listPreference
                 .setSummary(texts[Integer.parseInt(sharedPreferences.getString("dates_card_type", "0"))]);
+        languagesPreference
+                .setSummary(languageTexts[Integer.parseInt(sharedPreferences.getString("Locale", "0"))]);
         switchPreference.setChecked(saveCurrentState);
 
     }

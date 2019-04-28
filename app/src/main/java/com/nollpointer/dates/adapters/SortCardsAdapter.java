@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nollpointer.dates.Date;
 import com.nollpointer.dates.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.ViewHolder> {
@@ -18,13 +19,15 @@ public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.View
     private int itemCount = 3;
     private List<Date> dates;
 
+    private ArrayList<Integer> sequence = new ArrayList<>();
+
     public interface Listener {
         void onClick(int position);
     }
 
     @Override
     public SortCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sort_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_sort, parent, false);
         return new SortCardsAdapter.ViewHolder(view);
     }
 
@@ -33,9 +36,9 @@ public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.View
         View view = holder.itemView;
         TextView mainTextView = view.findViewById(R.id.textMain);
         TextView numberTextView = view.findViewById(R.id.textNumber);
-
         numberTextView.setText(Integer.toString(position + 1));
         mainTextView.setText(dates.get(position).getEvent());
+        sequence.add(position);
     }
 
     @Override
@@ -45,6 +48,13 @@ public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.View
 
     public boolean onItemMove(int fromPosition, int toPosition) {
         notifyItemMoved(fromPosition, toPosition);
+
+        int fromNumber = sequence.get(fromPosition);
+        int toNumber = sequence.get(toPosition);
+
+        sequence.set(toPosition,fromNumber);
+        sequence.set(fromPosition,toNumber);
+
         return true;
     }
 
@@ -59,10 +69,11 @@ public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.View
 
     public void setDates(List<Date> dates) {
         this.dates = dates;
+        sequence.clear();
     }
 
-    public int getAnswerSequence(){
-        return 0;
+    public List<Integer> getAnswerSequence(){
+        return sequence;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

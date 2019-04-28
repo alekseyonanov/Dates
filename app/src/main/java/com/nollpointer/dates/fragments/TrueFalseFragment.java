@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.chip.Chip;
 import com.nollpointer.dates.Date;
 import com.nollpointer.dates.R;
+import com.nollpointer.dates.dialogs.TestHelpDialog;
 import com.nollpointer.dates.dialogs.TestSettingsDialog;
 
 import java.util.ArrayList;
@@ -117,6 +118,7 @@ public class TrueFalseFragment extends Fragment {
 
         ImageButton backButton = mainView.findViewById(R.id.true_false_back_button);
         ImageButton settingsButton = mainView.findViewById(R.id.true_false_settings_button);
+        ImageButton helpButton = mainView.findViewById(R.id.true_false_help_button);
 
         trueButton = mainView.findViewById(R.id.true_button);
         trueButton.setOnClickListener(listener);
@@ -138,6 +140,15 @@ public class TrueFalseFragment extends Fragment {
             public void onClick(View v) {
                 TestSettingsDialog settingsDialog = new TestSettingsDialog();
                 settingsDialog.show(getActivity().getSupportFragmentManager(), null);
+            }
+        });
+
+        helpButton.setImageResource(R.drawable.ic_help);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestHelpDialog helpDialog = new TestHelpDialog();
+                helpDialog.show(getActivity().getSupportFragmentManager(), null);
             }
         });
 

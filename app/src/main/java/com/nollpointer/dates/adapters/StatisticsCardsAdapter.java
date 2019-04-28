@@ -25,7 +25,7 @@ public class StatisticsCardsAdapter extends RecyclerView.Adapter<StatisticsCards
 
     @Override
     public StatisticsCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CardView c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.statistics_card, parent, false);
+        CardView c = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.card_statistics, parent, false);
         return new StatisticsCardsAdapter.ViewHolder(c);
     }
 

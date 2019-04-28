@@ -4,11 +4,13 @@ package com.nollpointer.dates.fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -21,9 +23,11 @@ import com.nollpointer.dates.Date;
 import com.nollpointer.dates.R;
 import com.nollpointer.dates.adapters.SortCardsAdapter;
 import com.nollpointer.dates.constants.PractiseConstants;
+import com.nollpointer.dates.dialogs.TestHelpDialog;
 import com.nollpointer.dates.dialogs.TestSettingsDialog;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -36,6 +40,8 @@ import static com.nollpointer.dates.constants.PractiseConstants.TYPE;
 
 public class SortFragment extends Fragment{
 
+    private static final String TAG = "SortFragment";
+
     private List<Date> dates;
     private boolean testMode;
     private int difficulty;
@@ -47,6 +53,8 @@ public class SortFragment extends Fragment{
     private Chip questionNumberChip;
     private Chip rightAnswersChip;
     private Chip wrongAnswersChip;
+
+    List<Integer> correctAnswerSequence;
 
     public static SortFragment newInstance(ArrayList<Date> dates,int difficulty, boolean testMode) {
         SortFragment sort = new SortFragment();
@@ -104,11 +112,24 @@ public class SortFragment extends Fragment{
 
                 lockAnswerButtons();
 
+
                 int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
-                rightAnswersCount++;
+                int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
+                List<Integer> sequence = adapter.getAnswerSequence();
+                Log.e("TAG", "onClick: " + sequence.toString());
+
+                if(sequence.equals(correctAnswerSequence)) {
+                    Toast.makeText(getContext(), "Correct", Toast.LENGTH_SHORT).show();
+                    rightAnswersCount++;
+                }else {
+                    Toast.makeText(getContext(), "InCorrect", Toast.LENGTH_SHORT).show();
+                    wrongAnswersCount++;
+                }
 
                 rightAnswersChip.setText(Integer.toString(rightAnswersCount));
+                wrongAnswersChip.setText(Integer.toString(wrongAnswersCount));
 
+                rightAnswersChip.setText(Integer.toString(rightAnswersCount));
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -121,6 +142,7 @@ public class SortFragment extends Fragment{
 
         ImageButton backButton = mainView.findViewById(R.id.sort_back_button);
         ImageButton settingsButton = mainView.findViewById(R.id.sort_settings_button);
+        ImageButton helpButton = mainView.findViewById(R.id.sort_help_button);
 
         backButton.setImageResource(R.drawable.ic_arrow_back_white);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -139,40 +161,31 @@ public class SortFragment extends Fragment{
             }
         });
 
+        helpButton.setImageResource(R.drawable.ic_help);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestHelpDialog helpDialog = new TestHelpDialog();
+                helpDialog.show(getActivity().getSupportFragmentManager(), null);
+            }
+        });
+
         questionNumberChip = mainView.findViewById(R.id.sortQuestionNumber);
         rightAnswersChip = mainView.findViewById(R.id.sortRightAnswers);
         wrongAnswersChip = mainView.findViewById(R.id.sortWrongAnswers);
 
-//        RightAnswers = mainView.findViewById(R.id.right_answers);
-//        WrongAnswers = mainView.findViewById(R.id.wrong_answers);
-//        instructions = mainView.findViewById(R.id.instruction_sort);
-//        progressBar = mainView.findViewById(R.id.sort_progressbar);
-//        check_button = mainView.findViewById(R.id.sort_check);
-//        cardsControl = SortCards.newInstance(mainView);
-//
-//        RightAnswers.setText("0");
-//        WrongAnswers.setText("0");
-//
-//        check_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                check();
-//            }
-//        });
-//
-//        Resources resources = getResources();
-//        cardsControl.setColors(resources.getColor(android.R.color.holo_green_light), resources.getColor(android.R.color.holo_red_light));
-//
-//        Appodeal.setBannerViewId(R.id.appodealBannerView_sort);
-//
-//        WrongAnswers.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.thumb_down_selector, 0);
-//        RightAnswers.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.thumb_up_selector, 0, 0, 0);
     }
 
     private void generateAndSetInfo() {
-        List<Date> answerDates = dates.subList(0,3 + difficulty);
+        List<Date> initialDates = generateDatesList(3 + difficulty);
 
-        setInfo(answerDates);
+        List<Date> mixedDates = getShuffledDatesList(initialDates);
+
+        correctAnswerSequence = getSequence(initialDates,mixedDates);
+
+        Log.e(TAG, "generateAndSetInfo: " + correctAnswerSequence);
+
+        setInfo(mixedDates);
         unlockAnswerButtons();
     }
 
@@ -192,10 +205,44 @@ public class SortFragment extends Fragment{
         int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
         int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
         questionNumberChip.setText("#" + (rightAnswersCount + wrongAnswersCount + 1));
-//        int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
-//        int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
-//        questionNumberChip.setText("#" + (rightAnswersCount + wrongAnswersCount + 1));
 
+    }
+
+    private List<Integer> getSequence(List<Date> initial, List<Date> mixed){
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for (Date date : mixed) {
+            int number = initial.indexOf(date);
+            list.add(number);
+        }
+
+        return list;
+    }
+
+    private List<Date> generateDatesList(int count){
+        ArrayList<Date> list = new ArrayList<>();
+        Random random = new Random(System.currentTimeMillis());
+
+        for (int i = 0; i < count; i++) {
+            Date date = dates.get(random.nextInt(dates.size()));
+            if (list.contains(date) || date.isContinuous()) {    //TODO даты с одинаковым годом
+                i--;
+                continue;
+            } else
+                list.add(date);
+        }
+
+        Collections.sort(list);
+
+        return list;
+    }
+
+    private List<Date> getShuffledDatesList(List<Date> datesList){
+        ArrayList<Date> list = new ArrayList<>(datesList);
+
+        Collections.shuffle(list);
+
+        return list;
     }
 
 //

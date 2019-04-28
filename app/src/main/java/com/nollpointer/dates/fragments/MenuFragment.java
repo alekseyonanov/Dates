@@ -188,7 +188,7 @@ public class MenuFragment extends Fragment {
         public Object instantiateItem(ViewGroup collection, int position) {
             //CustomPagerEnum customPagerEnum = CustomPagerEnum.values()[position];
             LayoutInflater inflater = LayoutInflater.from(context);
-            ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.mode_view_pager_cell, collection, false);
+            ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.card_menu_mode, collection, false);
             collection.addView(layout);
 
             TextView modeTitleTextView = layout.findViewById(R.id.mode_title);

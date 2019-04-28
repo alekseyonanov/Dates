@@ -12,26 +12,18 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.nollpointer.dates.R;
 
-public class TestSettingsDialog extends BottomSheetDialogFragment {
-
-    public static MoreInfoDialog newInstance() {
-        MoreInfoDialog dialog = new MoreInfoDialog();
-        Bundle args = new Bundle();
-        dialog.setArguments(args);
-        return dialog;
-    }
-
+public class TestHelpDialog extends BottomSheetDialogFragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mainView = inflater.inflate(R.layout.dialog_test_settings_layout, container, false);
+        View mainView = inflater.inflate(R.layout.dialog_test_help_layout, container, false);
 
-        Button doneButton = mainView.findViewById(R.id.test_settings_dialog_done_button);
+        Button doneButton = mainView.findViewById(R.id.test_help_dialog_done_button);
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TestSettingsDialog.this.dismiss();
+                TestHelpDialog.this.dismiss();
             }
         });
 

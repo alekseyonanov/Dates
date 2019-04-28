@@ -3,7 +3,7 @@ package com.nollpointer.dates;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Date implements Parcelable{
+public class Date implements Parcelable, Comparable<Date>{
     private String date;
     private String event;
     private String request;
@@ -75,13 +75,20 @@ public class Date implements Parcelable{
     }
 
     public boolean isContinuous (){
-        return date.contains("-") || date.contains("–");
+        return date.contains("-") || date.contains("–") || date.contains("–") || date.contains(",") || date.contains("в");
     }
 
     public boolean contains(String query){
         return date.toLowerCase().contains(query.toLowerCase()) || event.toLowerCase().contains(query.toLowerCase());
     }
 
+    @Override
+    public int compareTo(Date o) {
+        int currentDate = Integer.parseInt(date);
+        int compareDate = Integer.parseInt(o.date);
+
+        return Integer.compare(currentDate,compareDate);
+    }
 
     //Parcelable implementation
 

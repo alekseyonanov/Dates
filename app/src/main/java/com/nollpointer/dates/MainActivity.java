@@ -3,6 +3,8 @@ package com.nollpointer.dates;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,6 +15,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -23,15 +27,16 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.nollpointer.dates.fragments.DatesFragment;
 import com.nollpointer.dates.fragments.GDPRFragment;
 import com.nollpointer.dates.fragments.MenuFragment;
-import com.nollpointer.dates.fragments.PractiseCellFragment;
 import com.nollpointer.dates.fragments.PractiseFragment;
 import com.nollpointer.dates.fragments.StatisticsFragment;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.TreeMap;
 
 import io.fabric.sdk.android.Fabric;
 
+//TODO обновить appodeal
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
@@ -209,6 +214,26 @@ public class MainActivity extends AppCompatActivity {
     public void updateMode(int mode, OnDatesLoadListener listener) {
         this.mode = mode;
         new LoadDates(mode, listener).execute();
+    }
+
+    public void checkLocaleSettings() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String defaultLocale = getString(R.string.locale);
+        String locale = preferences.getString("Locale", defaultLocale);
+        if (!locale.equals(defaultLocale))
+            setLocale(locale);
+    }
+
+    //TODO доделать изменение языка в приложении
+    //Выставление языка приложения
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        //new setNewPreferences(this, lang).execute();
     }
 
     protected static class setNewPreferences extends AsyncTask<MainActivity, Void, Void> {

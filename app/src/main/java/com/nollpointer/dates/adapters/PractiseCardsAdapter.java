@@ -1,6 +1,5 @@
 package com.nollpointer.dates.adapters;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +43,7 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
 
     @Override
     public PractiseCardsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.practise_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_practise, parent, false);
         return new ViewHolder(view);
     }
 

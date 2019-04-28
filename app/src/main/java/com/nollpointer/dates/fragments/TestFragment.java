@@ -17,6 +17,7 @@ import com.google.android.material.chip.Chip;
 import com.nollpointer.dates.Date;
 import com.nollpointer.dates.R;
 import com.nollpointer.dates.dialogs.ResultDialog;
+import com.nollpointer.dates.dialogs.TestHelpDialog;
 import com.nollpointer.dates.dialogs.TestSettingsDialog;
 
 import java.util.ArrayList;
@@ -134,7 +135,8 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
     private void initializeViews(View mainView) {
 
         ImageButton backButton = mainView.findViewById(R.id.testBackButton);
-        ImageButton settingsButton = mainView.findViewById(R.id.testHelpButton);
+        ImageButton settingsButton = mainView.findViewById(R.id.testSettingsButton);
+        ImageButton helpButton = mainView.findViewById(R.id.testHelpButton);
 
         Appodeal.setBannerViewId(R.id.appodealBannerView);
 
@@ -152,6 +154,15 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             public void onClick(View v) {
                 TestSettingsDialog settingsDialog = new TestSettingsDialog();
                 settingsDialog.show(getActivity().getSupportFragmentManager(), null);
+            }
+        });
+
+        helpButton.setImageResource(R.drawable.ic_help);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestHelpDialog helpDialog = new TestHelpDialog();
+                helpDialog.show(getActivity().getSupportFragmentManager(), null);
             }
         });
 

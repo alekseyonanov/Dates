@@ -114,9 +114,9 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
         Resources resources = getResources();
         adapter = new DatesCardsAdapter(dates, mainActivity.getMode(), resources.getStringArray(R.array.centuries), resources.getStringArray(R.array.centuries_easy));
         if (dateCardValue.equals("0"))
-            adapter.setViewIds(R.layout.dates_cards, R.layout.dates_cards_top_text);
+            adapter.setViewIds(R.layout.card_dates, R.layout.card_dates_top_text);
         else
-            adapter.setViewIds(R.layout.dates_card_2, R.layout.dates_card_2_top_text);
+            adapter.setViewIds(R.layout.card_dates_2, R.layout.card_dates_2_top_text);
         adapter.setListener(this);
 
         LinearLayoutManager linearLayout = new LinearLayoutManager(mainActivity);

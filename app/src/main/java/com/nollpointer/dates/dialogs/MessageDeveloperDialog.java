@@ -21,7 +21,7 @@ public class MessageDeveloperDialog extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        main_view = inflater.inflate(R.layout.message_developer_dialog, container, false);
+        main_view = inflater.inflate(R.layout.dialog_message_developer, container, false);
 //        mainView.findViewById(R.id.message_close_button).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

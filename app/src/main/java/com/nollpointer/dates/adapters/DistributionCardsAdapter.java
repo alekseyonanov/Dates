@@ -25,7 +25,7 @@ public class DistributionCardsAdapter extends RecyclerView.Adapter<DistributionC
 
     @Override
     public DistributionCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.distribution_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_distribution, parent, false);
         return new DistributionCardsAdapter.ViewHolder(view);
     }
 

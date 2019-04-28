@@ -44,6 +44,7 @@ import static com.nollpointer.dates.constants.PractiseConstants.DISTRIBUTE;
 import static com.nollpointer.dates.constants.PractiseConstants.SORT;
 import static com.nollpointer.dates.constants.PractiseConstants.TEST;
 import static com.nollpointer.dates.constants.PractiseConstants.TRUE_FALSE;
+import static com.nollpointer.dates.constants.PractiseConstants.VOICE;
 
 public class PractiseDetailsPickerFragment extends Fragment {
 
@@ -235,10 +236,12 @@ public class PractiseDetailsPickerFragment extends Fragment {
         String practise = getArguments().getString(PRACTISE);
         Fragment fragment;
 
-
         switch (practise) {
             case CARDS:
                 fragment = CardsFragment.newInstance(dates, type);
+                break;
+            case VOICE:
+                fragment = new VoiceFragment();
                 break;
             case TEST:
                 fragment = TestFragment.newInstance(dates, type, getDifficulty(),false);
@@ -255,7 +258,6 @@ public class PractiseDetailsPickerFragment extends Fragment {
             default:
                 fragment = CardsFragment.newInstance(dates, type);
         }
-
 
         getFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
 
