@@ -125,12 +125,12 @@ public class CardsFragment extends Fragment {
         }
     }
 
-    public void setAnswer() {
+    private void setAnswer() {
         mainTextView.setText(currentDate.getDate() + "\n" + currentDate.getEvent());
         //mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
     }
 
-    public void setQuestion() {
+    private void setQuestion() {
         setRandomDate();
         //mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
         if (isDateQuestion)
@@ -139,7 +139,7 @@ public class CardsFragment extends Fragment {
             mainTextView.setText(currentDate.getEvent());
     }
 
-    public void setRandomDate() {
+    private void setRandomDate() {
         Random random = new Random();
         int x = random.nextInt(dates.size());
         currentDate = dates.get(x);

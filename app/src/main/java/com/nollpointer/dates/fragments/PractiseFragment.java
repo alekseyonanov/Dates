@@ -1,10 +1,17 @@
 package com.nollpointer.dates.fragments;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -12,10 +19,17 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.nollpointer.dates.MainActivity;
 import com.nollpointer.dates.R;
+import com.nollpointer.dates.dialogs.TestHelpDialog;
 import com.nollpointer.dates.views.PractiseCellView;
+
+import static android.app.Activity.RESULT_OK;
+import static com.nollpointer.dates.constants.PractiseConstants.VOICE;
 
 
 public class PractiseFragment extends Fragment implements PractiseCellView.OnClickListener {
+
+    private static final String TAG = "PractiseFragment";
+
     private TabLayout tabLayout;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,8 +53,14 @@ public class PractiseFragment extends Fragment implements PractiseCellView.OnCli
 
     @Override
     public void onClicked(String practise, int practiseMode) {
+
         MainActivity mainActivity = ((MainActivity) getActivity());
-        mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseDetailsPickerFragment.newInstance(practise, mainActivity.getMode())).addToBackStack(null).commit();
+        int permissionRecord = ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.RECORD_AUDIO);
+
+        if (practise.equals(VOICE) && permissionRecord != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
+        else
+            mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseDetailsPickerFragment.newInstance(practise, practiseMode == 1, mainActivity.getMode())).addToBackStack(null).commit();
 
     }
 

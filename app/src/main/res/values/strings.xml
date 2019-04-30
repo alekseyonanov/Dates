@@ -87,7 +87,7 @@
 
     <string-array name="practise_titles">
         <item>Cards</item>
-        <item>Cards</item>
+        <item>Voice Cards</item>
         <item>Test</item>
         <item>True/False</item>
         <item>Sort</item>
@@ -96,7 +96,7 @@
 
     <string-array name="practise_description">
         <item>Cards with dates</item>
-        <item>Cards with dates</item>
+        <item>Voice test</item>
         <item>Test just like in school</item>
         <item>Truth test</item>
         <item>Sort test</item>

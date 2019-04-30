@@ -11,7 +11,7 @@ public class Misc {
     public static ArrayList<Integer> getIntegerListFromString(String numberString){
         ArrayList<Integer> list = new ArrayList<>();
 
-        if(numberString == null)
+        if(numberString == null || numberString.equals(""))
             return list;
 
         String[] numbers = numberString.split("#");

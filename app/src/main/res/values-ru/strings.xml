@@ -89,7 +89,7 @@
 
     <string-array name="practise_titles">
         <item>Карточки</item>
-        <item>Карточки</item>
+        <item>Голосовые карточки</item>
         <item>Тест</item>
         <item>Правда или Ложь</item>
         <item>Сортировка</item>
@@ -98,7 +98,7 @@
 
     <string-array name="practise_description">
         <item>Карточки с датами</item>
-        <item>Карточки с датами</item>
+        <item>Голосовая проверка дат</item>
         <item>Бесконечный тест</item>
         <item>Бесконечная проверка</item>
         <item>Сортировка без конца</item>

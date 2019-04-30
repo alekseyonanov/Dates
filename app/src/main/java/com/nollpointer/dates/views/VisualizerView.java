@@ -28,7 +28,7 @@ public class VisualizerView extends View {
     public VisualizerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         linePaint = new Paint();
-        linePaint.setColor(Color.rgb(0x40, 0x85, 0xe6));
+        linePaint.setColor(0xff448aff);
         linePaint.setStyle(Paint.Style.FILL);
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eeeeee">
@@ -37,6 +38,133 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_above="@id/voiceVisualizerContainer"
+        app:layout_gravity="fill">
+
+        <TextView
+            android:id="@+id/voiceQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:text="Правление Петра 1"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/voice_result_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_correct"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/voiceRecognizedText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/voiceInfoContainer"
+        android:padding="4dp"
+        android:text="asdasdasd11d1212d1d2" />
+
+
+    <HorizontalScrollView
+        android:id="@+id/voiceInfoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/voiceVisualizerContainer"
+        android:minHeight="?android:attr/listPreferredItemHeight">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/vocieInfoChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/voiceRightAnswers"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:clickable="false"
+                android:text="0"
+                app:chipBackgroundColor="@android:color/white"
+                app:chipIcon="@drawable/thumb_up_selector"
+                app:iconStartPadding="2dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/voiceQuestionNumber"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_marginStart="12dip"
+                android:clickable="false"
+                android:text="#1"
+                app:chipBackgroundColor="@android:color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/voiceWrongAnswers"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:clickable="false"
+                android:text="0"
+                app:chipBackgroundColor="@android:color/white"
+                app:chipIcon="@drawable/thumb_down_selector"
+                app:iconStartPadding="2dp" />
+
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <RelativeLayout
+        android:id="@+id/voiceVisualizerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/voice_check"
+        android:layout_gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeight">
+
+
+        <com.nollpointer.dates.views.VisualizerView
+            android:id="@+id/voiceVisualizer"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:id="@+id/voiceRecognitionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/voice_button_background"
+            android:padding="5dp"
+            android:src="@drawable/ic_voice" />
+
+
+    </RelativeLayout>
+
+    <android.widget.Button
+        android:id="@+id/voice_check"
+        style="?android:borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/check_button"
+        android:textColor="@android:color/white" />
 
 
 </RelativeLayout>

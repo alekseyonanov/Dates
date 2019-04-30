@@ -44,7 +44,7 @@
         android:id="@+id/testQuestion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/testInfoContainer"
+        android:layout_above="@id/testButtonContainer"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="1962"

@@ -3,6 +3,7 @@ package com.nollpointer.dates;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -19,11 +20,13 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.appodeal.ads.Appodeal;
 import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.nollpointer.dates.dialogs.TestHelpDialog;
 import com.nollpointer.dates.fragments.DatesFragment;
 import com.nollpointer.dates.fragments.GDPRFragment;
 import com.nollpointer.dates.fragments.MenuFragment;
@@ -214,6 +217,21 @@ public class MainActivity extends AppCompatActivity {
     public void updateMode(int mode, OnDatesLoadListener listener) {
         this.mode = mode;
         new LoadDates(mode, listener).execute();
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Разрешение получено", Toast.LENGTH_SHORT).show();
+            } else {
+                TestHelpDialog helpDialog = new TestHelpDialog();
+                helpDialog.show(this.getSupportFragmentManager(), null);
+            }
+        }
     }
 
     public void checkLocaleSettings() {

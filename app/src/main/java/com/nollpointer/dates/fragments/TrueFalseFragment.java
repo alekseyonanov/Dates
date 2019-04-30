@@ -70,6 +70,10 @@ public class TrueFalseFragment extends Fragment {
                 wrongAnswersCount++;
             }
 
+            if(rightAnswersCount + wrongAnswersCount == 20 && isTestMode)
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout, new PractiseResultFragment()).commit();
+
+
             rightAnswersChip.setText(Integer.toString(rightAnswersCount));
             wrongAnswersChip.setText(Integer.toString(wrongAnswersCount));
 

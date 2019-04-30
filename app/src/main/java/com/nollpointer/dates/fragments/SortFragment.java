@@ -43,7 +43,7 @@ public class SortFragment extends Fragment{
     private static final String TAG = "SortFragment";
 
     private List<Date> dates;
-    private boolean testMode;
+    private boolean isTestMode;
     private int difficulty;
 
     private boolean isLocked = false;
@@ -55,6 +55,45 @@ public class SortFragment extends Fragment{
     private Chip wrongAnswersChip;
 
     List<Integer> correctAnswerSequence;
+
+    private View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if(isLocked)
+                return;
+
+            lockAnswerButtons();
+
+
+            int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
+            int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
+            List<Integer> sequence = adapter.getAnswerSequence();
+            Log.e("TAG", "onClick: " + sequence.toString());
+
+            if(sequence.equals(correctAnswerSequence)) {
+                Toast.makeText(getContext(), "Correct", Toast.LENGTH_SHORT).show();
+                rightAnswersCount++;
+            }else {
+                Toast.makeText(getContext(), "InCorrect", Toast.LENGTH_SHORT).show();
+                wrongAnswersCount++;
+            }
+
+            if(rightAnswersCount + wrongAnswersCount == 20 && isTestMode)
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout, new PractiseResultFragment()).commit();
+
+
+            rightAnswersChip.setText(Integer.toString(rightAnswersCount));
+            wrongAnswersChip.setText(Integer.toString(wrongAnswersCount));
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    generateAndSetInfo();
+                }
+            },900);
+        }
+    };
 
     public static SortFragment newInstance(ArrayList<Date> dates,int difficulty, boolean testMode) {
         SortFragment sort = new SortFragment();
@@ -76,7 +115,7 @@ public class SortFragment extends Fragment{
         Bundle arguments = getArguments();
         dates = arguments.getParcelableArrayList(PractiseConstants.DATES);
         difficulty = arguments.getInt(DIFFICULTY);
-        testMode = arguments.getBoolean(TEST_MODE);
+        isTestMode = arguments.getBoolean(TEST_MODE);
 
         //initViews();
 
@@ -103,42 +142,7 @@ public class SortFragment extends Fragment{
         recyclerView.setAdapter(adapter);
 
         Button checkButton = mainView.findViewById(R.id.sort_check);
-        checkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(isLocked)
-                    return;
-
-                lockAnswerButtons();
-
-
-                int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
-                int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
-                List<Integer> sequence = adapter.getAnswerSequence();
-                Log.e("TAG", "onClick: " + sequence.toString());
-
-                if(sequence.equals(correctAnswerSequence)) {
-                    Toast.makeText(getContext(), "Correct", Toast.LENGTH_SHORT).show();
-                    rightAnswersCount++;
-                }else {
-                    Toast.makeText(getContext(), "InCorrect", Toast.LENGTH_SHORT).show();
-                    wrongAnswersCount++;
-                }
-
-                rightAnswersChip.setText(Integer.toString(rightAnswersCount));
-                wrongAnswersChip.setText(Integer.toString(wrongAnswersCount));
-
-                rightAnswersChip.setText(Integer.toString(rightAnswersCount));
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        generateAndSetInfo();
-                    }
-                },900);
-            }
-        });
+        checkButton.setOnClickListener(listener);
 
         ImageButton backButton = mainView.findViewById(R.id.sort_back_button);
         ImageButton settingsButton = mainView.findViewById(R.id.sort_settings_button);

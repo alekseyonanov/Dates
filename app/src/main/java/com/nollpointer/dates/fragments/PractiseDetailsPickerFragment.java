@@ -43,6 +43,7 @@ import static com.nollpointer.dates.constants.PractiseConstants.DIFFICULTY_MEDIU
 import static com.nollpointer.dates.constants.PractiseConstants.DISTRIBUTE;
 import static com.nollpointer.dates.constants.PractiseConstants.SORT;
 import static com.nollpointer.dates.constants.PractiseConstants.TEST;
+import static com.nollpointer.dates.constants.PractiseConstants.TEST_MODE;
 import static com.nollpointer.dates.constants.PractiseConstants.TRUE_FALSE;
 import static com.nollpointer.dates.constants.PractiseConstants.VOICE;
 
@@ -57,11 +58,12 @@ public class PractiseDetailsPickerFragment extends Fragment {
     private static final String TAG = "PractiseDetailsPicker";
 
 
-    public static PractiseDetailsPickerFragment newInstance(String practise, int mode) {
+    public static PractiseDetailsPickerFragment newInstance(String practise,boolean practiseMode, int mode) {
         PractiseDetailsPickerFragment practiseDetailsPickerFragment = new PractiseDetailsPickerFragment();
         Bundle bundle = new Bundle();
         bundle.putString(PRACTISE, practise);
         bundle.putInt(MODE, mode);
+        bundle.putBoolean(TEST_MODE,practiseMode);
         practiseDetailsPickerFragment.setArguments(bundle);
         return practiseDetailsPickerFragment;
     }
@@ -234,6 +236,7 @@ public class PractiseDetailsPickerFragment extends Fragment {
         ArrayList<Date> dates = getListForPractise(centuries);
 
         String practise = getArguments().getString(PRACTISE);
+        boolean isTestMode = getArguments().getBoolean(TEST_MODE);
         Fragment fragment;
 
         switch (practise) {
@@ -241,16 +244,16 @@ public class PractiseDetailsPickerFragment extends Fragment {
                 fragment = CardsFragment.newInstance(dates, type);
                 break;
             case VOICE:
-                fragment = new VoiceFragment();
+                fragment = VoiceFragment.newInstance(dates, type, getDifficulty(),isTestMode);
                 break;
             case TEST:
-                fragment = TestFragment.newInstance(dates, type, getDifficulty(),false);
+                fragment = TestFragment.newInstance(dates, type, getDifficulty(),isTestMode);
                 break;
             case TRUE_FALSE:
-                fragment = TrueFalseFragment.newInstance(dates, getDifficulty(),false);
+                fragment = TrueFalseFragment.newInstance(dates, getDifficulty(),isTestMode);
                 break;
             case SORT:
-                fragment = SortFragment.newInstance(dates, getDifficulty(),false);
+                fragment = SortFragment.newInstance(dates, getDifficulty(),isTestMode);
                 break;
             case DISTRIBUTE:
                 fragment = new DistributeFragment();

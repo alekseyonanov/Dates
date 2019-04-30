@@ -17,35 +17,11 @@
         app:title="Результат"
         app:titleTextColor="@android:color/white" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/results_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:background="@color/colorPrimary"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="#D0FFFFFF">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Результат" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Статистика" />
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/results_view_pager"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:id="@+id/results_recycler_view"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +30,7 @@
         android:orientation="horizontal">
 
         <android.widget.Button
-            android:id="@+id/result_reset"
+            android:id="@+id/results_reset"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -68,7 +44,7 @@
             android:textStyle="bold" />
 
         <android.widget.Button
-            android:id="@+id/result_exit"
+            android:id="@+id/results_exit"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

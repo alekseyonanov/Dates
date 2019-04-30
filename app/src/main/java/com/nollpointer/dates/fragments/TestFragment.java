@@ -45,7 +45,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
 
     private List<Date> dates;
     private int type;
-    private boolean testMode;
+    private boolean isTestMode;
     private int difficulty;
 
     private Date currentDate;
@@ -89,6 +89,9 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
                 }
             }
 
+            if(rightAnswersCount + wrongAnswersCount == 20 && isTestMode)
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout, new PractiseResultFragment()).commit();
+
             rightAnswersChip.setText(Integer.toString(rightAnswersCount));
             wrongAnswersChip.setText(Integer.toString(wrongAnswersCount));
 
@@ -125,7 +128,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         type = arguments.getInt(TYPE);
         dates = arguments.getParcelableArrayList(DATES);
         difficulty = arguments.getInt(DIFFICULTY);
-        testMode = arguments.getBoolean(TEST_MODE);
+        isTestMode = arguments.getBoolean(TEST_MODE);
 
         generateAndSetInfo();
 
@@ -309,7 +312,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
     private ArrayList<Date> dates;
     private ArrayList<Date> questions;
 
-    private boolean testMode;
+    private boolean isTestMode;
     private boolean isDateQuestion;
     private boolean clicked = false;
 
@@ -320,10 +323,10 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         }
     };
 
-    public static TestFragment newInstance(ArrayList<Date> dates, int type, boolean testMode) {
+    public static TestFragment newInstance(ArrayList<Date> dates, int type, boolean isTestMode) {
         TestFragment test = new TestFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(TEST_MODE, testMode);
+        bundle.putBoolean(TEST_MODE, isTestMode);
         bundle.putInt(TYPE, type);
         bundle.putParcelableArrayList(DATES, dates);
         test.setArguments(bundle);
@@ -347,7 +350,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         refreshRunnable = new Runnable() {
             @Override
             public void run() {
-                if (testMode && (WrongAnswers + RightAnswers == 20))
+                if (isTestMode && (WrongAnswers + RightAnswers == 20))
                     setResultScreen();
                 else
                     setQuestions();
@@ -356,7 +359,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
 
         Bundle saved = getArguments();
         type = saved.getInt(TYPE);
-        testMode = saved.getBoolean(TEST_MODE);
+        isTestMode = saved.getBoolean(TEST_MODE);
         dates = saved.getParcelableArrayList(DATES);
         questions = new ArrayList<>(4);
 
@@ -368,7 +371,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
                 isDateQuestion = false;
                 break;
         }
-        if (testMode) {
+        if (isTestMode) {
             progressBar.setVisibility(View.VISIBLE);
             uniqueQuestionIndexes = new ArrayList<>(20);
         }
@@ -427,7 +430,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             else
                 questions.add(date);
 
-            if (testMode && i == RightButton) { //В случае режима теста
+            if (isTestMode && i == RightButton) { //В случае режима теста
                 if (uniqueQuestionIndexes.contains(r))
                     i--;
                 else
@@ -480,7 +483,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             answerButtons[position].setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
         }
         refreshAnswerCount();
-        if (testMode)
+        if (isTestMode)
             progressBar.incrementProgressBy(1);
         answerButtons[RightButton].setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
         questions.clear();
