@@ -79,12 +79,12 @@ public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         ViewHolder(View view) {
             super(view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onClick(getAdapterPosition());
-                }
-            });
+//            view.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    listener.onClick(getAdapterPosition());
+//                }
+//            });
         }
     }
 }
