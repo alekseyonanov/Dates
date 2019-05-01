@@ -58,7 +58,6 @@ public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.View
         return true;
     }
 
-
     public void setListener(SortCardsAdapter.Listener listener) {
         this.listener = listener;
     }
