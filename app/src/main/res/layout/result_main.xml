@@ -8,22 +8,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.nollpointer.dates.views.SquareRelativeLayout
+        <com.nollpointer.dates.other.SquareRelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="24dp"
             android:layout_weight="1">
 
-            <com.nollpointer.dates.views.SquareImageView
+            <com.nollpointer.dates.other.SquareImageView
                 android:id="@+id/result_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_result_image_background"
                 android:src="@drawable/ic_sentiment_very_good" />
 
-        </com.nollpointer.dates.views.SquareRelativeLayout>
+        </com.nollpointer.dates.other.SquareRelativeLayout>
 
-        <com.nollpointer.dates.views.SquareRelativeLayout
+        <com.nollpointer.dates.other.SquareRelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -53,7 +53,7 @@
                 android:textAllCaps="true"
                 android:textSize="32sp" />
 
-        </com.nollpointer.dates.views.SquareRelativeLayout>
+        </com.nollpointer.dates.other.SquareRelativeLayout>
 
     </LinearLayout>
 

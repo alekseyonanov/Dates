@@ -13,7 +13,7 @@
         app:title="@string/title_menu"
         app:titleTextColor="@android:color/white" />
 
-    <com.nollpointer.dates.views.ModeViewPager
+    <com.nollpointer.dates.menu.ModeViewPager
         android:id="@+id/menu_view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
-                            android:drawableStart="@drawable/telegram"
+                            android:drawableStart="@drawable/ic_telegram"
                             android:drawablePadding="36dp"
                             android:gravity="center_vertical"
                             android:padding="10dp"
@@ -132,7 +132,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
-                            android:drawableStart="@drawable/twitter"
+                            android:drawableStart="@drawable/ic_twitter"
                             android:drawablePadding="36dp"
                             android:gravity="center_vertical"
                             android:padding="10dp"

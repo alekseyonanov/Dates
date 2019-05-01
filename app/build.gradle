@@ -8,8 +8,8 @@ android {
         applicationId "com.nollpointer.dates"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 21
-        versionName "2.0.1b"
+        versionCode 22
+        versionName "2.0.1c"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true

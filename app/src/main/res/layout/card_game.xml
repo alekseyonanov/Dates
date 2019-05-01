@@ -5,7 +5,7 @@
     android:background="@android:color/white"
     android:foreground="?android:attr/selectableItemBackground">
 
-    <com.nollpointer.dates.views.SquareRelativeLayout
+    <com.nollpointer.dates.other.SquareRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true">
@@ -26,7 +26,7 @@
             android:layout_centerInParent="true"
             android:visibility="gone" />
 
-    </com.nollpointer.dates.views.SquareRelativeLayout>
+    </com.nollpointer.dates.other.SquareRelativeLayout>
 
 
 </androidx.cardview.widget.CardView>

@@ -137,7 +137,7 @@
         android:minHeight="?android:attr/listPreferredItemHeight">
 
 
-        <com.nollpointer.dates.views.VisualizerView
+        <com.nollpointer.dates.voice.VisualizerView
             android:id="@+id/voiceVisualizer"
             android:layout_width="match_parent"
             android:layout_height="3dp"

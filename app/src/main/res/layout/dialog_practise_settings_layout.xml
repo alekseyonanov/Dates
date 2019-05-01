@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_framelayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/more_info_dialog_background">
+
+    <View
+        android:background="@drawable/dialog_drag_image"
+        android:id="@+id/practise_settings_dialog_drag"
+        android:layout_width="32dp"
+        android:layout_height="4dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="12dp" />
+
+    <LinearLayout
+        android:layout_below="@id/practise_settings_dialog_drag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        android:id="@+id/practise_settings_dialog_text_container"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Задержка"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/practise_settings_dialog_delay"
+            android:text="100 мс"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <SeekBar
+        android:theme="@style/AppTheme"
+        android:layout_below="@id/practise_settings_dialog_text_container"
+        android:id="@+id/practise_settings_dialog_delay_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="2dp"
+        android:max="20"
+        android:layout_marginBottom="16dp"
+        android:minHeight="2dp"/>
+
+    <android.widget.Button
+        android:layout_below="@id/practise_settings_dialog_delay_seekbar"
+        android:id="@+id/practise_settings_dialog_done_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@color/colorAccent"
+        android:text="Готово"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>
