@@ -1,6 +1,10 @@
 package com.nollpointer.dates.practise;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,21 +19,51 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nollpointer.dates.R;
+import com.nollpointer.dates.cards.CardsFragment;
+import com.nollpointer.dates.distribute.DistributeFragment;
+import com.nollpointer.dates.other.Date;
+import com.nollpointer.dates.sort.SortFragment;
+import com.nollpointer.dates.test.TestFragment;
+import com.nollpointer.dates.truefalse.TrueFalseFragment;
+import com.nollpointer.dates.voice.VoiceFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.nollpointer.dates.practise.PractiseConstants.CARDS;
+import static com.nollpointer.dates.practise.PractiseConstants.DATES;
+import static com.nollpointer.dates.practise.PractiseConstants.DIFFICULTY;
+import static com.nollpointer.dates.practise.PractiseConstants.DISTRIBUTE;
+import static com.nollpointer.dates.practise.PractiseConstants.SORT;
+import static com.nollpointer.dates.practise.PractiseConstants.TEST;
+import static com.nollpointer.dates.practise.PractiseConstants.TEST_MODE;
+import static com.nollpointer.dates.practise.PractiseConstants.TRUE_FALSE;
+import static com.nollpointer.dates.practise.PractiseConstants.TYPE;
+import static com.nollpointer.dates.practise.PractiseConstants.VOICE;
+
 public class PractiseResultFragment extends Fragment {
     private static final String RESULTS_LIST = "results_list";
+    private static final String PRACTISE = "practise";
 
     private List<PractiseResult> practiseResults;
 
-    public static PractiseResultFragment newInstance(ArrayList<PractiseResult> list) {
+    public static PractiseResultFragment newInstance(String practise, ArrayList<PractiseResult> list, Bundle arguments) {
 
         Bundle args = new Bundle();
 
+        int type = arguments.getInt(TYPE);
+        ArrayList<Date> dates = arguments.getParcelableArrayList(DATES);
+        int difficulty = arguments.getInt(DIFFICULTY);
+        boolean isTestMode = arguments.getBoolean(TEST_MODE);
+
         args.putParcelableArrayList(RESULTS_LIST, list);
+        args.putString(PRACTISE,practise);
+
+        args.putBoolean(TEST_MODE, isTestMode);
+        args.putInt(TYPE, type);
+        args.putInt(DIFFICULTY, difficulty);
+        args.putParcelableArrayList(DATES, dates);
 
         PractiseResultFragment fragment = new PractiseResultFragment();
         fragment.setArguments(args);
@@ -43,6 +77,7 @@ public class PractiseResultFragment extends Fragment {
         View mainView = inflater.inflate(R.layout.fragment_practise_result, container, false);
 
         practiseResults = getArguments().getParcelableArrayList(RESULTS_LIST);
+        String practise = getArguments().getString(PRACTISE);
 
         RecyclerView recyclerView = mainView.findViewById(R.id.results_recycler_view);
 
@@ -83,21 +118,114 @@ public class PractiseResultFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Mate kudasai((", Toast.LENGTH_SHORT).show();
+
+                startPractise();
+
+
+
             }
         });
 
         TextView markTextView = mainView.findViewById(R.id.results_mark_text_view);
         setMark(markTextView);
 
+        new SaveCurrentMark(getContext(),getPractiseSaveTitle(practise),getMarkValue(getCorrectAnswerCount())).execute();
+
         return mainView;
     }
 
-    private void setMark(TextView markTextView) {
+    public void startPractise() {
+        Bundle arguments = getArguments();
+
+        int type = arguments.getInt(TYPE);
+        ArrayList<Date> dates = arguments.getParcelableArrayList(DATES);
+        int difficulty = arguments.getInt(DIFFICULTY);
+        boolean isTestMode = arguments.getBoolean(TEST_MODE);
+
+        String practise = getArguments().getString(PRACTISE);
+        Fragment fragment;
+
+        switch (practise) {
+            case CARDS:
+                fragment = CardsFragment.newInstance(dates, type);
+                break;
+            case VOICE:
+                fragment = VoiceFragment.newInstance(dates, type, difficulty,isTestMode);
+                break;
+            case TEST:
+                fragment = TestFragment.newInstance(dates, type, difficulty,isTestMode);
+                break;
+            case TRUE_FALSE:
+                fragment = TrueFalseFragment.newInstance(dates, difficulty,isTestMode);
+                break;
+            case SORT:
+                fragment = SortFragment.newInstance(dates, difficulty,isTestMode);
+                break;
+            case DISTRIBUTE:
+                fragment = new DistributeFragment();
+                break;
+            default:
+                fragment = CardsFragment.newInstance(dates, type);
+        }
+
+        getFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+
+    }
+
+    private String getPractiseSaveTitle(String practise) {
+        String[] titles = getResources().getStringArray(R.array.practise_marks_titles);
+        String saveTitle;
+
+        switch (practise) {
+            case CARDS:
+                saveTitle = titles[0];
+                break;
+            case VOICE:
+                saveTitle = titles[1];
+                break;
+            case TEST:
+                saveTitle = titles[2];
+                break;
+            case TRUE_FALSE:
+                saveTitle = titles[3];
+                break;
+            case SORT:
+                saveTitle = titles[4];
+                break;
+            case DISTRIBUTE:
+                saveTitle = titles[5];
+                break;
+            default:
+                saveTitle = titles[0];
+        }
+
+        return saveTitle;
+    }
+
+    private int getMarkValue(int result) {
+        int value = 0;
+
+        if(result <= 12){
+            value = 0;
+        }else if(result <= 16)
+            value = 1;
+        else
+            value = 2;
+
+        return value;
+    }
+
+    private int getCorrectAnswerCount(){
         int count = 0;
         for (PractiseResult result : practiseResults) {
             if (result.isCorrect())
                 count++;
         }
+        return count;
+    }
+
+    private void setMark(TextView markTextView) {
+        int count = getCorrectAnswerCount();
 
         String mark;
         int drawable;
@@ -119,7 +247,7 @@ public class PractiseResultFragment extends Fragment {
             drawable = R.drawable.ic_sentiment_very_good;
         }
         markTextView.setText("Ваш результат: " + mark + "\nВаши баллы: " + getMark(count));
-        markTextView.setCompoundDrawablesWithIntrinsicBounds(drawable,0,0,0);
+        markTextView.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
     }
 
     private String getMark(int count) {
@@ -127,6 +255,28 @@ public class PractiseResultFragment extends Fragment {
         double number = count * 5. / 20;
 
         return String.format("%.1f", number);
+    }
+
+    protected static class SaveCurrentMark extends AsyncTask<Void, Void, Void> {
+        private Context context;
+        private String practise;
+        private int value;
+
+        SaveCurrentMark(Context context, String practise, int value) {
+            this.context = context;
+            this.practise = practise;
+            this.value = value;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+
+            editor.putInt(practise, value);
+
+            editor.apply();
+            return null;
+        }
     }
 
 

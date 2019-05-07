@@ -1,8 +1,10 @@
 package com.nollpointer.dates.test;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,7 @@ import static com.nollpointer.dates.practise.PractiseConstants.DATES;
 import static com.nollpointer.dates.practise.PractiseConstants.DIFFICULTY;
 import static com.nollpointer.dates.practise.PractiseConstants.MIXED;
 import static com.nollpointer.dates.practise.PractiseConstants.ONLY_DATES;
+import static com.nollpointer.dates.practise.PractiseConstants.TEST;
 import static com.nollpointer.dates.practise.PractiseConstants.TEST_MODE;
 import static com.nollpointer.dates.practise.PractiseConstants.TYPE;
 
@@ -74,16 +77,19 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
 
             int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
             int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
-            boolean isCorrect = currentDate.getDate().equals(button.getText().toString()) || currentDate.getEvent().equals(button.getText().toString());
+
+            String buttonText = button.getText().toString();
+
+            boolean isCorrect = buttonText.contains(currentDate.getDate()) || buttonText.contains(currentDate.getEvent());
+            if(currentDate.containsMonth())
+                isCorrect &= buttonText.contains(currentDate.getMonth());
 
             if (isCorrect) {
-                //Toast.makeText(getContext(), "Correct", Toast.LENGTH_SHORT).show();
                 button.setBackgroundColor(rightAnswerColor);
                 button.setTextColor(Color.WHITE);
                 rightAnswersCount++;
 
             } else {
-                //Toast.makeText(getContext(), "InCorrect", Toast.LENGTH_SHORT).show();
                 button.setBackgroundColor(wrongAnswerColor);
                 button.setTextColor(Color.WHITE);
                 wrongAnswersCount++;
@@ -102,7 +108,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             }
 
             if(rightAnswersCount + wrongAnswersCount == 20 && isTestMode)
-                getFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseResultFragment.newInstance(practiseResults)).commit();
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseResultFragment.newInstance(TEST,practiseResults,getArguments())).commit();
 
             rightAnswersChip.setText(Integer.toString(rightAnswersCount));
             wrongAnswersChip.setText(Integer.toString(wrongAnswersCount));
@@ -142,6 +148,8 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         difficulty = arguments.getInt(DIFFICULTY);
         isTestMode = arguments.getBoolean(TEST_MODE);
 
+        delay = getDelay();
+
         generateAndSetInfo();
 
         return mainView;
@@ -171,7 +179,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
                 settingsDialog.setListener(new PractiseSettingsDialog.Listener() {
                     @Override
                     public void onDelayPicked(int delay) {
-                        TestFragment.this.delay = delay;
+                        setDelay(delay);
                     }
                 });
                 settingsDialog.show(getActivity().getSupportFragmentManager(), null);
@@ -269,10 +277,20 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
             questionTextView.setText(questionDate.getEvent());
 
             for (int i = 0; i < answerDates.size(); i++) {
-                answerButtons.get(i).setText(answerDates.get(i).getDate());
+                Date date = answerDates.get(i);
+                String text = date.getDate();
+                if(date.containsMonth())
+                    text += ", " + date.getMonth();
+
+                answerButtons.get(i).setText(text);
+
             }
         } else {
-            questionTextView.setText(questionDate.getDate());
+            String text = questionDate.getDate();
+            if(questionDate.containsMonth()){
+                text += ", " + questionDate.getMonth();
+            }
+            questionTextView.setText(text);
 
             for (int i = 0; i < answerDates.size(); i++) {
                 answerButtons.get(i).setText(answerDates.get(i).getEvent());
@@ -285,6 +303,24 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         questionNumberChip.setText("#" + (rightAnswersCount + wrongAnswersCount + 1));
     }
 
+    private int getDelay(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        int delay = preferences.getInt("test delay", 900);
+
+        return delay;
+
+    }
+
+    private void setDelay(int delay){
+        this.delay = delay;
+
+        SharedPreferences.Editor preferences = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+
+        preferences.putInt("test delay", delay);
+
+        preferences.apply();
+    }
 
     @Override
     public void reset() {

@@ -8,8 +8,8 @@ android {
         applicationId "com.nollpointer.dates"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 22
-        versionName "2.0.1c"
+        versionCode 24
+        versionName "2.0.1e"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -30,15 +30,15 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
-    implementation 'androidx.cardview:cardview:1.0.0-beta01'
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
-    implementation 'com.google.android.material:material:1.0.0-beta01'
-    implementation 'androidx.vectordrawable:vectordrawable:1.0.0-beta01'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
 //    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 
@@ -52,7 +52,7 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.0.0'
 
-    implementation 'androidx.gridlayout:gridlayout:1.0.0-beta01'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
 
     implementation 'com.google.android.gms:play-services-ads:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
@@ -65,6 +65,23 @@ dependencies {
     implementation 'com.github.deano2390:MaterialShowcaseView:1.2.0'
 
 
+//    implementation name: 'adcolony-3.3.4', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-alphab', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-common', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-interstitial', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-interstitialvideo', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-mtgdownloads', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-mtgjscommon', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-mtgnative', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-nativeex', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-playercommon', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-reward', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-videocommon', ext: 'aar'
+//    implementation name: 'mobvista-9.0.0-videojs', ext: 'aar'
+//    implementation name: 'ogury-3.0.13', ext: 'aar'
+
+
+    implementation 'com.squareup.picasso:picasso:2.5.2' //for Inmobi
     implementation name: 'adcolony-3.3.4', ext: 'aar'
     implementation name: 'mobvista-9.0.0-alphab', ext: 'aar'
     implementation name: 'mobvista-9.0.0-common', ext: 'aar'

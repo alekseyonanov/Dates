@@ -81,14 +81,7 @@
     </LinearLayout>
 
 
-    <!--<com.appodeal.ads.BannerView-->
-        <!--android:id="@+id/appodealBannerView_true"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@id/true_false_button_container"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:background="@color/colorBackgroundTest"-->
-        <!--android:visibility="gone" />-->
+
 
     <HorizontalScrollView
         android:id="@+id/testInfoContainer"
@@ -142,6 +135,13 @@
 
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
+
+    <com.appodeal.ads.BannerView
+        android:id="@+id/appodealBannerView_true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/testInfoContainer"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/true_false_button_container"

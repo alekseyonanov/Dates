@@ -96,7 +96,7 @@ public class MenuFragment extends Fragment {
             }
         });
 
-        game_start.setText("Game");
+        game_start.setText("Игра");
         game_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

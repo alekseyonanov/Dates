@@ -99,4 +99,8 @@ public class PractiseCellView extends RecyclerView {
         adapter.setMode(practiseMode);
     }
 
+    public void setMarks(int[] marks) {
+        PractiseCardsAdapter adapter = (PractiseCardsAdapter) getAdapter();
+        adapter.setMarks(marks);
+    }
 }

@@ -5,22 +5,15 @@
     android:layout_gravity="center"
     android:background="#EEEEEE">
 
-    <!--<com.appodeal.ads.BannerView-->
-    <!--android:id="@+id/appodealBannerView_sort"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="@color/colorBackgroundTest"-->
-    <!--android:visibility="gone"-->
-    <!--/>-->
 
     <ImageButton
         android:id="@+id/sort_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:src="@drawable/ic_arrow_back_white"
         android:layout_alignParentTop="true"
-        android:background="@drawable/practise_back_button" />
+        android:background="@drawable/practise_back_button"
+        android:src="@drawable/ic_arrow_back_white" />
 
 
     <LinearLayout
@@ -28,22 +21,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:orientation="horizontal"
-        android:background="@drawable/practise_rating_button">
+        android:background="@drawable/practise_rating_button"
+        android:orientation="horizontal">
 
         <ImageButton
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_help"
             android:id="@+id/sort_help_button"
             android:layout_width="64dp"
-            android:layout_height="56dp" />
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_help" />
 
         <ImageButton
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_settings"
             android:id="@+id/sort_settings_button"
             android:layout_width="64dp"
-            android:layout_height="56dp" />
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_settings" />
 
     </LinearLayout>
 
@@ -52,12 +45,12 @@
         android:id="@+id/instruction_sort"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/sort_recycler_view"
         android:layout_gravity="fill"
         android:gravity="center"
         android:text="@string/sotr_text"
         android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="@android:color/black"
-        android:layout_above="@id/sort_recycler_view"/>
+        android:textColor="@android:color/black" />
 
     <HorizontalScrollView
         android:id="@+id/sortInfoContainer"
@@ -75,11 +68,11 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:layout_margin="4dp"
                 android:id="@+id/sortRightAnswers"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:clickable="false"
                 android:text="0"
                 app:chipBackgroundColor="@android:color/white"
@@ -87,22 +80,22 @@
                 app:iconStartPadding="2dp" />
 
             <com.google.android.material.chip.Chip
-                android:layout_margin="4dp"
                 android:id="@+id/sortQuestionNumber"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:layout_marginStart="12dip"
                 android:clickable="false"
                 android:text="#1"
                 app:chipBackgroundColor="@android:color/white" />
 
             <com.google.android.material.chip.Chip
-                android:layout_margin="4dp"
                 android:id="@+id/sortWrongAnswers"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:clickable="false"
                 android:text="0"
                 app:chipBackgroundColor="@android:color/white"
@@ -112,13 +105,22 @@
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
+
+    <com.appodeal.ads.BannerView
+        android:id="@+id/appodealBannerView_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/sortInfoContainer"
+        android:visibility="gone" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sort_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
         android:layout_above="@id/sort_check"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:scrollbars="none" />
 
     <android.widget.Button
         android:id="@+id/sort_check"

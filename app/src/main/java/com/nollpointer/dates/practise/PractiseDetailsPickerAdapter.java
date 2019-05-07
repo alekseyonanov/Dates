@@ -108,7 +108,7 @@ public class PractiseDetailsPickerAdapter extends RecyclerView.Adapter<RecyclerV
 
         }else {
             for (int i = 0; i < size; i++)
-                centuries.add(random.nextInt(titles.length - 1));
+                centuries.add(random.nextInt(titles.length));
         }
 
         if (mode == CENTURY)

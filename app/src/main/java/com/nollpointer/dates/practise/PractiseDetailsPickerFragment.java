@@ -15,27 +15,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.chip.ChipGroup;
-import com.nollpointer.dates.other.Date;
-import com.nollpointer.dates.activity.MainActivity;
-import com.nollpointer.dates.other.Misc;
 import com.nollpointer.dates.R;
+import com.nollpointer.dates.activity.MainActivity;
+import com.nollpointer.dates.cards.CardsFragment;
+import com.nollpointer.dates.distribute.DistributeFragment;
+import com.nollpointer.dates.other.Date;
+import com.nollpointer.dates.other.Misc;
 import com.nollpointer.dates.sort.SortFragment;
 import com.nollpointer.dates.test.TestFragment;
 import com.nollpointer.dates.truefalse.TrueFalseFragment;
 import com.nollpointer.dates.voice.VoiceFragment;
-import com.nollpointer.dates.cards.CardsFragment;
-import com.nollpointer.dates.distribute.DistributeFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static android.view.View.NO_ID;
 import static com.nollpointer.dates.activity.MainActivity.EASY_DATES_MODE;
@@ -62,13 +62,15 @@ public class PractiseDetailsPickerFragment extends Fragment {
     private static final String PRACTISE = "practise";
     private static final String TAG = "PractiseDetailsPicker";
 
+    private int mode;
 
-    public static PractiseDetailsPickerFragment newInstance(String practise,boolean practiseMode, int mode) {
+
+    public static PractiseDetailsPickerFragment newInstance(String practise, boolean practiseMode, int mode) {
         PractiseDetailsPickerFragment practiseDetailsPickerFragment = new PractiseDetailsPickerFragment();
         Bundle bundle = new Bundle();
         bundle.putString(PRACTISE, practise);
         bundle.putInt(MODE, mode);
-        bundle.putBoolean(TEST_MODE,practiseMode);
+        bundle.putBoolean(TEST_MODE, practiseMode);
         practiseDetailsPickerFragment.setArguments(bundle);
         return practiseDetailsPickerFragment;
     }
@@ -81,7 +83,7 @@ public class PractiseDetailsPickerFragment extends Fragment {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         Bundle bundle = getArguments();
         boolean saveCurrentState = preferences.getBoolean("save_current_state", true);
-        int mode = bundle.getInt(MODE, FULL_DATES_MODE);
+        mode = bundle.getInt(MODE, FULL_DATES_MODE);
         final String practise = bundle.getString(PRACTISE);
 
         Toolbar toolbar = mainView.findViewById(R.id.practise_details_picker_toolbar);
@@ -104,7 +106,6 @@ public class PractiseDetailsPickerFragment extends Fragment {
         });
 
 
-
         Button practiseButton = mainView.findViewById(R.id.practise_details_picker_button);
         practiseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,11 +122,11 @@ public class PractiseDetailsPickerFragment extends Fragment {
             public void onClick(View v) {
                 CheckedTextView view = (CheckedTextView) v;
                 if (view.isChecked()) {
-                    if(!centuryAdapter.getCenturies().equals(generateFullCenturiesList()))
+                    if (!centuryAdapter.getCenturies().equals(generateFullCenturiesList(mode)))
                         view.setChecked(false);
                 } else {
                     view.setChecked(true);
-                    centuryAdapter.setCenturies(generateFullCenturiesList());
+                    centuryAdapter.setCenturies(generateFullCenturiesList(mode));
                     centuryAdapter.notifyDataSetChanged();
                 }
             }
@@ -146,7 +147,8 @@ public class PractiseDetailsPickerFragment extends Fragment {
 
 
         final RecyclerView centuryRecyclerView = mainView.findViewById(R.id.centuriesRecyclerView);
-        centuryAdapter = new PractiseDetailsPickerAdapter(resources.getTextArray(R.array.centuries),
+        centuryAdapter = new PractiseDetailsPickerAdapter(
+                mode == FULL_DATES_MODE ? resources.getTextArray(R.array.centuries) : resources.getTextArray(R.array.centuries_easy),
                 PractiseDetailsPickerAdapter.CENTURY);
         centuryAdapter.setTitleCheckedTextView(centuryTitle);
         centuryRecyclerView.setAdapter(centuryAdapter);
@@ -165,7 +167,7 @@ public class PractiseDetailsPickerFragment extends Fragment {
             @Override
             public void onCheckedChanged(ChipGroup chipGroup, int id) {
 
-                if(id == NO_ID)
+                if (id == NO_ID)
                     chipGroup.check(previousSelection);
                 else
                     previousSelection = id;
@@ -174,12 +176,14 @@ public class PractiseDetailsPickerFragment extends Fragment {
         });
 
 
-
-
         //TODO добавить выбор сразу всех веков по кнопке
         if (saveCurrentState) {
             int type = preferences.getInt("practise_type", 0);
-            ArrayList<Integer> list = Misc.getIntegerListFromString(preferences.getString("practise_centuries", null));
+            ArrayList<Integer> list;
+            if (mode == FULL_DATES_MODE)
+                list = Misc.getIntegerListFromString(preferences.getString("practise_centuries_full", null));
+            else
+                list = Misc.getIntegerListFromString(preferences.getString("practise_centuries_easy", null));
 
             if (isLockedType(practise))
                 setLockedType(practise);
@@ -187,7 +191,7 @@ public class PractiseDetailsPickerFragment extends Fragment {
                 typeAdapter.setType(type);
 
             centuryAdapter.setCenturies(list);
-            if(list.size() == 10)
+            if ((list.size() == 10 && mode == FULL_DATES_MODE) || (mode == EASY_DATES_MODE && list.size() == 2))
                 centuryTitle.setChecked(true);
         } else {
             if (isLockedType(practise))
@@ -197,8 +201,9 @@ public class PractiseDetailsPickerFragment extends Fragment {
         return mainView;
     }
 
-    private ArrayList<Integer> generateFullCenturiesList(){
+    private ArrayList<Integer> generateFullCenturiesList(int mode) {
         ArrayList<Integer> list = new ArrayList<>();
+        int max = mode == FULL_DATES_MODE ? 10 : 2;
         for (int i = 0; i < 10; i++) {
             list.add(i);
         }
@@ -210,6 +215,9 @@ public class PractiseDetailsPickerFragment extends Fragment {
         switch (practise) {
             case CARDS:
                 typeAdapter.setType(1);
+                break;
+            case VOICE:
+                typeAdapter.setType(0);
                 break;
             case TRUE_FALSE:
                 typeAdapter.setType(2);
@@ -225,7 +233,7 @@ public class PractiseDetailsPickerFragment extends Fragment {
     }
 
     private boolean isLockedType(String practise) {
-        return practise.equals(CARDS) || practise.equals(TRUE_FALSE) || practise.equals(SORT) || practise.equals(DISTRIBUTE);
+        return practise.equals(CARDS) || practise.equals(TRUE_FALSE) || practise.equals(SORT) || practise.equals(DISTRIBUTE) || practise.equals(VOICE);
     }
 
 
@@ -233,7 +241,7 @@ public class PractiseDetailsPickerFragment extends Fragment {
         int type = typeAdapter.getType();
         List<Integer> centuries = centuryAdapter.getCenturies();
 
-        new SaveCurrentState(getContext(), type, centuries).execute();
+        new SaveCurrentState(getContext(), type, centuries, mode).execute();
 
         if (centuries.size() == 0)
             return;
@@ -249,16 +257,16 @@ public class PractiseDetailsPickerFragment extends Fragment {
                 fragment = CardsFragment.newInstance(dates, type);
                 break;
             case VOICE:
-                fragment = VoiceFragment.newInstance(dates, type, getDifficulty(),isTestMode);
+                fragment = VoiceFragment.newInstance(dates, type, getDifficulty(), isTestMode);
                 break;
             case TEST:
-                fragment = TestFragment.newInstance(dates, type, getDifficulty(),isTestMode);
+                fragment = TestFragment.newInstance(dates, type, getDifficulty(), isTestMode);
                 break;
             case TRUE_FALSE:
-                fragment = TrueFalseFragment.newInstance(dates, getDifficulty(),isTestMode);
+                fragment = TrueFalseFragment.newInstance(dates, getDifficulty(), isTestMode);
                 break;
             case SORT:
-                fragment = SortFragment.newInstance(dates, getDifficulty(),isTestMode);
+                fragment = SortFragment.newInstance(dates, getDifficulty(), isTestMode);
                 break;
             case DISTRIBUTE:
                 fragment = new DistributeFragment();
@@ -271,10 +279,10 @@ public class PractiseDetailsPickerFragment extends Fragment {
 
     }
 
-    private int getDifficulty(){
+    private int getDifficulty() {
         int checkedId = difficultyChipGroup.getCheckedChipId();
 
-        switch (checkedId){
+        switch (checkedId) {
             case R.id.difficulty_chip_easy:
                 return DIFFICULTY_EASY;
             case R.id.difficulty_chip_medium:
@@ -289,11 +297,11 @@ public class PractiseDetailsPickerFragment extends Fragment {
     public void setRandomValues(boolean isTypeLocked) {
         centuryAdapter.makeRandomValues();
         setRandomDifficulty();
-        if(!isTypeLocked)
+        if (!isTypeLocked)
             typeAdapter.makeRandomValues();
     }
 
-    private void setRandomDifficulty(){
+    private void setRandomDifficulty() {
         Random random = new Random(System.currentTimeMillis());
         difficultyChipGroup.check(difficultyChipGroup.getChildAt(random.nextInt(3)).getId());
     }
@@ -309,8 +317,7 @@ public class PractiseDetailsPickerFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) getActivity();
         ArrayList<Date> dates = mainActivity.getDates();
         ArrayList<Date> practiseList = new ArrayList<>();
-        int mode = mainActivity.getMode();
-        if ((mode == FULL_DATES_MODE && centuriesList.contains(10)) || (mode == EASY_DATES_MODE && centuriesList.contains(2))) // Если выбраны все даты
+        if ((mode == FULL_DATES_MODE && centuriesList.size() == 10) || (mode == EASY_DATES_MODE && centuriesList.size() == 2)) // Если выбраны все даты
             return dates;
         Pair<Integer, Integer> pair;
         Collections.sort(centuriesList);
@@ -383,14 +390,16 @@ public class PractiseDetailsPickerFragment extends Fragment {
 
 
     protected static class SaveCurrentState extends AsyncTask<Void, Void, Void> {
-        int type = -1;
-        List<Integer> centuries;
-        Context context;
+        private int type = -1;
+        private List<Integer> centuries;
+        private Context context;
+        private int mode;
 
-        SaveCurrentState(Context context, int type, List<Integer> centuries) {
+        SaveCurrentState(Context context, int type, List<Integer> centuries, int mode) {
             this.context = context;
             this.type = type;
             this.centuries = centuries;
+            this.mode = mode;
         }
 
         SaveCurrentState(Context context, List<Integer> centuries) {
@@ -404,10 +413,13 @@ public class PractiseDetailsPickerFragment extends Fragment {
 
             String numberString = Misc.getStringFromIntegerList(centuries);
 
-            if(type != -1)
+            if (type != -1)
                 editor.putInt("practise_type", type);
+            if (mode == FULL_DATES_MODE)
+                editor.putString("practise_centuries_full", numberString);
+            else
+                editor.putString("practise_centuries_easy", numberString);
 
-            editor.putString("practise_centuries", numberString);
 
             editor.apply();
             return null;

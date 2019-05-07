@@ -25,14 +25,12 @@
 
         <ImageButton
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_help"
             android:id="@+id/testHelpButton"
             android:layout_width="64dp"
             android:layout_height="56dp" />
 
         <ImageButton
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_settings"
             android:id="@+id/testSettingsButton"
             android:layout_width="64dp"
             android:layout_height="56dp" />

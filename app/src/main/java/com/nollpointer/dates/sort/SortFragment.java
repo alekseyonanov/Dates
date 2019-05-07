@@ -1,30 +1,33 @@
 package com.nollpointer.dates.sort;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.appodeal.ads.Appodeal;
 import com.google.android.material.chip.Chip;
-import com.nollpointer.dates.other.Date;
 import com.nollpointer.dates.R;
+import com.nollpointer.dates.other.Date;
 import com.nollpointer.dates.other.PractiseHelpDialog;
 import com.nollpointer.dates.other.PractiseSettingsDialog;
 import com.nollpointer.dates.practise.PractiseConstants;
 import com.nollpointer.dates.practise.PractiseResult;
 import com.nollpointer.dates.practise.PractiseResultFragment;
-import com.nollpointer.dates.test.TestFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,9 +36,10 @@ import java.util.Random;
 
 import static com.nollpointer.dates.activity.MainActivity.DATES;
 import static com.nollpointer.dates.practise.PractiseConstants.DIFFICULTY;
+import static com.nollpointer.dates.practise.PractiseConstants.SORT;
 import static com.nollpointer.dates.practise.PractiseConstants.TEST_MODE;
 
-public class SortFragment extends Fragment{
+public class SortFragment extends Fragment {
 
     private static final String TAG = "SortFragment";
 
@@ -45,6 +49,7 @@ public class SortFragment extends Fragment{
 
     private boolean isLocked = false;
 
+    RecyclerView recyclerView;
     SortCardsAdapter adapter;
 
     private Chip questionNumberChip;
@@ -61,7 +66,7 @@ public class SortFragment extends Fragment{
         @Override
         public void onClick(View v) {
 
-            if(isLocked)
+            if (isLocked)
                 return;
 
             lockAnswerButtons();
@@ -72,16 +77,23 @@ public class SortFragment extends Fragment{
             List<Integer> sequence = adapter.getAnswerSequence();
             Log.e("TAG", "onClick: " + sequence.toString());
 
-            if(sequence.equals(correctAnswerSequence)) {
-                Toast.makeText(getContext(), "Correct", Toast.LENGTH_SHORT).show();
+            boolean isCorrect = sequence.equals(correctAnswerSequence);
+
+            if (isCorrect)
                 rightAnswersCount++;
-            }else {
-                Toast.makeText(getContext(), "InCorrect", Toast.LENGTH_SHORT).show();
+            else
                 wrongAnswersCount++;
+
+            showCorrectCards(correctAnswerSequence);
+
+
+            if (isTestMode) {
+                PractiseResult practiseResult = new PractiseResult(sequence.toString(), isCorrect);
+                practiseResults.add(practiseResult);
             }
 
-            if(rightAnswersCount + wrongAnswersCount == 20 && isTestMode)
-                getFragmentManager().beginTransaction().replace(R.id.frameLayout, new PractiseResultFragment()).commit();
+            if (rightAnswersCount + wrongAnswersCount == 20 && isTestMode)
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseResultFragment.newInstance(SORT, practiseResults,getArguments())).commit();
 
 
             rightAnswersChip.setText(Integer.toString(rightAnswersCount));
@@ -92,11 +104,11 @@ public class SortFragment extends Fragment{
                 public void run() {
                     generateAndSetInfo();
                 }
-            },delay);
+            }, delay);
         }
     };
 
-    public static SortFragment newInstance(ArrayList<Date> dates,int difficulty, boolean testMode) {
+    public static SortFragment newInstance(ArrayList<Date> dates, int difficulty, boolean testMode) {
         SortFragment sort = new SortFragment();
         Bundle bundle = new Bundle();
         bundle.putBoolean(TEST_MODE, testMode);
@@ -118,7 +130,7 @@ public class SortFragment extends Fragment{
         difficulty = arguments.getInt(DIFFICULTY);
         isTestMode = arguments.getBoolean(TEST_MODE);
 
-        //initViews();
+        delay = getDelay();
 
         initializeViews(mainView);
 
@@ -129,7 +141,9 @@ public class SortFragment extends Fragment{
 
     private void initializeViews(View mainView) {
 
-        RecyclerView recyclerView = mainView.findViewById(R.id.sort_recycler_view);
+        Appodeal.setBannerViewId(R.id.appodealBannerView_sort);
+
+        recyclerView = mainView.findViewById(R.id.sort_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ItemTouchHelper.Callback callback =
@@ -165,7 +179,7 @@ public class SortFragment extends Fragment{
                 settingsDialog.setListener(new PractiseSettingsDialog.Listener() {
                     @Override
                     public void onDelayPicked(int delay) {
-                        SortFragment.this.delay = delay;
+                        setDelay(delay);
                     }
                 });
                 settingsDialog.show(getActivity().getSupportFragmentManager(), null);
@@ -192,7 +206,7 @@ public class SortFragment extends Fragment{
 
         List<Date> mixedDates = getShuffledDatesList(initialDates);
 
-        correctAnswerSequence = getSequence(initialDates,mixedDates);
+        correctAnswerSequence = getSequence(initialDates, mixedDates);
 
         Log.e(TAG, "generateAndSetInfo: " + correctAnswerSequence);
 
@@ -219,7 +233,7 @@ public class SortFragment extends Fragment{
 
     }
 
-    private List<Integer> getSequence(List<Date> initial, List<Date> mixed){
+    private List<Integer> getSequence(List<Date> initial, List<Date> mixed) {
         ArrayList<Integer> list = new ArrayList<>();
 
         for (Date date : mixed) {
@@ -230,7 +244,22 @@ public class SortFragment extends Fragment{
         return list;
     }
 
-    private List<Date> generateDatesList(int count){
+    public void showCorrectCards(List<Integer> rightSequence){
+
+        for (int i = 0; i < difficulty+3; i++) {
+            View view = recyclerView.findViewHolderForAdapterPosition(i).itemView;
+            ImageView imageView = view.findViewById(R.id.sortImage);
+            TextView viewById = (TextView) view.findViewById(R.id.sortTextNumber);
+
+            imageView.setVisibility(View.VISIBLE);
+            if(rightSequence.get(i)+1 == Integer.parseInt(viewById.getText().toString()))
+                imageView.setImageResource(R.drawable.ic_correct);
+            else
+                imageView.setImageResource(R.drawable.ic_mistake);
+        }
+    }
+
+    private List<Date> generateDatesList(int count) {
         ArrayList<Date> list = new ArrayList<>();
         Random random = new Random(System.currentTimeMillis());
 
@@ -248,13 +277,46 @@ public class SortFragment extends Fragment{
         return list;
     }
 
-    private List<Date> getShuffledDatesList(List<Date> datesList){
+    private List<Date> getShuffledDatesList(List<Date> datesList) {
         ArrayList<Date> list = new ArrayList<>(datesList);
 
         Collections.shuffle(list);
 
         return list;
     }
+
+    private int getDelay() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        int delay = preferences.getInt("sort delay", 900);
+
+        return delay;
+
+    }
+
+    private void setDelay(int delay) {
+        this.delay = delay;
+
+        SharedPreferences.Editor preferences = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+
+        preferences.putInt("sort delay", delay);
+
+        preferences.apply();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Appodeal.hide(getActivity(), Appodeal.BANNER_VIEW);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
+    }
+
+
 
 //
 //    public void check() {
@@ -414,7 +476,6 @@ public class SortFragment extends Fragment{
 //    }
 
 
-
     class SortItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
         @Override
@@ -441,14 +502,13 @@ public class SortFragment extends Fragment{
         }
 
         @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {}
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+        }
 
     }
 
 
 }
-
-
 
 
 //public class SortFragment extends Fragment implements ResultDialog.ResultDialogCallbackListener {

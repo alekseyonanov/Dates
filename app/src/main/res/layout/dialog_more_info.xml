@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <View
             android:background="@drawable/dialog_drag_image"
@@ -51,13 +51,14 @@
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@android:color/black" />
 
-        <TextView
+        <android.widget.Button
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/dialog_try_again"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif-light"
-            android:padding="16dp"
+            android:padding="8dp"
             android:text="ПОВТОРИТЬ"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"

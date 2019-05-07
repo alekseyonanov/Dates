@@ -6,18 +6,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Random;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nollpointer.dates.R;
+
+import java.util.Random;
 
 public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdapter.ViewHolder> {
     private String[] title_texts;
     private String[] subtitle_texts;
     private int[] imageIds;
     private int[] backgrounds;
+    private int[] marks;
+
     private Listener mListener;
 
     private int currentMode = 0;
@@ -41,6 +43,10 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
         currentMode = practiseMode;
     }
 
+    public void setMarks(int[] marks){
+        this.marks = marks;
+    }
+
     @Override
     public PractiseCardsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_practise, parent, false);
@@ -53,7 +59,7 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
 
         TextView titleTextView = cardView.findViewById(R.id.info_text_title);
         TextView subTitleTextView = cardView.findViewById(R.id.info_text_subtitle);
-        TextView markTextView = cardView.findViewById(R.id.info_text_mark);
+        ImageView markImageView = cardView.findViewById(R.id.info_image_mark);
         ImageView imageView = cardView.findViewById(R.id.info_image);
 
         titleTextView.setText(title_texts[position]);
@@ -62,12 +68,9 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
         imageView.setBackgroundResource(backgrounds[position]);
         imageView.setContentDescription(title_texts[position]);
 
-        if (currentMode == 0) {
-
-        } else {
-            markTextView.setVisibility(View.VISIBLE);
-            markTextView.setTextColor(getMarkColor());
-            markTextView.setText(getMark());
+        if (currentMode == 1) {
+            markImageView.setVisibility(View.VISIBLE);
+            markImageView.setImageResource(getMarkImage(marks[position]));
         }
     }
 
@@ -76,19 +79,18 @@ public class PractiseCardsAdapter extends RecyclerView.Adapter<PractiseCardsAdap
         return imageIds.length;
     }
 
-    private int getMarkColor() {
-        int colors[] = {0xFFB71C1C,0xFFFFEB3B, 0xFF43a047};
-        //int colors[] = {Color.RED,Color.YELLOW, Color.GREEN};
-        Random random = new Random();
+    private int getMarkImage(int mark) {
+        //int colors[] = {0xFFB71C1C,0xFFFFEB3B, 0xFF43a047};
+        int colors[] = {R.drawable.ic_practise_result_nothing,R.drawable.ic_practise_result_bad, R.drawable.ic_practise_result_neutral, R.drawable.ic_practise_result_good};
 
-        return colors[random.nextInt(3)];
+        return colors[mark+1];
     }
 
     private String getMark() {
         Random random = new Random();
-        double number = random.nextInt(20)*5./20;
+        double number = random.nextInt(20) * 5. / 20;
 
-        return String.format("%.1f",number);
+        return String.format("%.1f", number);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

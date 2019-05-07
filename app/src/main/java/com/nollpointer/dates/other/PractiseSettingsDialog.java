@@ -1,5 +1,6 @@
 package com.nollpointer.dates.other;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ public class PractiseSettingsDialog extends BottomSheetDialogFragment {
 
     private Listener listener;
 
+    private SeekBar seekBar;
+
     public static PractiseSettingsDialog newInstance(int delay) {
         PractiseSettingsDialog dialog = new PractiseSettingsDialog();
         Bundle args = new Bundle();
@@ -47,7 +50,7 @@ public class PractiseSettingsDialog extends BottomSheetDialogFragment {
         final TextView textView = mainView.findViewById(R.id.practise_settings_dialog_delay);
         textView.setText(delay * 100 + " мс");
 
-        final SeekBar seekBar = mainView.findViewById(R.id.practise_settings_dialog_delay_seekbar);
+        seekBar = mainView.findViewById(R.id.practise_settings_dialog_delay_seekbar);
         seekBar.setProgress(delay);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -77,6 +80,12 @@ public class PractiseSettingsDialog extends BottomSheetDialogFragment {
         });
 
         return mainView;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        listener.onDelayPicked(seekBar.getProgress()*100);
     }
 
     public void setListener(Listener listener){

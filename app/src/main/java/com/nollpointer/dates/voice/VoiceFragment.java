@@ -2,9 +2,13 @@ package com.nollpointer.dates.voice;
 
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -18,6 +22,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.appodeal.ads.Appodeal;
 import com.google.android.material.chip.Chip;
 import com.nollpointer.dates.other.Date;
 import com.nollpointer.dates.R;
@@ -35,12 +40,14 @@ import static com.nollpointer.dates.practise.PractiseConstants.DATES;
 import static com.nollpointer.dates.practise.PractiseConstants.DIFFICULTY;
 import static com.nollpointer.dates.practise.PractiseConstants.TEST_MODE;
 import static com.nollpointer.dates.practise.PractiseConstants.TYPE;
+import static com.nollpointer.dates.practise.PractiseConstants.VOICE;
 
 
 public class VoiceFragment extends Fragment implements RecognitionListener {
 
     private ImageView resultImage;
 
+    private AudioManager audioManager;
 
     private TextView questionTextView;
     private TextView recognizedTextView;
@@ -67,6 +74,10 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
 
     private int delay = 900;
 
+    private int originalVolumeLevel;
+
+    private String savedRecognizedText = "";
+
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -80,8 +91,9 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
             int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
 
             String recognizedText = recognizedTextView.getText().toString();
+            boolean isCorrect = check(recognizedText);
 
-            if (recognizedText.contains(currentDate.getDate())) {
+            if (isCorrect) {
                 showCorrectImage();
                 rightAnswersCount++;
             } else {
@@ -89,8 +101,13 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
                 wrongAnswersCount++;
             }
 
+            if(isTestMode){
+                PractiseResult practiseResult = new PractiseResult(questionTextView.getText().toString(),isCorrect);
+                practiseResults.add(practiseResult);
+            }
+
             if(rightAnswersCount + wrongAnswersCount == 20 && isTestMode)
-                getFragmentManager().beginTransaction().replace(R.id.frameLayout, new PractiseResultFragment()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseResultFragment.newInstance(VOICE,practiseResults,getArguments())).commit();
 
 
             rightAnswersChip.setText(Integer.toString(rightAnswersCount));
@@ -128,15 +145,20 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
         difficulty = arguments.getInt(DIFFICULTY);
         isTestMode = arguments.getBoolean(TEST_MODE);
 
+        delay = getDelay();
+
         initializeViews(mainView);
 
         initializeRecognizer();
         generateAndSetInfo();
 
+        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+
         return mainView;
     }
 
     private void initializeViews(View mainView) {
+        Appodeal.setBannerViewId(R.id.appodealBannerView_voice);
 
         ImageButton backButton = mainView.findViewById(R.id.voice_back_button);
         ImageButton settingsButton = mainView.findViewById(R.id.voice_settings_button);
@@ -159,7 +181,7 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
                 settingsDialog.setListener(new PractiseSettingsDialog.Listener() {
                     @Override
                     public void onDelayPicked(int delay) {
-                        VoiceFragment.this.delay = delay;
+                        setDelay(delay);
                     }
                 });
                 settingsDialog.show(getActivity().getSupportFragmentManager(), null);
@@ -175,7 +197,7 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
             }
         });
 
-        voiceRecognitionButton.setImageResource(R.drawable.ic_voice);
+        voiceRecognitionButton.setImageResource(R.drawable.ic_voice_gray);
         voiceRecognitionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,6 +220,27 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
 
         visualizerView = mainView.findViewById(R.id.voiceVisualizer);
 
+    }
+
+    private boolean check(String text){
+        boolean isCorrect;
+        if(currentDate.isContinuous()){
+            String[] years = currentDate.getDate().split("–");
+
+            isCorrect = text.contains(years[0]) && text.contains(years[1]);
+
+        }else{
+            isCorrect = text.contains(currentDate.getDate());
+        }
+
+        if(currentDate.containsMonth()){
+            isCorrect &= text.contains(currentDate.getMonth());
+        }
+
+
+
+
+        return isCorrect;
     }
 
     private void showCorrectImage() {
@@ -235,7 +278,12 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
 
     private void setInfo(Date date) {
         recognizedTextView.setText("");
-        questionTextView.setText(date.getEvent() + "\n" + date.getDate());
+        savedRecognizedText = "";
+        questionTextView.setText(date.getEvent());
+
+        //if(date.containsMonth())
+            //questionTextView.setText(date.getEvent() + "\n" + date.getDate() + ", " + date.getMonth());
+
 
         int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
         int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
@@ -249,6 +297,24 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
         return dates.get(random.nextInt(dates.size()));
     }
 
+    private int getDelay(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        int delay = preferences.getInt("voice delay", 900);
+
+        return delay;
+
+    }
+
+    private void setDelay(int delay){
+        this.delay = delay;
+
+        SharedPreferences.Editor preferences = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+
+        preferences.putInt("voice delay", delay);
+
+        preferences.apply();
+    }
 
     private void initializeRecognizer() {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext(),
@@ -275,6 +341,45 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
         return intent;
     }
 
+    private void checkSpeech(){
+
+        if (isLocked)
+            return;
+
+        String recognizedText = recognizedTextView.getText().toString();
+
+        if(recognizedText.contains("проверить") || recognizedText.contains("проверь") || recognizedText.contains("проверьте") || recognizedText.contains("проверка"))
+            listener.onClick(null);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        originalVolumeLevel = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
+        speechRecognizer.startListening(recognizerIntent);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, originalVolumeLevel, 0);
+
+        speechRecognizer.cancel();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Appodeal.hide(getActivity(), Appodeal.BANNER_VIEW);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
+    }
 
     @Override
     public void onReadyForSpeech(Bundle bundle) {
@@ -304,10 +409,21 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
     @Override
     public void onError(int i) {
 
+        speechRecognizer.startListening(recognizerIntent);
     }
 
     @Override
     public void onResults(Bundle bundle) {
+
+        if (bundle.containsKey(SpeechRecognizer.RESULTS_RECOGNITION)) {
+            ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            String text = data.get(0);
+
+            savedRecognizedText += " " + text;
+            checkSpeech();
+        }
+
+        speechRecognizer.startListening(recognizerIntent);
 
     }
 
@@ -317,7 +433,8 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
             ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             String text = data.get(0);
 
-            recognizedTextView.setText(text);
+            recognizedTextView.setText(savedRecognizedText + " " + text);
+            checkSpeech();
         }
     }
 
@@ -325,4 +442,5 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
     public void onEvent(int i, Bundle bundle) {
 
     }
+
 }

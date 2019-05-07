@@ -183,4 +183,13 @@
 
     <string name="locale">English</string>
 
+    <array name="practise_marks_titles">
+        <item>cards_result</item>
+        <item>voice_result</item>
+        <item>test_result</item>
+        <item>truefalse_result</item>
+        <item>sort_result</item>
+        <item>distribute_result</item>
+    </array>
+
 </resources>

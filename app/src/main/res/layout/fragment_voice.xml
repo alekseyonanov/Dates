@@ -128,6 +128,13 @@
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
+    <com.appodeal.ads.BannerView
+        android:id="@+id/appodealBannerView_voice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/voiceRecognizedText"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/voiceVisualizerContainer"
         android:layout_width="match_parent"

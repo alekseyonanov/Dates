@@ -43,15 +43,15 @@
 
             <android.widget.Button
                 android:id="@+id/menu_select_current_mode"
-                android:visibility="gone"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:background="@color/colorAccent"
-                android:textColor="@android:color/white"
                 android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
                 android:foreground="?selectableItemBackgroundBorderless"
-                android:text="Выбрать этот режим"/>
+                android:text="Выбрать этот режим"
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
 
 
             <androidx.cardview.widget.CardView
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:drawableStart="@drawable/ic_game_icon_foreground"
-                    android:drawablePadding="36dp"
+                    android:drawablePadding="16dp"
                     android:gravity="center_vertical"
                     android:padding="10dp"
                     android:text="title"
@@ -120,7 +120,7 @@
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
                             android:drawableStart="@drawable/ic_telegram"
-                            android:drawablePadding="36dp"
+                            android:drawablePadding="16dp"
                             android:gravity="center_vertical"
                             android:padding="10dp"
                             android:text="title"
@@ -133,7 +133,7 @@
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
                             android:drawableStart="@drawable/ic_twitter"
-                            android:drawablePadding="36dp"
+                            android:drawablePadding="16dp"
                             android:gravity="center_vertical"
                             android:padding="10dp"
                             android:text="title"
@@ -146,7 +146,7 @@
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
                             android:drawableStart="@drawable/email"
-                            android:drawablePadding="36dp"
+                            android:drawablePadding="16dp"
                             android:gravity="center_vertical"
                             android:padding="10dp"
                             android:text="title"

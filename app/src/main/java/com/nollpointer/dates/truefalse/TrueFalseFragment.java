@@ -1,8 +1,11 @@
 package com.nollpointer.dates.truefalse;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.appodeal.ads.Appodeal;
 import com.google.android.material.chip.Chip;
 import com.nollpointer.dates.other.Date;
 import com.nollpointer.dates.R;
@@ -29,6 +33,7 @@ import java.util.Random;
 import static com.nollpointer.dates.practise.PractiseConstants.DATES;
 import static com.nollpointer.dates.practise.PractiseConstants.DIFFICULTY;
 import static com.nollpointer.dates.practise.PractiseConstants.TEST_MODE;
+import static com.nollpointer.dates.practise.PractiseConstants.TRUE_FALSE;
 
 public class TrueFalseFragment extends Fragment {
 
@@ -67,8 +72,9 @@ public class TrueFalseFragment extends Fragment {
 
             int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
             int wrongAnswersCount = Integer.parseInt(wrongAnswersChip.getText().toString());
+            boolean isCorrect = isTrue && v.equals(trueButton) || !isTrue && v.equals(falseButton);
 
-            if(isTrue && v.equals(trueButton) || !isTrue && v.equals(falseButton)){
+            if(isCorrect){
                 showCorrectImage();
                 rightAnswersCount++;
             }else {
@@ -76,8 +82,13 @@ public class TrueFalseFragment extends Fragment {
                 wrongAnswersCount++;
             }
 
+            if(isTestMode){
+                PractiseResult practiseResult = new PractiseResult(dateTextView.getText() + " – " + eventTextView.getText(),isCorrect);
+                practiseResults.add(practiseResult);
+            }
+
             if(rightAnswersCount + wrongAnswersCount == 20 && isTestMode)
-                getFragmentManager().beginTransaction().replace(R.id.frameLayout, new PractiseResultFragment()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseResultFragment.newInstance(TRUE_FALSE,practiseResults,getArguments())).commit();
 
 
             rightAnswersChip.setText(Integer.toString(rightAnswersCount));
@@ -114,6 +125,8 @@ public class TrueFalseFragment extends Fragment {
         difficulty = arguments.getInt(DIFFICULTY);
         isTestMode = arguments.getBoolean(TEST_MODE);
 
+        delay = getDelay();
+
         initializeViews(mainView);
 
         generateAndSetInfo();
@@ -122,7 +135,7 @@ public class TrueFalseFragment extends Fragment {
     }
 
     private void initializeViews(View mainView) {
-        //Appodeal.setBannerViewId(R.id.appodealBannerView_true);
+        Appodeal.setBannerViewId(R.id.appodealBannerView_true);
         dateTextView = mainView.findViewById(R.id.test_info_true_false_date);
         eventTextView = mainView.findViewById(R.id.test_info_true_false_event);
 
@@ -152,7 +165,7 @@ public class TrueFalseFragment extends Fragment {
                 settingsDialog.setListener(new PractiseSettingsDialog.Listener() {
                     @Override
                     public void onDelayPicked(int delay) {
-                        TrueFalseFragment.this.delay = delay;
+                        setDelay(delay);
                     }
                 });
                 settingsDialog.show(getActivity().getSupportFragmentManager(), null);
@@ -176,6 +189,19 @@ public class TrueFalseFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Appodeal.hide(getActivity(), Appodeal.BANNER_VIEW);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
+    }
+
+
     private void lockAnswerButtons() {
         isLocked = true;
     }
@@ -192,6 +218,9 @@ public class TrueFalseFragment extends Fragment {
 
         String date = questionDate.getDate();
         String event;
+
+        if(questionDate.containsMonth())
+            date += ", " + questionDate.getMonth();
 
         if(isTrue)
             event = questionDate.getEvent();
@@ -225,7 +254,7 @@ public class TrueFalseFragment extends Fragment {
     }
 
     private void setInfo(String date, String event){
-        dateTextView.setText(date);
+        dateTextView.setText(Html.fromHtml(date));
         eventTextView.setText(event);
 
         int rightAnswersCount = Integer.parseInt(rightAnswersChip.getText().toString());
@@ -245,6 +274,25 @@ public class TrueFalseFragment extends Fragment {
 
     private void hideResultImage(){
         resultImage.setVisibility(View.INVISIBLE);
+    }
+
+    private int getDelay(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        int delay = preferences.getInt("truefalse delay", 900);
+
+        return delay;
+
+    }
+
+    private void setDelay(int delay){
+        this.delay = delay;
+
+        SharedPreferences.Editor preferences = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+
+        preferences.putInt("truefalse delay", delay);
+
+        preferences.apply();
     }
 
 //    private void checkResult(boolean opinion) {

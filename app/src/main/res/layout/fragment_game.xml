@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="#eeeeee"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
@@ -14,71 +15,102 @@
         app:title="@string/title_game"
         app:titleTextColor="@android:color/white" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/game_toolbar"
-        android:background="#C62828">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/statistics_dummy_crane"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="В разработке :)"
+        android:textSize="18dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical">
+    <ImageView
+        android:id="@+id/statistics_dummy_crane"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="Угадай карту"
-                android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Переверните 3 карты за просмотр рекламы"
-                android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@android:color/white" />
+    <android.widget.Button
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:id="@+id/statistics_dummy_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statistics_dummy_crane"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:background="?android:selectableItemBackground"
+        android:text="Проверить обновление"
+        android:textColor="#5DA62D" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/game_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp" />
+    <!--<androidx.core.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@id/game_toolbar"-->
+        <!--android:background="#C62828">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="30dp"-->
+                <!--android:text="Угадай карту"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:text="Переверните 3 карты за просмотр рекламы"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+                <!--android:textColor="@android:color/white" />-->
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Правила"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@android:color/white" />
+            <!--<androidx.recyclerview.widget.RecyclerView-->
+                <!--android:id="@+id/game_recycler_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="15dp" />-->
 
 
-            <TextView
-                android:id="@+id/game_instructions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="50dp"
-                android:text="Переверните 3 карты за просмотр рекламы"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@android:color/white" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:text="Правила"-->
+                <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+                <!--android:textColor="@android:color/white" />-->
 
 
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/game_instructions"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="4dp"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:layout_marginBottom="50dp"-->
+                <!--android:text="Переверните 3 карты за просмотр рекламы"-->
+                <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+                <!--android:textColor="@android:color/white" />-->
 
 
-    </androidx.core.widget.NestedScrollView>
+        <!--</LinearLayout>-->
+
+
+    <!--</androidx.core.widget.NestedScrollView>-->
 
 
 

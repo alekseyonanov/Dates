@@ -1,12 +1,16 @@
 package com.nollpointer.dates.practise;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -14,8 +18,9 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.nollpointer.dates.activity.MainActivity;
 import com.nollpointer.dates.R;
+import com.nollpointer.dates.activity.MainActivity;
+import com.nollpointer.dates.other.PractiseHelpDialog;
 
 import static com.nollpointer.dates.practise.PractiseConstants.VOICE;
 
@@ -30,13 +35,49 @@ public class PractiseFragment extends Fragment implements PractiseCellView.OnCli
                              Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.fragment_practise, container, false);
 
+        Toolbar toolbar = mainView.findViewById(R.id.practise_toolbar);
+        toolbar.inflateMenu(R.menu.practise_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.practise_help) {
+                    PractiseHelpDialog helpDialog = new PractiseHelpDialog();
+                    helpDialog.show(getActivity().getSupportFragmentManager(), null);
+                }
+
+
+                return true;
+            }
+        });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
+
+
         ViewPager viewPager = mainView.findViewById(R.id.practise_view_pager);
         viewPager.setAdapter(new PractiseCellAdapter());
+
 
         tabLayout = mainView.findViewById(R.id.practise_tabs);
         tabLayout.setupWithViewPager(viewPager, true);
 
+
         return mainView;
+    }
+
+    private int[] getLastMarks() {
+
+        String[] markTitles = getResources().getStringArray(R.array.practise_marks_titles);
+        int[] marks = new int[markTitles.length];
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        for (int i = 0; i < marks.length; i++)
+            marks[i] = preferences.getInt(markTitles[i], -1);
+
+        return marks;
     }
 
     @Override
@@ -68,6 +109,8 @@ public class PractiseFragment extends Fragment implements PractiseCellView.OnCli
             recyclerView.setListener(PractiseFragment.this);
             //if(position == 1)
             recyclerView.setPractiseMode(position);
+            if(position == 1)
+                recyclerView.setMarks(getLastMarks());
 
             collection.addView(recyclerView);
 

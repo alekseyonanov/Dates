@@ -3,6 +3,7 @@ package com.nollpointer.dates.sort;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,11 +35,15 @@ public class SortCardsAdapter extends RecyclerView.Adapter<SortCardsAdapter.View
     @Override
     public void onBindViewHolder(SortCardsAdapter.ViewHolder holder, final int position) {
         View view = holder.itemView;
-        TextView mainTextView = view.findViewById(R.id.textMain);
-        TextView numberTextView = view.findViewById(R.id.textNumber);
+        TextView mainTextView = view.findViewById(R.id.sortTextMain);
+        TextView numberTextView = view.findViewById(R.id.sortTextNumber);
+        ImageView imageView = view.findViewById(R.id.sortImage);
         numberTextView.setText(Integer.toString(position + 1));
         mainTextView.setText(dates.get(position).getEvent());
         sequence.add(position);
+
+        imageView.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
