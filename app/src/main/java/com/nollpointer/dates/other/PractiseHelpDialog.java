@@ -19,12 +19,11 @@ public class PractiseHelpDialog extends BottomSheetDialogFragment {
 
     private static final String TEXT_ID = "text_id";
 
-    //public static MoreInfoDialog newInstance(int textId) {
-    public static PractiseHelpDialog newInstance() {
+    public static PractiseHelpDialog newInstance(int textId) {
         PractiseHelpDialog dialog = new PractiseHelpDialog();
         Bundle args = new Bundle();
 
-        args.putInt(TEXT_ID,12);
+        args.putInt(TEXT_ID,textId);
 
         dialog.setArguments(args);
         return dialog;
@@ -35,10 +34,10 @@ public class PractiseHelpDialog extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.dialog_practise_help_layout, container, false);
 
-//        int textId = getArguments().getInt(TEXT_ID);
+        int textId = getArguments().getInt(TEXT_ID);
 
         TextView textView = mainView.findViewById(R.id.practise_help_dialog_text);
-        //textView.setText(textId);
+        textView.setText(textId);
 
         Button doneButton = mainView.findViewById(R.id.practise_help_dialog_done_button);
         doneButton.setOnClickListener(new View.OnClickListener() {

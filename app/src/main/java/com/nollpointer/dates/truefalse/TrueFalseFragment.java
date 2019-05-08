@@ -176,7 +176,7 @@ public class TrueFalseFragment extends Fragment {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PractiseHelpDialog helpDialog = new PractiseHelpDialog();
+                PractiseHelpDialog helpDialog = PractiseHelpDialog.newInstance(R.string.help_true_false);
                 helpDialog.show(getActivity().getSupportFragmentManager(), null);
             }
         });

@@ -37,13 +37,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements
         boolean saveCurrentState = sharedPreferences.getBoolean("save_current_state",true);
 
         ListPreference listPreference = (ListPreference) findPreference("dates_card_type");
-        ListPreference languagesPreference = (ListPreference) findPreference("Locale");
+
+        //ListPreference languagesPreference = (ListPreference) findPreference("Locale");
         SwitchPreference switchPreference = (SwitchPreference) findPreference("save_current_state");
 
         listPreference
                 .setSummary(texts[Integer.parseInt(sharedPreferences.getString("dates_card_type", "0"))]);
-        languagesPreference
-                .setSummary(languageTexts[Integer.parseInt(sharedPreferences.getString("Locale", "0"))]);
+//        languagesPreference
+//                .setSummary(languageTexts[Integer.parseInt(sharedPreferences.getString("Locale", "0"))]);
         switchPreference.setChecked(saveCurrentState);
 
     }

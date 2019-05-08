@@ -109,6 +109,9 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
             if(rightAnswersCount + wrongAnswersCount == 20 && isTestMode)
                 getFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseResultFragment.newInstance(VOICE,practiseResults,getArguments())).commit();
 
+            questionTextView.setText(currentDate.getEvent() + "\n" + currentDate.getDate());
+            if(currentDate.containsMonth())
+                questionTextView.setText(currentDate.getEvent() + "\n" + currentDate.getDate() + ", " + currentDate.getMonth());
 
             rightAnswersChip.setText(Integer.toString(rightAnswersCount));
             wrongAnswersChip.setText(Integer.toString(wrongAnswersCount));
@@ -192,7 +195,7 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PractiseHelpDialog helpDialog = new PractiseHelpDialog();
+                PractiseHelpDialog helpDialog = PractiseHelpDialog.newInstance(R.string.help_voice);
                 helpDialog.show(getActivity().getSupportFragmentManager(), null);
             }
         });

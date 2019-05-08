@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.appodeal.ads.Appodeal;
 import com.nollpointer.dates.R;
 import com.nollpointer.dates.cards.CardsFragment;
 import com.nollpointer.dates.distribute.DistributeFragment;
@@ -117,7 +119,7 @@ public class PractiseResultFragment extends Fragment {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Mate kudasai((", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Mate kudasai((", Toast.LENGTH_SHORT).show();
 
                 startPractise();
 
@@ -167,6 +169,9 @@ public class PractiseResultFragment extends Fragment {
             default:
                 fragment = CardsFragment.newInstance(dates, type);
         }
+
+        if(isTestMode)
+            showAds();
 
         getFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
 
@@ -229,25 +234,39 @@ public class PractiseResultFragment extends Fragment {
 
         String mark;
         int drawable;
+        String color;
+
+        String colors[] = {"\"#B71C1C\"","\"#FFEB3B\"", "\"#43a047\""};
 
         if (count < 5) {
             mark = getString(R.string.mark_very_bad);
             drawable = R.drawable.ic_sentiment_very_bad;
+            color = colors[0];
         } else if (count < 9) {
             mark = getString(R.string.mark_bad);
             drawable = R.drawable.ic_sentiment_bad;
+            color = colors[0];
         } else if (count < 13) {
             mark = getString(R.string.mark_neutral);
             drawable = R.drawable.ic_sentiment_neutral;
+            color = colors[1];
         } else if (count < 17) {
             mark = getString(R.string.mark_good);
             drawable = R.drawable.ic_sentiment_good;
+            color = colors[2];
         } else {
             mark = getString(R.string.mark_very_good);
             drawable = R.drawable.ic_sentiment_very_good;
+            color = colors[2];
         }
-        markTextView.setText("Ваш результат: " + mark + "\nВаши баллы: " + getMark(count));
+        markTextView.setText(Html.fromHtml("Ваш результат: <font color=" + color + ">" + mark + "</font><br>Ваши баллы: <font color=" + color + ">" + getMark(count) + "</font>"
+                ));
         markTextView.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
+    }
+
+    public void showAds(){
+        if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
+            Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
     }
 
     private String getMark(int count) {

@@ -190,7 +190,7 @@ public class TestFragment extends Fragment implements ResultDialog.ResultDialogC
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PractiseHelpDialog helpDialog = new PractiseHelpDialog();
+                PractiseHelpDialog helpDialog = PractiseHelpDialog.newInstance(R.string.help_test);
                 helpDialog.show(getActivity().getSupportFragmentManager(), null);
             }
         });

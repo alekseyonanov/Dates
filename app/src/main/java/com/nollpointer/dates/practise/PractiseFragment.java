@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.appodeal.ads.Appodeal;
 import com.google.android.material.tabs.TabLayout;
 import com.nollpointer.dates.R;
 import com.nollpointer.dates.activity.MainActivity;
@@ -41,7 +42,7 @@ public class PractiseFragment extends Fragment implements PractiseCellView.OnCli
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.practise_help) {
-                    PractiseHelpDialog helpDialog = new PractiseHelpDialog();
+                    PractiseHelpDialog helpDialog = PractiseHelpDialog.newInstance(R.string.help_practise);
                     helpDialog.show(getActivity().getSupportFragmentManager(), null);
                 }
 
@@ -96,6 +97,7 @@ public class PractiseFragment extends Fragment implements PractiseCellView.OnCli
             ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
         else
             mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, PractiseDetailsPickerFragment.newInstance(practise, practiseMode == 1, mainActivity.getMode())).addToBackStack(null).commit();
+
 
     }
 

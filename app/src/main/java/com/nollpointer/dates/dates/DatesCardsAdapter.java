@@ -93,7 +93,7 @@ public class DatesCardsAdapter extends RecyclerView.Adapter<DatesCardsAdapter.Vi
     }
 
     private void fillTopTexts(String[] texts, String[] add_texts) {
-        int[] positions_main = {0, 21, 41, 76, 107, 147, 195, 242, 284, 334};
+        int[] positions_main = {0, 21, 41, 85, 118, 160, 209, 256, 298, 348};
         int[] positions_easy = {0, 48};
         for (int i = 0; i < positions_main.length; i++)
             main_top_texts.put(positions_main[i], texts[i]);

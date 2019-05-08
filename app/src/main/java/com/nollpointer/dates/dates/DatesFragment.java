@@ -264,7 +264,7 @@ public class DatesFragment extends Fragment implements StartPosition, DatesCards
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RECOGNIZER_REQUEST_CODE)
-            if (data.getExtras().containsKey(RecognizerIntent.EXTRA_RESULTS)) {
+            if (data != null && data.getExtras().containsKey(RecognizerIntent.EXTRA_RESULTS)) {
                 ArrayList<String> text = data.getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
                 searchEditText.setText(text.get(0), TextView.BufferType.EDITABLE);
             }

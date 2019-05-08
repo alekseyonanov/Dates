@@ -190,7 +190,7 @@ public class SortFragment extends Fragment {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PractiseHelpDialog helpDialog = new PractiseHelpDialog();
+                PractiseHelpDialog helpDialog = PractiseHelpDialog.newInstance(R.string.help_sort);
                 helpDialog.show(getActivity().getSupportFragmentManager(), null);
             }
         });

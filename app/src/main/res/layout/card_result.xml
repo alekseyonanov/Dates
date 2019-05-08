@@ -33,7 +33,6 @@
         android:layout_height="24dp"
         android:layout_centerVertical="true"
         android:id="@+id/result_card_image_view"
-        android:src="@drawable/ic_correct"
         android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

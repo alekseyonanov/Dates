@@ -1,17 +1,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="Основные">
+    <PreferenceCategory android:title="Основные">
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="save_current_state"
-        android:summary="Предыдущий выбор типа и веков сохраняется и автоматически выставляется при выборе настроек для практики. "
-        android:title="Сохранение состояния" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="save_current_state"
+            android:summary="Предыдущий выбор типа и веков сохраняется и автоматически выставляется при выборе настроек для практики. "
+            android:title="Сохранение состояния" />
 
-    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
-    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
-    <!--<EditTextPreference-->
+        <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+        <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+        <!--<EditTextPreference-->
         <!--android:capitalize="words"-->
         <!--android:defaultValue="@string/pref_default_display_name"-->
         <!--android:inputType="textCapWords"-->
@@ -21,51 +20,53 @@
         <!--android:singleLine="true"-->
         <!--android:title="@string/pref_title_display_name" />-->
 
-    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
-         dismiss it. -->
-    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
-    <ListPreference
-        android:defaultValue="0"
-        android:entries="@array/dates_cards_types_entries"
-        android:entryValues="@array/dates_cards_types_values"
-        android:key="dates_card_type"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null"
-        android:title="Вид карточки с датами"
-        android:summary="По умолчанию"/>
-
+        <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+             dismiss it. -->
+        <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
         <ListPreference
             android:defaultValue="0"
-            android:entries="@array/languages_entries"
-            android:entryValues="@array/languages_values"
-            android:key="Locale"
+            android:entries="@array/dates_cards_types_entries"
+            android:entryValues="@array/dates_cards_types_values"
+            android:key="dates_card_type"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="Язык программы"
-            android:summary="По умолчанию"/>
+            android:summary="По умолчанию"
+            android:title="Вид карточки с датами" />
+
+        <!--<ListPreference-->
+            <!--android:defaultValue="0"-->
+            <!--android:entries="@array/languages_entries"-->
+            <!--android:entryValues="@array/languages_values"-->
+            <!--android:key="Locale"-->
+            <!--android:negativeButtonText="@null"-->
+            <!--android:positiveButtonText="@null"-->
+            <!--android:summary="По умолчанию"-->
+            <!--android:title="Язык программы" />-->
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="Информация">
+    <PreferenceCategory android:title="Информация">
 
         <Preference android:title="FAQ">
-            <intent android:action="android.intent.action.VIEW"
+            <intent
+                android:action="android.intent.action.VIEW"
                 android:data="https://n0llpointer.github.io/Dates/" />
         </Preference>
 
         <Preference android:title="Beta Testing">
-            <intent android:action="android.intent.action.VIEW"
+            <intent
+                android:action="android.intent.action.VIEW"
                 android:data="https://play.google.com/apps/testing/com.nollpointer.dates" />
         </Preference>
 
         <Preference android:title="Privacy Policy">
-            <intent android:action="android.intent.action.VIEW"
+            <intent
+                android:action="android.intent.action.VIEW"
                 android:data="https://www.freeprivacypolicy.com/privacy/view/c2d1b7e42bda8303e1b3c50a6755a6fa" />
         </Preference>
         <!--<Preference android:title="Страница Разработчика">-->
-            <!--<intent android:action="android.intent.action.VIEW"-->
-                <!--android:data="market://dev?id=5700313618786177705" />-->
+        <!--<intent android:action="android.intent.action.VIEW"-->
+        <!--android:data="market://dev?id=5700313618786177705" />-->
         <!--</Preference>-->
 
     </PreferenceCategory>

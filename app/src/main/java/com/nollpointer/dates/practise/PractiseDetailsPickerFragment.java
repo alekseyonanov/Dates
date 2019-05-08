@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.appodeal.ads.Appodeal;
+import com.flurry.android.FlurryAgent;
 import com.google.android.material.chip.ChipGroup;
 import com.nollpointer.dates.R;
 import com.nollpointer.dates.activity.MainActivity;
@@ -204,7 +206,7 @@ public class PractiseDetailsPickerFragment extends Fragment {
     private ArrayList<Integer> generateFullCenturiesList(int mode) {
         ArrayList<Integer> list = new ArrayList<>();
         int max = mode == FULL_DATES_MODE ? 10 : 2;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < max; i++) {
             list.add(i);
         }
 
@@ -251,33 +253,53 @@ public class PractiseDetailsPickerFragment extends Fragment {
         String practise = getArguments().getString(PRACTISE);
         boolean isTestMode = getArguments().getBoolean(TEST_MODE);
         Fragment fragment;
+        String event;
 
         switch (practise) {
             case CARDS:
                 fragment = CardsFragment.newInstance(dates, type);
+                event = "Cards";
                 break;
             case VOICE:
                 fragment = VoiceFragment.newInstance(dates, type, getDifficulty(), isTestMode);
+                event = "Voice";
                 break;
             case TEST:
                 fragment = TestFragment.newInstance(dates, type, getDifficulty(), isTestMode);
+                event = "Test";
                 break;
             case TRUE_FALSE:
                 fragment = TrueFalseFragment.newInstance(dates, getDifficulty(), isTestMode);
+                event = "TrueFalse";
                 break;
             case SORT:
                 fragment = SortFragment.newInstance(dates, getDifficulty(), isTestMode);
+                event = "Sort";
                 break;
             case DISTRIBUTE:
                 fragment = new DistributeFragment();
+                event = "Distribute";
                 break;
             default:
                 fragment = CardsFragment.newInstance(dates, type);
+                event = "Cards";
         }
 
+        if(isTestMode) {
+            showAds();
+            event+="_Test";
+        }
+
+        FlurryAgent.logEvent(event);
         getFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
 
     }
+
+    public void showAds(){
+        if(Appodeal.isLoaded(Appodeal.INTERSTITIAL))
+            Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
+    }
+
 
     private int getDifficulty() {
         int checkedId = difficultyChipGroup.getCheckedChipId();
@@ -342,35 +364,35 @@ public class PractiseDetailsPickerFragment extends Fragment {
                     break;
                 case 2:
                     start = 41;
-                    end = start + 35;
+                    end = start + 44;
                     break;
                 case 3:
-                    start = 76;
-                    end = start + 31;
+                    start = 85;
+                    end = start + 33;
                     break;
                 case 4:
-                    start = 107;
-                    end = start + 40;
+                    start = 118;
+                    end = start + 42;
                     break;
                 case 5:
-                    start = 147;
-                    end = start + 48;
+                    start = 160;
+                    end = start + 49;
                     break;
                 case 6:
-                    start = 195;
-                    end = start + 48;
+                    start = 209;
+                    end = start + 47;
                     break;
                 case 7:
-                    start = 242;
+                    start = 256;
                     end = start + 42;
                     break;
                 case 8:
-                    start = 284;
+                    start = 298;
                     end = start + 50;
                     break;
                 case 9:
-                    start = 334;
-                    end = start + 50;
+                    start = 348;
+                    end = start + 58;
                     break;
             }
         } else {
