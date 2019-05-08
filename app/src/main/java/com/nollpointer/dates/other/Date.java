@@ -78,8 +78,9 @@ public class Date implements Parcelable, Comparable<Date>{
         return date.contains("-") || date.contains("–") || date.contains("–") || date.contains(",") || date.contains("в");
     }
 
-    public boolean contains(String query){
-        return date.toLowerCase().contains(query.toLowerCase()) || event.toLowerCase().contains(query.toLowerCase());
+    public boolean contains(String q){
+        String query = q.toLowerCase();
+        return date.toLowerCase().contains(query) || event.toLowerCase().contains(query) || (containsMonth() && month.toLowerCase().contains(query));
     }
 
     @Override
