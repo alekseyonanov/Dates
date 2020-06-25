@@ -41,7 +41,7 @@
         android:layout_above="@id/true_false_button_container"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_gravity="fill">
+        android:layout_gravity="fill">
 
 
         <!--android:animateLayoutChanges="true"-->
@@ -159,7 +159,7 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/true_button"
             android:textColor="@android:color/white"
-            app:layout_gravity="start" />
+            android:layout_gravity="start" />
 
         <android.widget.Button
             android:id="@+id/false_button"
@@ -171,7 +171,7 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/false_button"
             android:textColor="@android:color/white"
-            app:layout_gravity="end" />
+            android:layout_gravity="end" />
 
     </LinearLayout>
 

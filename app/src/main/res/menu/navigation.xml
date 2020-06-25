@@ -7,6 +7,11 @@
         android:title=""/>
 
     <item
+        android:id="@+id/navigation_terms"
+        android:icon="@drawable/ic_terms"
+        android:title=""/>
+
+    <item
         android:id="@+id/navigation_practise"
         android:icon="@drawable/ic_school_black_24dp"
         android:title=""/>

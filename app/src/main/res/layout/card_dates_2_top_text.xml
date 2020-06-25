@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
-        android:background="#EEEEEE"
-        android:gravity="center_horizontal"
-        android:text="XIII"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:textSize="16.0sp"/>
+        android:background="#f8f7f5"
+        android:gravity="start"
+        android:paddingLeft="16.0dip"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="13213123213"
+        android:textColor="#757472"
+        android:textSize="16.0sp"
+        android:textStyle="bold" />
 
 
     <LinearLayout
-        android:layout_below="@id/textTitle"
         android:id="@+id/ll_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textTitle"
         android:layout_weight="1.0"
         android:orientation="horizontal"
         android:paddingLeft="16.0dip"
@@ -42,10 +43,10 @@
             android:textSize="32.0sp" />
 
         <TextView
-            android:layout_marginLeft="4dp"
             android:id="@+id/text3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:fontFamily="sans-serif-thin"
             android:gravity="center_vertical"
             android:textAllCaps="true"

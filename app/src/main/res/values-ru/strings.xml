@@ -99,10 +99,10 @@
     <string-array name="practise_description">
         <item>Карточки с датами</item>
         <item>Голосовая проверка дат</item>
-        <item>Бесконечный тест</item>
-        <item>Бесконечная проверка</item>
-        <item>Сортировка без конца</item>
-        <item>Сортировка без конца</item>
+        <item>Школьный тест</item>
+        <item>Верно или ошибочно</item>
+        <item>Сортировка по возрастанию</item>
+        <item>Туда или сюда</item>
     </string-array>
 
     <string-array name="tests_description">
@@ -204,5 +204,12 @@
     <string name="help_true_false">Проверка на правильность утверждение, как в тестах по английскому языку. Дано утверждение, надо определить, оно правильное или ложное. В настройках можно поменять время задержки. Желаем удачи!</string>
     <string name="help_sort">Сортировка событий в хронологической последовательности, как в Егэ по Истории. Дано некоторое число событий, которые надо упорядочить в хронологической последовательности (от раннего к позднему) . В настройках можно поменять время задержки. Желаем удачи!</string>
 
+    <string name="twitter_label">Twitter</string>
+    <string name="telegram_label">Telegram</string>
+    <string name="vk_label">VK</string>
+    <string name="instagram_label">Instagram</string>
+    <string name="mail_label">Электронная почта</string>
+
+    <string name="game_label">Игра</string>
 
 </resources>

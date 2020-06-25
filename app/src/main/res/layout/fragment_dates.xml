@@ -1,137 +1,127 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/dates_toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/id_appbar"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
-        app:theme="@style/ToolBarStyle"
-        app:title="@string/title_dates"
-        app:titleTextColor="@android:color/white" />
+        android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/dates_card_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:visibility="gone"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="2dp">
-
-        <LinearLayout
-            android:id="@+id/linearLayout_search"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways">
 
-            <ImageView
-                android:id="@+id/dates_image_search_back"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="Search"
-                android:padding="12dp" />
 
-            <EditText
-                android:id="@+id/dates_edit_text_search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#fff"
-                android:gravity="center_vertical"
-                android:hint="Поиск"
-                android:imeOptions="actionSearch"
-                android:inputType="textCapWords"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:singleLine="true" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/dates_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:background="@color/colorPrimary"
+                app:theme="@style/ToolBarStyle"
+                app:title="123123"
+                app:titleTextColor="@android:color/white" />
 
-            <ImageView
-                android:id="@+id/dates_search_multi_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="Cancel"
-                android:padding="12dp" />
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/main_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/dates_toolbar">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/id_appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dates_card_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways">
+                android:layout_margin="4dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="2dp">
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/id_tabs"
+                <LinearLayout
+                    android:id="@+id/linearLayout_search"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    app:tabGravity="fill"
-                    app:tabMode="scrollable"
-                    app:tabSelectedTextColor="@android:color/black"
-                    app:tabTextColor="@color/colorMask">
+                    android:layout_height="48dp">
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dates_all" />
+                    <ImageView
+                        android:id="@+id/dates_image_search_back"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="Search"
+                        android:padding="12dp" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dates_management" />
+                    <EditText
+                        android:id="@+id/dates_edit_text_search"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#fff"
+                        android:gravity="center_vertical"
+                        android:hint="Поиск"
+                        android:imeOptions="actionSearch"
+                        android:inputType="textCapWords"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:singleLine="true" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dates_war" />
+                    <ImageView
+                        android:id="@+id/dates_search_multi_button"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="Cancel"
+                        android:padding="12dp" />
+                </LinearLayout>
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dates_reforms" />
+            </androidx.cardview.widget.CardView>
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dates_revolt" />
+            <!--                <com.google.android.material.tabs.TabLayout-->
+            <!--                    android:id="@+id/id_tabs"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:background="@android:color/white"-->
+            <!--                    app:tabGravity="fill"-->
+            <!--                    app:tabMode="scrollable"-->
+            <!--                    app:tabSelectedTextColor="@android:color/black"-->
+            <!--                    app:tabTextColor="@color/colorMask">-->
 
-                </com.google.android.material.tabs.TabLayout>
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+            <!--                    <com.google.android.material.tabs.TabItem-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="@string/dates_all" />-->
 
-        </com.google.android.material.appbar.AppBarLayout>
+            <!--                    <com.google.android.material.tabs.TabItem-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="@string/dates_management" />-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dates_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            <!--                    <com.google.android.material.tabs.TabItem-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="@string/dates_war" />-->
 
-            />
+            <!--                    <com.google.android.material.tabs.TabItem-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="@string/dates_reforms" />-->
+
+            <!--                    <com.google.android.material.tabs.TabItem-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="@string/dates_revolt" />-->
+
+            <!--                </com.google.android.material.tabs.TabLayout>-->
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dates_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        />
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
