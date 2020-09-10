@@ -1,30 +1,35 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
+    android:background="@color/colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/id_appbar"
+        android:id="@+id/termsAppbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:titleEnabled="false">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:titleEnabled="false">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/terms_toolbar"
+                android:id="@+id/termsToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
                 android:background="@color/colorPrimary"
+                app:menu="@menu/terms_menu"
                 app:theme="@style/ToolBarStyle"
-                app:title="123123"
+                app:title="@string/terms_title"
                 app:titleTextColor="@android:color/white" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/terms_card_search"
+                android:id="@+id/termsCardSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -33,27 +38,28 @@
                 app:cardCornerRadius="2dp">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_search"
+                    android:id="@+id/linearLayoutSearch"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
 
                     <ImageView
-                        android:id="@+id/terms_image_search_back"
+                        android:id="@+id/termsImageSearchBack"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
-                        android:contentDescription="Search"
+                        android:contentDescription="@string/search_back_description"
+                        android:focusable="true"
                         android:padding="12dp" />
 
                     <EditText
-                        android:id="@+id/terms_edit_text_search"
+                        android:id="@+id/termsEditTextSearch"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="#fff"
                         android:gravity="center_vertical"
-                        android:hint="Поиск"
+                        android:hint="@string/search_hint"
                         android:imeOptions="actionSearch"
                         android:inputType="textCapWords"
                         android:paddingLeft="8dp"
@@ -61,12 +67,13 @@
                         android:singleLine="true" />
 
                     <ImageView
-                        android:id="@+id/terms_search_multi_button"
+                        android:id="@+id/termsSearchMultiButton"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
-                        android:contentDescription="Cancel"
+                        android:contentDescription="@string/search_multi_button_description"
+                        android:focusable="true"
                         android:padding="12dp" />
                 </LinearLayout>
 
@@ -77,11 +84,11 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/terms_recycler_view"
+        android:id="@+id/termsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/item_term" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

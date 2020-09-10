@@ -3,51 +3,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#eeeeee">
+    android:background="@color/colorBackground">
 
-    <ImageButton
-        android:id="@+id/true_false_back_button"
+    <ImageView
+        android:id="@+id/trueFalseBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:background="@drawable/practise_back_button" />
+        android:layout_alignParentTop="true"
+        android:layout_margin="8dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_back_black" />
 
-    <LinearLayout
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentTop="true"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:background="@drawable/practise_rating_button"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/trueFalseHelp"-->
+    <!--            android:layout_width="64dp"-->
+    <!--            android:layout_height="56dp"-->
+    <!--            android:background="@android:color/transparent" />-->
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/trueFalseSettings"-->
+    <!--            android:layout_width="64dp"-->
+    <!--            android:layout_height="56dp"-->
+    <!--            android:background="@android:color/transparent" />-->
+
+    <!--    </LinearLayout>-->
+
+
+    <ImageView
+        android:id="@+id/trueFalseSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:orientation="horizontal"
-        android:background="@drawable/practise_rating_button">
-
-        <ImageButton
-            android:background="@android:color/transparent"
-            android:id="@+id/true_false_help_button"
-            android:layout_width="64dp"
-            android:layout_height="56dp" />
-
-        <ImageButton
-            android:background="@android:color/transparent"
-            android:id="@+id/true_false_settings_button"
-            android:layout_width="64dp"
-            android:layout_height="56dp" />
-
-    </LinearLayout>
+        android:layout_margin="8dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:src="@drawable/ic_settings_black" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/true_false_button_container"
+        android:layout_above="@id/trueFalseButtonContainer"
+        android:layout_gravity="fill"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_gravity="fill">
-
-
-        <!--android:animateLayoutChanges="true"-->
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/test_info_true_false_date"
+            android:id="@+id/trueFalseDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -60,48 +75,46 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/test_info_true_false_event"
+            android:id="@+id/trueFalseEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:textSize="28sp"
             android:gravity="top|center"
             android:text="Правление петуча"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="28sp" />
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/true_false_result_image"
-            android:visibility="invisible"/>
+            android:id="@+id/trueFalseResult"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
-
-
-
-    <HorizontalScrollView
+    <RelativeLayout
         android:id="@+id/testInfoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/true_false_button_container"
+        android:layout_above="@id/trueFalseButtonContainer"
         android:minHeight="?android:attr/listPreferredItemHeight">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/testInfoChipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
             app:singleLine="true"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:layout_margin="4dp"
-                android:id="@+id/trueFalseRightAnswers"
+                android:id="@+id/trueFalseRightAnswersChip"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:clickable="false"
                 android:text="0"
                 app:chipBackgroundColor="@android:color/white"
@@ -109,22 +122,23 @@
                 app:iconStartPadding="2dp" />
 
             <com.google.android.material.chip.Chip
-                android:layout_margin="4dp"
-                android:id="@+id/trueFalseQuestionNumber"
+                android:id="@+id/trueFalseQuestionNumberChip"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:layout_marginStart="12dip"
                 android:clickable="false"
+                android:gravity="clip_horizontal"
                 android:text="#1"
                 app:chipBackgroundColor="@android:color/white" />
 
             <com.google.android.material.chip.Chip
-                android:layout_margin="4dp"
-                android:id="@+id/trueFalseWrongAnswers"
+                android:id="@+id/trueFalseWrongAnswersChip"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:clickable="false"
                 android:text="0"
                 app:chipBackgroundColor="@android:color/white"
@@ -132,7 +146,18 @@
                 app:iconStartPadding="2dp" />
 
         </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/trueFalseNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/colorSettingsCategory"
+            android:src="@drawable/ic_next"
+            app:elevation="0dp"
+            app:fabSize="mini" />
+    </RelativeLayout>
 
     <com.appodeal.ads.BannerView
         android:id="@+id/appodealBannerView_true"
@@ -142,7 +167,7 @@
         android:visibility="gone" />
 
     <LinearLayout
-        android:id="@+id/true_false_button_container"
+        android:id="@+id/trueFalseButtonContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -150,28 +175,28 @@
         android:orientation="horizontal">
 
         <android.widget.Button
-            android:id="@+id/true_button"
+            android:id="@+id/trueFalseTrueButton"
             style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:layout_weight="1"
             android:background="@color/colorTest"
             android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/true_button"
-            android:textColor="@android:color/white"
-            android:layout_gravity="start" />
+            android:textColor="@android:color/white" />
 
         <android.widget.Button
-            android:id="@+id/false_button"
+            android:id="@+id/trueFalseFalseButton"
             style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/false_button"
-            android:textColor="@android:color/white"
-            android:layout_gravity="end" />
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/settingsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back_white"
+        app:theme="@style/ToolBarStyle"
+        app:title="@string/settings_title"
+        app:titleTextColor="@android:color/white" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/practise_details_picker_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/difficultyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="Отображение"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/settingsDatesView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackground"
+                android:background="@android:color/white"
+                android:drawableStart="@drawable/ic_dates"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:paddingStart="16dp"
+                android:text="@string/settings_dates_view"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/settingsTermsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackground"
+                android:background="@android:color/white"
+                android:drawableStart="@drawable/ic_terms"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:layout_marginBottom="16dp"
+                android:paddingStart="16dp"
+                android:text="@string/settings_terms_view"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/black" />
+
+
+            <!--            <Switch-->
+            <!--                style="?android:attr/switchPreferenceStyle"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:padding="10dp"-->
+            <!--                android:paddingStart="16dp"-->
+            <!--                android:text="Сохранять прошлый выбор"-->
+            <!--                android:textAppearance="?android:textAppearanceMedium"-->
+            <!--                android:textColor="@android:color/black" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/typeTitle"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="16dp"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:layout_marginBottom="4dp"-->
+            <!--                android:text="Тип"-->
+            <!--                android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--                android:textColor="@color/colorSettingsCategory"-->
+            <!--                android:textSize="14sp" />-->
+
+            <TextView
+                android:id="@+id/centuryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="@string/information_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/settingsAboutApp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackground"
+                android:background="@android:color/white"
+                android:drawableStart="@drawable/ic_app_info"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:layout_marginBottom="16dp"
+                android:paddingStart="16dp"
+                android:text="@string/about_title"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/settingsResetTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="@string/settings_reset_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/settingsResetSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackground"
+                android:background="@android:color/white"
+                android:drawableStart="@drawable/ic_reset"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:paddingStart="16dp"
+                android:text="@string/settings_reset"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

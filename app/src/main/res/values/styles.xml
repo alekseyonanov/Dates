@@ -15,21 +15,6 @@
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
-    <style name="SettingsActivityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="CardsShowDownStyle" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">@color/colorDatesShowDown</item>
-    </style>
-
-    <style name="TestStyle" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">@color/colorBackgroundTest</item>
-    </style>
-
     <style name="ToolBarStyle" parent="Theme.AppCompat.Light">
         <item name="android:tint">@android:color/white</item>
     </style>
@@ -57,6 +42,26 @@
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/more_info_dialog_background</item>
+    </style>
+
+    <!--Сообщение об ошибке-->
+    <style name="Widget.App.TextView.NoData" parent="">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#858585</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="subtext_medium_grey">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#9A9A9A</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
 </resources>

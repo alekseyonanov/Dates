@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dip"
+        android:paddingBottom="4dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/colorSettingsCategory"
+        android:textSize="14sp"
+        tools:text="XX век" />
+
+    <TextView
+        android:layout_below="@id/textTitle"
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="12dp"
+        android:paddingRight="16dp"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        tools:text="1987" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text1"
+        android:background="@android:color/white"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="4dp"
+        android:textColor="#616161"
+        android:textSize="18.0sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:text="февраль" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text3"
+        android:background="@android:color/white"
+        android:fontFamily="sans-serif"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="12dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        tools:text="стория область знаний, а также гуманитарная наука, занимающаяся изучением человека его деятельности, состояния, мировоззрения в прошлом времени." />
+
+</RelativeLayout>

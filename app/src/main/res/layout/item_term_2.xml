@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_vertical"
+        android:paddingLeft="16.0dip"
+        android:background="@android:color/white"
+        android:paddingTop="12.0dip"
+        android:paddingRight="16.0dip"
+        tools:text="Антипартийная группа"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:paddingLeft="16.0dip"
+        android:paddingRight="16.0dip"
+        android:background="@android:color/white"
+        android:paddingBottom="12.0dip"
+        tools:text="История область знаний, а также гуманитарная наука, занимающаяся изучением человека его деятельности, состояния, мировоззрения в прошлом времени."
+        android:textColor="@android:color/black"
+        android:textSize="16.0sp" />
+</LinearLayout>

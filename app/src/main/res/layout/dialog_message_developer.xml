@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/telegram_message"
+        android:id="@+id/telegramMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_telegram"
@@ -20,7 +19,7 @@
         android:textColor="#808080" />
 
     <TextView
-        android:id="@+id/twitter_message"
+        android:id="@+id/twitterMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_twitter"
@@ -33,10 +32,10 @@
         android:textColor="#808080" />
 
     <TextView
-        android:id="@+id/mail_message"
+        android:id="@+id/mailMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/email"
+        android:drawableStart="@drawable/ic_email"
         android:drawablePadding="36dp"
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/setDetailsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back_white"
+        app:theme="@style/ToolBarStyle"
+        app:title="@string/title_analyze"
+        app:titleTextColor="@android:color/white" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/practise_details_picker_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/difficultyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="Ваш результат"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/setDetailsTestSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:text="8"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="18"
+                    android:background="@color/colorTest"
+                    android:gravity="center"
+                    android:text="12"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/typeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="Тип"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/setDetailsSingleRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/typeTitle"
+                android:layout_marginBottom="16dp"
+                android:background="@android:color/white"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_select_singlechoice" />
+
+            <TextView
+                android:id="@+id/centuryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="Столетия"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/setDetailsMultiRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/centuryTitle"
+                android:background="@android:color/white"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_select_multichoice" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <android.widget.Button
+        android:id="@+id/setDetailsSelectButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/button_practise_select"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="Сохранить"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

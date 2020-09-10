@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee">
+    android:background="@color/colorBackground">
 
 
     <ImageButton
-        android:id="@+id/voice_back_button"
+        android:id="@+id/voiceBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -22,13 +22,13 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/voice_help_button"
+            android:id="@+id/voiceHelp"
             android:layout_width="64dp"
             android:layout_height="56dp"
             android:background="@android:color/transparent" />
 
         <ImageButton
-            android:id="@+id/voice_settings_button"
+            android:id="@+id/voiceSettings"
             android:layout_width="64dp"
             android:layout_height="56dp"
             android:background="@android:color/transparent" />
@@ -55,7 +55,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/voice_result_image"
+            android:id="@+id/voiceResult"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:visibility="invisible" />
@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/voiceInfoContainer"
-        android:padding="4dp"
+        android:padding="16dp"
         android:text="asdasdasd11d1212d1d2" />
 
 
@@ -87,7 +87,7 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/voiceRightAnswers"
+                android:id="@+id/voiceRightAnswersChip"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                 app:iconStartPadding="2dp" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/voiceQuestionNumber"
+                android:id="@+id/voiceQuestionNumberChip"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                 app:chipBackgroundColor="@android:color/white" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/voiceWrongAnswers"
+                android:id="@+id/voiceWrongAnswersChip"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,12 +135,12 @@
         android:id="@+id/voiceVisualizerContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/voice_check"
+        android:layout_above="@id/voiceCheck"
         android:layout_gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeight">
 
 
-        <com.nollpointer.dates.voice.VisualizerView
+        <com.nollpointer.dates.ui.voice.VisualizerView
             android:id="@+id/voiceVisualizer"
             android:layout_width="match_parent"
             android:layout_height="3dp"
@@ -158,7 +158,7 @@
     </RelativeLayout>
 
     <android.widget.Button
-        android:id="@+id/voice_check"
+        android:id="@+id/voiceCheck"
         style="?android:borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -167,6 +167,5 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/check_button"
         android:textColor="@android:color/white" />
-
 
 </RelativeLayout>

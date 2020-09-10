@@ -6,7 +6,7 @@
         android:id="@+id/dates_app_bar_search"
         android:icon="@drawable/ic_settings"
         android:orderInCategory="12"
-        android:title="Search"
+        android:title="@string/settings"
         app:showAsAction="ifRoom" />
 
 </menu>

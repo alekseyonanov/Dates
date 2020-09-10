@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="dates_full_positions">
+        <item>0</item>
+        <item>21</item>
+        <item>41</item>
+        <item>85</item>
+        <item>118</item>
+        <item>160</item>
+        <item>209</item>
+        <item>256</item>
+        <item>298</item>
+        <item>348</item>
+    </integer-array>
+
+    <integer-array name="dates_easy_positions">
+        <item>0</item>
+        <item>48</item>
+    </integer-array>
+    
+    <integer-array name="terms_positions">
+        <item>0</item>
+        <item>22</item>
+        <item>51</item>
+        <item>90</item>
+        <item>110</item>
+        <item>137</item>
+        <item>139</item>
+        <item>141</item>
+        <item>160</item>
+        <item>167</item>
+        <item>217</item>
+        <item>228</item>
+        <item>258</item>
+        <item>283</item>
+        <item>305</item>
+        <item>370</item>
+        <item>398</item>
+        <item>445</item>
+        <item>458</item>
+        <item>472</item>
+        <item>480</item>
+        <item>487</item>
+        <item>495</item>
+        <item>504</item>
+        <item>509</item>
+        <item>511</item>
+        <item>512</item>
+    </integer-array>
+
+    <integer-array name="intro_images">
+        <item>@drawable/ic_applogo</item>
+        <item>@drawable/ic_applogo</item>
+        <item>@drawable/ic_applogo</item>
+        <item>@drawable/ic_applogo</item>
+        <item>@drawable/ic_applogo</item>
+        <item>@drawable/ic_applogo</item>
+    </integer-array>
+
+</resources>

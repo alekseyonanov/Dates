@@ -1,0 +1,140 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/setDetailsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back_white"
+        app:theme="@style/ToolBarStyle"
+        app:title="@string/title_details_picker"
+        app:titleTextColor="@android:color/white" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="@string/set_details_test_mode_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <Switch
+                android:id="@+id/setDetailsTestSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@android:color/white"
+                android:padding="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/set_details_test_mode"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/setDetailsSingleTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="@string/set_details_single_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/setDetailsSingleRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@android:color/white"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_select_singlechoice" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:id="@+id/setDetailsMultiTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="16dip"
+                    android:paddingBottom="4dp"
+                    android:text="@string/set_details_multi_title"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/colorSettingsCategory"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/setDetailsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="16dip"
+                    android:paddingBottom="4dp"
+                    android:text="@string/set_dates_count"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#9E9E9E"
+                    android:textSize="14sp"
+                    tools:ignore="RelativeOverlap" />
+
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/setDetailsMultiRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_select_multichoice" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <android.widget.Button
+        android:id="@+id/setDetailsSelectButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/button_practise_select"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/set_dates_test_button"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

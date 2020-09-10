@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/noDataView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    tools:ignore="SpUsage"
+    tools:visibility="visible">
+
+    <TextView
+        android:id="@+id/noDataMessage"
+        style="@style/Widget.App.TextView.NoData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:drawablePadding="32dp"
+        android:text="@string/no_data"
+        android:textAllCaps="false"
+        android:textSize="30dp" />
+
+</FrameLayout>
+

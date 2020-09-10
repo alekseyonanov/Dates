@@ -1,169 +1,263 @@
 <resources>
-    <string name="app_name">Dates</string>
-    <string name="title_practise">Tests</string>
-    <string name="title_dates">Dates</string>
-    <string name="title_menu">Menu</string>
-    <string name="title_statistics">Statistics</string>
-    <string name="title_details_picker">Details Picker</string>
-    <string name="title_game">Game</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="settings">Settings</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="dialog_title">Pick Date interval</string>
-    <string name="ok_button">Ok</string>
-    <string name="cancel_button">Cancel</string>
-    <string name="type_pick_title">Pick Type</string>
-    <string name="mode_switch">Mode Switch</string>
-    <string name="true_button">True</string>
-    <string name="false_button">False</string>
-    <string name="mistakes">Mistakes</string>
-    <string name="next_sort">Next</string>
 
-    <string name="close_button">Close</string>
+    <!--Application-->
+    <string name="app_name">Даты</string>
+    <string name="app_version">Версия 2.1.9B</string>
+    <string name="app_logo">Логотип приложения</string>
 
-    <string name="no_internet_connection">No Internet Connection</string>
-    <string name="try_again">Try Again</string>
-    <string name="easy_mode">Easy Mode</string>
-    <string name="full_mode">Full Mode</string>
-    <string name="tutorial_dates">Click on date to get more info</string>
-    <string name="tutorial_switch">Here you can switch dates mode</string>
-    <string name="tutorial_bottom_view">Here you can move between theory and practise</string>
-    <string name="tutorial_practise">Here you can find different types of practise</string>
+    <string name="title_practise">Практика</string>
+    <string name="title_dates">Даты</string>
+    <string name="title_menu">Меню</string>
+    <string name="title_statistics">Статистика</string>
+    <string name="title_details_picker">Выбор настроек</string>
+    <string name="title_practise_settings">Настройки практики</string>
+    <string name="title_analyze">Настройки практики</string>
+    <string name="title_game">Игра</string>
+    <string name="title_notifications">Уведомления</string>
+    <string name="settings">Настройки</string>
+    <string name="title_activity_settings">Настройки</string>
 
-    <string name="tutorial_cards">Try to call to mind date. If you can\'t remember, press \'?\'</string>
-    <string name="tutorial_true_false">If date and description doesn\'t match press false, otherwise press true</string>
-    <string name="tutorial_sort">Press on date to change its order number</string>
-    <string name="tutorial_sort_check">Here you can check your answer momentarily. Click on the date to change its order.</string>
+    <string name="hello_blank_fragment">Привет от пустого фрагмента =)</string>
 
-    <string name="got_it">Got it</string>
+    <!--IntroductionFragment-->
+    <string name="skip">Пропустить</string>
+    <string name="next">Далее</string>
+    <string name="ready">Готово</string>
 
-    <string name="go_to_wikipedia">Go To Wikipedia</string>
+    <!--DatesFragment-->
+    <string name="dates_all">Все</string>
+    <string name="dates_management">Правления</string>
+    <string name="dates_war">Войны</string>
+    <string name="dates_reforms">Реформы</string>
+    <string name="dates_revolt">Восстания</string>
+    <string name="dates_search">Поиск по датам</string>
 
-    <string name="check_button">Check</string>
-    <string name="sotr_text">Sort in ascending sequence</string>
+    <!--TermsFragment-->
+    <string name="terms_search">Search by terms</string>
 
-    <string name="message_developer">Message Developer</string>
-    <string name="message_developer_title">Dates Application</string>
+    <!--PractiseFragment-->
+    <string name="practise_dates_title">Даты</string>
+    <string name="practise_terms_title">Термины</string>
+
+    <!--StatisticsFragment-->
 
 
-    <string name="reset_button">Reset</string>
-    <string name="exit_button">Exit</string>
+    <!--MenuFragment-->
+    <string name="easy_mode">Необходимый минимум</string>
+    <string name="full_mode">Расширенный режим</string>
 
-    <string name="current_result">Your current result: </string>
-    <string name="best_result">Your best result in session: </string>
-    <string name="cur_mark">Your current mark: </string>
+    <string name="twitter_label">Twitter</string>
+    <string name="telegram_label">Telegram</string>
+    <string name="vk_label">VK</string>
+    <string name="instagram_label">Instagram</string>
+    <string name="mail_label">Электронная почта</string>
+    <string name="onanov_ru">onanov.ru</string>
 
-    <string name="mark_very_bad">Very Bad</string>
-    <string name="mark_bad">Bad</string>
-    <string name="mark_neutral">Satisfactorily</string>
-    <string name="mark_good">Good</string>
-    <string name="mark_very_good">Very Good</string>
+    <string name="game_label">Игра</string>
 
-    <string name="dates_all">All</string>
-    <string name="dates_management">Management</string>
-    <string name="dates_war">Wars</string>
-    <string name="dates_reforms">Reforms</string>
-    <string name="dates_revolt">Revolt</string>
 
-    <string name="date_check_text">This was</string>
+    <!--BaseDetailsFragment-->
+    <string name="loading_data">Данные загружаются…</string>
 
+    <!--DatesDetailsFragment-->
+    <!--TermsDetailsFragment-->
+
+    <!--SettingsFragment-->
+    <!--AboutFragment-->
+    <!--DatesViewFragment-->
+    <!--TermsViewFragment-->
+
+    <!--PractiseSelectFragment-->
+    <string name="set_details_test_mode">Режим тестирования</string>
+    <string name="set_details_single_title">Тип</string>
+    <string name="set_dates_count">0 дат(ы)</string>
+    <string name="set_details_test_mode_title">Режим</string>
+    <string name="date_count">дат(ы)</string>
+    <string name="set_details_multi_title">Столетия</string>
+    <string name="set_dates_test_button">Начать</string>
+
+
+    <!--PractiseResultFragment-->
+    <string name="reset_button">Еще раз!</string>
+    <string name="exit_button">Выход</string>
+
+    <string name="current_result">Ваш текущий результат: </string>
+    <string name="best_result">Ваш лучший результат за эту сессию: </string>
+    <string name="cur_mark">Ваша текущая оценка: </string>
+
+    <string name="mark_very_bad">Очень Плохо</string>
+    <string name="mark_bad">Плохо</string>
+    <string name="mark_neutral">Удовлетворительно</string>
+    <string name="mark_good">Хорошо</string>
+    <string name="mark_very_good">Отлично</string>
+
+    <string name="mistakes">Ошибки</string>
+
+
+    <!--CardsFragment-->
+    <!--VoiceFragment-->
+    <string name="check_button">Проверить</string>
+
+
+    <!--TestFragment-->
+    <!--TrueFalseFragment-->
+    <string name="true_button">Правда</string>
+    <string name="false_button">Ложь</string>
+
+
+    <!--SortFragment-->
+    <string name="sort_text">Расположите в хронологической последовательности</string>
+
+
+    <!--DistributionFragment-->
+
+
+    <!--GDPRFragment-->
+    <string name="gdpr_title">Персонализируйте Вашу рекламу</string>
+    <string name="gdpr_agree">Да, я согласен</string>
+    <string name="gdpr_disagree">Нет, спасибо</string>
+    <string name="gdpr_understand">Я понимаю, что буду видеть рекламу, но она может не совпадать с моими интересами.</string>
+    <string name="gdpr_learn_more">Узнать больше.</string>
+
+    <!--GDPRResultFragment-->
+    <string name="gdpr_main_text">Даты персонализируют Вашу рекламу, используя Appodeal. Appodeal и его партнеры могут собирать и обрабатывать Ваши такие персональные данные, как идентификатор устройства, демографические данные и другую информацию, которая позволит предоставить Вам рекламу, связанную с Вашими интересами. Соглашаясь с этими условиями, Вы увидите рекламу, которую Appodeal и его партнеры считают более подходящей для Вас. Узнать больше.\n\nСоглашаясь, Вы подтверждаете, что вам уже исполнилось 16 и Вы хотите персональную рекламу.</string>
+    <string name="gdpr_agree_text">Отлично. Мы надеемся, что Вы получите удовольствие от вашей персональной рекламы. Если вы когда-либо передумаете, для этого достаточно переустановить приложение.</string>
+    <string name="gdpr_disagree_text">Appodeal не будет собирать вашу информацию для персональной рекламы в этом приложении. Однако, если вы позволите Appodeal собирать информацию в другом приложении, мы будем собирать вашу информацию в том приложении.</string>
+    <string name="gdpr_close">Закрыть окно</string>
+
+    <!--GameFragment-->
+
+    <!--DetailsFragment-->
+    <string name="details_title">Подробности</string>
+    <string name="details_dates_version">Описание приложения</string>
+    <string name="details_wiki_version">Описание Wikipedia</string>
+    <string name="details_wiki_link">Ссылка на Wikipedia</string>
+    <string name="details_google_search_link">Поиск в Google</string>
+    <string name="details_yandex_search_link">Поиск в Яндекс</string>
+
+    <!--TermsFragment-->
+    <string name="terms_title">Термины</string>
+    <string name="practise_tab_dates">Даты</string>
+    <string name="practise_tab_term">Термины</string>
+    <string name="feedback_label">Обратная связь</string>
+    <string name="mode_select_label">Выбрать этот режим</string>
+
+    <!--SettingsFragment-->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_dates_view">Настройка дат</string>
+    <string name="settings_terms_view">Настройка терминов</string>
+    <string name="settings_reset_title">Сброс</string>
+    <string name="settings_reset">Сброс настроек</string>
+    <string name="information_title">Информация</string>
+    <string name="privacy_policy_title">Политика конфиденциальности</string>
+    <string name="faq_title">FAQ</string>
+    <string name="beta_testing_title">Бета-тестирование</string>
+    <string name="example_date">2018</string>
+    <string name="example_month">январь</string>
+    <string name="example_event">Создание этого приложения.</string>
+
+    <string name="example_term">Отличное приложение</string>
+    <string name="example_description">Хорошо спроектированное и написанное приложение. Только удовольствие от использования и эффективное обучение.</string>
+
+
+    <!--AboutFragment-->
+    <string name="about_title">О приложении</string>
+    <string name="about_rate_app">Оценить приложение</string>
+    <string name="about_privacy_policy">Политика конфиденциальности</string>
+    <string name="about_licence">Лицензии</string>
+    <string name="about_faq">FAQ</string>
+    <string name="about_beta_test">Бета-тестирование</string>
+    <string name="search_hint">Поиск</string>
+    <string name="search_back_description">Назад</string>
+    <string name="search_multi_button_description">Голосовой поиск/Очистка</string>
+    <string name="no_data">Нет данных</string>
+
+
+    <!--Arrays-->
     <string-array name="search_titles">
-        <item>Full Mode</item>
-        <item>Easy Mode</item>
+        <item>Расширенный режим</item>
+        <item>Необходимый минимум</item>
     </string-array>
 
     <string-array name="tests">
-        <item>Cards</item>
-        <item>Cards</item>
-        <item>Test</item>
-        <item>Test</item>
-        <item>True/False</item>
-        <item>True/False</item>
-        <item>Sort</item>
-        <item>Sort</item>
-        <!-- <item>Choose test</item> -->
-        <!-- <item>Multiple pick</item> -->
+        <item>Карточки</item>
+        <item>Тест</item>
+        <item>Тест</item>
+        <item>Правда/Ложь</item>
+        <item>Правда/Ложь</item>
+        <item>Сортировка</item>
+        <item>Сортировка</item>
+        <!-- <item>Соответствие</item> -->
+        <!-- <item>Множественный выбор</item> -->
     </string-array>
 
     <string-array name="practise_titles">
-        <item>Cards</item>
-        <item>Voice Cards</item>
-        <item>Test</item>
-        <item>True/False</item>
-        <item>Sort</item>
-        <item>Distribution</item>
+        <item>Карточки</item>
+        <item>Голосовые карточки</item>
+        <item>Тест</item>
+        <item>Правда или Ложь</item>
+        <item>Сортировка</item>
+        <item>Распределение</item>
     </string-array>
 
     <string-array name="practise_description">
-        <item>Cards with dates</item>
-        <item>Voice test</item>
-        <item>Test just like in school</item>
-        <item>Truth test</item>
-        <item>Sort test</item>
-        <item>Sort test</item>
+        <item>Карточки с датами</item>
+        <item>Голосовая проверка дат</item>
+        <item>Школьный тест</item>
+        <item>Верно или ошибочно</item>
+        <item>Сортировка по возрастанию</item>
+        <item>Туда или сюда</item>
     </string-array>
 
     <string-array name="tests_description">
-        <item>Cards with dates</item>
-        <item>Infinite</item>
-        <item>Test just like in school</item>
-        <item>Infinite</item>
-        <item>Truth test</item>
-        <item>Infinite sort</item>
-        <item>Sort test</item>
+        <item>Карточки с датами</item>
+        <item>Карточки с датами</item>
+        <item>Бесконечный тест</item>
+        <item>20 вопросов</item>
+        <item>Бесконечная проверка</item>
+        <item>20 вопросов</item>
+        <item>Сортировка без конца</item>
+        <item>20 вопросов</item>
     </string-array>
 
-    <string-array name="centuries">
-        <item>VI - XII</item>
-        <item>XIII</item>
-        <item>XIV - XV</item>
-        <item>XVI</item>
-        <item>XVII</item>
-        <item>XVIII</item>
-        <item>XIX first half</item>
-        <item>XIX second half</item>
-        <item>XX first half</item>
-        <item>XX second half</item>
+    <string-array name="centuries_full">
+        <item>VI - XII века</item>
+        <item>XIII век</item>
+        <item>XIV - XV века</item>
+        <item>XVI век</item>
+        <item>XVII век</item>
+        <item>XVIII век</item>
+        <item>XIX век (1 часть)</item>
+        <item>XIX век (2 часть)</item>
+        <item>XX век (1 часть)</item>
+        <item>XX век (2 часть)</item>
     </string-array>
 
     <string-array name="centuries_easy">
-        <item>first half</item>
-        <item>second half</item>
+        <item>Первая Часть</item>
+        <item>Вторая Часть</item>
     </string-array>
 
     <string-array name="pick_type">
-        <item>Only Dates</item>
-        <item>Only Events</item>
-        <item>Mixed</item>
+        <item>Только Даты</item>
+        <item>Только События</item>
+        <item>Смешанно</item>
     </string-array>
 
+
     <string-array name="mode_titles">
-        <item>Standard</item>
-        <item>Easy</item>
+        <item>Стандартный</item>
+        <item>Простой</item>
     </string-array>
 
     <string-array name="mode_count">
-        <item>406 dates</item>
-        <item>95 dates</item>
+        <item>406 дат</item>
+        <item>95 дат</item>
     </string-array>
 
-    <string name="gdpr_title">Personalize Your Ad Experience</string>
-    <string name="gdpr_main_text">Dates personalizes your advertising experience using Appodeal. Appodeal and its partners may collect and process personal data such as device identifiers, location data, and other demographic and interest data to provide advertising experience tailored to you. By consenting to this improved ad experience, you`ll see ads that Appodeal and its partners believe are more relevant to you. Learn more.\n\nBy agreeing, you confirm that you are over the age of 16 and would like a personalized ad experience.</string>
-    <string name="gdpr_agree_text">Great. We hope you enjoy your personalized ad experience. If you ever change your mind, you can withdraw your consent by enabling "Opt out of Ads Personalization" under Settings/Google/Ads on your Android device and then restarting this app.</string>
-    <string name="gdpr_disagree_text">Appodeal won`t collect your data for personalized advertising in this app. However, if you authorize Appodeal to personalize your advertising experience in a different app, we will collect your data in that other app.</string>
-    <string name="gdpr_agree">Yes, I agree</string>
-    <string name="gdpr_disagree">No, thank you</string>
-    <string name="gdpr_understand">I understand that I will still see ads, but they may not be as relevant to my interests.</string>
-    <string name="gdpr_close">Close window</string>
-
-    <string name="gdpr_learn_more">Learn more.</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string-array name="dates_cards_types_entries">
-        <item>Default</item>
-        <item>Adapted</item>
+        <item>Стандартные</item>
+        <item>Адаптированные</item>
     </string-array>
 
     <string-array name="dates_cards_types_values">
@@ -181,7 +275,7 @@
         <item>1</item>
     </string-array>
 
-    <string name="locale">English</string>
+    <string name="locale">Русский</string>
 
     <array name="practise_marks_titles">
         <item>cards_result</item>
@@ -192,19 +286,82 @@
         <item>distribute_result</item>
     </array>
 
+
+    <array name="terms_titles">
+        <item>А</item>
+        <item>Б</item>
+        <item>В</item>
+        <item>Г</item>
+        <item>Д</item>
+        <item>Е</item>
+        <item>Ж</item>
+        <item>З</item>
+        <item>И</item>
+        <item>К</item>
+        <item>Л</item>
+        <item>М</item>
+        <item>Н</item>
+        <item>О</item>
+        <item>П</item>
+        <item>Р</item>
+        <item>С</item>
+        <item>Т</item>
+        <item>У</item>
+        <item>Ф</item>
+        <item>Х</item>
+        <item>Ц</item>
+        <item>Ч</item>
+        <item>Ш</item>
+        <item>Э</item>
+        <item>Ю</item>
+        <item>Я</item>
+    </array>
+
+    <string-array name="intro_titles">
+        <item>Добро пожаловать в Даты</item>
+        <item>2 вида дат</item>
+        <item>Все нужные исторические термины</item>
+        <item>Практикуйтесь и соревнуйтесь с собой</item>
+        <item>Подробная статистика</item>
+        <item>Описание события и термина из Википедии</item>
+    </string-array>
+
+    <string-array name="intro_descriptions">
+        <item>Уникальное приложение для изучения дат и терминов.</item>
+        <item>Режимы Стандартный и Необходимый минимум отлично подойдут для разных целей обучения.</item>
+        <item>515 терминов на все случаи жизни.</item>
+        <item>7 практик по датам и  2 по терминам. Более чем достаточно для успешного обучения.</item>
+        <item>Подробная статистика по приложению, чтобы анализировать ваше обучение.</item>
+        <item>Просто нажмите на событие или термин, чтобы получить описание из Википедии.</item>
+    </string-array>
+
+
+    <!--Legacy-->
     <string name="help_practise">Тренировка - бесконечная практика, тренируйтесь пока не надоест. Оптимально для закрепления знаний.\nТестирование - 20 вопросов, по результатам которого выставляется оценка и сохраняется прошлый результат. Оптимально для контрольной проверки знаний.</string>
     <string name="help_test">Стандартный тест. Даны 4 варианта ответа на поставленный вопрос. Только один вариант правильный. В настройках можно поменять время задержки. Желаем удачи!</string>
     <string name="help_voice">Голосовая проверка дат, аналогичная карточкам, но с проверкой. Вы должны озвучить ответ и система проверит правильность вашего решения. Для проверки можно нажать кнопку "Проверить" или же сказать команду "Проверить" . В настройках можно поменять время задержки. Желаем удачи!</string>
     <string name="help_true_false">Проверка на правильность утверждение, как в тестах по английскому языку. Дано утверждение, надо определить, оно правильное или ложное. В настройках можно поменять время задержки. Желаем удачи!</string>
     <string name="help_sort">Сортировка событий в хронологической последовательности, как в Егэ по Истории. Дано некоторое число событий, которые надо упорядочить в хронологической последовательности (от раннего к позднему) . В настройках можно поменять время задержки. Желаем удачи!</string>
+    <string name="no_internet_connection">Нет доступа к Интернету</string>
+    <string name="try_again">Повторить Попытку</string>
+    <string name="tutorial_dates">Нажмите на дату для краткой справки по событию.</string>
+    <string name="tutorial_bottom_view">Переключение между практикой и теорией.</string>
+    <string name="tutorial_switch">Здесь Вы можете изменить режим дат.</string>
+    <string name="tutorial_practise">Здесь Вы можете найти различные виды практики. Чтобы выбрать период для тестирования, нажмите на подходящий для Вас вид тестирования.</string>
+    <string name="tutorial_cards">Попробуйте вспомнить дату. Если не получается, нажмите на \'?\'.</string>
+    <string name="tutorial_true_false">Если дата подходит к событию, нажмите \'Правда\', иначе стоит выбрать \'Ложь\'.</string>
+    <string name="tutorial_sort">Нажмите на дату для изменения порядкового номера. Как только последовательность получится, нажмите \'Проверить\'.</string>
+    <string name="tutorial_sort_check">В режиме проверки Вы можете моментально увидеть ошибку. Так же нажимайте на дату для изменеия ее порядкового номера</string>
+    <string name="message_developer">Связаться с разработчиком</string>
+    <string name="message_developer_title">Егэ История России Даты</string>
+    <string name="close_button">Закрыть</string>
+    <string name="got_it">Понятно</string>
+    <string name="go_to_wikipedia">Открыть Википедию</string>
+    <string name="dialog_title">Выберите века</string>
+    <string name="ok_button">Ок</string>
+    <string name="cancel_button">Отмена</string>
+    <string name="type_pick_title">Выберите Тип</string>
+    <string name="mode_switch">Переключение режима</string>
 
-
-    <string name="twitter_label">Twitter</string>
-    <string name="telegram_label">Telegram</string>
-    <string name="vk_label">VK</string>
-    <string name="instagram_label">Instagram</string>
-    <string name="mail_label">Mail</string>
-
-    <string name="game_label">Game</string>
 
 </resources>

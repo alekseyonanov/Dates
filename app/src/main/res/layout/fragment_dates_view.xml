@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/datesViewToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back_white"
+        app:theme="@style/ToolBarStyle"
+        app:title="Настройка дат"
+        app:titleTextColor="@android:color/white" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="Пример отображеия"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:id="@+id/datesViewContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="Режимы отображения"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <CheckedTextView
+                android:id="@+id/datesViewStandard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:checkMark="?android:attr/listChoiceIndicatorSingle"
+                android:ellipsize="marquee"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Стандартное отображение"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black" />
+
+            <CheckedTextView
+                android:id="@+id/datesViewAdaptive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@android:color/white"
+                android:checkMark="?android:attr/listChoiceIndicatorSingle"
+                android:ellipsize="marquee"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Адаптированное отображение"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dip"
+                android:paddingBottom="4dp"
+                android:text="Сброс"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/datesViewReset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:ellipsize="marquee"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Сбросить настройки дат"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/settingsResetTitle"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@android:color/white"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:paddingTop="16dp"-->
+<!--                android:paddingEnd="16dip"-->
+<!--                android:paddingBottom="4dp"-->
+<!--                android:text="Размер текста"-->
+<!--                android:textAppearance="?android:attr/textAppearanceLarge"-->
+<!--                android:textColor="@color/colorSettingsCategory"-->
+<!--                android:textSize="14sp" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@android:color/white"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <androidx.appcompat.widget.AppCompatSeekBar-->
+<!--                    android:id="@+id/practise_settings_dialog_delay_seekbar"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    app:max="30"-->
+<!--                    app:min="12"-->
+<!--                    android:maxHeight="2dp"-->
+<!--                    android:minHeight="2dp"-->
+<!--                    android:theme="@style/AppTheme" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="16"-->
+<!--                    android:textAppearance="?android:textAppearanceMedium"-->
+<!--                    android:textColor="@android:color/black"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:paddingEnd="16dp"/>-->
+
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@android:color/white"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <androidx.appcompat.widget.AppCompatSeekBar-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    app:max="30"-->
+<!--                    app:min="12"-->
+<!--                    android:maxHeight="2dp"-->
+<!--                    android:minHeight="2dp"-->
+<!--                    android:theme="@style/AppTheme" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="16"-->
+<!--                    android:textAppearance="?android:textAppearanceMedium"-->
+<!--                    android:textColor="@android:color/black"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:paddingEnd="16dp"/>-->
+
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                android:background="@android:color/white"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <androidx.appcompat.widget.AppCompatSeekBar-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    app:max="30"-->
+<!--                    app:min="12"-->
+<!--                    android:maxHeight="2dp"-->
+<!--                    android:minHeight="2dp"-->
+<!--                    android:theme="@style/AppTheme" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="16"-->
+<!--                    android:textAppearance="?android:textAppearanceMedium"-->
+<!--                    android:textColor="@android:color/black"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:paddingEnd="16dp"/>-->
+
+<!--            </LinearLayout>-->
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

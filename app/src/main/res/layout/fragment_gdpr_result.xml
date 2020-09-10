@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/dates_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:layout_gravity="top"
@@ -17,7 +17,6 @@
         app:titleTextColor="@android:color/white" />
 
     <ScrollView
-        android:id="@+id/sv_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -26,26 +25,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="30dp"
-            android:paddingTop="30dp"
-            android:paddingRight="30dp">
+            android:paddingLeft="16dp"
+            android:paddingTop="32dp"
+            android:paddingRight="16dp">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/gdprResultTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/gdpr_title"
                 android:textColor="@android:color/black"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/info_text"
+                android:id="@+id/gdprResultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingMultiplier="1.4"
-                android:text="@string/gdpr_agree_text"
+                tools:text="@string/gdpr_agree_text"
                 android:textColor="@android:color/black"
                 android:textColorLink="@color/colorPrimary" />
 
@@ -55,22 +54,21 @@
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/close_button"
+        android:id="@+id/gdprResultClose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:background="?android:attr/selectableItemBackground"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:padding="16dp">
 
         <ImageView
-            android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginBottom="5dp"
-            app:srcCompat="@drawable/ic_clear_black_24dp" />
+            app:srcCompat="@drawable/ic_clear_black" />
 
         <TextView
-            android:id="@+id/close_text"
+            android:id="@+id/gdprResultCloseText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"

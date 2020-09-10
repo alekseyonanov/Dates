@@ -1,5 +1,6 @@
 package com.nollpointer.dates.api
 
+import com.nollpointer.dates.model.WikipediaResponseModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

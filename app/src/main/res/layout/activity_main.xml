@@ -4,7 +4,7 @@
     android:id="@+id/container_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <FrameLayout
@@ -13,17 +13,17 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-
-    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-        android:visibility="gone"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_gravity="bottom"
         android:background="@android:color/white"
+        android:visibility="gone"
         app:elevation="4dp"
         app:itemIconTint="@drawable/navigation_icon_tint"
         app:itemTextColor="@drawable/navigation_icon_tint"
-        app:menu="@menu/navigation"/>
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/navigation" />
 
 </LinearLayout>

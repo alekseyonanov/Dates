@@ -1,49 +1,82 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:gravity="center"
-    android:orientation="horizontal">
+    android:gravity="center">
 
     <android.widget.Button
-        android:id="@+id/cards_description_date"
+        android:id="@+id/cardsDescriptionButton"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="fill_vertical"
+        android:layout_height="0dp"
         android:background="?attr/selectableItemBackground"
         android:gravity="center"
         android:text="\?"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@android:color/holo_blue_dark"
-        android:textSize="72sp" />
+        android:textSize="72sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cardsText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/date_cards_text"
+        android:id="@+id/cardsText"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
         android:background="@android:color/white"
         android:gravity="center"
         android:textColor="@android:color/holo_blue_dark"
-        app:autoSizeTextType="uniform"
+        app:autoSizeMaxTextSize="50sp"
         app:autoSizeMinTextSize="28sp"
-        app:autoSizeMaxTextSize="68sp"
         app:autoSizeStepGranularity="2sp"
-        />
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cardsNextButton"
+        app:layout_constraintStart_toEndOf="@+id/cardsDescriptionButton"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1932 год" />
 
     <android.widget.Button
-        android:id="@+id/cards_next_date"
+        android:id="@+id/cardsNextButton"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="fill_vertical"
+        android:layout_height="0dp"
         android:background="?attr/selectableItemBackground"
         android:gravity="center"
         android:text=">"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@android:color/holo_blue_dark"
-        android:textSize="72sp" />
-</LinearLayout>
+        android:textSize="72sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardsText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/cardsBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_back_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/cardsSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:src="@drawable/ic_settings_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

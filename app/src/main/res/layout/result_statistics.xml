@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -28,22 +27,22 @@
             <!--android:layout_below="@id/results_tabs"-->
             <!--android:orientation="horizontal">-->
 
-            <!--<com.nollpointer.dates.other.SquareRelativeLayout-->
+            <!--<com.nollpointer.dates.ui.view.SquareRelativeLayout-->
                 <!--android:layout_width="0dp"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:padding="24dp"-->
                 <!--android:layout_weight="1">-->
 
-                <!--<com.nollpointer.dates.other.SquareImageView-->
+                <!--<com.nollpointer.dates.ui.view.SquareImageView-->
                     <!--android:id="@+id/result_image"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="match_parent"-->
                     <!--android:background="@drawable/ic_result_image_background"-->
                     <!--android:src="@drawable/ic_sentiment_very_good" />-->
 
-            <!--</com.nollpointer.dates.other.SquareRelativeLayout>-->
+            <!--</com.nollpointer.dates.ui.view.SquareRelativeLayout>-->
 
-            <!--<com.nollpointer.dates.other.SquareRelativeLayout-->
+            <!--<com.nollpointer.dates.ui.view.SquareRelativeLayout-->
                 <!--android:layout_width="0dp"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:layout_gravity="center_vertical"-->
@@ -74,7 +73,7 @@
                     <!--android:textAllCaps="true"-->
                     <!--android:textSize="32sp" />-->
 
-            <!--</com.nollpointer.dates.other.SquareRelativeLayout>-->
+            <!--</com.nollpointer.dates.ui.view.SquareRelativeLayout>-->
 
         <!--</LinearLayout>-->
 
