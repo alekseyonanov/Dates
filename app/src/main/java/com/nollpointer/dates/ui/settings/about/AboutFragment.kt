@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import kotlinx.android.synthetic.main.fragment_about.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class AboutFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

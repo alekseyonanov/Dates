@@ -20,6 +20,9 @@ import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.dialog.PractiseHelpDialog
 import com.nollpointer.dates.ui.dialog.PractiseSettingsDialog
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class DistributionFragment : Fragment() {
 
     private lateinit var practise: Practise

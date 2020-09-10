@@ -4,6 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.viewpager.widget.ViewPager
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class ModeViewPager(context: Context, attrs: AttributeSet? = null) : ViewPager(context,attrs) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

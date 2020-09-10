@@ -5,6 +5,9 @@ import com.nollpointer.dates.other.BaseViewModel
 import java.util.*
 import javax.inject.Inject
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class CardsViewModel @Inject constructor(
         private val dates: ArrayList<Date>,
         private val type: Int) : BaseViewModel() {

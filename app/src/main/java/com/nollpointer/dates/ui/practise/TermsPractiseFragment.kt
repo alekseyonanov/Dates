@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 
-
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class TermsPractiseFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

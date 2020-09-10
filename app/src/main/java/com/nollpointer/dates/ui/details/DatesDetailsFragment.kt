@@ -18,6 +18,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class DatesDetailsFragment : Fragment() {
 
     private var date = Date()

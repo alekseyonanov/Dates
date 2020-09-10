@@ -10,6 +10,9 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Term
 import java.util.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class TermsAdapter(val resources: Resources, var items: List<Term>) : RecyclerView.Adapter<TermsAdapter.ViewHolder>() {
 
     var onTermClickListener: ((Term) -> Unit)? = null

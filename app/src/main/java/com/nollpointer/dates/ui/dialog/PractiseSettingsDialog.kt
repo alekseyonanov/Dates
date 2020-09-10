@@ -12,6 +12,9 @@ import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nollpointer.dates.R
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class PractiseSettingsDialog : BottomSheetDialogFragment() {
 
     interface Listener {

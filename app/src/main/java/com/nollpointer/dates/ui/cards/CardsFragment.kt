@@ -17,6 +17,9 @@ import com.nollpointer.dates.ui.practise.PractiseSettingsFragment
 import kotlinx.android.synthetic.main.fragment_cards.*
 import java.util.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class CardsFragment : Fragment() {
 
     private lateinit var dates: List<Date>

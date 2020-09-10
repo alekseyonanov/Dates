@@ -4,6 +4,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 @Parcelize
 data class Date constructor(var date: String = "",
                             var event: String = "",

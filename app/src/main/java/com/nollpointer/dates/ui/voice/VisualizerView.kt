@@ -6,6 +6,9 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class VisualizerView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val linePaint: Paint = Paint()

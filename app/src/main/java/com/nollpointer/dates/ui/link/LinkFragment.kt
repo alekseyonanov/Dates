@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Practise
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class LinkFragment : Fragment() {
 
     private lateinit var practise: Practise

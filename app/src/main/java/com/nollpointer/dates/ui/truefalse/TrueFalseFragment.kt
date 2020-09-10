@@ -18,6 +18,9 @@ import kotlinx.android.synthetic.main.fragment_true_false.*
 import java.util.*
 import kotlin.collections.ArrayList
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class TrueFalseFragment : Fragment() {
 
     private lateinit var dates: List<Date>

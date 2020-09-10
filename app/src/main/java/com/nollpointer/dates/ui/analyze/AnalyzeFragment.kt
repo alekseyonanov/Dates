@@ -9,7 +9,9 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.PractiseResult
 
-
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class AnalyzeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

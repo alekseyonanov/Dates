@@ -1,5 +1,8 @@
 package com.nollpointer.dates.ui.dates
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 object DatesCategoryConstants {
     const val ALL = 0
     const val MANAGEMENT = 1

@@ -1,5 +1,8 @@
 package com.nollpointer.dates.ui.sort
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 interface SortCardsControl {
     fun setQuestions(list: List<String?>?)
     fun setAnswerSequence(sequence: IntArray?)

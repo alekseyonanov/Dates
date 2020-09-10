@@ -4,6 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import com.nollpointer.dates.model.Term
 import com.nollpointer.dates.other.BaseViewModel
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class TermsViewHolder : BaseViewModel() {
     //region LiveData
     val termsLiveData = MutableLiveData<List<Term>>()

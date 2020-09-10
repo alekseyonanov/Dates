@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 import java.util.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class PractiseCardsAdapter(private val title_texts: Array<String>, private val subtitle_texts: Array<String>, private val imageIds: IntArray, private val backgrounds: IntArray) : RecyclerView.Adapter<PractiseCardsAdapter.ViewHolder>() {
     private lateinit var marks: IntArray
     private var mListener: Listener? = null

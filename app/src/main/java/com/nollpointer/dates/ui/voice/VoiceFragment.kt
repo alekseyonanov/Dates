@@ -25,6 +25,9 @@ import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment.Companion.
 import kotlinx.android.synthetic.main.fragment_voice.*
 import java.util.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class VoiceFragment : Fragment(), RecognitionListener {
 
     private lateinit var audioManager: AudioManager

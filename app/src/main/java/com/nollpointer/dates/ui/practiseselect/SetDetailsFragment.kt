@@ -27,6 +27,9 @@ import com.nollpointer.dates.ui.truefalse.TrueFalseFragment
 import com.nollpointer.dates.ui.voice.VoiceFragment
 import kotlinx.android.synthetic.main.fragment_set_details.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 open class SetDetailsFragment : Fragment() {
 
     private lateinit var singleSelectAdapter: SingleSelectAdapter

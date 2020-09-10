@@ -10,6 +10,9 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
 import java.util.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class SortCardsAdapter : RecyclerView.Adapter<SortCardsAdapter.ViewHolder>() {
     private lateinit var listener: Listener
     private var itemCount = 3

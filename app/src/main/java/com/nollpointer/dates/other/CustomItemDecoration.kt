@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class CustomItemDecoration(val context: Context,
                            orientation: Int,
                            private var items: IntArray) : DividerItemDecoration(context, orientation) {

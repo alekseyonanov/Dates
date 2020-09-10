@@ -7,6 +7,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.nollpointer.dates.R
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class ResultDialog(var rightAnswers: Int, var mark: String, var markColor: Int, var listener: ResultDialogCallbackListener) {
 
     interface ResultDialogCallbackListener {

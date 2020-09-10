@@ -9,6 +9,9 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Practise
 import kotlinx.android.synthetic.main.fragment_practise_settings.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class PractiseSettingsFragment : Fragment() {
 
     private lateinit var practise: Practise

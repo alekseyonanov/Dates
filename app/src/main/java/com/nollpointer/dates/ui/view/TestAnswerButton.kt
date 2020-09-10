@@ -9,6 +9,9 @@ import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise.Companion.TYPE_DATE
 import kotlinx.android.synthetic.main.item_test_answer.view.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class TestAnswerButton : LinearLayout {
 
     constructor(context: Context?) : super(context) {

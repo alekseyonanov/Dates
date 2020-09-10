@@ -17,7 +17,9 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.other.Loader
 import kotlinx.android.synthetic.main.fragment_gdpr.*
 
-
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class GDPRFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

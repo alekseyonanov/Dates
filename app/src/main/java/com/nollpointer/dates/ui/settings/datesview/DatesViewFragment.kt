@@ -11,6 +11,9 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.other.Loader
 import kotlinx.android.synthetic.main.fragment_dates_view.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class DatesViewFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -24,6 +24,9 @@ import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.details.TermsDetailsFragment
 import kotlinx.android.synthetic.main.fragment_terms.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class TermsFragment : Fragment() {
 
     lateinit var terms: ArrayList<Term>

@@ -20,6 +20,9 @@ import com.nollpointer.dates.ui.game.GameFragment
 import com.nollpointer.dates.ui.settings.main.SettingsFragment
 import kotlinx.android.synthetic.main.fragment_menu.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class MenuFragment : Fragment() {
 
     private var currentMode = 0

@@ -5,6 +5,9 @@ import android.view.View
 import androidx.cardview.widget.CardView
 import java.util.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class SortCards : SortCardsControl {
     private lateinit var cards: ArrayList<SortCardView>
     private val currentSequence = IntArray(MAX_COUNT)

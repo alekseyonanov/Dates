@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 import com.nollpointer.dates.other.Misc
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class GameCardsAdapter(private val listener: GameCardsListener?) : RecyclerView.Adapter<GameCardsAdapter.ViewHolder>() {
     private var isGameMode = false
     private val rightAnswered = 0

@@ -9,6 +9,9 @@ import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nollpointer.dates.R
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class PractiseHelpDialog : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

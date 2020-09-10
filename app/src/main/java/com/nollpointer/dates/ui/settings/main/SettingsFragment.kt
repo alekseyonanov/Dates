@@ -12,6 +12,9 @@ import com.nollpointer.dates.ui.settings.datesview.DatesViewFragment
 import com.nollpointer.dates.ui.settings.termsview.TermsViewFragment
 import kotlinx.android.synthetic.main.fragment_settings.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class SettingsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

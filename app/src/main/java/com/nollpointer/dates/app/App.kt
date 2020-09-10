@@ -7,6 +7,9 @@ import com.nollpointer.dates.api.WikipediaApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class App : Application() {
 
     private lateinit var retrofit: Retrofit

@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.nollpointer.dates.R
 import com.nollpointer.dates.ui.activity.MainActivity
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class GameFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

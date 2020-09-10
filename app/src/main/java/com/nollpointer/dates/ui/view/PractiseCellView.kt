@@ -13,6 +13,9 @@ import com.nollpointer.dates.other.PractiseConstants.TRUE_FALSE
 import com.nollpointer.dates.other.PractiseConstants.VOICE
 import com.nollpointer.dates.ui.practise.PractiseCardsAdapter
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class PractiseCellView : RecyclerView {
     interface OnClickListener {
         fun onClicked(practise: String?, mode: Int)

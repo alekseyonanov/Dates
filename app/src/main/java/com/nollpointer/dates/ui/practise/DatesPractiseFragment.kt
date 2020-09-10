@@ -15,6 +15,9 @@ import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.practiseselect.SetDetailsFragment
 import kotlinx.android.synthetic.main.fragment_dates_practise.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class DatesPractiseFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

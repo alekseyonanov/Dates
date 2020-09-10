@@ -3,6 +3,9 @@ package com.nollpointer.dates.model
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 @Parcelize
 data class Practise(var practise: Int,
                     var mode: Int,

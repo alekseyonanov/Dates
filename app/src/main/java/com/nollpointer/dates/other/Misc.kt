@@ -2,6 +2,9 @@ package com.nollpointer.dates.other
 
 import java.util.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 object Misc {
 
     fun getRightAnswersList(count: Int): List<Int> {

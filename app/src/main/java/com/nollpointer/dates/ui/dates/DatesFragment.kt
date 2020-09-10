@@ -27,6 +27,9 @@ import com.nollpointer.dates.ui.activity.MainActivity.Companion.EASY_DATES_MODE
 import com.nollpointer.dates.ui.details.DatesDetailsFragment
 import kotlinx.android.synthetic.main.fragment_dates.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class DatesFragment : Fragment() {
 
     private lateinit var mainActivity: MainActivity

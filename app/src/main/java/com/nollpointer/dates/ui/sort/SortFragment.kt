@@ -26,6 +26,9 @@ import com.nollpointer.dates.ui.dialog.PractiseSettingsDialog
 import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment
 import java.util.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class SortFragment : Fragment() {
 
     private lateinit var dates: List<Date>

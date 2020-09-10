@@ -20,6 +20,9 @@ import kotlinx.android.synthetic.main.fragment_test.*
 import java.util.*
 import kotlin.collections.ArrayList
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class TestFragment : Fragment() {
 
     private lateinit var answerButtons: List<TestAnswerButton>

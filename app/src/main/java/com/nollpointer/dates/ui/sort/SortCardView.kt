@@ -5,6 +5,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.nollpointer.dates.R
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class SortCardView internal constructor(private val card: CardView) {
 
     private val number: TextView = card.findViewById(R.id.text1)

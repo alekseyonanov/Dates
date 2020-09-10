@@ -1,5 +1,8 @@
 package com.nollpointer.dates.other
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 enum class PractiseEnum(val event: String) {
     CARDS("CARDS"),
     VOICE("VOICE"),

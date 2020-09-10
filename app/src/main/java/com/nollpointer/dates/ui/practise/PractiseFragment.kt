@@ -14,7 +14,9 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.model.FragmentPage
 import kotlinx.android.synthetic.main.fragment_practise.*
 
-
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class PractiseFragment : Fragment() {
 
     private lateinit var fragmentPages: List<FragmentPage>

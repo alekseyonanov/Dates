@@ -10,6 +10,9 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.model.PractiseResult
 import com.nollpointer.dates.ui.practise.PractiseCardsAdapter
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class PractiseResultCardsAdapter(private val practiseResults: List<PractiseResult>) : RecyclerView.Adapter<PractiseResultCardsAdapter.ViewHolder>() {
     private lateinit var mListener: PractiseCardsAdapter.Listener
 

@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class DistributionCardsAdapter : RecyclerView.Adapter<DistributionCardsAdapter.ViewHolder>() {
     private lateinit var mListener: Listener
 

@@ -7,6 +7,9 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.other.PractiseEnum
 import kotlinx.android.synthetic.main.practise_items.view.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class PractiseView : ScrollView {
 
     var onPractiseClickListener: ((PractiseEnum) -> Unit)? = null

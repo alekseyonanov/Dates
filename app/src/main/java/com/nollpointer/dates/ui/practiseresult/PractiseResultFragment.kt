@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.PractiseResult
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class PractiseResultFragment : Fragment() {
 
     private lateinit var practiseResults: ArrayList<PractiseResult>

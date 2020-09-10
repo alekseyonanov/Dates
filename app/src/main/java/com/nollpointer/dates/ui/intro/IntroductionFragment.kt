@@ -17,6 +17,9 @@ import com.nollpointer.dates.ui.view.DividerView
 import com.nollpointer.dates.ui.view.DividerView.Companion.TOP_POSITION
 import kotlinx.android.synthetic.main.fragment_introduction.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class IntroductionFragment : Fragment() {
 
     private var introPages = mutableListOf<IntroPage>()

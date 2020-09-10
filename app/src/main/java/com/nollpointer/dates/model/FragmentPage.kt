@@ -3,6 +3,9 @@ package com.nollpointer.dates.model
 import androidx.fragment.app.Fragment
 import com.nollpointer.dates.other.ScrollableFragment
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class FragmentPage(val title: String, var fragment: Fragment, val type: Int = -1) {
 
     val isScrollable: Boolean

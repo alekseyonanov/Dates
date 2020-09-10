@@ -1,5 +1,8 @@
 package com.nollpointer.dates.other
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 object PractiseConstants {
 
     const val POSITION = "POSITION"

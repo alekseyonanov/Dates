@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 import java.util.*
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class MutliSelectAdapter(private val items: Array<CharSequence>) : RecyclerView.Adapter<MutliSelectAdapter.ViewHolder>() {
 
     var onAnyItemSelected: ((Boolean)->Unit)? = null

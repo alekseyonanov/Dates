@@ -7,6 +7,9 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class DividerView : View {
 
     private val paintWhite = Paint().apply {

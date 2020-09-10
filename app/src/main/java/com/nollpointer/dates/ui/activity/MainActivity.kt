@@ -28,6 +28,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 import java.io.InputStreamReader
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class MainActivity : AppCompatActivity() {
 
     var mode = 0

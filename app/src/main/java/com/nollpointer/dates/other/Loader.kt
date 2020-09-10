@@ -3,6 +3,9 @@ package com.nollpointer.dates.other
 import android.content.Context
 import com.nollpointer.dates.ui.activity.MainActivity.Companion.FULL_DATES_MODE
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 object Loader {
 
     /*

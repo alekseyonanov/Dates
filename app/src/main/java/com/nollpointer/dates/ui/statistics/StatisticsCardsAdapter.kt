@@ -6,6 +6,9 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 class StatisticsCardsAdapter : RecyclerView.Adapter<StatisticsCardsAdapter.ViewHolder>() {
 
     private lateinit var mListener: Listener

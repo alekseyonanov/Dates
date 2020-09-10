@@ -4,7 +4,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-//TODO придумать более изящное решение
+/**
+ * @author Onanov Aleksey (@onanov)
+ */
 @Parcelize
 data class Term(var term: String = "Абсолютизм",
                 var description: String = "Форма правления, при которой монарху принадлежит неограниченная верховная власть",

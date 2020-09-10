@@ -3,7 +3,7 @@ package com.nollpointer.dates.other
 import androidx.lifecycle.ViewModel
 
 /**
- * Базовый класс для ViewModel
+ * @author Onanov Aleksey (@onanov)
  */
 abstract class BaseViewModel : ViewModel() {
     /**
