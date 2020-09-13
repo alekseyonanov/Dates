@@ -28,7 +28,7 @@ class TermsViewFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         termsViewToolbar.setNavigationOnClickListener {
-            fragmentManager!!.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         termsViewStandard.setOnClickListener {

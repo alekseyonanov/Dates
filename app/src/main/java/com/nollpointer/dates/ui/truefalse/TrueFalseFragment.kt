@@ -49,8 +49,17 @@ class TrueFalseFragment : BaseFragment() {
 //            val practiseResult = PractiseResult(trueFalseDate.text.toString() + " – " + trueFalseEvent.text, isCorrect)
 //            practiseResults.add(practiseResult)
 //        }
-        if (rightAnswersCount + wrongAnswersCount == 20 && isTestMode)
-            fragmentManager!!.beginTransaction().replace(R.id.frameLayout, PractiseResultFragment.newInstance(TRUE_FALSE, practiseResults, arguments!!)).commit()
+        if (rightAnswersCount + wrongAnswersCount == 20 && isTestMode) {
+            requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(
+                            R.id.frameLayout,
+                            PractiseResultFragment.newInstance(TRUE_FALSE, practiseResults, arguments!!
+                            )
+                    )
+                    .commit()
+        }
         trueFalseRightAnswersChip.text = rightAnswersCount.toString()
         trueFalseWrongAnswersChip.text = wrongAnswersCount.toString()
         Handler().postDelayed({ generateAndSetInfo() }, delay.toLong())
@@ -83,7 +92,7 @@ class TrueFalseFragment : BaseFragment() {
 
         trueFalseBack.apply {
             //setImageResource(R.drawable.ic_arrow_back_white)
-            setOnClickListener { fragmentManager!!.popBackStack() }
+            setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
         }
 
         trueFalseSettings.apply {

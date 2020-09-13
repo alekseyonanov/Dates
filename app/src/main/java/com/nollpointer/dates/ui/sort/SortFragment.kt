@@ -3,7 +3,6 @@ package com.nollpointer.dates.ui.sort
 import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +51,6 @@ class SortFragment : BaseFragment() {
         var rightAnswersCount = rightAnswersChip.text.toString().toInt()
         var wrongAnswersCount = wrongAnswersChip.text.toString().toInt()
         val sequence = adapter.answerSequence
-        Log.e("TAG", "onClick: $sequence")
         val isCorrect = sequence == correctAnswerSequence
         if (isCorrect) rightAnswersCount++ else wrongAnswersCount++
         showCorrectCards(correctAnswerSequence)
@@ -60,7 +58,17 @@ class SortFragment : BaseFragment() {
 //            val practiseResult = PractiseResult(sequence.toString(), isCorrect)
 //            practiseResults.add(practiseResult)
 //        }
-        if (rightAnswersCount + wrongAnswersCount == 20 && isTestMode) fragmentManager!!.beginTransaction().replace(R.id.frameLayout, PractiseResultFragment.newInstance(SORT, practiseResults, arguments as Bundle)).commit()
+        if (rightAnswersCount + wrongAnswersCount == 20 && isTestMode) {
+            requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(
+                            R.id.frameLayout,
+                            PractiseResultFragment.newInstance(SORT, practiseResults, arguments as Bundle
+                            )
+                    )
+                    .commit()
+        }
         rightAnswersChip.text = rightAnswersCount.toString()
         wrongAnswersChip.text = wrongAnswersCount.toString()
         Handler().postDelayed({ generateAndSetInfo() }, delay.toLong())
@@ -105,7 +113,7 @@ class SortFragment : BaseFragment() {
         val settingsButton = mainView.findViewById<ImageButton>(R.id.sort_settings_button)
         val helpButton = mainView.findViewById<ImageButton>(R.id.sort_help_button)
         backButton.setImageResource(R.drawable.ic_arrow_back_white)
-        backButton.setOnClickListener { fragmentManager!!.popBackStack() }
+        backButton.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
         settingsButton.setImageResource(R.drawable.ic_settings)
         settingsButton.setOnClickListener {
             val settingsDialog = PractiseSettingsDialog.newInstance(delay)
@@ -114,12 +122,12 @@ class SortFragment : BaseFragment() {
                     setDelay(delay)
                 }
             })
-            settingsDialog.show(activity!!.supportFragmentManager, null)
+            settingsDialog.show(childFragmentManager, null)
         }
         helpButton.setImageResource(R.drawable.ic_help)
         helpButton.setOnClickListener {
             val helpDialog = PractiseHelpDialog.newInstance(R.string.help_sort)
-            helpDialog.show(activity!!.supportFragmentManager, null)
+            helpDialog.show(childFragmentManager, null)
         }
         questionNumberChip = mainView.findViewById(R.id.sortQuestionNumber)
         rightAnswersChip = mainView.findViewById(R.id.sortRightAnswers)

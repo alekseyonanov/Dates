@@ -95,7 +95,12 @@ class DatesFragment : BaseFragment() {
         adapter = DatesAdapter(resources, dates, mainActivity.mode).apply {
             onDateClickListener = {
                 Keyboard.hide(datesCardSearch)
-                fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.frameLayout, DatesDetailsFragment.newInstance(it))?.commit()
+                requireActivity()
+                        .supportFragmentManager
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frameLayout, DatesDetailsFragment.newInstance(it))
+                        .commit()
             }
             when (Loader.getDatesViewType(context as Context)) {
                 0 -> {

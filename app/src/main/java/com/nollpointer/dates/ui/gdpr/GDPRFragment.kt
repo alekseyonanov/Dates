@@ -16,6 +16,7 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_gdpr.*
+import java.util.*
 
 /**
  * @author Onanov Aleksey (@onanov)
@@ -45,7 +46,7 @@ class GDPRFragment : BaseFragment() {
             text = spannableMain
         }
         gdprYes.setOnClickListener { showResultFragment(true) }
-        val no = getString(R.string.gdpr_disagree).toUpperCase()
+        val no = getString(R.string.gdpr_disagree).toUpperCase(Locale.ROOT)
         val spannableNo = SpannableString(no)
         spannableNo.setSpan(UnderlineSpan(), 0, spannableNo.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         gdprNo.apply{
@@ -58,7 +59,7 @@ class GDPRFragment : BaseFragment() {
         FlurryAgent.logEvent("Is_GDPR_Agree $result")
         Loader.setFirstStart(context as Context, false)
         Loader.setGdprAgree(context as Context, result)
-        fragmentManager!!.beginTransaction().replace(R.id.frameLayout, GDPRResultFragment.newInstance(result)).commit()
+        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, GDPRResultFragment.newInstance(result)).commit()
     }
 
     companion object{

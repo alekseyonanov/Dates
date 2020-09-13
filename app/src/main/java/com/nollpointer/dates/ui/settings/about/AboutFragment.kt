@@ -28,7 +28,7 @@ class AboutFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         aboutToolbar.setNavigationOnClickListener {
-            fragmentManager!!.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         aboutRateApp.setOnClickListener {

@@ -73,18 +73,18 @@ class IntroductionFragment : BaseFragment() {
         })
 
         introSkipButton.setOnClickListener {
-            fragmentManager!!.beginTransaction().replace(R.id.frameLayout, GDPRFragment.newInstance()).commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, GDPRFragment.newInstance()).commit()
         }
 
         introNextButton.setOnClickListener {
             if (introViewPager.currentItem == introPages.lastIndex)
-                fragmentManager!!.beginTransaction().replace(R.id.frameLayout, GDPRFragment.newInstance()).commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, GDPRFragment.newInstance()).commit()
             else
                 introViewPager.setCurrentItem(introViewPager.currentItem + 1, true)
         }
     }
 
-    inner class PractiseCellAdapter(val introPages: List<IntroPage>) : PagerAdapter() {
+    inner class PractiseCellAdapter(private val introPages: List<IntroPage>) : PagerAdapter() {
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
             val view = layoutInflater.inflate(R.layout.intro_page, null)
             view.findViewById<TextView>(R.id.introTitle).text = introPages[position].title

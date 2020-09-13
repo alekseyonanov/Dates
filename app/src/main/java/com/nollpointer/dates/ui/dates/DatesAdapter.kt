@@ -14,7 +14,7 @@ import java.util.*
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class DatesAdapter(val resources: Resources, var items: List<Date>, private val mode: Int) : RecyclerView.Adapter<DatesAdapter.ViewHolder>() {
+class DatesAdapter(val resources: Resources, var items: List<Date>, mode: Int) : RecyclerView.Adapter<DatesAdapter.ViewHolder>() {
 
     var isSearchMode = false
 

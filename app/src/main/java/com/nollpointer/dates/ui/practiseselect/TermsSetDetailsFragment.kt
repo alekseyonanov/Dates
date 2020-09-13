@@ -54,7 +54,7 @@ class TermsSetDetailsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setDetailsToolbar.setNavigationOnClickListener {
-            fragmentManager!!.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         singleSelectAdapter = SingleSelectAdapter(resources.getTextArray(R.array.pick_type)).apply {
@@ -107,7 +107,7 @@ class TermsSetDetailsFragment : BaseFragment() {
                 else -> CardsFragment.newInstance(practise)
             }
 
-            fragmentManager?.beginTransaction()?.replace(R.id.frameLayout, fragment)?.commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
         }
 
     }

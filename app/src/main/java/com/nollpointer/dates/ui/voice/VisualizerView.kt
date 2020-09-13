@@ -52,7 +52,6 @@ class VisualizerView(context: Context?, attrs: AttributeSet?) : View(context, at
     }
 
     companion object {
-        const val TAG = "VisualizerView"
         const val AMPLITUDE_MAX_VALUE = 15f
         const val AMPLITUDE_MIN_VALUE = 0f
     }

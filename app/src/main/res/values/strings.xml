@@ -60,6 +60,8 @@
     <string name="loading_data">Данные загружаются…</string>
 
     <!--DatesDetailsFragment-->
+    <string name="dates_details_year">%s год(а)</string>
+
     <!--TermsDetailsFragment-->
 
     <!--SettingsFragment-->
@@ -72,7 +74,7 @@
     <string name="set_details_single_title">Тип</string>
     <string name="set_dates_count">0 дат(ы)</string>
     <string name="set_details_test_mode_title">Режим</string>
-    <string name="date_count">дат(ы)</string>
+    <string name="date_count">%d дат(ы)</string>
     <string name="set_details_multi_title">Столетия</string>
     <string name="set_dates_test_button">Начать</string>
 

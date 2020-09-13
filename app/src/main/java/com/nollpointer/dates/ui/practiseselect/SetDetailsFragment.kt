@@ -62,7 +62,7 @@ open class SetDetailsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setDetailsToolbar.setNavigationOnClickListener {
-            fragmentManager!!.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         singleSelectAdapter = SingleSelectAdapter(resources.getTextArray(R.array.pick_type)).apply {
@@ -81,12 +81,12 @@ open class SetDetailsFragment : BaseFragment() {
                 isMultiItemsSelected = isSelected
                 setDetailsSelectButton.isEnabled = isSingleItemSelected && isMultiItemsSelected
             }
-            onItemsSelected = {list ->
+            onItemsSelected = { list ->
                 var count = 0
                 getDatesRange(list).forEach {
                     count += it.last - it.first + 1
                 }
-                setDetailsCount.text = "$count ${getString(R.string.date_count)}"
+                setDetailsCount.text = getString(R.string.date_count, count)
             }
         }
 
@@ -110,7 +110,7 @@ open class SetDetailsFragment : BaseFragment() {
             val centuries = multiSelectAdapter.selectedItems
             val datesList = mutableListOf<Date>()
             getDatesRange(centuries).forEach {
-                datesList.addAll(mainActivity.dates.subList(it.first, it.endInclusive))
+                datesList.addAll(mainActivity.dates.subList(it.first, it.last))
             }
 
             practise.dates = datesList
@@ -126,7 +126,7 @@ open class SetDetailsFragment : BaseFragment() {
                 else -> CardsFragment.newInstance(practise)
             }
 
-            fragmentManager?.beginTransaction()?.replace(R.id.frameLayout, fragment)?.commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
         }
 
     }
@@ -163,7 +163,6 @@ open class SetDetailsFragment : BaseFragment() {
 
     companion object {
         private const val PRACTISE = "Practise"
-        private const val TAG = "PractiseDetailsPicker"
 
         fun newInstance(practise: Practise) =
                 SetDetailsFragment().apply {

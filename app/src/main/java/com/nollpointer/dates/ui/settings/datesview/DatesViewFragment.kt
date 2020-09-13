@@ -28,7 +28,7 @@ class DatesViewFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         datesViewToolbar.setNavigationOnClickListener {
-            fragmentManager!!.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         datesViewStandard.setOnClickListener {

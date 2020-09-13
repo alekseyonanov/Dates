@@ -42,7 +42,7 @@ class GDPRResultFragment : BaseFragment() {
         val spannableClose = SpannableString(close)
         spannableClose.setSpan(UnderlineSpan(), 0, spannableClose.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         gdprResultCloseText.text = spannableClose
-        gdprResultClose.setOnClickListener { fragmentManager!!.beginTransaction().replace(R.id.frameLayout, DatesFragment()).commit() }
+        gdprResultClose.setOnClickListener { requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, DatesFragment()).commit() }
     }
 
     companion object {

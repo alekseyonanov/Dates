@@ -53,7 +53,7 @@ class GameFragment : BaseFragment() {
 //                "    <li>В игру можно играть сколько угодно, пока реклама прогружается</li>"));
 //
         val toolbar: Toolbar = mainView.findViewById(R.id.game_toolbar)
-        toolbar.setNavigationOnClickListener { fragmentManager!!.popBackStack() }
+        toolbar.setNavigationOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
         val image = mainView.findViewById<ImageView>(R.id.statistics_dummy_crane)
         image.setImageResource(R.drawable.ic_crane)
         val button = mainView.findViewById<Button>(R.id.statistics_dummy_button)

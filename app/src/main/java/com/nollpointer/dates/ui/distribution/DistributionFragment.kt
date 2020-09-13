@@ -47,7 +47,7 @@ class DistributionFragment : BaseFragment() {
         //Appodeal.setBannerViewId(R.id.appodealBannerView)
         backButton.setImageResource(R.drawable.ic_arrow_back_white)
         backButton.setOnClickListener {
-            fragmentManager!!.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
         settingsButton.setImageResource(R.drawable.ic_settings)
         settingsButton.setOnClickListener {
@@ -56,12 +56,12 @@ class DistributionFragment : BaseFragment() {
                 override fun onDelayPicked(delay: Int) { //setDelay(delay);
                 }
             })
-            settingsDialog.show(activity!!.supportFragmentManager, null)
+            settingsDialog.show(childFragmentManager, null)
         }
         helpButton.setImageResource(R.drawable.ic_help)
         helpButton.setOnClickListener {
             val helpDialog = PractiseHelpDialog.newInstance(R.string.help_practise)
-            helpDialog.show(activity!!.supportFragmentManager, null)
+            helpDialog.show(childFragmentManager, null)
         }
         val image = mainView.findViewById<ImageView>(R.id.statistics_dummy_crane)
         image.setImageResource(R.drawable.ic_crane)

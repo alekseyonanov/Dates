@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_terms.*
  */
 class TermsFragment : BaseFragment() {
 
-    lateinit var terms: ArrayList<Term>
+    private lateinit var terms: ArrayList<Term>
     lateinit var adapter: TermsAdapter
 
     private var isEditTextEmpty = true
@@ -63,7 +63,12 @@ class TermsFragment : BaseFragment() {
         adapter = TermsAdapter(resources, terms).apply {
             onTermClickListener = {
                 Keyboard.hide(termsCardSearch)
-                fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.frameLayout, TermsDetailsFragment.newInstance(it))?.commit()
+                requireActivity()
+                        .supportFragmentManager
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frameLayout, TermsDetailsFragment.newInstance(it))
+                        .commit()
             }
             when (Loader.getTermsViewType(context as Context)) {
                 0 -> {

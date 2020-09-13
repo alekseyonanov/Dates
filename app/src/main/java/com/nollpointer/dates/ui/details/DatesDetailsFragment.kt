@@ -43,7 +43,7 @@ class DatesDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        datesDetailsSubjectTextView.text = "${date.date} год(а)" //TODO месяц
+        datesDetailsSubjectTextView.text = getString(R.string.dates_details_year, date.date) //TODO месяц
 
         val specialText = "${date.event[0].toLowerCase()}${date.event.substring(1)}"
 
@@ -62,7 +62,7 @@ class DatesDetailsFragment : BaseFragment() {
             startActivity(intent)
         }
         datesDetailsArrowBack.setOnClickListener {
-            fragmentManager!!.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         App.api?.getData(date.request)?.enqueue(object : Callback<WikipediaResponseModel?> {

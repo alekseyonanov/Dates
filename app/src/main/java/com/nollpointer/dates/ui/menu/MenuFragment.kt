@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,7 +66,7 @@ class MenuFragment : BaseFragment() {
             startActivity(intent)
         }
         gameStart.setOnClickListener {
-            fragmentManager!!.beginTransaction().replace(R.id.frameLayout, GameFragment()).addToBackStack(null).commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, GameFragment()).addToBackStack(null).commit()
         }
 
         currentMode = (activity as MainActivity?)!!.mode
@@ -89,7 +88,6 @@ class MenuFragment : BaseFragment() {
             val mainActivity = activity as MainActivity?
             currentMode = menuViewPager.currentItem
             mainActivity!!.updateMode(currentMode)
-            Log.e("TAG", "onClick: $currentMode")
             SaveCurrentMode(activity, currentMode).execute()
             v.visibility = View.GONE
         }
@@ -97,7 +95,7 @@ class MenuFragment : BaseFragment() {
         menuToolbar.apply {
             inflateMenu(R.menu.menu_menu)
             setOnMenuItemClickListener {
-                fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.frameLayout, SettingsFragment.newInstance())?.commit()
+                requireActivity().supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.frameLayout, SettingsFragment.newInstance()).commit()
                 true
             }
         }
@@ -147,7 +145,6 @@ class MenuFragment : BaseFragment() {
         override fun doInBackground(vararg voids: Void): Void? {
             val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
             editor.putInt("mode", mode)
-            Log.e("asd", "doInBackground: written")
             editor.apply()
             return null
         }

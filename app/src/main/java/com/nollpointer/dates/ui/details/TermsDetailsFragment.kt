@@ -62,7 +62,7 @@ class TermsDetailsFragment : BaseFragment() {
             startActivity(intent)
         }
         termsDetailsArrowBack.setOnClickListener {
-            fragmentManager!!.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         api?.getData(term.request)?.enqueue(object : Callback<WikipediaResponseModel?> {

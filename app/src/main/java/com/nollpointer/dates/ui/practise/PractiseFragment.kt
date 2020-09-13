@@ -49,7 +49,7 @@ class PractiseFragment : BaseFragment() {
             tabGravity = TabLayout.GRAVITY_FILL
             setupWithViewPager(practiseViewPager)
 
-            setOnTabSelectedListener(object : OnTabSelectedListener {
+            addOnTabSelectedListener(object : OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     practiseViewPager.currentItem = tab.position
                 }
@@ -70,8 +70,7 @@ class PractiseFragment : BaseFragment() {
     }
 
     internal class PageAdapter(private val fragmentPages: List<FragmentPage>, val fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
-        var currentFragment: Fragment? = null
-            private set
+        private var currentFragment: Fragment? = null
 
         override fun getCount(): Int {
             return fragmentPages.size
@@ -85,13 +84,9 @@ class PractiseFragment : BaseFragment() {
             return fragmentPages[position].fragment
         }
 
-        fun getItemType(position: Int): Int {
-            return fragmentPages[position].type
-        }
-
         override fun setPrimaryItem(container: ViewGroup, position: Int, obj: Any) {
             super.setPrimaryItem(container, position, obj)
-            val fragmentPage: FragmentPage = fragmentPages.get(position)
+            val fragmentPage: FragmentPage = fragmentPages[position]
             currentFragment = obj as Fragment
             if (currentFragment == fragmentPage.fragment) {
                 return

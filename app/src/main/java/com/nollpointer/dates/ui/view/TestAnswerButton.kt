@@ -26,10 +26,6 @@ class TestAnswerButton : LinearLayout {
         initialize()
     }
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
-        initialize()
-    }
-
     var setOnAnswerButtonClickListener: ((TestAnswerButton) -> Unit)? = null
     var setOnDetailsClickListener: ((Date) -> Unit)? = null
 

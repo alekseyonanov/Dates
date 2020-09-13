@@ -4,17 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.practiseselect.SingleSelectAdapter
+import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_practise_settings.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class PractiseSettingsFragment : Fragment() {
+class PractiseSettingsFragment : BaseFragment() {
 
     private lateinit var practise: Practise
 
@@ -27,6 +27,10 @@ class PractiseSettingsFragment : Fragment() {
         }
     }
 
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_practise_settings, container, false)
@@ -35,11 +39,11 @@ class PractiseSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         practiseSettingsToolbar.setNavigationOnClickListener {
-            fragmentManager!!.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         singleSelectAdapter = SingleSelectAdapter(resources.getTextArray(R.array.pick_type)).apply {
-            onItemHasSelected = { isSelected ->
+            onItemHasSelected = { _ ->
 
             }
             onItemSelected = { type ->

@@ -60,7 +60,7 @@
     <style name="subtext_medium_grey">
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#9A9A9A</item>
+        <item name="android:textColor">#EEEEEE</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 

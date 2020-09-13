@@ -64,11 +64,11 @@ class CardsFragment : BaseFragment() {
         }
 
         cardsBack.setOnClickListener {
-            fragmentManager?.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         cardsSettings.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.frameLayout, PractiseSettingsFragment.newInstance(practise))?.addToBackStack(null)?.commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, PractiseSettingsFragment.newInstance(practise)).addToBackStack(null).commit()
         }
 
         setQuestion()
