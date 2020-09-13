@@ -13,7 +13,9 @@ import java.util.*
  */
 class SingleSelectAdapter(private val items: Array<CharSequence>) : RecyclerView.Adapter<SingleSelectAdapter.ViewHolder>() {
 
-    var onItemSelected: ((Boolean)->Unit)? = null
+    var onItemHasSelected: ((Boolean) -> Unit)? = null
+
+    var onItemSelected: ((Int) -> Unit)? = null
 
     private var previousSelectedTextView: CheckedTextView? = null
 
@@ -50,8 +52,9 @@ class SingleSelectAdapter(private val items: Array<CharSequence>) : RecyclerView
                     checkedTextView.isChecked = true
                     selectedItem = adapterPosition
                     previousSelectedTextView = checkedTextView
+                    onItemSelected?.invoke(adapterPosition)
                 }
-                onItemSelected?.invoke(selectedItem != -1)
+                onItemHasSelected?.invoke(selectedItem != -1)
             }
         }
     }

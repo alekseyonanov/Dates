@@ -13,7 +13,6 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,12 +24,13 @@ import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.activity.MainActivity.Companion.EASY_DATES_MODE
 import com.nollpointer.dates.ui.details.DatesDetailsFragment
+import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_dates.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class DatesFragment : Fragment() {
+class DatesFragment : BaseFragment() {
 
     private lateinit var mainActivity: MainActivity
     private lateinit var adapter: DatesAdapter
@@ -128,6 +128,10 @@ class DatesFragment : Fragment() {
             })
         }
     }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     override fun onStart() {
         super.onStart()

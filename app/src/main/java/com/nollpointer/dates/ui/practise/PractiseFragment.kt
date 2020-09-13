@@ -12,12 +12,13 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.FragmentPage
+import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_practise.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class PractiseFragment : Fragment() {
+class PractiseFragment : BaseFragment() {
 
     private lateinit var fragmentPages: List<FragmentPage>
 
@@ -27,6 +28,10 @@ class PractiseFragment : Fragment() {
                 FragmentPage(getString(R.string.practise_dates_title), DatesPractiseFragment(), FragmentPage.PRACTISE_DATES),
                 FragmentPage(getString(R.string.practise_terms_title), TermsPractiseFragment(), FragmentPage.PRACTISE_TERMS))
     }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

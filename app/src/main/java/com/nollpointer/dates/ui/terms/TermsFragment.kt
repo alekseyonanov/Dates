@@ -13,7 +13,6 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Term
@@ -22,12 +21,13 @@ import com.nollpointer.dates.other.Keyboard
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.details.TermsDetailsFragment
+import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_terms.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class TermsFragment : Fragment() {
+class TermsFragment : BaseFragment() {
 
     lateinit var terms: ArrayList<Term>
     lateinit var adapter: TermsAdapter
@@ -38,6 +38,10 @@ class TermsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_terms, container, false)
     }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

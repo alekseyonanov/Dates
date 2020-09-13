@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.activity.MainActivity
+import com.nollpointer.dates.ui.dialog.PractiseHelpDialog
 import com.nollpointer.dates.ui.practiseselect.SetDetailsFragment
 import kotlinx.android.synthetic.main.fragment_dates_practise.*
 
@@ -82,9 +84,22 @@ class DatesPractiseFragment : Fragment() {
         (activity as MainActivity?)!!.showBottomNavigationView()
     }
 
-    private fun onPractiseClicked(practise: Int){
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(context, "Разрешение получено", Toast.LENGTH_SHORT).show()
+                onPractiseClicked(Practise.VOICE)
+            } else {
+                val helpDialog = PractiseHelpDialog()
+                helpDialog.show(childFragmentManager, null)
+            }
+        }
+    }
+
+    private fun onPractiseClicked(practise: Int) {
         val mainActivity = activity as MainActivity
-        val practiseParcelable = Practise(practise,mainActivity.mode)
+        val practiseParcelable = Practise(practise, mainActivity.mode)
         val permissionRecord = ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.RECORD_AUDIO)
         if (practise == Practise.VOICE && permissionRecord != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(mainActivity, arrayOf(Manifest.permission.RECORD_AUDIO), 1)
@@ -97,7 +112,7 @@ class DatesPractiseFragment : Fragment() {
     }
 
     fun scrollToTop() {
-        practiseScrollView.smoothScrollTo(0,0)
+        practiseScrollView.smoothScrollTo(0, 0)
     }
 
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
@@ -15,15 +14,17 @@ import com.nollpointer.dates.ui.analyze.AnalyzeFragment
 import com.nollpointer.dates.ui.details.DatesDetailsFragment
 import com.nollpointer.dates.ui.practise.PractiseSettingsFragment
 import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment
+import com.nollpointer.dates.ui.view.BaseFragment
 import com.nollpointer.dates.ui.view.TestAnswerButton
 import kotlinx.android.synthetic.main.fragment_test.*
 import java.util.*
 import kotlin.collections.ArrayList
 
+
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class TestFragment : Fragment() {
+class TestFragment : BaseFragment() {
 
     private lateinit var answerButtons: List<TestAnswerButton>
     private lateinit var dates: List<Date>
@@ -77,8 +78,13 @@ class TestFragment : Fragment() {
 
     }
 
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             practise = it.getParcelable<Practise>(TEST) as Practise
             isTestMode = practise.isTestMode
@@ -98,14 +104,14 @@ class TestFragment : Fragment() {
         //Appodeal.setBannerViewId(R.id.appodealBannerView)
 
         testBack.setOnClickListener {
-            fragmentManager!!.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
         testSettings.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.frameLayout, PractiseSettingsFragment.newInstance(practise))?.addToBackStack(null)?.commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, PractiseSettingsFragment.newInstance(practise)).addToBackStack(null).commit()
         }
         testNextButton.setOnClickListener {
             if (isTestMode.and(practiseResults.size == 20)) {
-                fragmentManager?.beginTransaction()?.replace(R.id.frameLayout, PractiseResultFragment.newInstance())?.addToBackStack(null)?.commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, PractiseResultFragment.newInstance()).addToBackStack(null).commit()
             } else {
                 generateAndSetInfo()
                 testNextButton.hide()
@@ -113,7 +119,7 @@ class TestFragment : Fragment() {
             }
         }
         testAnalyzeButton.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.frameLayout, AnalyzeFragment.newInstance(practise, practiseResults))?.addToBackStack(null)?.commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AnalyzeFragment.newInstance(practise, practiseResults)).addToBackStack(null).commit()
         }
 
         answerButtons = mutableListOf<TestAnswerButton>().apply {
@@ -123,9 +129,9 @@ class TestFragment : Fragment() {
             add(testButton3)
             forEach {
                 it.setOnAnswerButtonClickListener = listener
-                it.setOnDetailsClickListener = {
-                    fragmentManager!!.beginTransaction()
-                            .replace(R.id.frameLayout, DatesDetailsFragment.newInstance(it))
+                it.setOnDetailsClickListener = { date ->
+                    requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.frameLayout, DatesDetailsFragment.newInstance(date))
                             .addToBackStack(null)
                             .commit()
                 }

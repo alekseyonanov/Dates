@@ -7,12 +7,12 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import com.nollpointer.dates.app.App.Companion.api
 import com.nollpointer.dates.model.Term
 import com.nollpointer.dates.model.WikipediaResponseModel
 import com.nollpointer.dates.ui.activity.MainActivity
+import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_terms_details.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,7 +21,7 @@ import retrofit2.Response
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class TermsDetailsFragment : Fragment() {
+class TermsDetailsFragment : BaseFragment() {
     private var term: Term = Term()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +35,10 @@ class TermsDetailsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_terms_details, container, false)
     }
+
+    override fun getStatusBarColorRes() = android.R.color.white
+
+    override fun isStatusBarLight() = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

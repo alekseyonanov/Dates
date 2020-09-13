@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,12 +23,13 @@ import com.nollpointer.dates.model.PractiseResult
 import com.nollpointer.dates.ui.dialog.PractiseHelpDialog
 import com.nollpointer.dates.ui.dialog.PractiseSettingsDialog
 import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment
+import com.nollpointer.dates.ui.view.BaseFragment
 import java.util.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class SortFragment : Fragment() {
+class SortFragment : BaseFragment() {
 
     private lateinit var dates: List<Date>
     private lateinit var recyclerView: RecyclerView
@@ -74,6 +74,10 @@ class SortFragment : Fragment() {
             dates = practise.dates
         }
     }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

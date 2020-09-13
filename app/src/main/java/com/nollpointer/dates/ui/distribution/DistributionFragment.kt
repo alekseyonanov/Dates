@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
@@ -19,11 +18,12 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.dialog.PractiseHelpDialog
 import com.nollpointer.dates.ui.dialog.PractiseSettingsDialog
+import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class DistributionFragment : Fragment() {
+class DistributionFragment : BaseFragment() {
 
     private lateinit var practise: Practise
 
@@ -33,6 +33,10 @@ class DistributionFragment : Fragment() {
             practise = it.getParcelable<Practise>(DISTRIBUTION) as Practise
         }
     }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? { // Inflate the layout for this fragment

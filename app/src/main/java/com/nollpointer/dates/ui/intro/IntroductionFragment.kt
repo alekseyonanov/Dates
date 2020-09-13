@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.IntroPage
 import com.nollpointer.dates.ui.gdpr.GDPRFragment
+import com.nollpointer.dates.ui.view.BaseFragment
 import com.nollpointer.dates.ui.view.DividerView
 import com.nollpointer.dates.ui.view.DividerView.Companion.TOP_POSITION
 import kotlinx.android.synthetic.main.fragment_introduction.*
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_introduction.*
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class IntroductionFragment : Fragment() {
+class IntroductionFragment : BaseFragment() {
 
     private var introPages = mutableListOf<IntroPage>()
 
@@ -42,6 +42,10 @@ class IntroductionFragment : Fragment() {
                             }))
         }
     }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

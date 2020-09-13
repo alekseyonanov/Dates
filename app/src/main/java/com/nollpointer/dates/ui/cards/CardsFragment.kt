@@ -7,26 +7,28 @@ import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.Practise.Companion.TYPE_MIXED
 import com.nollpointer.dates.other.PractiseConstants
 import com.nollpointer.dates.ui.practise.PractiseSettingsFragment
+import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_cards.*
 import java.util.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class CardsFragment : Fragment() {
+class CardsFragment : BaseFragment() {
 
     private lateinit var dates: List<Date>
     private lateinit var currentDate: Date
 
     private var type = 0
     private var isDateQuestion = false
+
+    private val random = Random(System.currentTimeMillis())
 
     private lateinit var practise: Practise
 
@@ -38,6 +40,10 @@ class CardsFragment : Fragment() {
             dates = practise.dates
         }
     }
+
+    override fun getStatusBarColorRes() = android.R.color.white
+
+    override fun isStatusBarLight() = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -51,7 +57,7 @@ class CardsFragment : Fragment() {
             cardsText.breakStrategy = Layout.BREAK_STRATEGY_SIMPLE
         cardsNextButton.setOnClickListener { setQuestion() }
         cardsDescriptionButton.setOnClickListener { setAnswer() }
- 
+
         isDateQuestion = when (type) {
             PractiseConstants.ONLY_DATES -> true
             else -> false
@@ -87,7 +93,6 @@ class CardsFragment : Fragment() {
                 } else {
                     "${currentDate.date}\n${currentDate.event}"
                 }
-
     }
 
     private fun setQuestion() {
@@ -115,6 +120,7 @@ class CardsFragment : Fragment() {
     companion object {
         private const val CARDS = "Cards"
 
+        @JvmStatic
         fun newInstance(practise: Practise) = CardsFragment().apply {
             arguments = Bundle(1).apply {
                 putParcelable(CARDS, practise)

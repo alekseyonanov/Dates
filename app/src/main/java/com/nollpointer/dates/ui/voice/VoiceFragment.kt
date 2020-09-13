@@ -13,7 +13,6 @@ import android.speech.SpeechRecognizer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.appodeal.ads.Appodeal
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
@@ -22,13 +21,14 @@ import com.nollpointer.dates.model.PractiseResult
 import com.nollpointer.dates.ui.dialog.PractiseHelpDialog
 import com.nollpointer.dates.ui.dialog.PractiseSettingsDialog
 import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment.Companion.newInstance
+import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_voice.*
 import java.util.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class VoiceFragment : Fragment(), RecognitionListener {
+class VoiceFragment : BaseFragment(), RecognitionListener {
 
     private lateinit var audioManager: AudioManager
 
@@ -81,6 +81,10 @@ class VoiceFragment : Fragment(), RecognitionListener {
         }
     }
 
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_voice, container, false)
@@ -93,9 +97,9 @@ class VoiceFragment : Fragment(), RecognitionListener {
 
         delay = getDelay()
 
-        voiceBack.apply{
+        voiceBack.apply {
             setImageResource(R.drawable.ic_arrow_back_white)
-            setOnClickListener { fragmentManager!!.popBackStack() }
+            setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
         }
         voiceSettings.apply {
             setImageResource(R.drawable.ic_settings)
@@ -106,17 +110,17 @@ class VoiceFragment : Fragment(), RecognitionListener {
                         setDelay(delay)
                     }
                 })
-                settingsDialog.show(activity!!.supportFragmentManager, null)
+                settingsDialog.show(requireActivity().supportFragmentManager, null)
             }
         }
         voiceHelp.apply {
             setImageResource(R.drawable.ic_help)
             setOnClickListener {
                 val helpDialog = PractiseHelpDialog.newInstance(R.string.help_voice)
-                helpDialog.show(activity!!.supportFragmentManager, null)
+                helpDialog.show(requireActivity().supportFragmentManager, null)
             }
         }
-        voiceRecognitionButton.apply{
+        voiceRecognitionButton.apply {
             setImageResource(R.drawable.ic_voice_gray)
             setOnClickListener { speechRecognizer.startListening(recognizerIntent) }
         }

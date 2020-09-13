@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
@@ -24,13 +23,14 @@ import com.nollpointer.dates.ui.link.LinkFragment
 import com.nollpointer.dates.ui.sort.SortFragment
 import com.nollpointer.dates.ui.test.TestFragment
 import com.nollpointer.dates.ui.truefalse.TrueFalseFragment
+import com.nollpointer.dates.ui.view.BaseFragment
 import com.nollpointer.dates.ui.voice.VoiceFragment
 import kotlinx.android.synthetic.main.fragment_set_details.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-open class SetDetailsFragment : Fragment() {
+open class SetDetailsFragment : BaseFragment() {
 
     private lateinit var singleSelectAdapter: SingleSelectAdapter
     private lateinit var multiSelectAdapter: MutliSelectAdapter
@@ -49,6 +49,10 @@ open class SetDetailsFragment : Fragment() {
         }
     }
 
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_set_details, container, false)
@@ -62,7 +66,7 @@ open class SetDetailsFragment : Fragment() {
         }
 
         singleSelectAdapter = SingleSelectAdapter(resources.getTextArray(R.array.pick_type)).apply {
-            onItemSelected = { isSelected ->
+            onItemHasSelected = { isSelected ->
                 isSingleItemSelected = isSelected
                 setDetailsSelectButton.isEnabled = isSingleItemSelected && isMultiItemsSelected
             }

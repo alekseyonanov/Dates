@@ -44,7 +44,7 @@
                 android:textColor="@color/colorSettingsCategory"
                 android:textSize="14sp" />
 
-            <Switch
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/setDetailsTestSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,10 +72,9 @@
                 android:textSize="14sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/setDetailsSingleRecyclerView"
+                android:id="@+id/practiseSettingsSingleRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/typeTitle"
                 android:layout_marginBottom="16dp"
                 android:background="@android:color/white"
                 tools:itemCount="3"
@@ -95,14 +94,14 @@
                 android:textColor="@color/colorSettingsCategory"
                 android:textSize="14sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/setDetailsMultiRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/centuryTitle"
-                android:background="@android:color/white"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_select_multichoice" />
+            <!--            <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/practiseSettingsMultiRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/centuryTitle"
+                            android:background="@android:color/white"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/item_select_multichoice" />-->
 
         </LinearLayout>
 

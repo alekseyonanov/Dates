@@ -11,19 +11,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.nollpointer.dates.R
 import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.game.GameFragment
 import com.nollpointer.dates.ui.settings.main.SettingsFragment
+import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_menu.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class MenuFragment : Fragment() {
+class MenuFragment : BaseFragment() {
 
     private var currentMode = 0
 
@@ -31,6 +31,10 @@ class MenuFragment : Fragment() {
                               savedInstanceState: Bundle?): View? { // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_menu, container, false)
     }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

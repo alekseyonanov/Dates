@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Practise
+import com.nollpointer.dates.ui.practiseselect.SingleSelectAdapter
 import kotlinx.android.synthetic.main.fragment_practise_settings.*
 
 /**
@@ -15,6 +17,8 @@ import kotlinx.android.synthetic.main.fragment_practise_settings.*
 class PractiseSettingsFragment : Fragment() {
 
     private lateinit var practise: Practise
+
+    private lateinit var singleSelectAdapter: SingleSelectAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,22 @@ class PractiseSettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         practiseSettingsToolbar.setNavigationOnClickListener {
             fragmentManager!!.popBackStack()
+        }
+
+        singleSelectAdapter = SingleSelectAdapter(resources.getTextArray(R.array.pick_type)).apply {
+            onItemHasSelected = { isSelected ->
+
+            }
+            onItemSelected = { type ->
+                practise.type = type
+            }
+            selectedItem = practise.type
+        }
+
+        practiseSettingsSingleRecyclerView.apply {
+            adapter = singleSelectAdapter
+            layoutManager = LinearLayoutManager(this.context)
+            isNestedScrollingEnabled = false
         }
     }
 

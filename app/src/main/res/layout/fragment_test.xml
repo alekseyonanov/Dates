@@ -39,6 +39,8 @@
         android:layout_above="@id/testButtonContainer"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@android:color/black"
         android:textSize="32sp"

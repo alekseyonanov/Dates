@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.PractiseResult
+import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class PractiseResultFragment : Fragment() {
+class PractiseResultFragment : BaseFragment() {
 
     private lateinit var practiseResults: ArrayList<PractiseResult>
 
@@ -50,6 +50,10 @@ class PractiseResultFragment : Fragment() {
 //        SaveCurrentMark(context, getPractiseSaveTitle(practise), getMarkValue(correctAnswerCount)).execute()
         return mainView
     }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 /*
     private fun getPractiseSaveTitle(practise: String?): String {
         val titles = resources.getStringArray(R.array.practise_marks_titles)

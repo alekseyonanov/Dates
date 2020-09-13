@@ -7,12 +7,12 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import com.nollpointer.dates.app.App
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.WikipediaResponseModel
 import com.nollpointer.dates.ui.activity.MainActivity
+import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_dates_details.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,7 +21,7 @@ import retrofit2.Response
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class DatesDetailsFragment : Fragment() {
+class DatesDetailsFragment : BaseFragment() {
 
     private var date = Date()
 
@@ -36,6 +36,10 @@ class DatesDetailsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_dates_details, container, false)
     }
+
+    override fun getStatusBarColorRes() = android.R.color.white
+
+    override fun isStatusBarLight() = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

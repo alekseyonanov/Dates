@@ -7,13 +7,13 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.appodeal.ads.Appodeal
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.PractiseResult
 import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment
+import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_true_false.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -21,7 +21,7 @@ import kotlin.collections.ArrayList
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class TrueFalseFragment : Fragment() {
+class TrueFalseFragment : BaseFragment() {
 
     private lateinit var dates: List<Date>
 
@@ -64,6 +64,10 @@ class TrueFalseFragment : Fragment() {
             dates = practise.dates
         }
     }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

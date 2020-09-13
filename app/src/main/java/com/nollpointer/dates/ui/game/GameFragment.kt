@@ -11,16 +11,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.nollpointer.dates.R
 import com.nollpointer.dates.ui.activity.MainActivity
+import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class GameFragment : Fragment() {
+class GameFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -67,6 +67,10 @@ class GameFragment : Fragment() {
         }
         return mainView
     }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     override fun onStart() {
         super.onStart()

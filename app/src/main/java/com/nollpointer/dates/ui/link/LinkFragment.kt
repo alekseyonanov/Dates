@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Practise
+import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class LinkFragment : Fragment() {
+class LinkFragment : BaseFragment() {
 
     private lateinit var practise: Practise
 
@@ -21,6 +21,10 @@ class LinkFragment : Fragment() {
             practise = it.getParcelable<Practise>(LINK) as Practise
         }
     }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

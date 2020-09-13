@@ -1,10 +1,8 @@
 package com.nollpointer.dates.ui.activity
 
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +16,6 @@ import com.nollpointer.dates.model.Term
 import com.nollpointer.dates.model.TermsList
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.dates.DatesFragment
-import com.nollpointer.dates.ui.dialog.PractiseHelpDialog
 import com.nollpointer.dates.ui.intro.IntroductionFragment
 import com.nollpointer.dates.ui.menu.MenuFragment
 import com.nollpointer.dates.ui.practise.PractiseFragment
@@ -85,13 +82,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        //if (isFirstStart)
+        if (isFirstStart)
             supportFragmentManager
                     .beginTransaction()
                     .add(R.id.frameLayout, IntroductionFragment.newInstance(), null)
                     .commitAllowingStateLoss()
 
-        DateLoadViewModel().loadDates(mode, true) //TODO Добавить KotlinRX
+        DateLoadViewModel().loadDates(mode) {
+            if (!isFirstStart)
+                showDatesFragment()
+        }
         TermsLoadViewModel().loadTerms()
 
         //InitialLoadData(mode, isFirstStart, datesFragment).execute()
@@ -125,20 +125,7 @@ class MainActivity : AppCompatActivity() {
         UpdateDates().updateDates(mode)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Разрешение получено", Toast.LENGTH_SHORT).show()
-            } else {
-                val helpDialog = PractiseHelpDialog()
-                helpDialog.show(this.supportFragmentManager, null)
-            }
-        }
-    }
-
-    //TODO Дикая шляпа надо срочно исправить
-    fun showDatesFragment() {
+    private fun showDatesFragment() {
         supportFragmentManager
                 .beginTransaction()
                 .add(R.id.frameLayout, datesFragment, null)
@@ -159,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("StaticFieldLeak")
     inner class DateLoadViewModel : ViewModel() {
-        fun loadDates(mode: Int, isFirstStart: Boolean) {
+        fun loadDates(mode: Int, listener: (() -> Unit)? = null) {
             viewModelScope.launch {
                 val gson = Gson()
                 val datesList = gson.fromJson(
@@ -172,9 +159,7 @@ class MainActivity : AppCompatActivity() {
                         DatesList::class.java)
 
                 dates = ArrayList(datesList.dates)
-                //TODO Дикая шляпа надо срочно исправить
-                if (!isFirstStart)
-                    showDatesFragment()
+                listener?.invoke()
             }
         }
     }
