@@ -159,6 +159,10 @@
     <string name="example_term">Отличное приложение</string>
     <string name="example_description">Хорошо спроектированное и написанное приложение. Только удовольствие от использования и эффективное обучение.</string>
 
+    <!--ResetSettingsDialog-->
+    <string name="reset_settings_are_you_sure">Вы уверены?</string>
+    <string name="reset_settings_reset">Сбросить настройки</string>
+
 
     <!--AboutFragment-->
     <string name="about_title">О приложении</string>

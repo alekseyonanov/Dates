@@ -12,6 +12,7 @@ object Loader {
     * Категории данных
     */
     private const val APP = "com.nollpointer.dates.app"
+    private const val ADS = "com.nollpointer.dates.ads"
     private const val PRACTISE = "com.nollpointer.dates.practise"
     private const val SETTINGS = "com.nollpointer.dates.settings"
 
@@ -24,34 +25,39 @@ object Loader {
     private const val DATES_VIEW_TYPE = "dates_view_type"
     private const val TERMS_VIEW_TYPE = "terms_view_type"
 
-    fun isGDPRAgree(context: Context) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getBoolean(GDPR, false)
+    fun isGDPRAgree(context: Context) = context.getSharedPreferences(ADS, Context.MODE_PRIVATE).getBoolean(GDPR, false)
 
-    fun setGdprAgree(context: Context, result: Boolean){
-        context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putBoolean(GDPR, result).apply()
+    fun setGdprAgree(context: Context, result: Boolean) {
+        context.getSharedPreferences(ADS, Context.MODE_PRIVATE).edit().putBoolean(GDPR, result).apply()
     }
 
     fun isFirstStart(context: Context) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getBoolean(FIRST_START, true)
 
-    fun setFirstStart(context: Context, result: Boolean){
+    fun setFirstStart(context: Context, result: Boolean) {
         context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putBoolean(FIRST_START, result).apply()
     }
 
     fun getMode(context: Context) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(MODE, FULL_DATES_MODE)
 
-    fun setMode(context: Context, mode: Int){
+    fun setMode(context: Context, mode: Int) {
         context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putInt(MODE, mode).apply()
     }
 
     fun getDatesViewType(context: Context) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(DATES_VIEW_TYPE, 0)
 
-    fun setDatesViewType(context: Context, type: Int){
+    fun setDatesViewType(context: Context, type: Int) {
         context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putInt(DATES_VIEW_TYPE, type).apply()
     }
 
     fun getTermsViewType(context: Context) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(TERMS_VIEW_TYPE, 0)
 
-    fun setTermsViewType(context: Context, type: Int){
+    fun setTermsViewType(context: Context, type: Int) {
         context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putInt(TERMS_VIEW_TYPE, type).apply()
+    }
+
+    fun clear(context: Context) {
+        context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().clear().apply()
+        setFirstStart(context, false)
     }
 
 

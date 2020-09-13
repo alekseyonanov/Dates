@@ -46,32 +46,34 @@
                 android:id="@+id/settingsDatesView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:foreground="?attr/selectableItemBackground"
                 android:background="@android:color/white"
-                android:drawableStart="@drawable/ic_dates"
                 android:drawablePadding="16dp"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:paddingStart="16dp"
                 android:text="@string/settings_dates_view"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                app:drawableStartCompat="@drawable/ic_dates"
+                app:drawableTint="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/settingsTermsView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginBottom="16dp"
                 android:background="@android:color/white"
-                android:drawableStart="@drawable/ic_terms"
                 android:drawablePadding="16dp"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:layout_marginBottom="16dp"
                 android:paddingStart="16dp"
                 android:text="@string/settings_terms_view"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                app:drawableStartCompat="@drawable/ic_terms"
+                app:drawableTint="@color/colorPrimary" />
 
 
             <!--            <Switch-->
@@ -114,17 +116,18 @@
                 android:id="@+id/settingsAboutApp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginBottom="16dp"
                 android:background="@android:color/white"
-                android:drawableStart="@drawable/ic_app_info"
                 android:drawablePadding="16dp"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:layout_marginBottom="16dp"
                 android:paddingStart="16dp"
                 android:text="@string/about_title"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                app:drawableStartCompat="@drawable/ic_app_info"
+                app:drawableTint="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/settingsResetTitle"
@@ -144,16 +147,17 @@
                 android:id="@+id/settingsResetSettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:foreground="?attr/selectableItemBackground"
                 android:background="@android:color/white"
-                android:drawableStart="@drawable/ic_reset"
                 android:drawablePadding="16dp"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:paddingStart="16dp"
                 android:text="@string/settings_reset"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                app:drawableStartCompat="@drawable/ic_reset"
+                app:drawableTint="@color/colorPrimary" />
 
         </LinearLayout>
 

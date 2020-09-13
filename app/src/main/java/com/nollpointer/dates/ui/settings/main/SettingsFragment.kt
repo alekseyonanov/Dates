@@ -29,19 +29,23 @@ class SettingsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         settingsToolbar.setNavigationOnClickListener {
-            fragmentManager?.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         settingsDatesView.setOnClickListener {
-            fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.frameLayout, DatesViewFragment.newInstance())?.commit()
+            requireActivity().supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.frameLayout, DatesViewFragment.newInstance()).commit()
         }
 
         settingsTermsView.setOnClickListener {
-            fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.frameLayout, TermsViewFragment.newInstance())?.commit()
+            requireActivity().supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.frameLayout, TermsViewFragment.newInstance()).commit()
         }
 
         settingsAboutApp.setOnClickListener {
-            fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.frameLayout, AboutFragment.newInstance())?.commit()
+            requireActivity().supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.frameLayout, AboutFragment.newInstance()).commit()
+        }
+
+        settingsResetSettings.setOnClickListener {
+            ResetSettingsDialog.newInstance().show(childFragmentManager, null)
         }
     }
 
