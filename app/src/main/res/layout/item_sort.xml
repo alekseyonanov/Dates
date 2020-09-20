@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:id="@android:id/text1"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:background="?android:attr/selectableItemBackground"--><!--android:ellipsize="marquee"--><!--android:gravity="center_vertical"--><!--android:minHeight="?android:attr/listPreferredItemHeight"--><!--android:paddingStart="12dip"--><!--android:paddingEnd="7dip"--><!--android:textAppearance="?android:attr/textAppearanceMedium"--><!--android:textColor="@android:color/black" />-->
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/sortItemResult"
+        android:layout_width="8dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white" />
 
     <TextView
-        android:id="@+id/sortTextMain"
-        android:layout_width="match_parent"
+        android:id="@+id/sortItemText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeight"
@@ -19,22 +22,4 @@
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
         android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-    <TextView
-        android:id="@+id/sortTextNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="4dp"
-        android:text="1"
-        android:textAppearance="?android:textAppearanceSmall" />
-
-    <ImageView
-        android:id="@+id/sortImage"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_alignBottom="@id/sortTextMain"
-        android:layout_alignParentEnd="true"
-        android:visibility="invisible" />
-
-</RelativeLayout>
+</LinearLayout>

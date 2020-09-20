@@ -3,25 +3,21 @@ package com.nollpointer.dates.ui.sort
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
-import java.util.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
 class SortCardsAdapter : RecyclerView.Adapter<SortCardsAdapter.ViewHolder>() {
-    private lateinit var listener: Listener
-    private var itemCount = 3
-    private lateinit var dates: List<Date>
-    private val sequence = ArrayList<Int>()
 
-    interface Listener {
-        fun onClick(position: Int)
-    }
+    var dates: List<Date> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_sort, parent, false)
@@ -29,44 +25,24 @@ class SortCardsAdapter : RecyclerView.Adapter<SortCardsAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val view = holder.itemView
-        val mainTextView = view.findViewById<TextView>(R.id.sortTextMain)
-        val numberTextView = view.findViewById<TextView>(R.id.sortTextNumber)
-        val imageView = view.findViewById<ImageView>(R.id.sortImage)
-        numberTextView.text = (position + 1).toString()
-        mainTextView.text = dates[position].event
-        sequence.add(position)
-        imageView.visibility = View.INVISIBLE
+        holder.bind(dates[position])
     }
 
-    override fun getItemCount(): Int {
-        return itemCount
-    }
+    override fun getItemCount() = COUNT
 
     fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
         notifyItemMoved(fromPosition, toPosition)
-        val fromNumber = sequence[fromPosition]
-        val toNumber = sequence[toPosition]
-        sequence[toPosition] = fromNumber
-        sequence[fromPosition] = toNumber
         return true
     }
 
-    fun setListener(listener: Listener) {
-        this.listener = listener
+    inner class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
+
+        fun bind(date: Date) {
+            itemView.findViewById<TextView>(R.id.sortItemText).text = date.event
+        }
     }
 
-    fun setItemCount(count: Int) {
-        itemCount = count
+    companion object {
+        private const val COUNT = 3
     }
-
-    fun setDates(dates: List<Date>) {
-        this.dates = dates
-        sequence.clear()
-    }
-
-    val answerSequence: List<Int>
-        get() = sequence
-
-    inner class ViewHolder internal constructor(view: View?) : RecyclerView.ViewHolder(view!!)
 }

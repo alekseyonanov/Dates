@@ -106,6 +106,9 @@
     <string name="true_button">Правда</string>
     <string name="false_button">Ложь</string>
 
+    <string name="true_false_question_date">Дата</string>
+    <string name="true_false_question_event">Событие</string>
+
 
     <!--SortFragment-->
     <string name="sort_text">Расположите в хронологической последовательности</string>

@@ -5,49 +5,42 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-
-    <ImageButton
+    <ImageView
         android:id="@+id/voiceBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:background="@drawable/practise_back_button" />
+        android:layout_alignParentTop="true"
+        android:layout_margin="8dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_back_black" />
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/voiceSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/practise_rating_button"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/voiceHelp"
-            android:layout_width="64dp"
-            android:layout_height="56dp"
-            android:background="@android:color/transparent" />
-
-        <ImageButton
-            android:id="@+id/voiceSettings"
-            android:layout_width="64dp"
-            android:layout_height="56dp"
-            android:background="@android:color/transparent" />
-
-    </LinearLayout>
+        android:layout_margin="8dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:src="@drawable/ic_settings_black" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
         android:layout_above="@id/voiceVisualizerContainer"
-        android:layout_gravity="fill">
+        android:layout_gravity="fill"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/voiceQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:text="Правление Петра 1"
@@ -56,8 +49,8 @@
 
         <ImageView
             android:id="@+id/voiceResult"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
             android:visibility="invisible" />
 
     </LinearLayout>
@@ -67,78 +60,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/voiceInfoContainer"
+        android:gravity="center"
         android:padding="16dp"
-        android:text="asdasdasd11d1212d1d2" />
-
-
-    <HorizontalScrollView
-        android:id="@+id/voiceInfoContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/voiceVisualizerContainer"
-        android:minHeight="?android:attr/listPreferredItemHeight">
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/vocieInfoChipGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:singleLine="true"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/voiceRightAnswersChip"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:clickable="false"
-                android:text="0"
-                app:chipBackgroundColor="@android:color/white"
-                app:chipIcon="@drawable/thumb_up_selector"
-                app:iconStartPadding="2dp" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/voiceQuestionNumberChip"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_marginStart="12dip"
-                android:clickable="false"
-                android:text="#1"
-                app:chipBackgroundColor="@android:color/white" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/voiceWrongAnswersChip"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:clickable="false"
-                android:text="0"
-                app:chipBackgroundColor="@android:color/white"
-                app:chipIcon="@drawable/thumb_down_selector"
-                app:iconStartPadding="2dp" />
-
-        </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
-
-    <com.appodeal.ads.BannerView
-        android:id="@+id/appodealBannerView_voice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/voiceRecognizedText"
-        android:visibility="gone" />
+        android:text="Привет мир!" />
 
     <RelativeLayout
         android:id="@+id/voiceVisualizerContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/voiceCheck"
+        android:layout_above="@id/voiceRecognizedText"
         android:layout_gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeight">
-
 
         <com.nollpointer.dates.ui.voice.VisualizerView
             android:id="@+id/voiceVisualizer"
@@ -154,8 +86,94 @@
             android:background="@drawable/voice_button_background"
             android:padding="5dp" />
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/voiceInfoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/voiceCheck"
+        android:gravity="center"
+        android:minHeight="?android:attr/listPreferredItemHeight">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/vocieInfoChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/voiceRightAnswersChip"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:clickable="false"
+                android:text="0"
+                app:chipBackgroundColor="@android:color/white"
+                app:chipIcon="@drawable/ic_right_answer_icon"
+                app:iconStartPadding="2dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/voiceQuestionNumberChip"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="1"
+                android:textStyle="bold"
+                app:chipBackgroundColor="@android:color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/voiceWrongAnswersChip"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:clickable="false"
+                android:text="0"
+                app:chipBackgroundColor="@android:color/white"
+                app:chipIcon="@drawable/ic_wrong_answer_icon"
+                app:iconStartPadding="2dp" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/voiceNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/ic_next"
+            android:visibility="visible"
+            app:elevation="0dp"
+            app:fabSize="mini" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/voiceAnalyzeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_margin="8dp"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/ic_analyze"
+            android:visibility="visible"
+            app:elevation="0dp"
+            app:fabSize="mini" />
 
     </RelativeLayout>
+
+    <com.appodeal.ads.BannerView
+        android:id="@+id/appodealBannerView_voice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/voiceRecognizedText"
+        android:visibility="gone" />
 
     <android.widget.Button
         android:id="@+id/voiceCheck"

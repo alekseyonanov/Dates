@@ -1,72 +1,65 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorBackground">
 
 
-    <ImageButton
-        android:id="@+id/sort_back_button"
+    <ImageView
+        android:id="@+id/sortBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/practise_back_button" />
+        android:layout_margin="8dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_back_black" />
 
-
-    <LinearLayout
+    <ImageView
+        android:id="@+id/sortSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/practise_rating_button"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/sort_help_button"
-            android:layout_width="64dp"
-            android:layout_height="56dp"
-            android:background="@android:color/transparent" />
-
-        <ImageButton
-            android:id="@+id/sort_settings_button"
-            android:layout_width="64dp"
-            android:layout_height="56dp"
-            android:background="@android:color/transparent" />
-
-    </LinearLayout>
+        android:layout_margin="8dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:src="@drawable/ic_settings_black" />
 
 
     <TextView
         android:id="@+id/instruction_sort"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/sort_recycler_view"
-        android:layout_gravity="fill"
+        android:layout_above="@id/sortRecyclerView"
         android:gravity="center"
         android:text="@string/sort_text"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@android:color/black" />
 
-    <HorizontalScrollView
+    <RelativeLayout
         android:id="@+id/sortInfoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/sort_recycler_view"
+        android:layout_above="@id/sortRecyclerView"
         android:minHeight="?android:attr/listPreferredItemHeight">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/sortInfoChipGroup"
+            android:id="@+id/testInfoChipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:padding="4dp"
             app:singleLine="true"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/sortRightAnswers"
+                android:id="@+id/sortRightAnswersChip"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,22 +67,23 @@
                 android:clickable="false"
                 android:text="0"
                 app:chipBackgroundColor="@android:color/white"
-                app:chipIcon="@drawable/thumb_up_selector"
+                app:chipIcon="@drawable/ic_right_answer_icon"
                 app:iconStartPadding="2dp" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/sortQuestionNumber"
+                android:id="@+id/sortQuestionNumberChip"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:layout_marginStart="12dip"
                 android:clickable="false"
-                android:text="#1"
+                android:gravity="center"
+                android:text="1"
+                android:textStyle="bold"
                 app:chipBackgroundColor="@android:color/white" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/sortWrongAnswers"
+                android:id="@+id/sortWrongAnswersChip"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,11 +91,37 @@
                 android:clickable="false"
                 android:text="0"
                 app:chipBackgroundColor="@android:color/white"
-                app:chipIcon="@drawable/thumb_down_selector"
+                app:chipIcon="@drawable/ic_wrong_answer_icon"
                 app:iconStartPadding="2dp" />
 
         </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/sortNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/ic_next"
+            android:visibility="visible"
+            app:elevation="0dp"
+            app:fabSize="mini" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/sortAnalyzeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_margin="8dp"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/ic_analyze"
+            android:visibility="visible"
+            app:elevation="0dp"
+            app:fabSize="mini" />
+
+    </RelativeLayout>
 
 
     <com.appodeal.ads.BannerView
@@ -113,17 +133,17 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/sort_recycler_view"
+        android:id="@+id/sortRecyclerView"
         android:layout_width="match_parent"
-        tools:listitem="@layout/item_sort"
-        tools:itemCount="3"
         android:layout_height="wrap_content"
-        android:layout_above="@id/sort_check"
+        android:layout_above="@id/sortCheckButton"
         android:layout_centerVertical="true"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_sort" />
 
     <android.widget.Button
-        android:id="@+id/sort_check"
+        android:id="@+id/sortCheckButton"
         style="?android:borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

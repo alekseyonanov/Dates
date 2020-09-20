@@ -1,24 +1,18 @@
 package com.nollpointer.dates.ui.distribution
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.graphics.Rect
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Practise
-import com.nollpointer.dates.ui.dialog.PractiseHelpDialog
-import com.nollpointer.dates.ui.dialog.PractiseSettingsDialog
+import com.nollpointer.dates.ui.practise.PractiseSettingsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
+import kotlinx.android.synthetic.main.fragment_distribution.*
 
 /**
  * @author Onanov Aleksey (@onanov)
@@ -40,52 +34,23 @@ class DistributionFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? { // Inflate the layout for this fragment
-        val mainView = inflater.inflate(R.layout.fragment_distribution, container, false)
-        val backButton = mainView.findViewById<ImageButton>(R.id.testBack)
-        val settingsButton = mainView.findViewById<ImageButton>(R.id.testSettings)
-        val helpButton = mainView.findViewById<ImageButton>(R.id.testHelp)
-        //Appodeal.setBannerViewId(R.id.appodealBannerView)
-        backButton.setImageResource(R.drawable.ic_arrow_back_white)
-        backButton.setOnClickListener {
+        return inflater.inflate(R.layout.fragment_distribution, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        distributionBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-        settingsButton.setImageResource(R.drawable.ic_settings)
-        settingsButton.setOnClickListener {
-            val settingsDialog = PractiseSettingsDialog.newInstance(900)
-            settingsDialog.setListener(object : PractiseSettingsDialog.Listener {
-                override fun onDelayPicked(delay: Int) { //setDelay(delay);
-                }
-            })
-            settingsDialog.show(childFragmentManager, null)
+
+        distributionSettings.setOnClickListener {
+            requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frameLayout, PractiseSettingsFragment.newInstance(practise))
+                    .addToBackStack(null)
+                    .commit()
         }
-        helpButton.setImageResource(R.drawable.ic_help)
-        helpButton.setOnClickListener {
-            val helpDialog = PractiseHelpDialog.newInstance(R.string.help_practise)
-            helpDialog.show(childFragmentManager, null)
-        }
-        val image = mainView.findViewById<ImageView>(R.id.statistics_dummy_crane)
-        image.setImageResource(R.drawable.ic_crane)
-        val button = mainView.findViewById<Button>(R.id.statistics_dummy_button)
-        button.setOnClickListener {
-            val appPackageName = context!!.packageName // getPackageName() from Context or Activity object
-            try {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
-            } catch (anfe: ActivityNotFoundException) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
-            }
-        }
-        //        RecyclerView recyclerView = mainView.findViewById(R.id.distribution_recycler_view);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.setAdapter(new DistributionCardsAdapter());
-//
-//
-//        ItemTouchHelper.Callback callback =
-//                new ItemSwipeTouchHelper(recyclerView);
-//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-//        touchHelper.attachToRecyclerView(recyclerView);
-//
-//        recyclerView.addItemDecoration(new SpacesItemDecoration(16));
-        return mainView
     }
 
     companion object {

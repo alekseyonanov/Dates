@@ -17,29 +17,6 @@
         android:padding="8dp"
         android:src="@drawable/ic_arrow_back_black" />
 
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentTop="true"-->
-    <!--        android:layout_alignParentEnd="true"-->
-    <!--        android:background="@drawable/practise_rating_button"-->
-    <!--        android:orientation="horizontal">-->
-
-    <!--        <ImageButton-->
-    <!--            android:id="@+id/trueFalseHelp"-->
-    <!--            android:layout_width="64dp"-->
-    <!--            android:layout_height="56dp"-->
-    <!--            android:background="@android:color/transparent" />-->
-
-    <!--        <ImageButton-->
-    <!--            android:id="@+id/trueFalseSettings"-->
-    <!--            android:layout_width="64dp"-->
-    <!--            android:layout_height="56dp"-->
-    <!--            android:background="@android:color/transparent" />-->
-
-    <!--    </LinearLayout>-->
-
-
     <ImageView
         android:id="@+id/trueFalseSettings"
         android:layout_width="wrap_content"
@@ -74,6 +51,12 @@
             android:textSize="32sp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:id="@+id/trueFalseResult"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/trueFalseEvent"
             android:layout_width="match_parent"
@@ -85,11 +68,6 @@
             android:textColor="@android:color/black"
             android:textSize="28sp" />
 
-        <ImageView
-            android:id="@+id/trueFalseResult"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:visibility="invisible" />
 
     </LinearLayout>
 
@@ -116,10 +94,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:clickable="false"
-                android:text="0"
                 app:chipBackgroundColor="@android:color/white"
-                app:chipIcon="@drawable/thumb_up_selector"
-                app:iconStartPadding="2dp" />
+                app:chipIcon="@drawable/ic_right_answer_icon"
+                app:iconStartPadding="2dp"
+                android:text="0" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/trueFalseQuestionNumberChip"
@@ -127,10 +105,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:layout_marginStart="12dip"
                 android:clickable="false"
-                android:gravity="clip_horizontal"
-                android:text="#1"
+                android:gravity="center"
+                android:text="1"
+                android:textStyle="bold"
                 app:chipBackgroundColor="@android:color/white" />
 
             <com.google.android.material.chip.Chip
@@ -140,10 +118,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:clickable="false"
-                android:text="0"
                 app:chipBackgroundColor="@android:color/white"
-                app:chipIcon="@drawable/thumb_down_selector"
-                app:iconStartPadding="2dp" />
+                app:chipIcon="@drawable/ic_wrong_answer_icon"
+                app:iconStartPadding="2dp"
+                android:text="0" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -153,10 +131,24 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_margin="8dp"
-            android:backgroundTint="@color/colorSettingsCategory"
+            android:backgroundTint="@android:color/white"
             android:src="@drawable/ic_next"
+            android:visibility="invisible"
             app:elevation="0dp"
             app:fabSize="mini" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/trueFalseAnalyzeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_margin="8dp"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/ic_analyze"
+            android:visibility="invisible"
+            app:elevation="0dp"
+            app:fabSize="mini" />
+
     </RelativeLayout>
 
     <com.appodeal.ads.BannerView
@@ -182,7 +174,8 @@
             android:layout_gravity="start"
             android:layout_weight="1"
             android:background="@color/colorTest"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:text="@string/true_button"
             android:textColor="@android:color/white" />
 
@@ -192,9 +185,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/false_button"
             android:textColor="@android:color/white" />
 

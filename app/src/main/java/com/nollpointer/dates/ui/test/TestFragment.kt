@@ -37,6 +37,10 @@ class TestFragment : BaseFragment() {
 
     private var practiseResults = ArrayList<PractiseResult>()
 
+    private var questionNumber = 0
+    private var rightAnswersCount = 0
+    private var wrongAnswersCount = 0
+
     private lateinit var practise: Practise
 
     private val listener = { testAnswerButton: TestAnswerButton ->
@@ -54,9 +58,6 @@ class TestFragment : BaseFragment() {
                 isCorrect = isAnsweredRight
         ))
 
-        var rightAnswersCount = testRightAnswersChip.text.toString().toInt()
-        var wrongAnswersCount = testWrongAnswersChip.text.toString().toInt()
-
         if (isAnsweredRight)
             rightAnswersCount++
         else
@@ -65,8 +66,7 @@ class TestFragment : BaseFragment() {
         testRightAnswersChip.text = rightAnswersCount.toString()
         testWrongAnswersChip.text = wrongAnswersCount.toString()
 
-        testNextButton.show()
-        testAnalyzeButton.show()
+        showControlButtons()
 
         answerButtons.forEach {
             if (!isTestMode) {
@@ -104,22 +104,38 @@ class TestFragment : BaseFragment() {
         //Appodeal.setBannerViewId(R.id.appodealBannerView)
 
         testBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            requireActivity()
+                    .supportFragmentManager
+                    .popBackStack()
         }
         testSettings.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, PractiseSettingsFragment.newInstance(practise)).addToBackStack(null).commit()
+            requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frameLayout, PractiseSettingsFragment.newInstance(practise))
+                    .addToBackStack(null)
+                    .commit()
         }
         testNextButton.setOnClickListener {
             if (isTestMode.and(practiseResults.size == 20)) {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, PractiseResultFragment.newInstance()).addToBackStack(null).commit()
+                requireActivity()
+                        .supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, PractiseResultFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit()
             } else {
                 generateAndSetInfo()
-                testNextButton.hide()
-                testAnalyzeButton.hide()
             }
         }
         testAnalyzeButton.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AnalyzeFragment.newInstance(practise, practiseResults)).addToBackStack(null).commit()
+            requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frameLayout,
+                            AnalyzeFragment.newInstance(practise, practiseResults))
+                    .addToBackStack(null)
+                    .commit()
         }
 
         answerButtons = mutableListOf<TestAnswerButton>().apply {
@@ -130,17 +146,14 @@ class TestFragment : BaseFragment() {
             forEach {
                 it.setOnAnswerButtonClickListener = listener
                 it.setOnDetailsClickListener = { date ->
-                    requireActivity().supportFragmentManager.beginTransaction()
+                    requireActivity().supportFragmentManager
+                            .beginTransaction()
                             .replace(R.id.frameLayout, DatesDetailsFragment.newInstance(date))
                             .addToBackStack(null)
                             .commit()
                 }
             }
         }
-
-        testRightAnswersChip.text = "0"
-        testWrongAnswersChip.text = "0"
-        testQuestionNumberChip.text = "1"
 
         if (currentAnswerDatesList.isEmpty()) {
             generateAndSetInfo()
@@ -156,39 +169,27 @@ class TestFragment : BaseFragment() {
     }
 
     private fun generateAndSetInfo() {
+        questionNumber++
         currentAnswerDatesList.clear()
         currentAnswerDatesList.addAll(generateDatesQuestionList())
         currentDate = currentAnswerDatesList[Random().nextInt(4)]
         currentType = if (type == TYPE_MIXED) Random().nextInt(2) else type
         resetButtons()
         setQuestions()
+        hideControlButtons()
 
-        val rightAnswersCount = testRightAnswersChip.text.toString().toInt()
-        val wrongAnswersCount = testWrongAnswersChip.text.toString().toInt()
-        testQuestionNumberChip.text = (rightAnswersCount + wrongAnswersCount + 1).toString()
+        testQuestionNumberChip.text = questionNumber.toString()
     }
 
     private fun setPreviousInfo() {
-        var rightAnswersCount = 0
-        var wrongAnswersCount = 0
 
-        practiseResults.forEach {
-            if (it.isCorrect) {
-                rightAnswersCount++
-            } else {
-                wrongAnswersCount++
-            }
-        }
         testRightAnswersChip.text = rightAnswersCount.toString()
         testWrongAnswersChip.text = wrongAnswersCount.toString()
-        testQuestionNumberChip.text = (rightAnswersCount + wrongAnswersCount + 1).toString()
+        testQuestionNumberChip.text = questionNumber.toString()
 
-        testNextButton.show()
-        testAnalyzeButton.show()
+        showControlButtons()
 
-        currentAnswerDatesList.withIndex().forEach {
-            answerButtons[it.index].setDate(currentType, it.value)
-        }
+        resetButtons()
 
         setQuestions()
 
@@ -199,7 +200,6 @@ class TestFragment : BaseFragment() {
 
         val correctAnswerPosition = currentAnswerDatesList.indexOf(currentDate)
         answerButtons[correctAnswerPosition].setResult(true)
-
 
         answerButtons.forEach {
             it.setDetailsMode()
@@ -224,6 +224,16 @@ class TestFragment : BaseFragment() {
         } else {
             testQuestion.text = currentDate.event
         }
+    }
+
+    private fun showControlButtons(){
+        testNextButton.show()
+        testAnalyzeButton.show()
+    }
+
+    private fun hideControlButtons(){
+        testNextButton.hide()
+        testAnalyzeButton.hide()
     }
 
     /*    override fun onStop() {

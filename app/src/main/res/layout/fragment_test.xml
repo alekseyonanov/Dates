@@ -73,7 +73,7 @@
                 app:chipBackgroundColor="@android:color/white"
                 app:chipIcon="@drawable/ic_right_answer_icon"
                 app:iconStartPadding="2dp"
-                tools:text="0" />
+                android:text="0" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/testQuestionNumberChip"
@@ -85,7 +85,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 app:chipBackgroundColor="@android:color/white"
-                tools:text="1" />
+                android:text="1" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/testWrongAnswersChip"
@@ -97,7 +97,7 @@
                 app:chipBackgroundColor="@android:color/white"
                 app:chipIcon="@drawable/ic_wrong_answer_icon"
                 app:iconStartPadding="2dp"
-                tools:text="0" />
+                android:text="0" />
 
         </com.google.android.material.chip.ChipGroup>
 

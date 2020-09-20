@@ -1,22 +1,20 @@
 package com.nollpointer.dates.ui.truefalse
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
-import android.os.Handler
-import android.preference.PreferenceManager
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.appodeal.ads.Appodeal
+import androidx.core.content.ContextCompat
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
-import com.nollpointer.dates.model.PractiseResult
-import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment
+import com.nollpointer.dates.ui.analyze.AnalyzeFragment
+import com.nollpointer.dates.ui.details.DatesDetailsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_true_false.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * @author Onanov Aleksey (@onanov)
@@ -27,42 +25,37 @@ class TrueFalseFragment : BaseFragment() {
 
     private var isLocked = false
     private var isTrue = false
-    private val practiseResults = ArrayList<PractiseResult>()
+    private var isCorrect = false
     private var isTestMode = false
-    private var delay = 900
 
-    private val listener = View.OnClickListener { v ->
+    private var questionNumber = 0
+    private var rightAnswersCount = 0
+    private var wrongAnswersCount = 0
+
+    private var questionDate = Date()
+    private var questionEvent = Date()
+
+    private val listener = View.OnClickListener { view ->
         if (isLocked)
             return@OnClickListener
-        lockAnswerButtons()
-        var rightAnswersCount = trueFalseRightAnswersChip.text.toString().toInt()
-        var wrongAnswersCount = trueFalseWrongAnswersChip.text.toString().toInt()
-        val isCorrect = isTrue && v == trueFalseTrueButton || !isTrue && v == trueFalseFalseButton
+        isCorrect = (isTrue && view == trueFalseTrueButton) || (!isTrue && view == trueFalseFalseButton)
         if (isCorrect) {
-            showCorrectImage()
             rightAnswersCount++
         } else {
-            showMistakeImage()
             wrongAnswersCount++
         }
-//        if (isTestMode) {
-//            val practiseResult = PractiseResult(trueFalseDate.text.toString() + " – " + trueFalseEvent.text, isCorrect)
-//            practiseResults.add(practiseResult)
-//        }
-        if (rightAnswersCount + wrongAnswersCount == 20 && isTestMode) {
-            requireActivity()
-                    .supportFragmentManager
-                    .beginTransaction()
-                    .replace(
-                            R.id.frameLayout,
-                            PractiseResultFragment.newInstance(TRUE_FALSE, practiseResults, arguments!!
-                            )
-                    )
-                    .commit()
+
+        if (isTrue) {
+            showEqualsImage(isCorrect)
+        } else {
+            showNotEqualsImage(isCorrect)
         }
+
         trueFalseRightAnswersChip.text = rightAnswersCount.toString()
         trueFalseWrongAnswersChip.text = wrongAnswersCount.toString()
-        Handler().postDelayed({ generateAndSetInfo() }, delay.toLong())
+        isLocked = true
+        showControlButtons()
+        updateTrueFalseButtons()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,74 +79,48 @@ class TrueFalseFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Appodeal.setBannerViewId(R.id.appodealBannerView_true)
+        //Appodeal.setBannerViewId(R.id.appodealBannerView_true)
         trueFalseTrueButton.setOnClickListener(listener)
         trueFalseFalseButton.setOnClickListener(listener)
 
-        trueFalseBack.apply {
-            //setImageResource(R.drawable.ic_arrow_back_white)
-            setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+        trueFalseBack.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+
+        trueFalseSettings.setOnClickListener { }
+
+        trueFalseNextButton.setOnClickListener {
+            generateAndSetInfo()
         }
 
-        trueFalseSettings.apply {
-            //setImageResource(R.drawable.ic_settings)
-            setOnClickListener {
-//                val settingsDialog = PractiseSettingsDialog.newInstance(delay)
-//                settingsDialog.setListener(object : PractiseSettingsDialog.Listener {
-//                    override fun onDelayPicked(delay: Int) {
-//                        setDelay(delay)
-//                    }
-//                })
-//                settingsDialog.show(activity!!.supportFragmentManager, null)
-
-            }
+        trueFalseAnalyzeButton.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AnalyzeFragment())
         }
 
-//        trueFalseHelp.apply {
-//            setImageResource(R.drawable.ic_help)
-//            setOnClickListener {
-//                val helpDialog = PractiseHelpDialog.newInstance(R.string.help_true_false)
-//                helpDialog.show(activity!!.supportFragmentManager, null)
-//            }
-//        }
+        if (questionNumber != 0) {
+            setPreviousInfo()
+        } else {
+            generateAndSetInfo()
 
-        delay = getDelay()
-        //generateAndSetInfo()
+        }
 
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Appodeal.hide(activity!!, Appodeal.BANNER_VIEW)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Appodeal.show(activity!!, Appodeal.BANNER_VIEW)
-    }
-
-    private fun lockAnswerButtons() {
-        isLocked = true
-    }
-
-    private fun unlockAnswerButtons() {
-        isLocked = false
     }
 
     private fun generateAndSetInfo() {
+        questionNumber++
         isTrue = generateRandomBoolean()
-        val questionDate = generateDate()
-        var date = questionDate.date
-        val event: String
-        if (questionDate.containsMonth) date += ", " + questionDate.month
-        if (isTrue) event = questionDate.event else {
-            var anotherDate = generateDate()
-            while (anotherDate == questionDate) anotherDate = generateDate()
-            event = anotherDate.event
+        questionDate = generateDate()
+        val date = if (questionDate.containsMonth) questionDate.date + ", " + questionDate.month else questionDate.date
+        val event = if (isTrue) {
+            questionDate.event
+        } else {
+            questionEvent = generateDate()
+            while (questionEvent == questionDate) questionEvent = generateDate()
+            questionEvent.event
         }
+        rollbackTrueFalseButtons()
         hideResultImage()
+        hideControlButtons()
+        isLocked = false
         setInfo(date, event)
-        unlockAnswerButtons()
     }
 
     private fun generateRandomBoolean(): Boolean {
@@ -167,43 +134,112 @@ class TrueFalseFragment : BaseFragment() {
     }
 
     private fun setInfo(date: String, event: String) {
-        trueFalseDate.text = Html.fromHtml(date)
+        trueFalseDate.text = date
         trueFalseEvent.text = event
-        val rightAnswersCount = trueFalseRightAnswersChip.text.toString().toInt()
-        val wrongAnswersCount = trueFalseWrongAnswersChip.text.toString().toInt()
-        trueFalseQuestionNumberChip.text = "#" + (rightAnswersCount + wrongAnswersCount + 1)
+        trueFalseQuestionNumberChip.text = questionNumber.toString()
     }
 
-    private fun showCorrectImage() {
-        trueFalseResult.setImageResource(R.drawable.ic_correct)
+    private fun setPreviousInfo() {
+        trueFalseDate.text = if (questionDate.containsMonth) questionDate.date + ", " + questionDate.month else questionDate.date
+
+        if (isTrue) {
+            showEqualsImage(isCorrect)
+            trueFalseEvent.text = questionDate.event
+        } else {
+            showNotEqualsImage(isCorrect)
+            trueFalseEvent.text = questionEvent.event
+        }
+
+        trueFalseRightAnswersChip.text = rightAnswersCount.toString()
+        trueFalseWrongAnswersChip.text = wrongAnswersCount.toString()
+        trueFalseQuestionNumberChip.text = questionNumber.toString()
+        isLocked = true
+        showControlButtons()
+        updateTrueFalseButtons()
+    }
+
+    private fun showEqualsImage(isCorrect: Boolean) {
+        trueFalseResult.setImageResource(R.drawable.ic_equals)
+        trueFalseResult.imageTintList = getResultImageTint(isCorrect)
         trueFalseResult.visibility = View.VISIBLE
     }
 
-    private fun showMistakeImage() {
-        trueFalseResult.setImageResource(R.drawable.ic_mistake)
+    private fun showNotEqualsImage(isCorrect: Boolean) {
+        trueFalseResult.setImageResource(R.drawable.ic_equals_not)
+        trueFalseResult.imageTintList = getResultImageTint(isCorrect)
         trueFalseResult.visibility = View.VISIBLE
     }
 
     private fun hideResultImage() {
-        trueFalseResult.visibility = View.INVISIBLE
+        trueFalseResult.visibility = View.GONE
     }
 
-    private fun getDelay(): Int {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getInt("truefalse delay", 900)
+    private fun hideControlButtons() {
+        trueFalseAnalyzeButton.hide()
+        trueFalseNextButton.hide()
     }
 
-    private fun setDelay(delay: Int) {
-        this.delay = delay
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context).edit()
-        preferences.putInt("truefalse delay", delay)
-        preferences.apply()
+    private fun showControlButtons() {
+        trueFalseAnalyzeButton.show()
+        trueFalseNextButton.show()
     }
+
+    private fun updateTrueFalseButtons() {
+        trueFalseTrueButton.apply {
+            setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_help, 0, 0, 0)
+            setOnClickListener {
+                requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout, DatesDetailsFragment.newInstance(questionDate))
+                        .addToBackStack(null)
+                        .commit()
+            }
+            text = getString(R.string.true_false_question_date)
+        }
+        trueFalseFalseButton.apply {
+            setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_help, 0)
+            setOnClickListener {
+                requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout, DatesDetailsFragment.newInstance(questionEvent))
+                        .addToBackStack(null)
+                        .commit()
+            }
+            text = getString(R.string.true_false_question_event)
+        }
+        if (isTrue) {
+            trueFalseFalseButton.visibility = View.GONE
+        }
+    }
+
+    private fun rollbackTrueFalseButtons() {
+        trueFalseTrueButton.apply {
+            setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+            setOnClickListener(listener)
+            text = getString(R.string.true_button)
+            visibility = View.VISIBLE
+        }
+        trueFalseFalseButton.apply {
+            setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+            setOnClickListener(listener)
+            text = getString(R.string.false_button)
+            visibility = View.VISIBLE
+        }
+    }
+
+    private fun getResultImageTint(isCorrect: Boolean) = ColorStateList.valueOf(ContextCompat.getColor(context as Context,
+            if (isCorrect) {
+                R.color.colorTest
+            } else {
+                R.color.colorPrimary
+            }
+    )
+    )
+
 
     companion object {
 
         private const val TRUE_FALSE = "TrueFalse"
 
+        @JvmStatic
         fun newInstance(practise: Practise) =
                 TrueFalseFragment().apply {
                     arguments = Bundle().apply {

@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.os.Bundle
-import android.os.Handler
-import android.preference.PreferenceManager
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -18,8 +16,6 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.PractiseResult
-import com.nollpointer.dates.ui.dialog.PractiseHelpDialog
-import com.nollpointer.dates.ui.dialog.PractiseSettingsDialog
 import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment.Companion.newInstance
 import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_voice.*
@@ -41,9 +37,10 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
     private var type = 0
     private var isLocked = false
     private val practiseResults = ArrayList<PractiseResult>()
-    private var delay = 900
     private var originalVolumeLevel = 0
     private var savedRecognizedText = ""
+
+    private var isCancelled = true
 
     private val listener = View.OnClickListener {
         if (isLocked) return@OnClickListener
@@ -68,7 +65,6 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
         if (currentDate.containsMonth) voiceQuestion.text = currentDate.event + "\n" + currentDate.date + ", " + currentDate.month
         voiceRightAnswersChip.text = rightAnswersCount.toString()
         voiceWrongAnswersChip.text = wrongAnswersCount.toString()
-        Handler().postDelayed({ generateAndSetInfo() }, delay.toLong())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,33 +89,15 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Appodeal.setBannerViewId(R.id.appodealBannerView_voice)
+        //Appodeal.setBannerViewId(R.id.appodealBannerView_voice)
 
-        delay = getDelay()
+        voiceBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+        voiceSettings.setOnClickListener {
 
-        voiceBack.apply {
-            setImageResource(R.drawable.ic_arrow_back_white)
-            setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
         }
-        voiceSettings.apply {
-            setImageResource(R.drawable.ic_settings)
-            setOnClickListener {
-                val settingsDialog = PractiseSettingsDialog.newInstance(delay)
-                settingsDialog.setListener(object : PractiseSettingsDialog.Listener {
-                    override fun onDelayPicked(delay: Int) {
-                        setDelay(delay)
-                    }
-                })
-                settingsDialog.show(requireActivity().supportFragmentManager, null)
-            }
-        }
-        voiceHelp.apply {
-            setImageResource(R.drawable.ic_help)
-            setOnClickListener {
-                val helpDialog = PractiseHelpDialog.newInstance(R.string.help_voice)
-                helpDialog.show(requireActivity().supportFragmentManager, null)
-            }
-        }
+
         voiceRecognitionButton.apply {
             setImageResource(R.drawable.ic_voice_gray)
             setOnClickListener { speechRecognizer.startListening(recognizerIntent) }
@@ -137,6 +115,7 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
 
     override fun onResume() {
         super.onResume()
+        isCancelled = false
         originalVolumeLevel = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE)
         speechRecognizer.startListening(recognizerIntent)
@@ -144,6 +123,7 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
 
     override fun onPause() {
         super.onPause()
+        isCancelled = true
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, originalVolumeLevel, 0)
         speechRecognizer.cancel()
     }
@@ -209,24 +189,12 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
 //questionTextView.setText(date.getEvent() + "\n" + date.getDate() + ", " + date.getMonth());
         val rightAnswersCount = voiceRightAnswersChip.text.toString().toInt()
         val wrongAnswersCount = voiceWrongAnswersChip.text.toString().toInt()
-        voiceQuestionNumberChip.text = "#" + (rightAnswersCount + wrongAnswersCount + 1)
+        voiceQuestionNumberChip.text = (rightAnswersCount + wrongAnswersCount + 1).toString()
     }
 
     private fun generateDate(): Date {
         val random = Random(System.currentTimeMillis())
         return dates[random.nextInt(dates.size)]
-    }
-
-    private fun getDelay(): Int {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getInt("voice delay", 900)
-    }
-
-    private fun setDelay(delay: Int) {
-        this.delay = delay
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context).edit()
-        preferences.putInt("voice delay", delay)
-        preferences.apply()
     }
 
     private fun createIntentForRecognizer(): Intent {
@@ -251,13 +219,17 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
     override fun onReadyForSpeech(bundle: Bundle) {}
     override fun onBeginningOfSpeech() {}
     override fun onRmsChanged(v: Float) {
-        voiceVisualizer.setAmplitude(v)
+        if (!isCancelled) {
+            voiceVisualizer.setAmplitude(v)
+        }
     }
 
     override fun onBufferReceived(bytes: ByteArray) {}
     override fun onEndOfSpeech() {}
     override fun onError(i: Int) {
-        speechRecognizer.startListening(recognizerIntent)
+        if (!isCancelled) {
+            speechRecognizer.startListening(recognizerIntent)
+        }
     }
 
     override fun onResults(bundle: Bundle) {
