@@ -9,7 +9,6 @@ abstract class BaseViewModel : ViewModel() {
     /**
      * подключение логирования
      */
-    //protected val logger = LoggerFactory.getLogger(this::class)
 
     private var isStarted: Boolean = false
     /**

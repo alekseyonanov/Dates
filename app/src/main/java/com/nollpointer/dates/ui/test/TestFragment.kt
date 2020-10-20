@@ -11,7 +11,7 @@ import com.nollpointer.dates.model.Practise.Companion.TYPE_DATE
 import com.nollpointer.dates.model.Practise.Companion.TYPE_MIXED
 import com.nollpointer.dates.model.PractiseResult
 import com.nollpointer.dates.ui.analyze.AnalyzeFragment
-import com.nollpointer.dates.ui.details.DatesDetailsFragment
+import com.nollpointer.dates.ui.details.dates.DatesDetailsFragment
 import com.nollpointer.dates.ui.practise.PractiseSettingsFragment
 import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment
 import com.nollpointer.dates.ui.view.BaseFragment

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +12,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nollpointer.dates.R
-import com.nollpointer.dates.app.App
-import com.nollpointer.dates.model.WikipediaResponseModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * @author Onanov Aleksey (@onanov)
@@ -72,7 +66,7 @@ class MoreInfoDialog : BottomSheetDialogFragment() {
     }
 
     private fun connectWikipedia() {
-        App.api!!.getData(request)!!.enqueue(object : Callback<WikipediaResponseModel?> {
+       /* App.api!!.getData(request)!!.enqueue(object : Callback<WikipediaResponseModel?> {
             override fun onResponse(call: Call<WikipediaResponseModel?>, response: Response<WikipediaResponseModel?>) {
                 val data: String
                 val url: String
@@ -91,7 +85,7 @@ class MoreInfoDialog : BottomSheetDialogFragment() {
                 Log.wtf("ERROR", t.message)
                 noInternetConnection()
             }
-        })
+        })*/
     }
 
     fun noInternetConnection() {

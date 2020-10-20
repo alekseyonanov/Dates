@@ -7,6 +7,7 @@ import com.nollpointer.dates.api.WikipediaApi
 import com.nollpointer.dates.di.AppComponent
 import com.nollpointer.dates.di.DaggerAppComponent
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
@@ -28,6 +29,7 @@ class App : Application() {
         retrofit = Retrofit.Builder()
                 .baseUrl("https://ru.wikipedia.org")
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
         api = retrofit.create(WikipediaApi::class.java)
     }

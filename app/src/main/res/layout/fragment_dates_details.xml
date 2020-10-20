@@ -101,7 +101,6 @@
                 android:textColor="@android:color/black"
                 tools:text="Высший совещательный орган при великом князе. Высший совещательный орган при великом князе. Высший совещательный орган при великом князе. Высший совещательный орган при великом князе." />
 
-
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"

@@ -23,7 +23,7 @@ import com.nollpointer.dates.other.Keyboard
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.activity.MainActivity.Companion.EASY_DATES_MODE
-import com.nollpointer.dates.ui.details.DatesDetailsFragment
+import com.nollpointer.dates.ui.details.dates.DatesDetailsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_dates.*
 

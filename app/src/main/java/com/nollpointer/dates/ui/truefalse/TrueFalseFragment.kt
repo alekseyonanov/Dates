@@ -11,7 +11,7 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.analyze.AnalyzeFragment
-import com.nollpointer.dates.ui.details.DatesDetailsFragment
+import com.nollpointer.dates.ui.details.dates.DatesDetailsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_true_false.*
 import java.util.*

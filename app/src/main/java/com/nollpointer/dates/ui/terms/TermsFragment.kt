@@ -20,7 +20,7 @@ import com.nollpointer.dates.other.CustomItemDecoration
 import com.nollpointer.dates.other.Keyboard
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.activity.MainActivity
-import com.nollpointer.dates.ui.details.TermsDetailsFragment
+import com.nollpointer.dates.ui.details.terms.TermsDetailsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_terms.*
 
