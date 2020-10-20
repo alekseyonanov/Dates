@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nollpointer.dates.R
+import com.nollpointer.dates.api.WikipediaApi
 import com.nollpointer.dates.app.App
+import com.nollpointer.dates.di.DaggerAppComponent
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.WikipediaResponseModel
 import com.nollpointer.dates.ui.activity.MainActivity
@@ -17,16 +19,21 @@ import kotlinx.android.synthetic.main.fragment_dates_details.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
 class DatesDetailsFragment : BaseFragment() {
 
+    @Inject
+    lateinit var api: WikipediaApi
+
     private var date = Date()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DaggerAppComponent.create().inject(this)
         arguments?.let {
             date = it.getParcelable<Date>(DATE) as Date
         }
@@ -65,7 +72,7 @@ class DatesDetailsFragment : BaseFragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        App.api?.getData(date.request)?.enqueue(object : Callback<WikipediaResponseModel?> {
+        api.getData(date.request)?.enqueue(object : Callback<WikipediaResponseModel?> {
             override fun onFailure(call: Call<WikipediaResponseModel?>, t: Throwable) {
             }
 

@@ -4,6 +4,8 @@ import android.app.Application
 import com.flurry.android.FlurryAgent
 import com.google.gson.GsonBuilder
 import com.nollpointer.dates.api.WikipediaApi
+import com.nollpointer.dates.di.AppComponent
+import com.nollpointer.dates.di.DaggerAppComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -31,7 +33,11 @@ class App : Application() {
     }
 
     companion object {
-        var api: WikipediaApi? = null
+        lateinit var api: WikipediaApi
             private set
+
+        val component: AppComponent by lazy {
+            DaggerAppComponent.create()
+        }
     }
 }

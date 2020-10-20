@@ -18,6 +18,10 @@ android {
 
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -40,7 +44,7 @@ dependencies {
     /*
     * Views
     */
-    implementation "androidx.constraintlayout:constraintlayout:2.0.1"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.2"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -51,21 +55,21 @@ dependencies {
     /*
     * Api
     */
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
 
     /*
     * Google Play Services
     */
-    implementation 'com.google.android.gms:play-services-ads:19.3.0'
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-ads:19.4.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
 
     /*
     * RxJava
     */
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
-    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
 
     /*
     * Lifecycle
@@ -76,13 +80,13 @@ dependencies {
     /*
     * Kotlin
     */
-    implementation "androidx.core:core-ktx:1.3.1"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72"
+    implementation "androidx.core:core-ktx:1.3.2"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10"
 
     /*
     * Analytics
     */
-    implementation 'com.google.firebase:firebase-messaging:20.2.4'
+    implementation 'com.google.firebase:firebase-messaging:20.3.0'
     implementation 'com.google.firebase:firebase-core:17.5.0'
     implementation 'com.flurry.android:analytics:12.1.0'
 
@@ -91,7 +95,6 @@ dependencies {
     */
     implementation "com.google.dagger:dagger:2.27"
     kapt "com.google.dagger:dagger-compiler:2.26"
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.26'
 
     /*
     * Ads
