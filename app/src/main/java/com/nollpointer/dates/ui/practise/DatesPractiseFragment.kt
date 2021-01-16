@@ -11,77 +11,63 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentDatesPractiseBinding
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.activity.MainActivity
-import com.nollpointer.dates.ui.dialog.PractiseHelpDialog
 import com.nollpointer.dates.ui.practiseselect.SetDetailsFragment
-import kotlinx.android.synthetic.main.fragment_dates_practise.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
 class DatesPractiseFragment : Fragment() {
 
+    private var _binding: FragmentDatesPractiseBinding? = null
+    private val binding: FragmentDatesPractiseBinding
+        get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_dates_practise, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentDatesPractiseBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        practiseToolbar.apply {
-//            inflateMenu(R.menu.practise_menu)
-//            setOnMenuItemClickListener { menuItem ->
-//                if (menuItem.itemId == R.id.practise_help) {
-//                    val helpDialog = newInstance(R.string.help_practise)
-//                    helpDialog.show(activity!!.supportFragmentManager, null)
-//                }
-//                true
-//            }
-//            setOnClickListener {scrollToTop() }
-//            setNavigationOnClickListener { fragmentManager!!.popBackStack() }
-//        }
-
-        practiseCards.setOnClickListener {
+        binding.cards.setOnClickListener {
             onPractiseClicked(Practise.CARDS)
         }
 
-        practiseVoice.setOnClickListener {
+        binding.voice.setOnClickListener {
             onPractiseClicked(Practise.VOICE)
         }
 
-        practiseTest.setOnClickListener {
+        binding.test.setOnClickListener {
             onPractiseClicked(Practise.TEST)
         }
 
-        practiseTrueFalse.setOnClickListener {
+        binding.trueFalse.setOnClickListener {
             onPractiseClicked(Practise.TRUE_FALSE)
         }
 
-        practiseLink.setOnClickListener {
+        binding.link.setOnClickListener {
             onPractiseClicked(Practise.LINK)
         }
 
-        practiseSort.setOnClickListener {
+        binding.sort.setOnClickListener {
             onPractiseClicked(Practise.SORT)
         }
 
-        practiseDistribution.setOnClickListener {
+        binding.distribution.setOnClickListener {
             onPractiseClicked(Practise.DISTRIBUTION)
         }
 
-//        practiseViewPager.apply {
-//            adapter = PractiseCellAdapter()
-//            pageMargin = 32
-//        }
-//        practiseTabLayout.setupWithViewPager(practiseViewPager, true)
-
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart()
         (activity as MainActivity?)!!.showBottomNavigationView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -90,9 +76,6 @@ class DatesPractiseFragment : Fragment() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(context, "Разрешение получено", Toast.LENGTH_SHORT).show()
                 onPractiseClicked(Practise.VOICE)
-            } else {
-                val helpDialog = PractiseHelpDialog()
-                helpDialog.show(childFragmentManager, null)
             }
         }
     }
@@ -101,6 +84,7 @@ class DatesPractiseFragment : Fragment() {
         val mainActivity = activity as MainActivity
         val practiseParcelable = Practise(practise, mainActivity.mode)
         val permissionRecord = ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.RECORD_AUDIO)
+        //TODO: переделать этот момент
         if (practise == Practise.VOICE && permissionRecord != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(mainActivity, arrayOf(Manifest.permission.RECORD_AUDIO), 1)
         else
@@ -112,7 +96,7 @@ class DatesPractiseFragment : Fragment() {
     }
 
     fun scrollToTop() {
-        practiseScrollView.smoothScrollTo(0, 0)
+        binding.scrollView.smoothScrollTo(0, 0)
     }
 
 }

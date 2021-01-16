@@ -13,8 +13,6 @@ data class Practise(var practise: Int,
                     var dates: List<Date> = emptyList(),
                     var isTestMode: Boolean = false) : Parcelable {
 
-
-
     companion object{
         const val CARDS = 0
         const val VOICE = 1

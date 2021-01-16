@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentDistributionBinding
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.practise.PractiseSettingsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_distribution.*
 
 /**
  * @author Onanov Aleksey (@onanov)
@@ -21,6 +21,10 @@ class DistributionFragment : BaseFragment() {
 
     private lateinit var practise: Practise
 
+    private var _binding: FragmentDistributionBinding? = null
+    private val binding: FragmentDistributionBinding
+        get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -28,22 +32,16 @@ class DistributionFragment : BaseFragment() {
         }
     }
 
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? { // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_distribution, container, false)
-    }
+                              savedInstanceState: Bundle?): View { // Inflate the layout for this fragment
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        distributionBack.setOnClickListener {
+        _binding = FragmentDistributionBinding.inflate(inflater, container, false)
+
+        binding.arrowBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        distributionSettings.setOnClickListener {
+        binding.settings.setOnClickListener {
             requireActivity()
                     .supportFragmentManager
                     .beginTransaction()
@@ -51,12 +49,23 @@ class DistributionFragment : BaseFragment() {
                     .addToBackStack(null)
                     .commit()
         }
+
+        return binding.root
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
-
         private const val DISTRIBUTION = "Distribution"
 
+        @JvmStatic
         fun newInstance(practise: Practise) =
                 DistributionFragment().apply {
                     arguments = Bundle().apply {

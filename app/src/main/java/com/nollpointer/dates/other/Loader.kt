@@ -2,62 +2,72 @@ package com.nollpointer.dates.other
 
 import android.content.Context
 import com.nollpointer.dates.ui.activity.MainActivity.Companion.FULL_DATES_MODE
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-object Loader {
+class Loader @Inject constructor(@ApplicationContext private val context: Context) {
 
     /*
     * Категории данных
     */
-    private const val APP = "com.nollpointer.dates.app"
-    private const val ADS = "com.nollpointer.dates.ads"
-    private const val PRACTISE = "com.nollpointer.dates.practise"
-    private const val SETTINGS = "com.nollpointer.dates.settings"
+    private val APP = "com.nollpointer.dates.app"
+    private val ADS = "com.nollpointer.dates.ads"
+    private val PRACTISE = "com.nollpointer.dates.practise"
+    private val SETTINGS = "com.nollpointer.dates.settings"
 
     /*
     * Наименование полей
     */
-    private const val FIRST_START = "first_start"
-    private const val GDPR = "gdpr"
-    private const val MODE = "mode"
-    private const val DATES_VIEW_TYPE = "dates_view_type"
-    private const val TERMS_VIEW_TYPE = "terms_view_type"
+    private val FIRST_START = "first_start"
+    private val GDPR = "gdpr"
+    private val MODE = "mode"
+    private val DATES_VIEW_TYPE = "dates_view_type"
+    private val TERMS_VIEW_TYPE = "terms_view_type"
 
-    fun isGDPRAgree(context: Context) = context.getSharedPreferences(ADS, Context.MODE_PRIVATE).getBoolean(GDPR, false)
+    /*
+    * Согласие GDPR
+    */
+    var isGdprAgree: Boolean
+        set(value) = context.getSharedPreferences(ADS, Context.MODE_PRIVATE).edit().putBoolean(GDPR, value).apply()
+        get() = context.getSharedPreferences(ADS, Context.MODE_PRIVATE).getBoolean(GDPR, false)
 
-    fun setGdprAgree(context: Context, result: Boolean) {
-        context.getSharedPreferences(ADS, Context.MODE_PRIVATE).edit().putBoolean(GDPR, result).apply()
-    }
+    /*
+    * Флаг, отвечающий за первый старт приложения
+    */
+    var isFirstStart: Boolean
+        set(value) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putBoolean(FIRST_START, value).apply()
+        get() = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getBoolean(FIRST_START, true)
 
-    fun isFirstStart(context: Context) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getBoolean(FIRST_START, true)
+    /*
+    * Режим приложения
+    */
+    var mode: Int
+        set(value) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putInt(MODE, value).apply()
+        get() = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(MODE, FULL_DATES_MODE)
 
-    fun setFirstStart(context: Context, result: Boolean) {
-        context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putBoolean(FIRST_START, result).apply()
-    }
+    /*
+    * Тип отображения дат
+    */
+    var datesViewType: Int
+        set(value) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putInt(DATES_VIEW_TYPE, value).apply()
+        get() = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(DATES_VIEW_TYPE, 0)
 
-    fun getMode(context: Context) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(MODE, FULL_DATES_MODE)
+    /*
+    * Тип отображения терминов
+    */
+    var termsViewType: Int
+        set(value) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putInt(TERMS_VIEW_TYPE, value).apply()
+        get() = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(TERMS_VIEW_TYPE, 0)
 
-    fun setMode(context: Context, mode: Int) {
-        context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putInt(MODE, mode).apply()
-    }
-
-    fun getDatesViewType(context: Context) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(DATES_VIEW_TYPE, 0)
-
-    fun setDatesViewType(context: Context, type: Int) {
-        context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putInt(DATES_VIEW_TYPE, type).apply()
-    }
-
-    fun getTermsViewType(context: Context) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(TERMS_VIEW_TYPE, 0)
-
-    fun setTermsViewType(context: Context, type: Int) {
-        context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putInt(TERMS_VIEW_TYPE, type).apply()
-    }
-
-    fun clear(context: Context) {
+    /*
+    * Функция очистки
+    */
+    fun clear() {
         context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().clear().apply()
-        setFirstStart(context, false)
+        //TODO подумать насчет согласия GDPR
     }
 
 

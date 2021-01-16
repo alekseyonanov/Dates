@@ -1,152 +1,136 @@
 package com.nollpointer.dates.ui.menu
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import androidx.viewpager.widget.ViewPager
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentMenuBinding
+import com.nollpointer.dates.databinding.ItemMenuModeBinding
+import com.nollpointer.dates.model.MenuPage
 import com.nollpointer.dates.ui.activity.MainActivity
-import com.nollpointer.dates.ui.game.GameFragment
-import com.nollpointer.dates.ui.settings.main.SettingsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_menu.*
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class MenuFragment : BaseFragment() {
 
-    private var currentMode = 0
+    private var _binding: FragmentMenuBinding? = null
+    private val binding: FragmentMenuBinding
+        get() = _binding!!
+
+    private val viewModel by viewModels<MenuViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? { // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false)
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentMenuBinding.inflate(inflater, container, false)
+
+        binding.toolbar.apply {
+            inflateMenu(R.menu.menu_menu)
+            setOnMenuItemClickListener {
+                viewModel.onSettingsClicked()
+                true
+            }
+        }
+
+        binding.telegram.setOnClickListener {
+            viewModel.onTelegramClicked()
+        }
+        binding.twitter.setOnClickListener {
+            viewModel.onTwitterClicked()
+        }
+        binding.mail.setOnClickListener {
+            viewModel.onMailClicked()
+        }
+        binding.vk.setOnClickListener {
+            viewModel.onVkClicked()
+        }
+        binding.instagram.setOnClickListener {
+            viewModel.onInstagramClicked()
+        }
+        binding.onanov.setOnClickListener {
+            viewModel.onOnanovClicked()
+        }
+        binding.game.setOnClickListener {
+            viewModel.onGameClicked()
+        }
+
+        binding.viewPager.apply {
+            val items = resources.getStringArray(R.array.mode_titles)
+                    .zip(resources.getStringArray(R.array.mode_count)) { title, count ->
+                        MenuPage(title, count)
+                    }
+            adapter = ModeAdapter(items)
+            addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+                override fun onPageSelected(item: Int) {
+                    viewModel.onPageSelected(item)
+                }
+            })
+
+            binding.dots.setupWithViewPager(this, true)
+        }
+        binding.modeSelect.setOnClickListener {
+            viewModel.onModeSelectClicked(binding.viewPager.currentItem)
+        }
+
+        viewModel.apply {
+            modeLiveData.observe({ lifecycle }, ::setMode)
+            modeSelectVisibilityLiveData.observe({ lifecycle }, ::showModeSelect)
+            start()
+        }
+
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (requireActivity() as MainActivity).showBottomNavigationView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun getStatusBarColorRes() = R.color.colorPrimary
 
     override fun isStatusBarLight() = false
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        telegramMessage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://t.me/alekseyonanov"))
-            startActivity(intent)
-        }
-        twitterMessage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/alekseyonanov"))
-            startActivity(intent)
-        }
-        mailMessage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SENDTO)
-            intent.data = Uri.parse("mailto:")
-            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("dates@onanov.ru"))
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.message_developer_title))
-            startActivity(intent)
-        }
-        vkMessage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/onanov"))
-            startActivity(intent)
-        }
-        instagramMessage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/alekseyonanov"))
-            startActivity(intent)
-        }
-        onanovRu.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://onanov.ru/"))
-            startActivity(intent)
-        }
-        gameStart.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, GameFragment()).addToBackStack(null).commit()
-        }
-
-        currentMode = (activity as MainActivity?)!!.mode
-
-        menuViewPager.apply {
-            adapter = ModeAdapter(context, R.array.mode_count, R.array.mode_titles)
-            addOnPageChangeListener(object : OnPageChangeListener {
-                override fun onPageScrolled(i: Int, v: Float, i1: Int) {}
-                override fun onPageSelected(i: Int) {
-                    if (i == currentMode) menuSelectCurrentMode.visibility = View.GONE else menuSelectCurrentMode.visibility = View.VISIBLE
-                }
-
-                override fun onPageScrollStateChanged(i: Int) {}
-            })
-            currentItem = currentMode
-        }
-        menuTabDots.setupWithViewPager(menuViewPager, true)
-        menuSelectCurrentMode.setOnClickListener { v ->
-            val mainActivity = activity as MainActivity?
-            currentMode = menuViewPager.currentItem
-            mainActivity!!.updateMode(currentMode)
-            SaveCurrentMode(activity, currentMode).execute()
-            v.visibility = View.GONE
-        }
-
-        menuToolbar.apply {
-            inflateMenu(R.menu.menu_menu)
-            setOnMenuItemClickListener {
-                requireActivity().supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.frameLayout, SettingsFragment.newInstance()).commit()
-                true
-            }
+    private fun showModeSelect(isShown: Boolean) {
+        binding.modeSelect.visibility = if (isShown) {
+            View.VISIBLE
+        } else {
+            View.GONE
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        (activity as MainActivity?)!!.showBottomNavigationView()
+    private fun setMode(mode: Int) {
+        binding.viewPager.currentItem = mode
     }
 
-    private inner class ModeAdapter(private val context: Context?, modeCountResourceId: Int, modeTitleResourceId: Int) : PagerAdapter() {
-        private val modeCountArray: Array<String>
-        private val modeTitle: Array<String>
+    private inner class ModeAdapter(private val items: List<MenuPage>) : PagerAdapter() {
 
-        init {
-            val resources = context!!.resources
-            modeCountArray = resources.getStringArray(modeCountResourceId)
-            modeTitle = resources.getStringArray(modeTitleResourceId)
-        }
-
-        override fun instantiateItem(collection: ViewGroup, position: Int): Any { //CustomPagerEnum customPagerEnum = CustomPagerEnum.values()[position];
-            val inflater = LayoutInflater.from(context)
-            val layout = inflater.inflate(R.layout.item_menu_mode, collection, false) as ViewGroup
-            collection.addView(layout)
-            val modeTitleTextView = layout.findViewById<TextView>(R.id.mode_title)
-            val modeDatesCountTextView = layout.findViewById<TextView>(R.id.mode_dates_count)
-            modeTitleTextView.text = modeTitle[position]
-            modeDatesCountTextView.text = modeCountArray[position]
-            return layout
+        override fun instantiateItem(collection: ViewGroup, position: Int): Any {
+            val binding = ItemMenuModeBinding.inflate(layoutInflater)
+            binding.title.text = items[position].title
+            binding.count.text = items[position].count
+            collection.addView(binding.root)
+            return binding.root
         }
 
         override fun destroyItem(collection: ViewGroup, position: Int, view: Any) {
             collection.removeView(view as View)
         }
 
-        override fun getCount(): Int {
-            return 2
-        }
+        override fun getCount() = items.size
 
-        override fun isViewFromObject(view: View, `object`: Any): Boolean {
-            return view === `object`
-        }
+        override fun isViewFromObject(view: View, other: Any) = view === other
     }
 
-    class SaveCurrentMode internal constructor(var context: Context?, var mode: Int) : AsyncTask<Void, Void?, Void>() {
-
-        override fun doInBackground(vararg voids: Void): Void? {
-            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-            editor.putInt("mode", mode)
-            editor.apply()
-            return null
-        }
-    }
 }

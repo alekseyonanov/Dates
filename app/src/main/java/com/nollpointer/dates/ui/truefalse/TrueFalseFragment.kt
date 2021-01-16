@@ -7,18 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentTrueFalseBinding
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
-import com.nollpointer.dates.ui.analyze.AnalyzeFragment
 import com.nollpointer.dates.ui.details.dates.DatesDetailsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_true_false.*
 import java.util.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class TrueFalseFragment : BaseFragment() {
 
     private lateinit var dates: List<Date>
@@ -35,10 +38,16 @@ class TrueFalseFragment : BaseFragment() {
     private var questionDate = Date()
     private var questionEvent = Date()
 
+    private var _binding: FragmentTrueFalseBinding? = null
+    private val binding: FragmentTrueFalseBinding
+        get() = _binding!!
+
+    private val viewModel by viewModels<TrueFalseViewModel>()
+
     private val listener = View.OnClickListener { view ->
         if (isLocked)
             return@OnClickListener
-        isCorrect = (isTrue && view == trueFalseTrueButton) || (!isTrue && view == trueFalseFalseButton)
+        isCorrect = (isTrue && view == binding.trueButton) || (!isTrue && view == falseButton)
         if (isCorrect) {
             rightAnswersCount++
         } else {
@@ -51,8 +60,8 @@ class TrueFalseFragment : BaseFragment() {
             showNotEqualsImage(isCorrect)
         }
 
-        trueFalseRightAnswersChip.text = rightAnswersCount.toString()
-        trueFalseWrongAnswersChip.text = wrongAnswersCount.toString()
+        binding.rightCount.text = rightAnswersCount.toString()
+        binding.wrongCount.text = wrongAnswersCount.toString()
         isLocked = true
         showControlButtons()
         updateTrueFalseButtons()
@@ -67,42 +76,43 @@ class TrueFalseFragment : BaseFragment() {
         }
     }
 
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_true_false, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentTrueFalseBinding.inflate(inflater, container, false)
 
         //Appodeal.setBannerViewId(R.id.appodealBannerView_true)
-        trueFalseTrueButton.setOnClickListener(listener)
-        trueFalseFalseButton.setOnClickListener(listener)
+        binding.trueButton.setOnClickListener(listener)
+        binding.falseButton.setOnClickListener(listener)
 
-        trueFalseBack.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+        binding.arrowBack.setOnClickListener { viewModel.onArrowBackClicked() }
 
-        trueFalseSettings.setOnClickListener { }
+        binding.settings.setOnClickListener { }
 
-        trueFalseNextButton.setOnClickListener {
+        binding.next.setOnClickListener {
             generateAndSetInfo()
         }
 
-        trueFalseAnalyzeButton.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AnalyzeFragment())
+        binding.analyze.setOnClickListener {
+            viewModel.onAnalyzeClicked()
         }
 
         if (questionNumber != 0) {
             setPreviousInfo()
         } else {
             generateAndSetInfo()
-
         }
 
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
 
     private fun generateAndSetInfo() {
         questionNumber++
@@ -134,58 +144,58 @@ class TrueFalseFragment : BaseFragment() {
     }
 
     private fun setInfo(date: String, event: String) {
-        trueFalseDate.text = date
-        trueFalseEvent.text = event
-        trueFalseQuestionNumberChip.text = questionNumber.toString()
+        binding.date.text = date
+        binding.event.text = event
+        binding.questionNumber.text = questionNumber.toString()
     }
 
     private fun setPreviousInfo() {
-        trueFalseDate.text = if (questionDate.containsMonth) questionDate.date + ", " + questionDate.month else questionDate.date
+        binding.date.text = if (questionDate.containsMonth) questionDate.date + ", " + questionDate.month else questionDate.date
 
         if (isTrue) {
             showEqualsImage(isCorrect)
-            trueFalseEvent.text = questionDate.event
+            binding.event.text = questionDate.event
         } else {
             showNotEqualsImage(isCorrect)
-            trueFalseEvent.text = questionEvent.event
+            binding.event.text = questionEvent.event
         }
 
-        trueFalseRightAnswersChip.text = rightAnswersCount.toString()
-        trueFalseWrongAnswersChip.text = wrongAnswersCount.toString()
-        trueFalseQuestionNumberChip.text = questionNumber.toString()
+        binding.rightCount.text = rightAnswersCount.toString()
+        binding.wrongCount.text = wrongAnswersCount.toString()
+        binding.questionNumber.text = questionNumber.toString()
         isLocked = true
         showControlButtons()
         updateTrueFalseButtons()
     }
 
     private fun showEqualsImage(isCorrect: Boolean) {
-        trueFalseResult.setImageResource(R.drawable.ic_equals)
-        trueFalseResult.imageTintList = getResultImageTint(isCorrect)
-        trueFalseResult.visibility = View.VISIBLE
+        binding.result.setImageResource(R.drawable.ic_equals)
+        binding.result.imageTintList = getResultImageTint(isCorrect)
+        binding.result.visibility = View.VISIBLE
     }
 
     private fun showNotEqualsImage(isCorrect: Boolean) {
-        trueFalseResult.setImageResource(R.drawable.ic_equals_not)
-        trueFalseResult.imageTintList = getResultImageTint(isCorrect)
-        trueFalseResult.visibility = View.VISIBLE
+        binding.result.setImageResource(R.drawable.ic_equals_not)
+        binding.result.imageTintList = getResultImageTint(isCorrect)
+        binding.result.visibility = View.VISIBLE
     }
 
     private fun hideResultImage() {
-        trueFalseResult.visibility = View.GONE
+        binding.result.visibility = View.GONE
     }
 
     private fun hideControlButtons() {
-        trueFalseAnalyzeButton.hide()
-        trueFalseNextButton.hide()
+        binding.analyze.hide()
+        binding.next.hide()
     }
 
     private fun showControlButtons() {
-        trueFalseAnalyzeButton.show()
-        trueFalseNextButton.show()
+        binding.analyze.show()
+        binding.next.show()
     }
 
     private fun updateTrueFalseButtons() {
-        trueFalseTrueButton.apply {
+        binding.trueButton.apply {
             setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_help, 0, 0, 0)
             setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
@@ -195,7 +205,7 @@ class TrueFalseFragment : BaseFragment() {
             }
             text = getString(R.string.true_false_question_date)
         }
-        trueFalseFalseButton.apply {
+        binding.falseButton.apply {
             setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_help, 0)
             setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
@@ -206,18 +216,18 @@ class TrueFalseFragment : BaseFragment() {
             text = getString(R.string.true_false_question_event)
         }
         if (isTrue) {
-            trueFalseFalseButton.visibility = View.GONE
+            falseButton.visibility = View.GONE
         }
     }
 
     private fun rollbackTrueFalseButtons() {
-        trueFalseTrueButton.apply {
+        binding.trueButton.apply {
             setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
             setOnClickListener(listener)
             text = getString(R.string.true_button)
             visibility = View.VISIBLE
         }
-        trueFalseFalseButton.apply {
+        binding.falseButton.apply {
             setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
             setOnClickListener(listener)
             text = getString(R.string.false_button)

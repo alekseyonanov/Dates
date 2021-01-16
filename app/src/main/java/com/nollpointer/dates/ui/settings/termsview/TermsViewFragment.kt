@@ -1,6 +1,5 @@
 package com.nollpointer.dates.ui.settings.termsview
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +8,18 @@ import android.widget.TextView
 import com.nollpointer.dates.R
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.view.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_terms_view.*
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class TermsViewFragment : BaseFragment() {
+
+    @Inject
+    lateinit var loader: Loader
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -52,7 +57,7 @@ class TermsViewFragment : BaseFragment() {
             }
         }
 
-        when (Loader.getTermsViewType(context as Context)) {
+        when (loader.termsViewType) {
             0 -> {
                 termsViewStandard.isChecked = true
                 initView(layoutInflater.inflate(R.layout.item_term, termsViewContainer))
@@ -67,11 +72,7 @@ class TermsViewFragment : BaseFragment() {
 
     override fun onStop() {
         super.onStop()
-        Loader.setTermsViewType(context as Context,
-                if (termsViewStandard.isChecked)
-                    0
-                else
-                    1)
+        loader.termsViewType = if (termsViewStandard.isChecked) 0 else 1
     }
 
     private fun initView(view: View) {

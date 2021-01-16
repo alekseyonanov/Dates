@@ -55,9 +55,7 @@ class DatesAdapter(val resources: Resources, var items: List<Date>, mode: Int) :
             holder.itemView.findViewById<TextView>(R.id.textTitle).text = titles[position]
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int): Int {
         return if (!isSearchMode && titles.containsKey(position))

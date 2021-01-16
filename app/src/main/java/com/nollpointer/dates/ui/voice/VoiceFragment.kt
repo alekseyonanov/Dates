@@ -13,12 +13,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.appodeal.ads.Appodeal
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentVoiceBinding
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.PractiseResult
-import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment.Companion.newInstance
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_voice.*
 import java.util.*
 
 /**
@@ -42,12 +41,16 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
 
     private var isCancelled = true
 
+    private var _binding: FragmentVoiceBinding? = null
+    private val binding: FragmentVoiceBinding
+        get() = _binding!!
+
     private val listener = View.OnClickListener {
         if (isLocked) return@OnClickListener
         lockAnswerButtons()
-        var rightAnswersCount = voiceRightAnswersChip.text.toString().toInt()
-        var wrongAnswersCount = voiceWrongAnswersChip.text.toString().toInt()
-        val recognizedText = voiceRecognizedText.text.toString()
+        var rightAnswersCount = binding.rightAnswers.text.toString().toInt()
+        var wrongAnswersCount = binding.wrongAnswers.text.toString().toInt()
+        val recognizedText = binding.recognizedText.text.toString()
         val isCorrect = check(recognizedText)
         if (isCorrect) {
             showCorrectImage()
@@ -60,11 +63,11 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
 //            val practiseResult = PractiseResult(voiceQuestion.text.toString(), isCorrect)
 //            practiseResults.add(practiseResult)
 //        }
-        if (rightAnswersCount + wrongAnswersCount == 20 && isTestMode) fragmentManager!!.beginTransaction().replace(R.id.frameLayout, newInstance(VOICE, practiseResults, arguments!!)).commit()
-        voiceQuestion.text = currentDate.event + "\n" + currentDate.date
-        if (currentDate.containsMonth) voiceQuestion.text = currentDate.event + "\n" + currentDate.date + ", " + currentDate.month
-        voiceRightAnswersChip.text = rightAnswersCount.toString()
-        voiceWrongAnswersChip.text = wrongAnswersCount.toString()
+        //TODO if (rightAnswersCount + wrongAnswersCount == 20 && isTestMode) fragmentManager!!.beginTransaction().replace(R.id.frameLayout, newInstance(VOICE, practiseResults, arguments!!)).commit()
+        binding.question.text = currentDate.event + "\n" + currentDate.date
+        if (currentDate.containsMonth) binding.question.text = currentDate.event + "\n" + currentDate.date + ", " + currentDate.month
+        binding.rightAnswers.text = rightAnswersCount.toString()
+        binding.wrongAnswers.text = wrongAnswersCount.toString()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,32 +80,25 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
         }
     }
 
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_voice, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+                              savedInstanceState: Bundle?): View {
 
         //Appodeal.setBannerViewId(R.id.appodealBannerView_voice)
 
-        voiceBack.setOnClickListener {
+        _binding = FragmentVoiceBinding.inflate(inflater, container, false)
+
+        binding.arrowBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-        voiceSettings.setOnClickListener {
+        binding.settings.setOnClickListener {
 
         }
 
-        voiceRecognitionButton.apply {
+        binding.recognitionButton.apply {
             setImageResource(R.drawable.ic_voice_gray)
             setOnClickListener { speechRecognizer.startListening(recognizerIntent) }
         }
-        voiceCheck.setOnClickListener(listener)
+        binding.check.setOnClickListener(listener)
 
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context,
                 ComponentName.unflattenFromString("com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService"))
@@ -110,7 +106,9 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
         speechRecognizer.setRecognitionListener(this)
 
         //generateAndSetInfo()
-        audioManager = context!!.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
+
+        return binding.root
     }
 
     override fun onResume() {
@@ -130,13 +128,22 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
 
     override fun onStop() {
         super.onStop()
-        Appodeal.hide(activity!!, Appodeal.BANNER_VIEW)
+        Appodeal.hide(requireActivity(), Appodeal.BANNER_VIEW)
     }
 
     override fun onStart() {
         super.onStart()
-        Appodeal.show(activity!!, Appodeal.BANNER_VIEW)
+        Appodeal.show(requireActivity(), Appodeal.BANNER_VIEW)
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
 
     private fun check(text: String): Boolean {
         var isCorrect: Boolean
@@ -153,17 +160,17 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
     }
 
     private fun showCorrectImage() {
-        voiceResult.setImageResource(R.drawable.ic_correct)
-        voiceResult.visibility = View.VISIBLE
+        binding.result.setImageResource(R.drawable.ic_correct)
+        binding.result.visibility = View.VISIBLE
     }
 
     private fun showMistakeImage() {
-        voiceResult.setImageResource(R.drawable.ic_mistake)
-        voiceResult.visibility = View.VISIBLE
+        binding.result.setImageResource(R.drawable.ic_mistake)
+        binding.result.visibility = View.VISIBLE
     }
 
     private fun hideResultImage() {
-        voiceResult.visibility = View.INVISIBLE
+        binding.result.visibility = View.INVISIBLE
     }
 
     private fun lockAnswerButtons() {
@@ -182,14 +189,14 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
     }
 
     private fun setInfo(date: Date?) {
-        voiceRecognizedText.text = ""
+        binding.recognizedText.text = ""
         savedRecognizedText = ""
-        voiceQuestion.text = date!!.event
+        binding.question.text = date!!.event
         //if(date.containsMonth())
 //questionTextView.setText(date.getEvent() + "\n" + date.getDate() + ", " + date.getMonth());
-        val rightAnswersCount = voiceRightAnswersChip.text.toString().toInt()
-        val wrongAnswersCount = voiceWrongAnswersChip.text.toString().toInt()
-        voiceQuestionNumberChip.text = (rightAnswersCount + wrongAnswersCount + 1).toString()
+        val rightAnswersCount = binding.rightAnswers.text.toString().toInt()
+        val wrongAnswersCount = binding.wrongAnswers.text.toString().toInt()
+        binding.questionNumber.text = (rightAnswersCount + wrongAnswersCount + 1).toString()
     }
 
     private fun generateDate(): Date {
@@ -200,7 +207,7 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
     private fun createIntentForRecognizer(): Intent {
         return Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context!!.packageName)
+            putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, requireContext().packageName)
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
             // Выставление минимального времени для распознавателя
             putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, java.lang.Long.valueOf(5000))
@@ -212,7 +219,7 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
 
     private fun checkSpeech() {
         if (isLocked) return
-        val recognizedText = voiceRecognizedText.text.toString()
+        val recognizedText = binding.recognizedText.text.toString()
         if (recognizedText.contains("проверить") || recognizedText.contains("проверь") || recognizedText.contains("проверьте") || recognizedText.contains("проверка")) listener.onClick(null)
     }
 
@@ -220,7 +227,7 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
     override fun onBeginningOfSpeech() {}
     override fun onRmsChanged(v: Float) {
         if (!isCancelled) {
-            voiceVisualizer.setAmplitude(v)
+            binding.visualizer.setAmplitude(v)
         }
     }
 
@@ -246,7 +253,7 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
         if (bundle.containsKey(SpeechRecognizer.RESULTS_RECOGNITION)) {
             val data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
             val text = data!![0]
-            voiceRecognizedText.text = "$savedRecognizedText $text"
+            binding.recognizedText.text = "$savedRecognizedText $text"
             checkSpeech()
         }
     }
@@ -254,9 +261,9 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
     override fun onEvent(i: Int, bundle: Bundle) {}
 
     companion object {
-
         private const val VOICE = "Voice"
 
+        @JvmStatic
         fun newInstance(practise: Practise) =
                 VoiceFragment().apply {
                     arguments = Bundle().apply {

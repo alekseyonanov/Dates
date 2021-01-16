@@ -25,7 +25,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8220836665813398~7207510605" />
+            android:value="@string/admob_key" />
 
         <activity
             android:name="com.nollpointer.dates.ui.activity.MainActivity"

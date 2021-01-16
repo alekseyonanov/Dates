@@ -250,6 +250,7 @@ class TestFragment : BaseFragment() {
 
         private const val TEST = "Test"
 
+        @JvmStatic
         fun newInstance(practise: Practise) =
                 TestFragment().apply {
                     arguments = Bundle().apply {

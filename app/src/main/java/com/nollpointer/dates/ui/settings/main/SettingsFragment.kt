@@ -5,54 +5,68 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentSettingsBinding
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.ui.activity.MainActivity
-import com.nollpointer.dates.ui.settings.about.AboutFragment
-import com.nollpointer.dates.ui.settings.datesview.DatesViewFragment
-import com.nollpointer.dates.ui.settings.termsview.TermsViewFragment
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_settings.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class SettingsFragment : BaseFragment() {
 
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding: FragmentSettingsBinding
+        get() = _binding!!
+
+    @Inject
+    lateinit var navigator: AppNavigator
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
 
-    override fun getStatusBarColorRes() = R.color.colorPrimary
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
-    override fun isStatusBarLight() = false
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        settingsToolbar.setNavigationOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+        binding.toolbar.setNavigationOnClickListener {
+            navigator.navigateBack()
         }
 
-        settingsDatesView.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.frameLayout, DatesViewFragment.newInstance()).commit()
+        binding.datesView.setOnClickListener {
+            navigator.navigateToDatesViewSettings()
         }
 
-        settingsTermsView.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.frameLayout, TermsViewFragment.newInstance()).commit()
+        binding.termsView.setOnClickListener {
+            navigator.navigateToTermsViewSettings()
         }
 
-        settingsAboutApp.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.frameLayout, AboutFragment.newInstance()).commit()
+        binding.about.setOnClickListener {
+            navigator.navigateToAboutApp()
         }
 
-        settingsResetSettings.setOnClickListener {
+        binding.reset.setOnClickListener {
             ResetSettingsDialog.newInstance().show(childFragmentManager, null)
         }
+
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart()
         (activity as MainActivity?)!!.hideBottomNavigationView()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
+
 
     companion object {
         fun newInstance() = SettingsFragment()

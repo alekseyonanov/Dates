@@ -40,7 +40,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/gdprResultText"
+                android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingMultiplier="1.4"
@@ -54,7 +54,7 @@
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/gdprResultClose"
+        android:id="@+id/close"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
@@ -68,7 +68,7 @@
             app:srcCompat="@drawable/ic_clear_black" />
 
         <TextView
-            android:id="@+id/gdprResultCloseText"
+            android:id="@+id/closeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"

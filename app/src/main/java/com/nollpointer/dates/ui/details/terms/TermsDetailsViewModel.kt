@@ -3,23 +3,26 @@ package com.nollpointer.dates.ui.details.terms
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import com.nollpointer.dates.api.WikipediaApi
 import com.nollpointer.dates.model.Term
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.BaseViewModel
+import dagger.hilt.android.qualifiers.ActivityContext
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposables
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class TermsDetailsViewModel(private val context: Context, private val api: WikipediaApi) : BaseViewModel() {
+class TermsDetailsViewModel @ViewModelInject constructor(
+        @ActivityContext private val context: Context,
+        private val api: WikipediaApi,
+        private val navigator: AppNavigator) : BaseViewModel() {
 
     var term = Term()
-
-    private var loadDisposable = Disposables.disposed()
 
     val wikiDescriptionLiveData = MutableLiveData<String>()
     val dataLiveData = MutableLiveData<Pair<String, String>>()
@@ -31,13 +34,8 @@ class TermsDetailsViewModel(private val context: Context, private val api: Wikip
         load()
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        loadDisposable.dispose()
-    }
-
     private fun load() {
-        loadDisposable = api.getData(term.request)
+        api.getData(term.request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { loadingLiveData.value = true }
@@ -47,7 +45,7 @@ class TermsDetailsViewModel(private val context: Context, private val api: Wikip
                 }, {
                     errorLiveData.value = it.message
                     Timber.e(it)
-                })
+                }).disposeOnCleared()
     }
 
     fun onWikiLinkClicked() {
@@ -63,6 +61,10 @@ class TermsDetailsViewModel(private val context: Context, private val api: Wikip
     fun onYandexLinkClicked() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/search/?text=${getLink(term.term)}"))
         context.startActivity(intent)
+    }
+
+    fun onArrowBackClicked() {
+        navigator.navigateBack()
     }
 
     private fun getLink(originalText: String) = buildString {

@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
@@ -16,8 +17,7 @@ class CustomItemDecoration(val context: Context,
                            orientation: Int,
                            private var items: IntArray) : DividerItemDecoration(context, orientation) {
 
-    private val divider: Drawable = context.getDrawable(R.drawable.divider) as Drawable
-
+    private val divider: Drawable = ContextCompat.getDrawable(context, R.drawable.divider)!!
 
     override fun getItemOffsets(outRect: Rect, view: View,
                                 parent: RecyclerView, state: RecyclerView.State) {

@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/settingsToolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorPrimary"
@@ -17,7 +17,6 @@
         app:titleTextColor="@android:color/white" />
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/practise_details_picker_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -27,9 +26,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <TextView
-                android:id="@+id/difficultyTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
@@ -43,7 +40,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/settingsDatesView"
+                android:id="@+id/datesView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
@@ -59,7 +56,7 @@
                 app:drawableTint="@color/colorPrimary" />
 
             <TextView
-                android:id="@+id/settingsTermsView"
+                android:id="@+id/termsView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -99,7 +96,6 @@
             <!--                android:textSize="14sp" />-->
 
             <TextView
-                android:id="@+id/centuryTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
@@ -113,7 +109,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/settingsAboutApp"
+                android:id="@+id/about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -130,7 +126,6 @@
                 app:drawableTint="@color/colorPrimary" />
 
             <TextView
-                android:id="@+id/settingsResetTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
@@ -144,7 +139,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/settingsResetSettings"
+                android:id="@+id/reset"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"

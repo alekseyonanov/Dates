@@ -1,39 +1,45 @@
 package com.nollpointer.dates.ui.activity
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.appodeal.ads.Appodeal
 import com.flurry.android.FlurryAgent
 import com.google.gson.Gson
+import com.nollpointer.dates.BuildConfig
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.ActivityMainBinding
 import com.nollpointer.dates.model.Date
-import com.nollpointer.dates.model.DatesList
 import com.nollpointer.dates.model.Term
-import com.nollpointer.dates.model.TermsList
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.dates.DatesFragment
-import com.nollpointer.dates.ui.intro.IntroductionFragment
 import com.nollpointer.dates.ui.menu.MenuFragment
 import com.nollpointer.dates.ui.practise.PractiseFragment
 import com.nollpointer.dates.ui.statistics.StatisticsFragment
 import com.nollpointer.dates.ui.terms.TermsFragment
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.io.InputStreamReader
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     var mode = 0
+        set(value) {
+            field = value
+            loader.mode = value
+            updateDates(value)
+        }
 
-    lateinit var dates: ArrayList<Date>
-    lateinit var terms: ArrayList<Term>
+    lateinit var dates: List<Date>
+    lateinit var terms: List<Term>
 
     private lateinit var datesFragment: DatesFragment
     private lateinit var practiseFragment: PractiseFragment
@@ -41,14 +47,25 @@ class MainActivity : AppCompatActivity() {
     private lateinit var menuFragment: MenuFragment
     private lateinit var termsFragment: TermsFragment
 
+    private var _binding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding
+        get() = _binding!!
+
+    @Inject
+    lateinit var navigator: AppNavigator
+
+    @Inject
+    lateinit var loader: Loader
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        mode = Loader.getMode(this)
-        val isFirstStart = Loader.isFirstStart(this)
-        val isGdprAgree = Loader.isGDPRAgree(this)
+        mode = loader.mode
+        val isFirstStart = loader.isFirstStart
+        val isGdprAgree = loader.isGdprAgree
 
         initializeAdds(isGdprAgree)
 
@@ -58,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         statisticsFragment = StatisticsFragment()
         menuFragment = MenuFragment()
 
-        navigation.apply {
+        binding.navigation.apply {
             setOnNavigationItemSelectedListener {
                 val fragment = when (it.itemId) {
                     R.id.navigation_dates -> datesFragment
@@ -81,25 +98,19 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        if (isFirstStart)
-            supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.frameLayout, IntroductionFragment.newInstance(), null)
-                    .commitAllowingStateLoss()
-
-        DateLoadViewModel().loadDates(mode) {
-            if (!isFirstStart)
+        loadDates(mode).subscribe({
+            dates = it
+            if (isFirstStart) {
+                navigator.navigateToIntroduction()
+            } else {
                 showDatesFragment()
-        }
-        TermsLoadViewModel().loadTerms()
+            }
+        }, {
 
-        //InitialLoadData(mode, isFirstStart, datesFragment).execute()
-    }
-
-    private fun initializeAdds(isGdprAgree: Boolean) {
-        Appodeal.disableLocationPermissionCheck()
-        Appodeal.initialize(this, "106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1", Appodeal.INTERSTITIAL or Appodeal.BANNER or Appodeal.NON_SKIPPABLE_VIDEO, isGdprAgree)
+        })
+        loadTerms().subscribe({
+            terms = it
+        }, {})
     }
 
     override fun onStart() {
@@ -112,19 +123,41 @@ class MainActivity : AppCompatActivity() {
         FlurryAgent.onEndSession(this)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun initializeAdds(isGdprAgree: Boolean) {
+        Appodeal.disableLocationPermissionCheck()
+        Appodeal.initialize(this,
+                BuildConfig.APPODEAL_KEY,
+                Appodeal.INTERSTITIAL or Appodeal.BANNER,
+                isGdprAgree)
+    }
+
     fun hideBottomNavigationView() {
-        navigation.visibility = View.GONE
+        binding.navigation.visibility = View.GONE
     }
 
     fun showBottomNavigationView() {
-        navigation.visibility = View.VISIBLE
+        binding.navigation.visibility = View.VISIBLE
     }
 
-    fun updateMode(mode: Int) {
-        this.mode = mode
-        UpdateDates().updateDates(mode)
+    private fun updateDates(mode: Int) {
+        val datesList = Gson().fromJson(
+                InputStreamReader(
+                        resources.openRawResource(
+                                when (mode) {
+                                    FULL_DATES_MODE -> R.raw.dates_full
+                                    else -> R.raw.dates_easy
+                                })),
+                Array<Date>::class.java)
+
+        dates = ArrayList(datesList.toList())
     }
 
+    //TODO: Исправить этот момент и перенести в навигатор
     private fun showDatesFragment() {
         supportFragmentManager
                 .beginTransaction()
@@ -132,55 +165,38 @@ class MainActivity : AppCompatActivity() {
                 .commitAllowingStateLoss()
     }
 
-    @SuppressLint("StaticFieldLeak")
-    inner class TermsLoadViewModel : ViewModel() {
-        fun loadTerms() {
-            viewModelScope.launch {
-                val gson = Gson()
-                val termsList = gson.fromJson(InputStreamReader(resources.openRawResource(R.raw.terms)), TermsList::class.java)
-
-                terms = ArrayList(termsList.terms)
-            }
-        }
+    fun replaceDatesFragment() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayout, datesFragment, null)
+                .commitAllowingStateLoss()
     }
 
-    @SuppressLint("StaticFieldLeak")
-    inner class DateLoadViewModel : ViewModel() {
-        fun loadDates(mode: Int, listener: (() -> Unit)? = null) {
-            viewModelScope.launch {
-                val gson = Gson()
-                val datesList = gson.fromJson(
-                        InputStreamReader(
-                                resources.openRawResource(
-                                        when (mode) {
-                                            FULL_DATES_MODE -> R.raw.dates_full
-                                            else -> R.raw.dates_easy
-                                        })),
-                        DatesList::class.java)
+    private fun loadTerms(): Single<List<Term>> {
+        return Single
+                .fromCallable {
+                    Gson().fromJson(InputStreamReader(resources.openRawResource(R.raw.terms)),
+                            Array<Term>::class.java)
+                            .toList()
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
 
-                dates = ArrayList(datesList.dates)
-                listener?.invoke()
-            }
-        }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    inner class UpdateDates : ViewModel() {
-        fun updateDates(mode: Int) {
-            viewModelScope.launch {
-                val gson = Gson()
-                val datesList = gson.fromJson(
-                        InputStreamReader(
-                                resources.openRawResource(
-                                        when (mode) {
-                                            FULL_DATES_MODE -> R.raw.dates_full
-                                            else -> R.raw.dates_easy
-                                        })),
-                        DatesList::class.java)
-
-                dates = ArrayList(datesList.dates)
-            }
-        }
+    private fun loadDates(mode: Int): Single<List<Date>> {
+        return Single
+                .fromCallable {
+                    Gson().fromJson(InputStreamReader(resources.openRawResource(
+                            when (mode) {
+                                FULL_DATES_MODE -> R.raw.dates_full
+                                else -> R.raw.dates_easy
+                            })),
+                            Array<Date>::class.java)
+                            .toList()
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
     companion object {

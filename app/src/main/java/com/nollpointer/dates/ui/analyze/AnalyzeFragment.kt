@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentAnalyzeBinding
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.PractiseResult
 import com.nollpointer.dates.ui.view.BaseFragment
@@ -14,9 +15,20 @@ import com.nollpointer.dates.ui.view.BaseFragment
  */
 class AnalyzeFragment : BaseFragment() {
 
+    private var _binding: FragmentAnalyzeBinding? = null
+    private val binding: FragmentAnalyzeBinding
+        get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_analyze, container, false)
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentAnalyzeBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun getStatusBarColorRes() = R.color.colorPrimary

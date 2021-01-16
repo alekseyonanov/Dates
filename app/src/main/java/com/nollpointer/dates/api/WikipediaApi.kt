@@ -9,6 +9,6 @@ import retrofit2.http.Path
  * @author Onanov Aleksey (@onanov)
  */
 interface WikipediaApi {
-    @GET("/api/rest_v1/page/summary/{title}")
+    @GET("page/summary/{title}")
     fun getData(@Path("title") title: String?): Single<WikipediaResponseModel>
 }

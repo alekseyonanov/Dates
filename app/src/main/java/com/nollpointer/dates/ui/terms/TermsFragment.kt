@@ -22,17 +22,23 @@ import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.details.terms.TermsDetailsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_terms.*
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class TermsFragment : BaseFragment() {
 
-    private lateinit var terms: ArrayList<Term>
+    private lateinit var terms: List<Term>
     lateinit var adapter: TermsAdapter
 
     private var isEditTextEmpty = true
+
+    @Inject
+    lateinit var loader: Loader
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -70,7 +76,7 @@ class TermsFragment : BaseFragment() {
                         .replace(R.id.frameLayout, TermsDetailsFragment.newInstance(it))
                         .commit()
             }
-            when (Loader.getTermsViewType(context as Context)) {
+            when (loader.termsViewType) {
                 0 -> {
                     itemLayoutId = R.layout.item_term
                     itemWithTitleLayoutId = R.layout.item_term_top_text
@@ -124,7 +130,7 @@ class TermsFragment : BaseFragment() {
                 if (event.action == KeyEvent.ACTION_UP &&
                         (keyCode == KeyEvent.KEYCODE_ENTER ||
                                 keyCode == KeyEvent.KEYCODE_SEARCH)) {
-                    (context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(termsCardSearch.windowToken, 0)
+                    (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(termsCardSearch.windowToken, 0)
                     return@OnKeyListener true
                 }
                 if (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK && termsCardSearch.visibility == View.VISIBLE) {
@@ -149,7 +155,7 @@ class TermsFragment : BaseFragment() {
         termsAppbar.setExpanded(true)
         termsRecyclerView.isNestedScrollingEnabled = false
         termsCardSearch.visibility = View.VISIBLE
-        (context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+        (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
         Handler().postDelayed({
             termsEditTextSearch.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 0f, 0f, 0))
             termsEditTextSearch.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, 0f, 0f, 0))
@@ -166,7 +172,7 @@ class TermsFragment : BaseFragment() {
         adapter.items = terms
         adapter.isSearchMode = false
         adapter.notifyItemChanged(0)
-        (context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(termsCardSearch.windowToken, 0)
+        (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(termsCardSearch.windowToken, 0)
     }
 
     fun scrollToTop() {
@@ -190,7 +196,7 @@ class TermsFragment : BaseFragment() {
     private fun startVoiceSearch() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context!!.packageName)
+            putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, requireContext().packageName)
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
             putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, java.lang.Long.valueOf(5000))
             putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, java.lang.Long.valueOf(5000))

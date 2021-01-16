@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -21,77 +21,77 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/gdpr_title"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingMultiplier="1.4"
+                android:textColor="@android:color/black"
+                android:textColorLink="@color/colorPrimary"
+                tools:text="@string/gdpr_main_text" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/yes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/gdpr_title"
-                    android:textColor="@android:color/black"
-                    android:textSize="22sp"
+                    android:background="@drawable/button_gdpr"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center_horizontal"
+                    android:padding="15dp"
+                    android:text="@string/gdpr_agree"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/gdprText"
+                    android:id="@+id/no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lineSpacingMultiplier="1.4"
-                    tools:text="@string/gdpr_main_text"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:textColor="@android:color/black"
-                    android:textColorLink="@color/colorPrimary" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="@string/gdpr_disagree" />
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/gdprYes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/button_gdpr"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:gravity="center_horizontal"
-                        android:padding="15dp"
-                        android:text="@string/gdpr_agree"
-                        android:textAllCaps="true"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/gdprNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:gravity="center_horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        tools:text="@string/gdpr_disagree"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center_horizontal"
-                        android:lineSpacingMultiplier="1.4"
-                        android:text="@string/gdpr_understand"
-                        android:textColor="@android:color/black" />
-
-                </LinearLayout>
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingMultiplier="1.4"
+                    android:text="@string/gdpr_understand"
+                    android:textColor="@android:color/black" />
 
             </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

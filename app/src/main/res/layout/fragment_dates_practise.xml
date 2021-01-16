@@ -1,7 +1,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/practiseScrollView"
     android:layout_width="match_parent"
+    android:id="@+id/scrollView"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -12,7 +12,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/cardsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -27,7 +26,7 @@
 
 
         <RelativeLayout
-            android:id="@+id/practiseCards"
+            android:id="@+id/cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -73,7 +72,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/practiseVoice"
+            android:id="@+id/voice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -121,7 +120,6 @@
 
 
         <TextView
-            android:id="@+id/testsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -136,7 +134,7 @@
 
 
         <RelativeLayout
-            android:id="@+id/practiseTest"
+            android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -182,7 +180,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/practiseTrueFalse"
+            android:id="@+id/trueFalse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -228,7 +226,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/practiseLink"
+            android:id="@+id/link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -275,7 +273,6 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/distributionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -290,7 +287,7 @@
 
 
         <RelativeLayout
-            android:id="@+id/practiseSort"
+            android:id="@+id/sort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -336,7 +333,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/practiseDistribution"
+            android:id="@+id/distribution"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"

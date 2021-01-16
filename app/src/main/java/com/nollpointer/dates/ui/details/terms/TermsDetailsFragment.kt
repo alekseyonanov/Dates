@@ -1,55 +1,69 @@
 package com.nollpointer.dates.ui.details.terms
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
+import androidx.fragment.app.viewModels
 import com.nollpointer.dates.R
-import com.nollpointer.dates.app.App
+import com.nollpointer.dates.databinding.FragmentDetailsBinding
 import com.nollpointer.dates.model.Term
 import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_terms_details.*
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class TermsDetailsFragment : BaseFragment() {
 
-    private lateinit var viewModel: TermsDetailsViewModel
+    private val viewModel by viewModels<TermsDetailsViewModel>()
+
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding: FragmentDetailsBinding
+        get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_terms_details, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        binding.arrowBack.setOnClickListener {
+            viewModel.onArrowBackClicked()
+        }
 
-        termsDetailsWikiLinkTextView.setOnClickListener {
+        binding.wikiLink.setOnClickListener {
             viewModel.onWikiLinkClicked()
         }
-        termsDetailsGoogleSearchLinkTextView.setOnClickListener {
+        binding.googleLink.setOnClickListener {
             viewModel.onGoogleLinkClicked()
         }
-        termsDetailsYandexSearchLinkTextView.setOnClickListener {
+        binding.yandexLink.setOnClickListener {
             viewModel.onYandexLinkClicked()
         }
-        termsDetailsArrowBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
 
-        viewModel = TermsDetailsViewModel(context as Context, App.api).apply {
+        viewModel.apply {
             term = arguments?.getParcelable<Term>(TERM) as Term
             wikiDescriptionLiveData.observe({ lifecycle }, ::setWikiDescription)
             dataLiveData.observe({ lifecycle }, ::setData)
-            errorLiveData.observe({lifecycle}, ::showError)
-            loadingLiveData.observe({lifecycle}, ::showLoading)
+            errorLiveData.observe({ lifecycle }, ::showError)
+            loadingLiveData.observe({ lifecycle }, ::showLoading)
             start()
         }
+
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (activity as MainActivity).hideBottomNavigationView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun getStatusBarColorRes() = android.R.color.white
@@ -57,18 +71,18 @@ class TermsDetailsFragment : BaseFragment() {
     override fun isStatusBarLight() = true
 
     private fun setData(data: Pair<String, String>) {
-        termsDetailsSubjectTextView.text = getString(R.string.dates_details_year, data.first) //TODO месяц
-        termsDetailsDescriptionTextView.text = Html.fromHtml("<b>${data.first} год(а)</b> — ${data.second}")
+        binding.subject.text = getString(R.string.dates_details_year, data.first) //TODO месяц
+        binding.datesDescription.text = HtmlCompat.fromHtml("<b>${data.first} год(а)</b> — ${data.second}", HtmlCompat.FROM_HTML_MODE_LEGACY)
     }
 
     private fun setWikiDescription(wikiDescription: String) {
-        termsDetailsWikiDescriptionTextView.text = Html.fromHtml(wikiDescription)
+        binding.wikiDescription.text = HtmlCompat.fromHtml(wikiDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
     }
 
     private fun showError(error: String) {
         AlertDialog.Builder(context)
                 .setMessage(error)
-                .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                .setPositiveButton(getString(R.string.ok_button)) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()
@@ -78,15 +92,10 @@ class TermsDetailsFragment : BaseFragment() {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        (activity as MainActivity).hideBottomNavigationView()
-    }
-
     companion object {
-
         private const val TERM = "Term"
 
+        @JvmStatic
         fun newInstance(term: Term) = TermsDetailsFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(TERM, term)

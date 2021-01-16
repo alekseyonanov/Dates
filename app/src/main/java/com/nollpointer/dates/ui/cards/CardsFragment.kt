@@ -3,118 +3,75 @@ package com.nollpointer.dates.ui.cards
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.text.Layout
+import android.text.Layout.BREAK_STRATEGY_SIMPLE
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.nollpointer.dates.R
-import com.nollpointer.dates.model.Date
+import androidx.fragment.app.viewModels
+import com.nollpointer.dates.databinding.FragmentCardsBinding
 import com.nollpointer.dates.model.Practise
-import com.nollpointer.dates.model.Practise.Companion.TYPE_MIXED
-import com.nollpointer.dates.other.PractiseConstants
-import com.nollpointer.dates.ui.practise.PractiseSettingsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_cards.*
-import java.util.*
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class CardsFragment : BaseFragment() {
 
-    private lateinit var dates: List<Date>
-    private lateinit var currentDate: Date
+    private var _binding: FragmentCardsBinding? = null
+    private val binding: FragmentCardsBinding
+        get() = _binding!!
 
-    private var type = 0
-    private var isDateQuestion = false
-
-    private val random = Random(System.currentTimeMillis())
-
-    private lateinit var practise: Practise
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            practise = it.getParcelable<Practise>(CARDS) as Practise
-            type = practise.type
-            dates = practise.dates
-        }
-    }
-
-    override fun getStatusBarColorRes() = android.R.color.white
-
-    override fun isStatusBarLight() = true
+    private val viewModel by viewModels<CardsViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_cards, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentCardsBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            cardsText.breakStrategy = Layout.BREAK_STRATEGY_SIMPLE
-        cardsNextButton.setOnClickListener { setQuestion() }
-        cardsDescriptionButton.setOnClickListener { setAnswer() }
-
-        isDateQuestion = when (type) {
-            PractiseConstants.ONLY_DATES -> true
-            else -> false
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.text.breakStrategy = BREAK_STRATEGY_SIMPLE
         }
 
-        cardsBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+        binding.next.setOnClickListener { viewModel.onNextClicked() }
+        binding.description.setOnClickListener { viewModel.onDescriptionClicked() }
+        binding.arrowBack.setOnClickListener { viewModel.onArrowBackClicked() }
+        binding.settings.setOnClickListener { viewModel.onSettingsClicked() }
+
+        viewModel.apply {
+            this.practise = arguments?.getParcelable<Practise>(CARDS) as Practise
+            questionLiveData.observe({ lifecycle }, ::setData)
+            start()
         }
 
-        cardsSettings.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, PractiseSettingsFragment.newInstance(practise)).addToBackStack(null).commit()
-        }
-
-        setQuestion()
-
+        return binding.root
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
         try {
-            val ft = parentFragmentManager.beginTransaction()
-            ft.detach(this).attach(this).commit()
+            parentFragmentManager
+                    .beginTransaction()
+                    .detach(this)
+                    .attach(this)
+                    .commit()
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    private fun setAnswer() {
-        cardsText.text =
-                if (currentDate.containsMonth) {
-                    "${currentDate.date}, ${currentDate.month}\n${currentDate.event}"
-                } else {
-                    "${currentDate.date}\n${currentDate.event}"
-                }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
-    private fun setQuestion() {
-        setRandomDate()
-        if (isDateQuestion) {
-            cardsText.text =
-                    if (currentDate.containsMonth) {
-                        "${currentDate.date}, ${currentDate.month}"
-                    } else {
-                        currentDate.date
-                    }
-        } else {
-            cardsText.text = currentDate.event
-        }
-    }
+    override fun getStatusBarColorRes() = android.R.color.white
 
-    private fun setRandomDate() {
-        val random = Random()
-        val position = random.nextInt(dates.size)
-        currentDate = dates[position]
-        if (type == TYPE_MIXED)
-            isDateQuestion = random.nextBoolean()
+    override fun isStatusBarLight() = true
+
+    private fun setData(data: String) {
+        binding.text.text = data
     }
 
     companion object {

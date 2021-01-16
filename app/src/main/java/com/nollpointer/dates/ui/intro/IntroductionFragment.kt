@@ -5,124 +5,123 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentIntroductionBinding
+import com.nollpointer.dates.databinding.IntroPageBinding
 import com.nollpointer.dates.model.IntroPage
-import com.nollpointer.dates.ui.gdpr.GDPRFragment
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.ui.view.BaseFragment
-import com.nollpointer.dates.ui.view.DividerView
 import com.nollpointer.dates.ui.view.DividerView.Companion.TOP_POSITION
-import kotlinx.android.synthetic.main.fragment_introduction.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class IntroductionFragment : BaseFragment() {
 
-    private var introPages = mutableListOf<IntroPage>()
+    private var _binding: FragmentIntroductionBinding? = null
+    private val binding: FragmentIntroductionBinding
+        get() = _binding!!
+
+    @Inject
+    lateinit var navigator: AppNavigator
+
+    //TODO перенести локально
+    private var introPages = emptyList<IntroPage>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val titles = resources.getStringArray(R.array.intro_titles)
-        val descriptions = resources.getStringArray(R.array.intro_descriptions)
-        for (index in titles.indices) {
-            introPages.add(
-                    IntroPage(titles[index],
-                            descriptions[index],
-                            when (index) {
+        introPages = resources.getStringArray(R.array.intro_titles)
+                .zip(resources.getStringArray(R.array.intro_descriptions).withIndex()) { title, descriptionWithIndex ->
+                    IntroPage(title, descriptionWithIndex.value,
+                            when (descriptionWithIndex.index) {
                                 0 -> R.drawable.ic_intro_app
                                 1 -> R.drawable.ic_intro_dates
                                 2 -> R.drawable.ic_intro_terms
                                 3 -> R.drawable.ic_intro_practise
                                 4 -> R.drawable.ic_intro_statistics
                                 else -> R.drawable.ic_intro_wiki
-                            }))
+                            })
+                }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentIntroductionBinding.inflate(inflater, container, false)
+
+        binding.viewPager.apply {
+            adapter = PractiseCellAdapter(introPages)
+            addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+                override fun onPageSelected(position: Int) {
+                    binding.next.text = when (position) {
+                        introPages.lastIndex -> getString(R.string.ready)
+                        else -> getString(R.string.next)
+                    }
+                }
+            })
+            binding.dots.setupWithViewPager(this)
         }
+
+        binding.skip.setOnClickListener {
+            navigator.navigateToGdpr()
+        }
+
+        binding.next.setOnClickListener {
+            if (binding.viewPager.currentItem == introPages.lastIndex)
+                navigator.navigateToGdpr()
+            else
+                binding.viewPager.setCurrentItem(binding.viewPager.currentItem + 1, true)
+        }
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun getStatusBarColorRes() = R.color.colorPrimary
 
     override fun isStatusBarLight() = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_introduction, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        introViewPager.adapter = PractiseCellAdapter(introPages)
-        introDots.setupWithViewPager(introViewPager)
-
-        introViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                introNextButton.text = when (position) {
-                    introPages.lastIndex -> getString(R.string.ready)
-                    else -> getString(R.string.next)
-                }
-            }
-        })
-
-        introSkipButton.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, GDPRFragment.newInstance()).commit()
-        }
-
-        introNextButton.setOnClickListener {
-            if (introViewPager.currentItem == introPages.lastIndex)
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, GDPRFragment.newInstance()).commit()
-            else
-                introViewPager.setCurrentItem(introViewPager.currentItem + 1, true)
-        }
-    }
-
     inner class PractiseCellAdapter(private val introPages: List<IntroPage>) : PagerAdapter() {
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
-            val view = layoutInflater.inflate(R.layout.intro_page, null)
-            view.findViewById<TextView>(R.id.introTitle).text = introPages[position].title
-            view.findViewById<TextView>(R.id.introDescription).text = introPages[position].description
-            view.findViewById<ImageView>(R.id.introImage).setImageResource(introPages[position].imageRes)
-            view.findViewById<DividerView>(R.id.introDivider).apply {
+            val binding = IntroPageBinding.inflate(layoutInflater)
+            binding.title.text = introPages[position].title
+            binding.description.text = introPages[position].description
+            binding.image.setImageResource(introPages[position].imageRes)
+            binding.divider.apply {
                 type = (position + 1) % 2
                 when (type) {
                     TOP_POSITION -> {
                         setBackgroundColor(Color.WHITE)
                     }
                     else -> {
-                        setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                        setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
                     }
                 }
             }
 
-            collection.addView(view)
-            return view
+            collection.addView(binding.root)
+            return binding.root
         }
 
         override fun destroyItem(collection: ViewGroup, position: Int, view: Any) {
             collection.removeView(view as View)
         }
 
-        override fun getCount(): Int {
-            return introPages.size
-        }
+        override fun getCount() = introPages.size
 
-        override fun isViewFromObject(view: View, `object`: Any): Boolean {
-            return view === `object`
-        }
+        override fun isViewFromObject(view: View, other: Any) = view === other
 
-        override fun getPageTitle(position: Int): CharSequence? {
-            return ""
-        }
+        override fun getPageTitle(position: Int) = ""
     }
-
 
     companion object {
 

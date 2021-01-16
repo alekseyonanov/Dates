@@ -2,44 +2,27 @@ package com.nollpointer.dates.app
 
 import android.app.Application
 import com.flurry.android.FlurryAgent
-import com.google.gson.GsonBuilder
-import com.nollpointer.dates.api.WikipediaApi
-import com.nollpointer.dates.di.AppComponent
-import com.nollpointer.dates.di.DaggerAppComponent
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.nollpointer.dates.BuildConfig
+import com.yandex.metrica.YandexMetrica
+import com.yandex.metrica.YandexMetricaConfig
+import dagger.hilt.android.HiltAndroidApp
+
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@HiltAndroidApp
 class App : Application() {
-
-    private lateinit var retrofit: Retrofit
-
     override fun onCreate() {
         super.onCreate()
-        val gson = GsonBuilder()
-                .setLenient()
-                .create()
         FlurryAgent.Builder()
                 .withLogEnabled(true)
                 .withCaptureUncaughtExceptions(true)
-                .build(this, "52ZN7BKTNFZ8M26Q2VPN")
-        retrofit = Retrofit.Builder()
-                .baseUrl("https://ru.wikipedia.org")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
-        api = retrofit.create(WikipediaApi::class.java)
-    }
-
-    companion object {
-        lateinit var api: WikipediaApi
-            private set
-
-        val component: AppComponent by lazy {
-            DaggerAppComponent.create()
-        }
+                .build(this, BuildConfig.FLURRY_KEY)
+        val config = YandexMetricaConfig.newConfigBuilder(BuildConfig.APP_METRICA_KEY).build()
+        YandexMetrica.activate(applicationContext, config)
+        YandexMetrica.enableActivityAutoTracking(this)
+        FirebaseAnalytics.getInstance(this)
     }
 }

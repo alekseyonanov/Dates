@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentPractiseResultBinding
 import com.nollpointer.dates.model.PractiseResult
 import com.nollpointer.dates.ui.view.BaseFragment
 
@@ -13,11 +14,15 @@ import com.nollpointer.dates.ui.view.BaseFragment
  */
 class PractiseResultFragment : BaseFragment() {
 
+    private var _binding: FragmentPractiseResultBinding? = null
+    private val binding: FragmentPractiseResultBinding
+        get() = _binding!!
+
     private lateinit var practiseResults: ArrayList<PractiseResult>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val mainView = inflater.inflate(R.layout.fragment_practise_result, container, false)
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentPractiseResultBinding.inflate(inflater, container, false)
 //        val prePractiseResults: ArrayList<PractiseResult?>? = arguments!!.getParcelableArrayList(RESULTS_LIST)
 //        practiseResults = ArrayList()
 //        prePractiseResults!!.forEach {
@@ -48,7 +53,12 @@ class PractiseResultFragment : BaseFragment() {
 //        val markTextView = mainView.findViewById<TextView>(R.id.results_mark_text_view)
 //        setMark(markTextView)
 //        SaveCurrentMark(context, getPractiseSaveTitle(practise), getMarkValue(correctAnswerCount)).execute()
-        return mainView
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun getStatusBarColorRes() = R.color.colorPrimary
@@ -140,7 +150,7 @@ class PractiseResultFragment : BaseFragment() {
         private const val PRACTISE = "practise"
 
         @JvmStatic
-        fun newInstance(practise: String? = "", list: java.util.ArrayList<PractiseResult> = ArrayList<PractiseResult>(), arguments: Bundle = Bundle()) =
+        fun newInstance() =
                 PractiseResultFragment().apply {
 
                 }

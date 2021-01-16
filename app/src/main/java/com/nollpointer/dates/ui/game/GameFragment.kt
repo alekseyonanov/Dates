@@ -58,7 +58,7 @@ class GameFragment : BaseFragment() {
         image.setImageResource(R.drawable.ic_crane)
         val button = mainView.findViewById<Button>(R.id.statistics_dummy_button)
         button.setOnClickListener {
-            val appPackageName = context!!.packageName // getPackageName() from Context or Activity object
+            val appPackageName = requireContext().packageName // getPackageName() from Context or Activity object
             try {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
             } catch (anfe: ActivityNotFoundException) {
@@ -82,6 +82,11 @@ class GameFragment : BaseFragment() {
         super.onStop()
         val mainActivity = activity as MainActivity?
         mainActivity!!.showBottomNavigationView()
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = GameFragment()
     }
 
     inner class SpacesItemDecoration(private val space: Int) : ItemDecoration() {

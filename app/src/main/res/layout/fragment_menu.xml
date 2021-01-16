@@ -5,7 +5,7 @@
     android:background="@color/colorBackground">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/menuToolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorPrimary"
@@ -14,17 +14,17 @@
         app:titleTextColor="@android:color/white" />
 
     <com.nollpointer.dates.ui.menu.ModeViewPager
-        android:id="@+id/menuViewPager"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/menuToolbar"
+        android:layout_below="@id/toolbar"
         android:background="@color/colorPrimary" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/menuTabDots"
+        android:id="@+id/dots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/menuViewPager"
+        android:layout_below="@id/viewPager"
         android:background="@color/colorPrimary"
         app:tabBackground="@drawable/tab_selector"
         app:tabGravity="center"
@@ -33,7 +33,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/menuTabDots">
+        android:layout_below="@id/dots">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:orientation="vertical">
 
             <android.widget.Button
-                android:id="@+id/menuSelectCurrentMode"
+                android:id="@+id/modeSelect"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/gameStart"
+                android:id="@+id/game"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -108,7 +108,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/mailMessage"
+                    android:id="@+id/mail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -123,7 +123,7 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/telegramMessage"
+                    android:id="@+id/telegram"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -138,7 +138,7 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/twitterMessage"
+                    android:id="@+id/twitter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -153,7 +153,7 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/instagramMessage"
+                    android:id="@+id/instagram"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -168,7 +168,7 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/vkMessage"
+                    android:id="@+id/vk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -183,7 +183,7 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/onanovRu"
+                    android:id="@+id/onanov"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"

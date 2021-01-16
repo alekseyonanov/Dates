@@ -1,106 +1,78 @@
 package com.nollpointer.dates.ui.cards
 
+import android.content.Context
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
+import com.nollpointer.dates.model.Date
+import com.nollpointer.dates.model.Practise
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.BaseViewModel
+import dagger.hilt.android.qualifiers.ActivityContext
 import java.util.*
-import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class CardsViewModel @Inject constructor(
-        private val dates: ArrayList<Date>,
-        private val type: Int) : BaseViewModel() {
+class CardsViewModel @ViewModelInject constructor(
+        @ActivityContext private val context: Context,
+        private val navigator: AppNavigator
+) : BaseViewModel() {
 
     //region LiveData
-    val currentQuestion = MutableLiveData<Date>()
-    //val historyLiveData = MutableLiveData<List<History>>()
-    //endregion
+    val questionLiveData = MutableLiveData<String>()
 
-    //region data
+    lateinit var practise: Practise
+    private lateinit var currentDate: Date
+    private var isDateQuestion = false
 
-    //endregion
-
-    /**
-     * Действия при старте
-     */
-    override
-
-    fun onStart() {
-
+    override fun onStart() {
+        setQuestion()
     }
 
-    /**
-     * Обработка нажатия на выбор секции
-     *//*
-    fun onSectionSelectClicked(view: View){
-        navigator.navigateToSectionSeriesSelect()
+    fun onNextClicked() {
+        setQuestion()
     }
 
-    */
-    /**
-     * Обработка нажатия на выбор места ремонта
-     *//*
-    fun onPlaceSelectClicked(view: View){
-        navigator.navigateToPlaceSelect()
+    fun onDescriptionClicked() {
+        setAnswer()
     }
 
-    */
-    /**
-     * Обработка выбора конца периода
-     *//*
-    fun onActivityResultGot(requestCode: Int, resultCode: Int, data: Intent?){
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == 1) // PlaceSelect
-                placeLiveData.value = data?.getParcelableExtra("DATA")
-            if(requestCode == 1) // SectionSeries
-                sectionSeriesLiveData.value = data?.getParcelableExtra("DATA")
-        }
-
-        Log.e("TAG", "onActivityResultGot: resultCode = $resultCode, requestCode = $requestCode, data = ${data?.data}" )
-
+    fun onArrowBackClicked() {
+        navigator.navigateBack()
     }
 
-    */
-    /**
-     * Обработка нажатия на историю
-     *//*
-    fun onHistoryClicked(history: History){
-        //TODO доделать, когда появится страница Списка ЛО на ремонте
+    fun onSettingsClicked() {
+        navigator.navigateToPractiseSettings(practise)
     }
 
-    */
-    /**
-     * Обработка выбора начала периода
-     *//*
-    fun onStartPeriodSet(calendar: Calendar){
-        startPeriodLiveData.value = calendar.timeInMillis
+    private fun setAnswer() {
+        questionLiveData.value =
+                if (currentDate.containsMonth) {
+                    "${currentDate.date}, ${currentDate.month}\n${currentDate.event}"
+                } else {
+                    "${currentDate.date}\n${currentDate.event}"
+                }
     }
 
-    */
-    /**
-     * Обработка выбора конца периода
-     *//*
-    fun onEndPeriodSet(calendar: Calendar){
-        endPeriodLiveData.value = calendar.timeInMillis
+    private fun setQuestion() {
+        setRandomDate()
+        questionLiveData.value =
+                if (isDateQuestion) {
+                    if (currentDate.containsMonth) {
+                        "${currentDate.date}, ${currentDate.month}"
+                    } else {
+                        currentDate.date
+                    }
+                } else {
+                    currentDate.event
+                }
     }
 
-    */
-    /**
-     * Обработка выбора конца периода
-     *//*
-    fun onSearchClicked(view: View){
-        loadData()
+    private fun setRandomDate() {
+        val random = Random()
+        val position = random.nextInt(practise.dates.size)
+        currentDate = practise.dates[position]
+        if (practise.type == Practise.TYPE_MIXED)
+            isDateQuestion = random.nextBoolean()
     }
-
-    */
-    /**
-     * Обработка ввода номер секции
-     *//*
-    fun onNumberQueryChanged(query: String){
-        numberLiveData.value = query
-    }
-*/
-
-
 }

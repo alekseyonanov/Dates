@@ -6,19 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentPractiseSettingsBinding
 import com.nollpointer.dates.model.Practise
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.ui.practiseselect.SingleSelectAdapter
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_practise_settings.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class PractiseSettingsFragment : BaseFragment() {
+
+    private var _binding: FragmentPractiseSettingsBinding? = null
+    private val binding: FragmentPractiseSettingsBinding
+        get() = _binding!!
 
     private lateinit var practise: Practise
 
     private lateinit var singleSelectAdapter: SingleSelectAdapter
+
+    @Inject
+    lateinit var navigator: AppNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,19 +38,13 @@ class PractiseSettingsFragment : BaseFragment() {
         }
     }
 
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_practise_settings, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        practiseSettingsToolbar.setNavigationOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+        _binding = FragmentPractiseSettingsBinding.inflate(inflater, container, false)
+
+        binding.toolbar.setNavigationOnClickListener {
+            navigator.navigateBack()
         }
 
         singleSelectAdapter = SingleSelectAdapter(resources.getTextArray(R.array.pick_type)).apply {
@@ -52,12 +57,23 @@ class PractiseSettingsFragment : BaseFragment() {
             selectedItem = practise.type
         }
 
-        practiseSettingsSingleRecyclerView.apply {
+        binding.recyclerView.apply {
             adapter = singleSelectAdapter
             layoutManager = LinearLayoutManager(this.context)
             isNestedScrollingEnabled = false
         }
+
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     companion object {
 

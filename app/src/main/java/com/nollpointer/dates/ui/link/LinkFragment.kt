@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentLinkBinding
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.practise.PractiseSettingsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_link.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
 class LinkFragment : BaseFragment() {
+
+    private var _binding: FragmentLinkBinding? = null
+    private val binding: FragmentLinkBinding
+        get() = _binding!!
 
     private lateinit var practise: Practise
 
@@ -24,24 +28,15 @@ class LinkFragment : BaseFragment() {
         }
     }
 
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_link, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentLinkBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        linkBack.setOnClickListener {
+        binding.arrowBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        linkSettings.setOnClickListener {
+        binding.settings.setOnClickListener {
             requireActivity()
                     .supportFragmentManager
                     .beginTransaction()
@@ -49,7 +44,18 @@ class LinkFragment : BaseFragment() {
                     .addToBackStack(null)
                     .commit()
         }
+
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
 
     companion object {
 
@@ -58,7 +64,7 @@ class LinkFragment : BaseFragment() {
         fun newInstance(practise: Practise) =
                 LinkFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable(LINK,practise)
+                        putParcelable(LINK, practise)
                     }
                 }
     }

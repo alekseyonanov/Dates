@@ -5,7 +5,7 @@
     android:background="@color/colorBackground">
 
     <ImageView
-        android:id="@+id/linkBack"
+        android:id="@+id/arrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -17,7 +17,7 @@
         android:src="@drawable/ic_arrow_back_black" />
 
     <ImageView
-        android:id="@+id/linkSettings"
+        android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

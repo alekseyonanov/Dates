@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/aboutToolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorPrimary"
@@ -17,7 +17,7 @@
         app:titleTextColor="@android:color/white" />
 
     <ImageView
-        android:id="@+id/about_app_logo"
+        android:id="@+id/appLogo"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_gravity="center_horizontal"
@@ -26,7 +26,7 @@
         android:contentDescription="@string/app_logo" />
 
     <TextView
-        android:id="@+id/about_app_version"
+        android:id="@+id/appVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -42,7 +42,7 @@
         android:background="@color/colorBackground" />
 
     <TextView
-        android:id="@+id/aboutRateApp"
+        android:id="@+id/rateApp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -55,7 +55,7 @@
         android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/aboutPrivacyPolicy"
+        android:id="@+id/privacyPolicy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -68,7 +68,7 @@
         android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/aboutLicence"
+        android:id="@+id/licence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -81,7 +81,7 @@
         android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/aboutFAQ"
+        android:id="@+id/faq"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -94,7 +94,7 @@
         android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/aboutBetaTest"
+        android:id="@+id/betaTest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"

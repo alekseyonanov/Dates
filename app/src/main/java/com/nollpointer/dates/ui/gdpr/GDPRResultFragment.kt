@@ -9,46 +9,64 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nollpointer.dates.R
-import com.nollpointer.dates.ui.dates.DatesFragment
+import com.nollpointer.dates.databinding.FragmentGdprResultBinding
+import com.nollpointer.dates.other.AppNavigator
+import com.nollpointer.dates.other.Loader
+import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_gdpr_result.*
 import java.util.*
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
 class GDPRResultFragment : BaseFragment() {
 
+    private var _binding: FragmentGdprResultBinding? = null
+    private val binding: FragmentGdprResultBinding
+        get() = _binding!!
+
+    @Inject
+    lateinit var loader: Loader
+
+    @Inject
+    lateinit var navigator: AppNavigator
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? { // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gdpr_result, container, false)
+                              savedInstanceState: Bundle?): View { // Inflate the layout for this fragment
+        _binding = FragmentGdprResultBinding.inflate(inflater, container, false)
+
+        binding.text.apply {
+            movementMethod = LinkMovementMethod.getInstance()
+            text = if (requireArguments().getBoolean(RESULT_GDPR)) {
+                getString(R.string.gdpr_agree_text)
+            } else {
+                getString(R.string.gdpr_disagree_text)
+            }
+        }
+        binding.closeText.text =
+                SpannableString(getString(R.string.gdpr_close).toUpperCase(Locale.ROOT)).apply {
+                    setSpan(UnderlineSpan(), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+        //TODO: Исправить этот момент и перенести в навигатор
+        binding.close.setOnClickListener { (requireActivity() as MainActivity).replaceDatesFragment() }
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun getStatusBarColorRes() = R.color.colorPrimary
 
     override fun isStatusBarLight() = false
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        gdprResultText.apply {
-            movementMethod = LinkMovementMethod.getInstance()
-            text = if (arguments?.getBoolean(RESULT_GDPR) == true)
-                getString(R.string.gdpr_agree_text)
-            else
-                getString(R.string.gdpr_disagree_text)
-        }
-        val close = getString(R.string.gdpr_close).toUpperCase(Locale.ROOT)
-        val spannableClose = SpannableString(close)
-        spannableClose.setSpan(UnderlineSpan(), 0, spannableClose.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        gdprResultCloseText.text = spannableClose
-        gdprResultClose.setOnClickListener { requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, DatesFragment()).commit() }
-    }
-
     companion object {
+        private const val RESULT_GDPR = "RESULT_GDPR"
 
-        private const val RESULT_GDPR = "result_gdpr"
-
+        @JvmStatic
         fun newInstance(result: Boolean) = GDPRResultFragment().apply {
             arguments = Bundle().apply {
                 putBoolean(RESULT_GDPR, result)

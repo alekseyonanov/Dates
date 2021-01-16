@@ -5,13 +5,13 @@
     android:background="@color/colorBackground">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/practiseAppbar"
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleEnabled="false">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/practiseToolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
                 android:background="@color/colorPrimary"
@@ -22,7 +22,7 @@
                 app:titleTextColor="@android:color/white" />
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/practiseTabLayout"
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
@@ -36,7 +36,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/practiseViewPager"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

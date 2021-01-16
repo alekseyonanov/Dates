@@ -6,7 +6,7 @@
     android:background="@color/colorBackground">
 
     <ImageView
-        android:id="@+id/voiceBack"
+        android:id="@+id/arrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -18,7 +18,7 @@
         android:src="@drawable/ic_arrow_back_black" />
 
     <ImageView
-        android:id="@+id/voiceSettings"
+        android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -32,13 +32,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/voiceVisualizerContainer"
+        android:layout_above="@id/visualizerContainer"
         android:layout_gravity="fill"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/voiceQuestion"
+            android:id="@+id/question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
@@ -48,7 +48,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/voiceResult"
+            android:id="@+id/result"
             android:layout_width="128dp"
             android:layout_height="128dp"
             android:visibility="invisible" />
@@ -56,7 +56,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/voiceRecognizedText"
+        android:id="@+id/recognizedText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/voiceInfoContainer"
@@ -65,21 +65,21 @@
         android:text="Привет мир!" />
 
     <RelativeLayout
-        android:id="@+id/voiceVisualizerContainer"
+        android:id="@+id/visualizerContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/voiceRecognizedText"
+        android:layout_above="@id/recognizedText"
         android:layout_gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeight">
 
-        <com.nollpointer.dates.ui.voice.VisualizerView
-            android:id="@+id/voiceVisualizer"
+        <com.nollpointer.dates.ui.view.VisualizerView
+            android:id="@+id/visualizer"
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_centerInParent="true" />
 
         <ImageView
-            android:id="@+id/voiceRecognitionButton"
+            android:id="@+id/recognitionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -92,12 +92,12 @@
         android:id="@+id/voiceInfoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/voiceCheck"
+        android:layout_above="@id/check"
         android:gravity="center"
         android:minHeight="?android:attr/listPreferredItemHeight">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/vocieInfoChipGroup"
+            android:id="@+id/infoChipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -105,7 +105,7 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/voiceRightAnswersChip"
+                android:id="@+id/rightAnswers"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                 app:iconStartPadding="2dp" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/voiceQuestionNumberChip"
+                android:id="@+id/questionNumber"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                 app:chipBackgroundColor="@android:color/white" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/voiceWrongAnswersChip"
+                android:id="@+id/wrongAnswers"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
         </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/voiceNextButton"
+            android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -155,7 +155,7 @@
             app:fabSize="mini" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/voiceAnalyzeButton"
+            android:id="@+id/analyze"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -169,14 +169,14 @@
     </RelativeLayout>
 
     <com.appodeal.ads.BannerView
-        android:id="@+id/appodealBannerView_voice"
+        android:id="@+id/appodealBannerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/voiceRecognizedText"
+        android:layout_above="@id/recognizedText"
         android:visibility="gone" />
 
     <android.widget.Button
-        android:id="@+id/voiceCheck"
+        android:id="@+id/check"
         style="?android:borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

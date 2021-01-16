@@ -9,16 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentPractiseBinding
 import com.nollpointer.dates.model.FragmentPage
+import com.nollpointer.dates.other.SimpleOnTabSelectedListener
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_practise.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
 class PractiseFragment : BaseFragment() {
+
+    private var _binding: FragmentPractiseBinding? = null
+    private val binding: FragmentPractiseBinding
+        get() = _binding!!
 
     private lateinit var fragmentPages: List<FragmentPage>
 
@@ -29,32 +33,30 @@ class PractiseFragment : BaseFragment() {
                 FragmentPage(getString(R.string.practise_terms_title), TermsPractiseFragment(), FragmentPage.PRACTISE_TERMS))
     }
 
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_practise, container, false)
-    }
+        _binding = FragmentPractiseBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        practiseViewPager.adapter = PageAdapter(fragmentPages, childFragmentManager)
+        binding.viewPager.apply {
+            adapter = PageAdapter(fragmentPages, childFragmentManager)
+            binding.viewPager.pageMargin =
+                    TypedValue
+                            .applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                    16F,
+                                    resources.displayMetrics)
+                            .toInt()
+        }
 
-        practiseViewPager.pageMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16F, resources.displayMetrics).toInt()
-
-        practiseTabLayout.apply {
+        binding.tabLayout.apply {
             tabGravity = TabLayout.GRAVITY_FILL
-            setupWithViewPager(practiseViewPager)
+            setupWithViewPager(binding.viewPager)
 
-            addOnTabSelectedListener(object : OnTabSelectedListener {
+            addOnTabSelectedListener(object : SimpleOnTabSelectedListener() {
                 override fun onTabSelected(tab: TabLayout.Tab) {
-                    practiseViewPager.currentItem = tab.position
+                    binding.viewPager.currentItem = tab.position
                 }
 
-                override fun onTabUnselected(tab: TabLayout.Tab) {}
                 override fun onTabReselected(tab: TabLayout.Tab) {
                     val fragmentPage = fragmentPages[tab.position]
                     if (fragmentPage.isScrollable) {
@@ -63,26 +65,34 @@ class PractiseFragment : BaseFragment() {
                 }
             })
         }
+
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     fun scrollToTop() {
 
     }
 
-    internal class PageAdapter(private val fragmentPages: List<FragmentPage>, val fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+    internal class PageAdapter(
+            private val fragmentPages: List<FragmentPage>,
+            fragmentManager: FragmentManager)
+        : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         private var currentFragment: Fragment? = null
 
-        override fun getCount(): Int {
-            return fragmentPages.size
-        }
+        override fun getCount() = fragmentPages.size
 
-        override fun getPageTitle(position: Int): String? {
-            return fragmentPages[position].title
-        }
+        override fun getPageTitle(position: Int) = fragmentPages[position].title
 
-        override fun getItem(position: Int): Fragment {
-            return fragmentPages[position].fragment
-        }
+        override fun getItem(position: Int) = fragmentPages[position].fragment
 
         override fun setPrimaryItem(container: ViewGroup, position: Int, obj: Any) {
             super.setPrimaryItem(container, position, obj)

@@ -1,4 +1,4 @@
-package com.nollpointer.dates.ui.voice
+package com.nollpointer.dates.ui.view
 
 import android.content.Context
 import android.graphics.Canvas

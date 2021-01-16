@@ -7,11 +7,6 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/results_chart"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
         
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

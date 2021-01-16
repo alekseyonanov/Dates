@@ -1,6 +1,5 @@
 package com.nollpointer.dates.ui.settings.datesview
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +8,18 @@ import android.widget.TextView
 import com.nollpointer.dates.R
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.view.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dates_view.*
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class DatesViewFragment : BaseFragment() {
+
+    @Inject
+    lateinit var loader: Loader
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -32,34 +37,34 @@ class DatesViewFragment : BaseFragment() {
         }
 
         datesViewStandard.setOnClickListener {
-            if(datesViewStandard.isChecked)
+            if (datesViewStandard.isChecked)
                 return@setOnClickListener
             else {
                 datesViewAdaptive.isChecked = false
                 datesViewStandard.isChecked = true
                 datesViewContainer.removeAllViews()
-                initView(layoutInflater.inflate(R.layout.item_dates,datesViewContainer))
+                initView(layoutInflater.inflate(R.layout.item_dates, datesViewContainer))
             }
         }
         datesViewAdaptive.setOnClickListener {
-            if(datesViewAdaptive.isChecked)
+            if (datesViewAdaptive.isChecked)
                 return@setOnClickListener
             else {
                 datesViewStandard.isChecked = false
                 datesViewAdaptive.isChecked = true
                 datesViewContainer.removeAllViews()
-                initView(layoutInflater.inflate(R.layout.item_dates_2,datesViewContainer))
+                initView(layoutInflater.inflate(R.layout.item_dates_2, datesViewContainer))
             }
         }
 
-        when(Loader.getDatesViewType(context as Context)){
+        when (loader.datesViewType) {
             0 -> {
                 datesViewStandard.isChecked = true
-                initView(layoutInflater.inflate(R.layout.item_dates,datesViewContainer))
+                initView(layoutInflater.inflate(R.layout.item_dates, datesViewContainer))
             }
             else -> {
                 datesViewAdaptive.isChecked = true
-                initView(layoutInflater.inflate(R.layout.item_dates_2,datesViewContainer))
+                initView(layoutInflater.inflate(R.layout.item_dates_2, datesViewContainer))
             }
         }
 
@@ -67,11 +72,7 @@ class DatesViewFragment : BaseFragment() {
 
     override fun onStop() {
         super.onStop()
-        Loader.setDatesViewType(context as Context,
-                if(datesViewStandard.isChecked)
-                    0
-                else
-                    1)
+        loader.datesViewType = if (datesViewStandard.isChecked) 0 else 1
     }
 
     private fun initView(view: View) {
