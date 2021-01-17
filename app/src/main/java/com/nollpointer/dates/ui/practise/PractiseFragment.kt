@@ -35,7 +35,7 @@ class PractiseFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        // Inflate the layout for this fragment
+
         _binding = FragmentPractiseBinding.inflate(inflater, container, false)
 
         binding.viewPager.apply {

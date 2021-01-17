@@ -1,6 +1,5 @@
 package com.nollpointer.dates.ui.terms
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -10,18 +9,18 @@ import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentTermsBinding
 import com.nollpointer.dates.model.Term
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.CustomItemDecoration
 import com.nollpointer.dates.other.Keyboard
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.activity.MainActivity
-import com.nollpointer.dates.ui.details.terms.TermsDetailsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -44,6 +43,9 @@ class TermsFragment : BaseFragment() {
     @Inject
     lateinit var loader: Loader
 
+    @Inject
+    lateinit var navigator: AppNavigator
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentTermsBinding.inflate(inflater, container, false)
@@ -65,12 +67,7 @@ class TermsFragment : BaseFragment() {
         adapter = TermsAdapter(resources, terms).apply {
             onTermClickListener = {
                 Keyboard.hide(binding.cardSearch)
-                requireActivity()
-                        .supportFragmentManager
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.frameLayout, TermsDetailsFragment.newInstance(it))
-                        .commit()
+                navigator.navigateToTermsDetails(it)
             }
             when (loader.termsViewType) {
                 0 -> {
@@ -93,6 +90,12 @@ class TermsFragment : BaseFragment() {
             dividerItemDecoration.setDrawable(ContextCompat.getDrawable(context, R.drawable.divider) as Drawable)
             layoutManager = linearLayout
             addItemDecoration(dividerItemDecoration)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    if (newState == RecyclerView.SCROLL_STATE_DRAGGING) //TODO Optimize
+                        Keyboard.hide(binding.cardSearch)
+                }
+            })
         }
 
         binding.arrowBack.apply {
@@ -126,7 +129,7 @@ class TermsFragment : BaseFragment() {
                 if (event.action == KeyEvent.ACTION_UP &&
                         (keyCode == KeyEvent.KEYCODE_ENTER ||
                                 keyCode == KeyEvent.KEYCODE_SEARCH)) {
-                    (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.cardSearch.windowToken, 0)
+                    Keyboard.hide(binding.cardSearch)
                     return@OnKeyListener true
                 }
                 if (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK && binding.cardSearch.visibility == View.VISIBLE) {
@@ -140,9 +143,22 @@ class TermsFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        (activity as MainActivity).showBottomNavigationView()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == RECOGNIZER_REQUEST_CODE) if (data != null && data.extras!!.containsKey(RecognizerIntent.EXTRA_RESULTS)) {
+            val text = data.extras!!.getStringArrayList(RecognizerIntent.EXTRA_RESULTS)
+            binding.searchText.setText(text!![0], TextView.BufferType.EDITABLE)
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun getStatusBarColorRes() = R.color.colorPrimary
@@ -185,19 +201,6 @@ class TermsFragment : BaseFragment() {
     fun scrollToTop() {
         binding.appBar.setExpanded(true)
         binding.recyclerView.smoothScrollToPosition(0)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        (activity as MainActivity).showBottomNavigationView()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RECOGNIZER_REQUEST_CODE) if (data != null && data.extras!!.containsKey(RecognizerIntent.EXTRA_RESULTS)) {
-            val text = data.extras!!.getStringArrayList(RecognizerIntent.EXTRA_RESULTS)
-            binding.searchText.setText(text!![0], TextView.BufferType.EDITABLE)
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun startVoiceSearch() {

@@ -1,20 +1,20 @@
 package com.nollpointer.dates.ui.distribution
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentDistributionBinding
 import com.nollpointer.dates.model.Practise
-import com.nollpointer.dates.other.AppNavigator
+import com.nollpointer.dates.model.PractiseInfo
 import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
@@ -22,21 +22,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DistributionFragment : BaseFragment() {
 
-    private lateinit var practise: Practise
-
     private var _binding: FragmentDistributionBinding? = null
     private val binding: FragmentDistributionBinding
         get() = _binding!!
 
-    @Inject
-    lateinit var navigator: AppNavigator
+    private val adapter = DistributionAdapter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            practise = it.getParcelable<Practise>(DISTRIBUTION) as Practise
-        }
-    }
+    private val viewModel by viewModels<DistributionViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -44,11 +36,42 @@ class DistributionFragment : BaseFragment() {
         _binding = FragmentDistributionBinding.inflate(inflater, container, false)
 
         binding.arrowBack.setOnClickListener {
-            navigator.navigateBack()
+            viewModel.onArrowBackClicked()
         }
 
         binding.settings.setOnClickListener {
-            navigator.navigateToPractiseSettings(practise)
+            viewModel.onSettingsClicked()
+        }
+
+        binding.analyze.setOnClickListener {
+            viewModel.onAnalyzeClicked()
+        }
+
+        binding.next.setOnClickListener {
+            viewModel.onNextClicked()
+        }
+
+        binding.check.setOnClickListener {
+            viewModel.onCheckClicked()
+        }
+
+        binding.recyclerView.apply {
+            val callback: ItemTouchHelper.Callback = ItemSwipeTouchHelper().apply {
+                onItemSwiped = viewModel::onItemSwiped
+            }
+            ItemTouchHelper(callback).attachToRecyclerView(this)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            adapter = this@DistributionFragment.adapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
+        viewModel.apply {
+            practise = requireArguments().getParcelable<Practise>(DISTRIBUTION) as Practise
+            controlsVisibilityLiveData.observe({ lifecycle }, ::showControls)
+            infoLiveData.observe({ lifecycle }, ::setPractiseInfo)
+            checkEnabilityLiveData.observe({ lifecycle }, ::setCheckEnable)
+            questionsLiveData.observe({ lifecycle }, ::setQuestions)
+            start()
         }
 
         return binding.root
@@ -63,6 +86,30 @@ class DistributionFragment : BaseFragment() {
 
     override fun isStatusBarLight() = true
 
+    private fun showControls(isVisible: Boolean) {
+        if (isVisible) {
+            binding.analyze.visibility = View.VISIBLE
+            binding.next.visibility = View.VISIBLE
+        } else {
+            binding.analyze.visibility = View.INVISIBLE
+            binding.next.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun setPractiseInfo(practiseInfo: PractiseInfo) {
+        binding.wrongAnswers.text = practiseInfo.wrongAnswers.toString()
+        binding.rightAnswers.text = practiseInfo.rightAnswers.toString()
+        binding.questionNumber.text = practiseInfo.questionNumber.toString()
+    }
+
+    private fun setCheckEnable(isEnabled: Boolean) {
+        binding.check.isEnabled = isEnabled
+    }
+
+    private fun setQuestions(items: List<String>) {
+        adapter.items = items.toMutableList()
+    }
+
     companion object {
         private const val DISTRIBUTION = "Distribution"
 
@@ -75,7 +122,10 @@ class DistributionFragment : BaseFragment() {
                 }
     }
 
-    inner class ItemSwipeTouchHelper(private var recyclerView: RecyclerView) : ItemTouchHelper.Callback() {
+    inner class ItemSwipeTouchHelper : ItemTouchHelper.Callback() {
+
+        var onItemSwiped: ((String, Int) -> Unit)? = null
+
         override fun isItemViewSwipeEnabled(): Boolean {
             return true
         }
@@ -86,26 +136,15 @@ class DistributionFragment : BaseFragment() {
         }
 
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
-                            target: RecyclerView.ViewHolder): Boolean { //((StatisticsCardsAdapter) recyclerView.getAdapter()).onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                            target: RecyclerView.ViewHolder): Boolean {
             return false
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            (recyclerView.adapter as DistributionCardsAdapter?)!!.onItemDismiss(viewHolder.adapterPosition)
+            onItemSwiped?.invoke(adapter.items[viewHolder.adapterPosition], direction) //TODO продумать оптимальный вариант
+            adapter.onItemDismiss(viewHolder.adapterPosition)
         }
 
     }
 
-    inner class SpacesItemDecoration(space: Int) : ItemDecoration() {
-        private val halfSpace = space / 2
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) { //            if (parent.getPaddingLeft() != halfSpace) {
-//                parent.setPadding(halfSpace, halfSpace, halfSpace, halfSpace);
-//                parent.setClipToPadding(false);
-//            }
-            outRect.top = halfSpace
-            outRect.bottom = halfSpace
-            //            outRect.left = halfSpace;
-//            outRect.right = halfSpace;
-        }
-    }
 }

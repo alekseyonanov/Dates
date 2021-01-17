@@ -68,6 +68,19 @@
         android:textColor="@android:color/black" />
 
     <TextView
+        android:id="@+id/termsConditions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="@string/about_terms_conditions"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@android:color/black" />
+
+    <TextView
         android:id="@+id/licence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

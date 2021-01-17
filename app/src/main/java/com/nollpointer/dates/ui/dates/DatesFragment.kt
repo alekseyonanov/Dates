@@ -87,7 +87,7 @@ class DatesFragment : BaseFragment() {
         }
 
         binding.recyclerView.apply {
-            val dividerItemDecoration = CustomItemDecoration(binding.recyclerView.context,
+            val dividerItemDecoration = CustomItemDecoration(requireContext(),
                     DividerItemDecoration.VERTICAL,
                     resources.getIntArray(when (mainActivity.mode) {
                         EASY_DATES_MODE -> R.array.dates_easy_positions
@@ -118,10 +118,6 @@ class DatesFragment : BaseFragment() {
         _binding = null
     }
 
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RECOGNIZER_REQUEST_CODE
                 && data != null
@@ -131,6 +127,10 @@ class DatesFragment : BaseFragment() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     private fun initializeSearchView() {
         binding.searchArrowBack.apply {

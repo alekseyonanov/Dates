@@ -8,23 +8,30 @@ import android.view.View
 import android.view.ViewGroup
 import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentAboutBinding
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.ui.view.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class AboutFragment : BaseFragment() {
 
     private var _binding: FragmentAboutBinding? = null
     private val binding: FragmentAboutBinding
         get() = _binding!!
 
+    @Inject
+    lateinit var navigator: AppNavigator
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
 
         binding.toolbar.setNavigationOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            navigator.navigateBack()
         }
 
         binding.rateApp.setOnClickListener {
@@ -37,13 +44,18 @@ class AboutFragment : BaseFragment() {
             startActivity(intent)
         }
 
+        binding.termsConditions.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://onanov.ru/app/dates/terms-conditions.html"))
+            startActivity(intent)
+        }
+
         binding.licence.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://onanov.ru/app/dates/privacy-policy.html"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://onanov.ru/app/dates/licences.html"))
             startActivity(intent)
         }
 
         binding.faq.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://n0llpointer.github.io/Dates/"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://onanov.ru/app/dates/faq.html"))
             startActivity(intent)
         }
 
@@ -65,6 +77,7 @@ class AboutFragment : BaseFragment() {
     override fun isStatusBarLight() = false
 
     companion object {
+        @JvmStatic
         fun newInstance() = AboutFragment()
     }
 }

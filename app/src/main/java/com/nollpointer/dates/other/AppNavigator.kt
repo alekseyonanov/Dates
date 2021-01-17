@@ -2,6 +2,7 @@ package com.nollpointer.dates.other
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
@@ -29,119 +30,81 @@ class AppNavigator @Inject constructor(@ActivityContext private val context: Con
     private val activity: AppCompatActivity
         get() = context as AppCompatActivity
 
-    /**
-     * Переход к датам
-     */
-    fun navigateToDates() {
-
-    }
-
     fun navigateBack() {
         activity.supportFragmentManager.popBackStack()
     }
 
     fun navigateToDatesDetails(date: Date) {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.frameLayout, DatesDetailsFragment.newInstance(date))
-                .commit()
+        setFragmentWithBackStack(DatesDetailsFragment.newInstance(date))
     }
 
     fun navigateToTermsDetails(term: Term) {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.frameLayout, TermsDetailsFragment.newInstance(term))
-                .commit()
+        setFragmentWithBackStack(TermsDetailsFragment.newInstance(term))
     }
 
     fun navigateToPractiseSettings(practise: Practise) {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout, PractiseSettingsFragment.newInstance(practise))
-                .addToBackStack(null)
-                .commit()
+        setFragmentWithBackStack(PractiseSettingsFragment.newInstance(practise))
     }
 
     fun navigateToAnalyze() {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout, AnalyzeFragment())
-                .addToBackStack(null)
-                .commit()
+        setFragmentWithBackStack(AnalyzeFragment())
     }
 
     fun navigateToIntroduction() {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .add(R.id.frameLayout, IntroductionFragment.newInstance(), null)
-                .commitAllowingStateLoss()
+        setRootFragment(IntroductionFragment.newInstance())
     }
 
     fun navigateToGdpr() {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout, GDPRFragment.newInstance())
-                .commit()
+        setFragment(GDPRFragment.newInstance())
     }
 
     fun navigateToGdprResultFragment(result: Boolean) {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout, GDPRResultFragment.newInstance(result))
-                .commit()
+        setFragment(GDPRResultFragment.newInstance(result))
     }
 
     fun navigateToGame() {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout, GameFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
+        setFragmentWithBackStack(GameFragment.newInstance())
     }
 
     fun navigateToSettings() {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.frameLayout, SettingsFragment.newInstance())
-                .commit()
+        setFragmentWithBackStack(SettingsFragment.newInstance())
     }
 
     fun navigateToAboutApp() {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.frameLayout, AboutFragment.newInstance())
-                .commit()
+        setFragmentWithBackStack(AboutFragment.newInstance())
     }
 
     fun navigateToDatesViewSettings() {
-        activity
-                .supportFragmentManager
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.frameLayout, DatesViewFragment.newInstance())
-                .commit()
+        setFragmentWithBackStack(DatesViewFragment.newInstance())
     }
 
     fun navigateToTermsViewSettings() {
+        setFragmentWithBackStack(TermsViewFragment.newInstance())
+    }
+
+    private fun setFragment(fragment: Fragment) {
+        activity
+                .supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayout, fragment)
+                .commit()
+    }
+
+    private fun setFragmentWithBackStack(fragment: Fragment) {
         activity
                 .supportFragmentManager
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.frameLayout, TermsViewFragment.newInstance())
+                .replace(R.id.frameLayout, fragment)
                 .commit()
     }
+
+    private fun setRootFragment(fragment: Fragment) {
+        activity
+                .supportFragmentManager
+                .beginTransaction()
+                .add(R.id.frameLayout, fragment)
+                .commitAllowingStateLoss()
+    }
+
 }

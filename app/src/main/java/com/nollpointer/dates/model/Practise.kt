@@ -11,9 +11,10 @@ data class Practise(var practise: Int,
                     var mode: Int,
                     var type: Int = 0,
                     var dates: List<Date> = emptyList(),
-                    var isTestMode: Boolean = false) : Parcelable {
+                    var isTestMode: Boolean = false,
+                    var results: List<PractiseResult> = emptyList()) : Parcelable {
 
-    companion object{
+    companion object {
         const val CARDS = 0
         const val VOICE = 1
         const val TEST = 2

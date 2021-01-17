@@ -67,8 +67,8 @@ class SettingsFragment : BaseFragment() {
 
     override fun isStatusBarLight() = false
 
-
     companion object {
+        @JvmStatic
         fun newInstance() = SettingsFragment()
     }
 }

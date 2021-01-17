@@ -16,7 +16,7 @@ class DatesViewModel @ViewModelInject constructor(
     }
 
     fun onDateClicked(date: Date) {
-
+        navigator.navigateToDatesDetails(date)
     }
 
 }

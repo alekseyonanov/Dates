@@ -6,7 +6,7 @@
         android:id="@+id/terms_search"
         android:icon="@drawable/ic_search_white"
         android:orderInCategory="1"
-        android:title="@string/terms_search"
+        android:title="@string/fragment_terms_search"
         app:showAsAction="ifRoom" />
 
 </menu>
