@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:background="@android:color/white"
-
     android:orientation="vertical">
 
     <TextView
@@ -12,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
-        android:text="Результаты тестирования"
+        android:text="@string/dialog_result_title"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@android:color/black" />
 
@@ -26,7 +24,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
-        android:text="Ваша оценка"
+        android:text="@string/dialog_result_mark"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold" />

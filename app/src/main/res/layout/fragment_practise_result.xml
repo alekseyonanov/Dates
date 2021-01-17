@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
@@ -29,22 +30,23 @@
 
             <TextView
                 android:id="@+id/results_mark_text_view"
-                android:drawablePadding="8dp"
-                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_sentiment_good"
+                android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:textSize="20sp"
-                android:text="Ваша оценка: Отлично\nВаш балл: 3.2"/>
+                android:padding="8dp"
+                tools:text="Ваша оценка: Отлично\nВаш балл: 3.2"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="Вопросы"
-                android:textAppearance="?android:textAppearanceMedium" />
+                android:paddingEnd="?android:attr/listPreferredItemPaddingStart"
+                android:textAppearance="?android:textAppearanceMedium"
+                tools:text="Вопросы" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/results_recycler_view"
@@ -67,7 +69,6 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_above="@id/result_exit"
             android:layout_gravity="center"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
@@ -88,7 +89,6 @@
             android:text="@string/exit_button"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold" />
-
 
     </LinearLayout>
 </LinearLayout>

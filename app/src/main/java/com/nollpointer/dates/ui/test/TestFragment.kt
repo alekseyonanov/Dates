@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentTestBinding
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.Practise.Companion.TYPE_DATE
@@ -16,7 +18,7 @@ import com.nollpointer.dates.ui.practise.PractiseSettingsFragment
 import com.nollpointer.dates.ui.practiseresult.PractiseResultFragment
 import com.nollpointer.dates.ui.view.BaseFragment
 import com.nollpointer.dates.ui.view.TestAnswerButton
-import kotlinx.android.synthetic.main.fragment_test.*
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -24,6 +26,7 @@ import kotlin.collections.ArrayList
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class TestFragment : BaseFragment() {
 
     private lateinit var answerButtons: List<TestAnswerButton>
@@ -42,6 +45,12 @@ class TestFragment : BaseFragment() {
     private var wrongAnswersCount = 0
 
     private lateinit var practise: Practise
+
+    private var _binding: FragmentTestBinding? = null
+    private val binding: FragmentTestBinding
+        get() = _binding!!
+
+    private val viewModel by viewModels<TestViewModel>()
 
     private val listener = { testAnswerButton: TestAnswerButton ->
 
@@ -63,8 +72,8 @@ class TestFragment : BaseFragment() {
         else
             wrongAnswersCount++
 
-        testRightAnswersChip.text = rightAnswersCount.toString()
-        testWrongAnswersChip.text = wrongAnswersCount.toString()
+        binding.rightAnswers.text = rightAnswersCount.toString()
+        binding.wrongAnswers.text = wrongAnswersCount.toString()
 
         showControlButtons()
 
@@ -78,10 +87,6 @@ class TestFragment : BaseFragment() {
 
     }
 
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -94,21 +99,16 @@ class TestFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_test, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentTestBinding.inflate(inflater, container, false)
 
         //Appodeal.setBannerViewId(R.id.appodealBannerView)
 
-        testBack.setOnClickListener {
-            requireActivity()
-                    .supportFragmentManager
-                    .popBackStack()
+        binding.arrowBack.setOnClickListener {
+            viewModel.onArrowBackClicked()
         }
-        testSettings.setOnClickListener {
+        binding.settings.setOnClickListener {
             requireActivity()
                     .supportFragmentManager
                     .beginTransaction()
@@ -116,7 +116,7 @@ class TestFragment : BaseFragment() {
                     .addToBackStack(null)
                     .commit()
         }
-        testNextButton.setOnClickListener {
+        binding.next.setOnClickListener {
             if (isTestMode.and(practiseResults.size == 20)) {
                 requireActivity()
                         .supportFragmentManager
@@ -128,7 +128,7 @@ class TestFragment : BaseFragment() {
                 generateAndSetInfo()
             }
         }
-        testAnalyzeButton.setOnClickListener {
+        binding.analyze.setOnClickListener {
             requireActivity()
                     .supportFragmentManager
                     .beginTransaction()
@@ -139,10 +139,10 @@ class TestFragment : BaseFragment() {
         }
 
         answerButtons = mutableListOf<TestAnswerButton>().apply {
-            add(testButton0)
-            add(testButton1)
-            add(testButton2)
-            add(testButton3)
+            add(binding.button0)
+            add(binding.button1)
+            add(binding.button2)
+            add(binding.button3)
             forEach {
                 it.setOnAnswerButtonClickListener = listener
                 it.setOnDetailsClickListener = { date ->
@@ -160,7 +160,18 @@ class TestFragment : BaseFragment() {
         } else {
             setPreviousInfo()
         }
+
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
 
     private fun generateDatesQuestionList(): List<Date> {
         val random = Random()
@@ -178,14 +189,14 @@ class TestFragment : BaseFragment() {
         setQuestions()
         hideControlButtons()
 
-        testQuestionNumberChip.text = questionNumber.toString()
+        binding.questionNumber.text = questionNumber.toString()
     }
 
     private fun setPreviousInfo() {
 
-        testRightAnswersChip.text = rightAnswersCount.toString()
-        testWrongAnswersChip.text = wrongAnswersCount.toString()
-        testQuestionNumberChip.text = questionNumber.toString()
+        binding.rightAnswers.text = rightAnswersCount.toString()
+        binding.wrongAnswers.text = wrongAnswersCount.toString()
+        binding.questionNumber.text = questionNumber.toString()
 
         showControlButtons()
 
@@ -214,26 +225,25 @@ class TestFragment : BaseFragment() {
     }
 
     private fun setQuestions() {
-
-        if (currentType == TYPE_DATE) {
-            testQuestion.text =
+        binding.question.text =
+                if (currentType == TYPE_DATE) {
                     if (currentDate.containsMonth)
                         "${currentDate.date}\n${currentDate.month}"
                     else
                         currentDate.date
-        } else {
-            testQuestion.text = currentDate.event
-        }
+                } else {
+                    currentDate.event
+                }
     }
 
-    private fun showControlButtons(){
-        testNextButton.show()
-        testAnalyzeButton.show()
+    private fun showControlButtons() {
+        binding.next.show()
+        binding.analyze.show()
     }
 
-    private fun hideControlButtons(){
-        testNextButton.hide()
-        testAnalyzeButton.hide()
+    private fun hideControlButtons() {
+        binding.next.hide()
+        binding.analyze.hide()
     }
 
     /*    override fun onStop() {

@@ -10,7 +10,10 @@ import android.view.View
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class DividerView : View {
+class DividerView @JvmOverloads constructor(
+        context: Context?,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
 
     private val paintWhite = Paint().apply {
         color = Color.WHITE
@@ -21,13 +24,6 @@ class DividerView : View {
     }
 
     var type: Int = BOTTOM_POSITION
-
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
-
 
     override fun onDraw(canvas: Canvas?) {
         when (type) {

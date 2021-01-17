@@ -7,13 +7,12 @@ import android.widget.RelativeLayout
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class SquareRelativeLayout : RelativeLayout {
+class SquareRelativeLayout @JvmOverloads constructor(
+        context: Context?,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) { // Set a square layout.
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec)
     }
 }

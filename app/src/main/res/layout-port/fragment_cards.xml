@@ -3,11 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:gravity="center">
+
+    <android.widget.Button
+        android:id="@+id/description"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/fragment_cards_description"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="72sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/white"
         android:gravity="center"
@@ -16,42 +33,27 @@
         app:autoSizeMinTextSize="28sp"
         app:autoSizeStepGranularity="2sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/next"
-        app:layout_constraintEnd_toEndOf="@+id/description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/next"
         app:layout_constraintStart_toEndOf="@+id/description"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="1932 год" />
 
     <android.widget.Button
-        android:id="@+id/description"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center"
-        android:text="\?"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="72sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/next"
-        app:layout_constraintEnd_toStartOf="@+id/next"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <android.widget.Button
         android:id="@+id/next"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:background="?attr/selectableItemBackground"
         android:gravity="center"
-        android:text=">"
+        android:text="@string/fragment_cards_next"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="72sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/description"
-        app:layout_constraintTop_toBottomOf="@+id/text" />
+        app:layout_constraintStart_toEndOf="@+id/text"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/arrowBack"
@@ -59,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="?android:selectableItemBackground"
-        android:contentDescription="Back"
+        android:contentDescription="@string/arrow_back"
         android:padding="8dp"
         android:src="@drawable/ic_arrow_back_black"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="?android:selectableItemBackground"
-        android:contentDescription="Back"
+        android:contentDescription="@string/settings"
         android:padding="8dp"
         android:src="@drawable/ic_settings_black"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,5 @@
 ﻿package com.nollpointer.dates.ui.view
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -20,10 +19,10 @@ abstract class BaseFragment : Fragment() {
         /*
         * Немного ускорим работу и не будем каждый раз изменять цвет.
         */
-        if (requireActivity().window.statusBarColor != ContextCompat.getColor(context as Context, getStatusBarColorRes())) {
+        if (requireActivity().window.statusBarColor != ContextCompat.getColor(requireContext(), getStatusBarColorRes())) {
 
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            requireActivity().window.statusBarColor = ContextCompat.getColor(context as Context, getStatusBarColorRes())
+            requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), getStatusBarColorRes())
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 updateStatusBarIconsColor()

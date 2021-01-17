@@ -2,29 +2,21 @@ package com.nollpointer.dates.ui.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.ItemTestAnswerBinding
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise.Companion.TYPE_DATE
-import kotlinx.android.synthetic.main.item_test_answer.view.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class TestAnswerButton : LinearLayout {
-
-    constructor(context: Context?) : super(context) {
-        initialize()
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        initialize()
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        initialize()
-    }
+class TestAnswerButton @JvmOverloads constructor(
+        context: Context?,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
 
     var setOnAnswerButtonClickListener: ((TestAnswerButton) -> Unit)? = null
     var setOnDetailsClickListener: ((Date) -> Unit)? = null
@@ -32,9 +24,10 @@ class TestAnswerButton : LinearLayout {
     private var isDetailsMode = false
     private var currentDate = Date()
 
-    private fun initialize() {
-        val view = inflate(context, R.layout.item_test_answer, this)
-        view.findViewById<LinearLayout>(R.id.testItemContainer).setOnClickListener {
+    private val binding: ItemTestAnswerBinding = ItemTestAnswerBinding.inflate(LayoutInflater.from(context), this, true)
+
+    init {
+        binding.root.setOnClickListener {
             if (!this@TestAnswerButton.isClickable) return@setOnClickListener
             if (isDetailsMode)
                 setOnDetailsClickListener?.invoke(currentDate)
@@ -46,8 +39,8 @@ class TestAnswerButton : LinearLayout {
     fun setDate(type: Int, date: Date) {
         currentDate = date
         isDetailsMode = false
-        testItemResult.visibility = View.INVISIBLE
-        testItemButton.text =
+        binding.result.visibility = View.INVISIBLE
+        binding.text.text =
                 if (type == TYPE_DATE) {
                     date.event
                 } else {
@@ -56,22 +49,25 @@ class TestAnswerButton : LinearLayout {
                     else
                         currentDate.date
                 }
-        testItemButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+        binding.text.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
     }
 
     fun setResult(result: Boolean) {
-        testItemResult.visibility = View.VISIBLE
-        testItemResult.setBackgroundResource(
-                if (result)
-                    R.color.colorTest
-                else
-                    R.color.colorPrimary
-        )
+        binding.result.apply {
+            visibility = View.VISIBLE
+            setBackgroundResource(
+                    if (result)
+                        R.color.colorTest
+                    else
+                        R.color.colorPrimary
+            )
+        }
     }
 
     fun setDetailsMode() {
         isDetailsMode = true
-        testItemButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_help_gray, 0)
+        binding.text.setCompoundDrawablesRelativeWithIntrinsicBounds(0,
+                0, R.drawable.ic_help_gray, 0)
     }
 
 

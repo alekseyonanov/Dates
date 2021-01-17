@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -13,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_margin="8dp"
         android:background="?android:selectableItemBackground"
-        android:contentDescription="Back"
+        android:contentDescription="@string/arrow_back"
         android:padding="8dp"
         android:src="@drawable/ic_arrow_back_black" />
 
@@ -25,7 +26,7 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="8dp"
         android:background="?android:selectableItemBackground"
-        android:contentDescription="Back"
+        android:contentDescription="@string/settings"
         android:padding="8dp"
         android:src="@drawable/ic_settings_black" />
 
@@ -44,16 +45,17 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="sans-serif-light"
             android:gravity="bottom|center"
-            android:text="1962"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@android:color/black"
             android:textSize="32sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="1962" />
 
         <ImageView
             android:id="@+id/result"
             android:layout_width="64dp"
             android:layout_height="64dp"
+            android:contentDescription="@string/result_image"
             android:visibility="gone" />
 
         <TextView
@@ -62,16 +64,16 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:gravity="top|center"
-            android:text="Правление петуча"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@android:color/black"
-            android:textSize="28sp" />
+            android:textSize="28sp"
+            tools:text="Правление петуча" />
 
 
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/testInfoContainer"
+        android:id="@+id/infoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/trueFalseButtonContainer"
@@ -93,10 +95,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:clickable="false"
-                android:text="0"
                 app:chipBackgroundColor="@android:color/white"
                 app:chipIcon="@drawable/ic_right_answer_icon"
-                app:iconStartPadding="2dp" />
+                app:iconStartPadding="2dp"
+                tools:text="0" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/questionNumber"
@@ -106,9 +108,9 @@
                 android:layout_margin="4dp"
                 android:clickable="false"
                 android:gravity="center"
-                android:text="1"
                 android:textStyle="bold"
-                app:chipBackgroundColor="@android:color/white" />
+                app:chipBackgroundColor="@android:color/white"
+                tools:text="1" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/wrongCount"
@@ -117,10 +119,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:clickable="false"
-                android:text="0"
                 app:chipBackgroundColor="@android:color/white"
                 app:chipIcon="@drawable/ic_wrong_answer_icon"
-                app:iconStartPadding="2dp" />
+                app:iconStartPadding="2dp"
+                tools:text="0" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -131,6 +133,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="8dp"
             android:backgroundTint="@android:color/white"
+            android:contentDescription="@string/next"
             android:src="@drawable/ic_next"
             android:visibility="invisible"
             app:elevation="0dp"
@@ -143,6 +146,7 @@
             android:layout_alignParentStart="true"
             android:layout_margin="8dp"
             android:backgroundTint="@android:color/white"
+            android:contentDescription="@string/analyze"
             android:src="@drawable/ic_analyze"
             android:visibility="invisible"
             app:elevation="0dp"
@@ -154,7 +158,7 @@
         android:id="@+id/appodealBannerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/testInfoContainer"
+        android:layout_above="@id/infoContainer"
         android:visibility="gone" />
 
     <LinearLayout

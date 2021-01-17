@@ -59,8 +59,8 @@ class IntroductionFragment : BaseFragment() {
             addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
                 override fun onPageSelected(position: Int) {
                     binding.next.text = when (position) {
-                        introPages.lastIndex -> getString(R.string.ready)
-                        else -> getString(R.string.next)
+                        introPages.lastIndex -> getString(R.string.fragment_introduction_ready)
+                        else -> getString(R.string.fragment_introduction_next)
                     }
                 }
             })

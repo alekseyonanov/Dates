@@ -1,4 +1,4 @@
-package com.nollpointer.dates.ui.test
+package com.nollpointer.dates.ui.sort
 
 import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
@@ -9,7 +9,7 @@ import dagger.hilt.android.qualifiers.ActivityContext
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class TestViewModel @ViewModelInject constructor(
+class SortViewModel @ViewModelInject constructor(
         @ActivityContext private val context: Context,
         private val navigator: AppNavigator) : BaseViewModel() {
 
@@ -22,9 +22,5 @@ class TestViewModel @ViewModelInject constructor(
 
     fun onAnalyzeClicked() {
         navigator.navigateToAnalyze()
-    }
-
-    fun onSettingsClicked() {
-        //navigator.navigateToPractiseSettings()
     }
 }

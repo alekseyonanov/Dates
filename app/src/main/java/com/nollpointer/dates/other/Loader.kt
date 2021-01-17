@@ -11,23 +11,6 @@ import javax.inject.Inject
 class Loader @Inject constructor(@ApplicationContext private val context: Context) {
 
     /*
-    * Категории данных
-    */
-    private val APP = "com.nollpointer.dates.app"
-    private val ADS = "com.nollpointer.dates.ads"
-    private val PRACTISE = "com.nollpointer.dates.practise"
-    private val SETTINGS = "com.nollpointer.dates.settings"
-
-    /*
-    * Наименование полей
-    */
-    private val FIRST_START = "first_start"
-    private val GDPR = "gdpr"
-    private val MODE = "mode"
-    private val DATES_VIEW_TYPE = "dates_view_type"
-    private val TERMS_VIEW_TYPE = "terms_view_type"
-
-    /*
     * Согласие GDPR
     */
     var isGdprAgree: Boolean
@@ -70,5 +53,23 @@ class Loader @Inject constructor(@ApplicationContext private val context: Contex
         //TODO подумать насчет согласия GDPR
     }
 
+    companion object {
+        /*
+        * Категории данных
+        */
+        private const val APP = "com.nollpointer.dates.app"
+        private const val ADS = "com.nollpointer.dates.ads"
+        private const val PRACTISE = "com.nollpointer.dates.practise"
+        private const val SETTINGS = "com.nollpointer.dates.settings"
+
+        /*
+        * Наименование полей
+        */
+        private const val FIRST_START = "first_start"
+        private const val GDPR = "gdpr"
+        private const val MODE = "mode"
+        private const val DATES_VIEW_TYPE = "dates_view_type"
+        private const val TERMS_VIEW_TYPE = "terms_view_type"
+    }
 
 }

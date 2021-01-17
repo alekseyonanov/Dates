@@ -8,35 +8,34 @@
     android:background="@color/colorBackground">
 
     <ImageView
-        android:id="@+id/testBack"
+        android:id="@+id/arrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_margin="8dp"
         android:background="?android:selectableItemBackground"
-        android:contentDescription="Back"
+        android:contentDescription="@string/arrow_back"
         android:padding="8dp"
         android:src="@drawable/ic_arrow_back_black" />
 
     <ImageView
-        android:id="@+id/testSettings"
+        android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="8dp"
         android:background="?android:selectableItemBackground"
-        android:contentDescription="Back"
+        android:contentDescription="@string/settings"
         android:padding="8dp"
         android:src="@drawable/ic_settings_black" />
 
-
     <TextView
-        android:id="@+id/testQuestion"
+        android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/testButtonContainer"
+        android:layout_above="@id/buttonContainer"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:paddingStart="16dp"
@@ -48,14 +47,14 @@
         tools:text="1962" />
 
     <RelativeLayout
-        android:id="@+id/testInfoContainer"
+        android:id="@+id/infoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/testButtonContainer"
+        android:layout_above="@id/buttonContainer"
         android:minHeight="?android:attr/listPreferredItemHeight">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/testInfoChipGroup"
+            android:id="@+id/infoChipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -64,7 +63,7 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/testRightAnswersChip"
+                android:id="@+id/rightAnswers"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,10 +72,10 @@
                 app:chipBackgroundColor="@android:color/white"
                 app:chipIcon="@drawable/ic_right_answer_icon"
                 app:iconStartPadding="2dp"
-                android:text="0" />
+                tools:text="0" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/testQuestionNumberChip"
+                android:id="@+id/questionNumber"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,10 +84,10 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 app:chipBackgroundColor="@android:color/white"
-                android:text="1" />
+                tools:text="1" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/testWrongAnswersChip"
+                android:id="@+id/wrongAnswers"
                 style="@style/Widget.MaterialComponents.Chip.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,30 +96,32 @@
                 app:chipBackgroundColor="@android:color/white"
                 app:chipIcon="@drawable/ic_wrong_answer_icon"
                 app:iconStartPadding="2dp"
-                android:text="0" />
+                tools:text="0" />
 
         </com.google.android.material.chip.ChipGroup>
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/testNextButton"
+            android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_margin="8dp"
             android:backgroundTint="@android:color/white"
+            android:contentDescription="@string/next"
             android:src="@drawable/ic_next"
             android:visibility="invisible"
             app:elevation="0dp"
             app:fabSize="mini" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/testAnalyzeButton"
+            android:id="@+id/analyze"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_margin="8dp"
             android:backgroundTint="@android:color/white"
+            android:contentDescription="@string/analyze"
             android:src="@drawable/ic_analyze"
             android:visibility="invisible"
             app:elevation="0dp"
@@ -129,14 +130,14 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/testButtonContainer"
+        android:id="@+id/buttonContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
         <com.nollpointer.dates.ui.view.TestAnswerButton
-            android:id="@+id/testButton0"
+            android:id="@+id/button0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -146,7 +147,7 @@
             android:background="@drawable/divider" />
 
         <com.nollpointer.dates.ui.view.TestAnswerButton
-            android:id="@+id/testButton1"
+            android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -156,7 +157,7 @@
             android:background="@drawable/divider" />
 
         <com.nollpointer.dates.ui.view.TestAnswerButton
-            android:id="@+id/testButton2"
+            android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -166,7 +167,7 @@
             android:background="@drawable/divider" />
 
         <com.nollpointer.dates.ui.view.TestAnswerButton
-            android:id="@+id/testButton3"
+            android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

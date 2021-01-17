@@ -21,6 +21,7 @@ class StatisticsFragment : BaseFragment() {
                               savedInstanceState: Bundle?): View {
         _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
 
+
         return binding.root
     }
 

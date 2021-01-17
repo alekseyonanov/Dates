@@ -1,5 +1,6 @@
 package com.nollpointer.dates.ui.cards
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -25,6 +26,7 @@ class CardsFragment : BaseFragment() {
 
     private val viewModel by viewModels<CardsViewModel>()
 
+    @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentCardsBinding.inflate(inflater, container, false)

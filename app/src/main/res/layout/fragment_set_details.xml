@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/setDetailsToolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorPrimary"
@@ -41,8 +41,8 @@
                 android:textColor="@color/colorSettingsCategory"
                 android:textSize="14sp" />
 
-            <Switch
-                android:id="@+id/setDetailsTestSwitch"
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -55,7 +55,6 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/setDetailsSingleTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
@@ -69,7 +68,7 @@
                 android:textSize="14sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/setDetailsSingleRecyclerView"
+                android:id="@+id/recyclerViewType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -83,7 +82,7 @@
                 android:background="@android:color/white">
 
                 <TextView
-                    android:id="@+id/setDetailsMultiTitle"
+                    android:id="@+id/titleMulti"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -97,7 +96,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/setDetailsCount"
+                    android:id="@+id/count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -115,7 +114,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/setDetailsMultiRecyclerView"
+                android:id="@+id/recyclerViewMulti"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
@@ -127,7 +126,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <android.widget.Button
-        android:id="@+id/setDetailsSelectButton"
+        android:id="@+id/select"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="48dp"

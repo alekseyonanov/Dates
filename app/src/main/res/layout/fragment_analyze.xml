@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
@@ -9,7 +8,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/setDetailsToolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorPrimary"
@@ -39,13 +38,13 @@
                 android:paddingTop="16dp"
                 android:paddingEnd="16dip"
                 android:paddingBottom="4dp"
-                android:text="Ваш результат"
+                android:text="@string/fragment_analyze_result"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorSettingsCategory"
                 android:textSize="14sp" />
 
             <LinearLayout
-                android:id="@+id/setDetailsTestSwitch"
+                android:id="@+id/switchMode"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="16dp"
@@ -61,7 +60,7 @@
                     android:layout_weight="8"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:text="8"
+                    android:text="@string/fragment_analyze_wrong_dummy_value"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -70,71 +69,13 @@
                     android:layout_weight="18"
                     android:background="@color/colorTest"
                     android:gravity="center"
-                    android:text="12"
+                    android:text="@string/fragment_analyze_right_dummy_value"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/typeTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:paddingStart="16dp"
-                android:paddingTop="16dp"
-                android:paddingEnd="16dip"
-                android:paddingBottom="4dp"
-                android:text="Тип"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/colorSettingsCategory"
-                android:textSize="14sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/setDetailsSingleRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/typeTitle"
-                android:layout_marginBottom="16dp"
-                android:background="@android:color/white"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_select_singlechoice" />
-
-            <TextView
-                android:id="@+id/centuryTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:paddingStart="16dp"
-                android:paddingTop="16dp"
-                android:paddingEnd="16dip"
-                android:paddingBottom="4dp"
-                android:text="Столетия"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/colorSettingsCategory"
-                android:textSize="14sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/setDetailsMultiRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/centuryTitle"
-                android:background="@android:color/white"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_select_multichoice" />
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <android.widget.Button
-        android:id="@+id/setDetailsSelectButton"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/button_practise_select"
-        android:enabled="false"
-        android:gravity="center"
-        android:text="Сохранить"
-        android:textColor="@android:color/white" />
 
 </LinearLayout>

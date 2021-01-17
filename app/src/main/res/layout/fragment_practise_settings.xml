@@ -37,7 +37,7 @@
                 android:paddingTop="16dp"
                 android:paddingEnd="16dip"
                 android:paddingBottom="4dp"
-                android:text="Генерация случайных чисел"
+                android:text="@string/fragment_practise_settings_random_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorSettingsCategory"
                 android:textSize="14sp" />
@@ -51,7 +51,7 @@
                 android:padding="10dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="Режим теста"
+                android:text="@string/fragment_practise_settings_test_mode"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
 
@@ -63,7 +63,7 @@
                 android:paddingTop="16dp"
                 android:paddingEnd="16dip"
                 android:paddingBottom="4dp"
-                android:text="Тип"
+                android:text="@string/fragment_practise_settings_type"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorSettingsCategory"
                 android:textSize="14sp" />
@@ -86,7 +86,7 @@
                 android:paddingTop="16dp"
                 android:paddingEnd="16dip"
                 android:paddingBottom="4dp"
-                android:text="Столетия"
+                android:text="@string/fragment_practise_settings_century"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorSettingsCategory"
                 android:textSize="14sp" />
@@ -112,7 +112,7 @@
         android:background="@drawable/button_practise_select"
         android:enabled="false"
         android:gravity="center"
-        android:text="Сохранить"
+        android:text="@string/save"
         android:textColor="@android:color/white" />
 
 </LinearLayout>

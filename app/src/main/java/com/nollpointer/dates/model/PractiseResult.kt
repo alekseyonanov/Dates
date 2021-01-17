@@ -1,7 +1,7 @@
 package com.nollpointer.dates.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * @author Onanov Aleksey (@onanov)

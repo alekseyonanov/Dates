@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentDatesViewBinding
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_dates_view.*
 import javax.inject.Inject
 
 /**
@@ -18,62 +19,72 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DatesViewFragment : BaseFragment() {
 
+    private var _binding: FragmentDatesViewBinding? = null
+    private val binding: FragmentDatesViewBinding
+        get() = _binding!!
+
     @Inject
     lateinit var loader: Loader
 
+    @Inject
+    lateinit var navigator: AppNavigator
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_dates_view, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentDatesViewBinding.inflate(inflater, container, false)
 
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        datesViewToolbar.setNavigationOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+        binding.toolbar.setNavigationOnClickListener {
+            navigator.navigateBack()
         }
 
-        datesViewStandard.setOnClickListener {
-            if (datesViewStandard.isChecked)
+        binding.viewDefault.setOnClickListener {
+            if (binding.viewDefault.isChecked)
                 return@setOnClickListener
             else {
-                datesViewAdaptive.isChecked = false
-                datesViewStandard.isChecked = true
-                datesViewContainer.removeAllViews()
-                initView(layoutInflater.inflate(R.layout.item_dates, datesViewContainer))
+                binding.viewAdaptive.isChecked = false
+                binding.viewDefault.isChecked = true
+                binding.viewContainer.removeAllViews()
+                initView(layoutInflater.inflate(R.layout.item_dates, binding.viewContainer))
             }
         }
-        datesViewAdaptive.setOnClickListener {
-            if (datesViewAdaptive.isChecked)
+        binding.viewAdaptive.setOnClickListener {
+            if (binding.viewAdaptive.isChecked)
                 return@setOnClickListener
             else {
-                datesViewStandard.isChecked = false
-                datesViewAdaptive.isChecked = true
-                datesViewContainer.removeAllViews()
-                initView(layoutInflater.inflate(R.layout.item_dates_2, datesViewContainer))
+                binding.viewDefault.isChecked = false
+                binding.viewAdaptive.isChecked = true
+                binding.viewContainer.removeAllViews()
+                initView(layoutInflater.inflate(R.layout.item_dates_2, binding.viewContainer))
             }
         }
 
         when (loader.datesViewType) {
             0 -> {
-                datesViewStandard.isChecked = true
-                initView(layoutInflater.inflate(R.layout.item_dates, datesViewContainer))
+                binding.viewDefault.isChecked = true
+                initView(layoutInflater.inflate(R.layout.item_dates, binding.viewContainer))
             }
             else -> {
-                datesViewAdaptive.isChecked = true
-                initView(layoutInflater.inflate(R.layout.item_dates_2, datesViewContainer))
+                binding.viewAdaptive.isChecked = true
+                initView(layoutInflater.inflate(R.layout.item_dates_2, binding.viewContainer))
             }
         }
 
+        return binding.root
     }
 
     override fun onStop() {
         super.onStop()
-        loader.datesViewType = if (datesViewStandard.isChecked) 0 else 1
+        loader.datesViewType = if (binding.viewDefault.isChecked) 0 else 1
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     private fun initView(view: View) {
         view.findViewById<TextView>(R.id.text1).text = getString(R.string.example_date)
@@ -85,6 +96,7 @@ class DatesViewFragment : BaseFragment() {
     }
 
     companion object {
+        @JvmStatic
         fun newInstance() = DatesViewFragment()
     }
 }

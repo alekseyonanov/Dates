@@ -11,6 +11,7 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         android:background="@color/colorPrimary"
+        android:contentDescription="@string/fragment_introduction_image"
         android:scaleType="center" />
 
     <com.nollpointer.dates.ui.view.DividerView

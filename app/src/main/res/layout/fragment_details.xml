@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="?android:selectableItemBackground"
-            android:contentDescription="Back"
+            android:contentDescription="@string/arrow_back"
             android:padding="8dp"
             android:src="@drawable/ic_arrow_back_black"
             app:layout_constraintStart_toStartOf="parent"

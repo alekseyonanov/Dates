@@ -9,7 +9,10 @@ import android.view.View
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class VisualizerView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+class VisualizerView @JvmOverloads constructor(
+        context: Context?,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
 
     private val linePaint: Paint = Paint()
     private var amplitude = AMPLITUDE_MIN_VALUE

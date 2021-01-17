@@ -16,10 +16,11 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="\?"
+            android:text="@string/fragment_cards_description"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageView
+            android:contentDescription="@string/result_image"
             android:id="@+id/game_card_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

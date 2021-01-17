@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentTermsViewBinding
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_terms_view.*
 import javax.inject.Inject
 
 /**
@@ -18,62 +19,73 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TermsViewFragment : BaseFragment() {
 
+    private var _binding: FragmentTermsViewBinding? = null
+    private val binding: FragmentTermsViewBinding
+        get() = _binding!!
+
     @Inject
     lateinit var loader: Loader
 
+    @Inject
+    lateinit var navigator: AppNavigator
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_terms_view, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
 
-    override fun getStatusBarColorRes() = R.color.colorPrimary
+        _binding = FragmentTermsViewBinding.inflate(inflater, container, false)
 
-    override fun isStatusBarLight() = false
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        termsViewToolbar.setNavigationOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+        binding.toolbar.setNavigationOnClickListener {
+            navigator.navigateBack()
         }
 
-        termsViewStandard.setOnClickListener {
-            if (termsViewStandard.isChecked)
+        binding.viewDefault.setOnClickListener {
+            if (binding.viewDefault.isChecked)
                 return@setOnClickListener
             else {
-                termsViewAdaptive.isChecked = false
-                termsViewStandard.isChecked = true
-                termsViewContainer.removeAllViews()
-                initView(layoutInflater.inflate(R.layout.item_term, termsViewContainer))
+                binding.viewAdaptive.isChecked = false
+                binding.viewDefault.isChecked = true
+                binding.viewContainer.removeAllViews()
+                initView(layoutInflater.inflate(R.layout.item_term, binding.viewContainer))
             }
         }
-        termsViewAdaptive.setOnClickListener {
-            if (termsViewAdaptive.isChecked)
+        binding.viewAdaptive.setOnClickListener {
+            if (binding.viewAdaptive.isChecked)
                 return@setOnClickListener
             else {
-                termsViewStandard.isChecked = false
-                termsViewAdaptive.isChecked = true
-                termsViewContainer.removeAllViews()
-                initView(layoutInflater.inflate(R.layout.item_term_2, termsViewContainer))
+                binding.viewDefault.isChecked = false
+                binding.viewAdaptive.isChecked = true
+                binding.viewContainer.removeAllViews()
+                initView(layoutInflater.inflate(R.layout.item_term_2, binding.viewContainer))
             }
         }
 
         when (loader.termsViewType) {
             0 -> {
-                termsViewStandard.isChecked = true
-                initView(layoutInflater.inflate(R.layout.item_term, termsViewContainer))
+                binding.viewDefault.isChecked = true
+                initView(layoutInflater.inflate(R.layout.item_term, binding.viewContainer))
             }
             else -> {
-                termsViewAdaptive.isChecked = true
-                initView(layoutInflater.inflate(R.layout.item_term_2, termsViewContainer))
+                binding.viewAdaptive.isChecked = true
+                initView(layoutInflater.inflate(R.layout.item_term_2, binding.viewContainer))
             }
         }
 
+        return binding.root
     }
 
     override fun onStop() {
         super.onStop()
-        loader.termsViewType = if (termsViewStandard.isChecked) 0 else 1
+        loader.termsViewType = if (binding.viewDefault.isChecked) 0 else 1
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     private fun initView(view: View) {
         view.findViewById<TextView>(R.id.text1).text = getString(R.string.example_term)

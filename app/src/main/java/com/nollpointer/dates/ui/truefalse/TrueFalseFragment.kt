@@ -15,7 +15,6 @@ import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.details.dates.DatesDetailsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_true_false.*
 import java.util.*
 
 /**
@@ -47,7 +46,7 @@ class TrueFalseFragment : BaseFragment() {
     private val listener = View.OnClickListener { view ->
         if (isLocked)
             return@OnClickListener
-        isCorrect = (isTrue && view == binding.trueButton) || (!isTrue && view == falseButton)
+        isCorrect = (isTrue && view == binding.trueButton) || (!isTrue && view == binding.falseButton)
         if (isCorrect) {
             rightAnswersCount++
         } else {
@@ -216,7 +215,7 @@ class TrueFalseFragment : BaseFragment() {
             text = getString(R.string.true_false_question_event)
         }
         if (isTrue) {
-            falseButton.visibility = View.GONE
+            binding.falseButton.visibility = View.GONE
         }
     }
 
@@ -243,7 +242,6 @@ class TrueFalseFragment : BaseFragment() {
             }
     )
     )
-
 
     companion object {
 

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <com.nollpointer.dates.ui.view.SquareRelativeLayout
             android:layout_width="0dp"
@@ -36,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="sans-serif-light"
-                android:text="18/20"
+                tools:text="18/20"
                 android:textColor="@android:color/black"
                 android:textSize="42sp"
                 android:textStyle="bold" />
@@ -49,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/results_stats"
                 android:layout_marginStart="16dp"
-                android:text="отлично"
+                tools:text="отлично"
                 android:textAllCaps="true"
                 android:textSize="32sp" />
 

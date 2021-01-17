@@ -22,18 +22,17 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:text="В разработке :)"
-        android:textSize="18dp" />
+        android:text="@string/fragment_game_development"
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/statistics_dummy_crane"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/fragment_game_development_icon" />
 
     <android.widget.Button
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
         android:id="@+id/statistics_dummy_button"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
@@ -42,7 +41,9 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
         android:background="?android:selectableItemBackground"
-        android:text="Проверить обновление"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/fragment_game_update"
         android:textColor="#5DA62D" />
 
 </RelativeLayout>

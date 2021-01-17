@@ -9,16 +9,18 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentSortBinding
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.PractiseResult
 import com.nollpointer.dates.ui.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_sort.*
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class SortFragment : BaseFragment() {
 
     private lateinit var dates: List<Date>
@@ -29,6 +31,10 @@ class SortFragment : BaseFragment() {
     private var isLocked = false
 
     private val practiseResults = ArrayList<PractiseResult>()
+
+    private var _binding: FragmentSortBinding? = null
+    private val binding: FragmentSortBinding
+        get() = _binding!!
 
     private val listener = View.OnClickListener {
         if (isLocked) return@OnClickListener
@@ -44,19 +50,12 @@ class SortFragment : BaseFragment() {
         }
     }
 
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_sort, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentSortBinding.inflate(inflater, container, false)
 
-        sortRecyclerView.apply {
+        binding.recyclerView.apply {
             val callback: ItemTouchHelper.Callback = SortItemTouchHelperCallback()
             ItemTouchHelper(callback).attachToRecyclerView(this)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
@@ -65,18 +64,27 @@ class SortFragment : BaseFragment() {
             isNestedScrollingEnabled = false
         }
 
-
         //Appodeal.setBannerViewId(R.id.appodealBannerView_sort)
 
-        sortCheckButton.setOnClickListener(listener)
-        sortBack.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
-        sortSettings.setOnClickListener {
+        binding.check.setOnClickListener(listener)
+        binding.arrowBack.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+        binding.settings.setOnClickListener {
 
         }
 
         generateAndSetInfo()
 
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
 
     private fun generateAndSetInfo() {
         val initialDates = generateDatesList(3)

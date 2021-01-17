@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:background="#f8f7f5"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +12,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/cardsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -20,14 +19,14 @@
             android:paddingTop="16dp"
             android:paddingEnd="16dip"
             android:paddingBottom="4dp"
-            android:text="Карточки"
+            android:text="@string/fragment_dates_practise_cards_title"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/colorSettingsCategory"
             android:textSize="14sp" />
 
 
         <RelativeLayout
-            android:id="@+id/practiseCards"
+            android:id="@+id/cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -44,6 +43,7 @@
                 android:layout_gravity="fill_vertical"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_practise_background_cards"
+                android:contentDescription="@string/fragment_dates_practise_cards_image"
                 android:scaleType="center"
                 android:src="@drawable/ic_cards" />
 
@@ -57,7 +57,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Карточки"
+                    android:text="@string/fragment_dates_practise_cards_title"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -65,7 +65,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Запоминание дат через карточки"
+                    android:text="@string/fragment_dates_practise_cards_description"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -73,7 +73,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/practiseVoice"
+            android:id="@+id/voice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -91,6 +91,7 @@
                 android:layout_gravity="fill_vertical"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_practise_background_voice_cards"
+                android:contentDescription="@string/fragment_dates_practise_voice_image"
                 android:scaleType="center"
                 android:src="@drawable/ic_cards_with_voice" />
 
@@ -104,7 +105,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Голосовые карточки"
+                    android:text="@string/fragment_dates_practise_voice_title"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -112,7 +113,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Запоминание дат через карточки с голосовой проверкой"
+                    android:text="@string/fragment_dates_practise_voice_description"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -121,7 +122,6 @@
 
 
         <TextView
-            android:id="@+id/testsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -129,14 +129,14 @@
             android:paddingTop="16dp"
             android:paddingEnd="16dip"
             android:paddingBottom="4dp"
-            android:text="Выбора варианта"
+            android:text="@string/fragment_dates_practise_variant_title"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/colorSettingsCategory"
             android:textSize="14sp" />
 
 
         <RelativeLayout
-            android:id="@+id/practiseTest"
+            android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -153,6 +153,7 @@
                 android:layout_gravity="fill_vertical"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_practise_background_test"
+                android:contentDescription="@string/fragment_dates_practise_test_image"
                 android:scaleType="center"
                 android:src="@drawable/ic_test" />
 
@@ -166,7 +167,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Тест"
+                    android:text="@string/fragment_dates_practise_test_title"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -174,7 +175,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Классический тест с одним правильным ответом"
+                    android:text="@string/fragment_dates_practise_test_description"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -182,7 +183,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/practiseTrueFalse"
+            android:id="@+id/trueFalse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -199,6 +200,7 @@
                 android:layout_gravity="fill_vertical"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_practise_background_true_false"
+                android:contentDescription="@string/fragment_dates_practise_true_false_image"
                 android:scaleType="center"
                 android:src="@drawable/ic_true_false" />
 
@@ -212,7 +214,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Правда или ложь"
+                    android:text="@string/fragment_dates_practise_true_false_title"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -220,7 +222,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Проверка на правильность соотношения даты и события"
+                    android:text="@string/fragment_dates_practise_true_false_description"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -228,7 +230,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/practiseLink"
+            android:id="@+id/link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -246,6 +248,7 @@
                 android:layout_gravity="fill_vertical"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_practise_link_background"
+                android:contentDescription="@string/fragment_dates_practise_link_image"
                 android:scaleType="center"
                 android:src="@drawable/ic_link" />
 
@@ -259,7 +262,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Связка"
+                    android:text="@string/fragment_dates_practise_link_title"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -267,7 +270,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Связка даты с событием"
+                    android:text="@string/fragment_dates_practise_link_description"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -275,7 +278,6 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/distributionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -283,14 +285,13 @@
             android:paddingTop="16dp"
             android:paddingEnd="16dip"
             android:paddingBottom="4dp"
-            android:text="Распределение"
+            android:text="@string/fragment_dates_practise_distribution_title"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/colorSettingsCategory"
             android:textSize="14sp" />
 
-
         <RelativeLayout
-            android:id="@+id/practiseSort"
+            android:id="@+id/sort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -307,6 +308,7 @@
                 android:layout_gravity="fill_vertical"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_practise_background_sort"
+                android:contentDescription="@string/fragment_dates_practise_sort_image"
                 android:scaleType="center"
                 android:src="@drawable/ic_sort" />
 
@@ -320,7 +322,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Сортировка"
+                    android:text="@string/fragment_dates_practise_sort_title"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -328,7 +330,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Расположение событий в хронологической последовательности"
+                    android:text="@string/fragment_dates_practise_sort_description"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -336,10 +338,9 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/practiseDistribution"
+            android:id="@+id/distribution"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:background="@android:color/white"
             android:foreground="?android:attr/selectableItemBackground"
             android:paddingStart="16dp"
@@ -354,6 +355,7 @@
                 android:layout_gravity="fill_vertical"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_practise_background_distribution"
+                android:contentDescription="@string/fragment_dates_practise_distribution_image"
                 android:scaleType="center"
                 android:src="@drawable/ic_distribution" />
 
@@ -367,7 +369,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Распределение"
+                    android:text="@string/fragment_dates_practise_distribution_title"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -375,7 +377,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Распредение событий по историческим периодам"
+                    android:text="@string/fragment_dates_practise_distribution_description"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -384,4 +386,4 @@
 
     </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

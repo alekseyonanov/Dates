@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentTermsBinding
 import com.nollpointer.dates.model.Term
 import com.nollpointer.dates.other.CustomItemDecoration
 import com.nollpointer.dates.other.Keyboard
@@ -23,7 +24,6 @@ import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.details.terms.TermsDetailsFragment
 import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_terms.*
 import javax.inject.Inject
 
 /**
@@ -37,27 +37,23 @@ class TermsFragment : BaseFragment() {
 
     private var isEditTextEmpty = true
 
+    private var _binding: FragmentTermsBinding? = null
+    private val binding: FragmentTermsBinding
+        get() = _binding!!
+
     @Inject
     lateinit var loader: Loader
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_terms, container, false)
-    }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentTermsBinding.inflate(inflater, container, false)
 
         val mainActivity = activity as MainActivity
         terms = mainActivity.terms
 
-        termsToolbar.apply {
+        binding.toolbar.apply {
             setOnClickListener {
-                termsRecyclerView.smoothScrollToPosition(0)
+                binding.recyclerView.smoothScrollToPosition(0)
             }
             setOnMenuItemClickListener { menuItem ->
                 if (menuItem.itemId == R.id.terms_search)
@@ -68,7 +64,7 @@ class TermsFragment : BaseFragment() {
 
         adapter = TermsAdapter(resources, terms).apply {
             onTermClickListener = {
-                Keyboard.hide(termsCardSearch)
+                Keyboard.hide(binding.cardSearch)
                 requireActivity()
                         .supportFragmentManager
                         .beginTransaction()
@@ -88,7 +84,7 @@ class TermsFragment : BaseFragment() {
             }
         }
 
-        termsRecyclerView.apply {
+        binding.recyclerView.apply {
             this.adapter = this@TermsFragment.adapter
 
             val linearLayout = LinearLayoutManager(mainActivity)
@@ -99,28 +95,28 @@ class TermsFragment : BaseFragment() {
             addItemDecoration(dividerItemDecoration)
         }
 
-        termsImageSearchBack.apply {
+        binding.arrowBack.apply {
             setImageResource(R.drawable.ic_arrow_back_black)
             setOnClickListener { hideSearch() }
         }
-        termsSearchMultiButton.apply {
+        binding.searchMultiButton.apply {
             setImageResource(R.drawable.ic_voice)
             setOnClickListener {
                 if (isEditTextEmpty)
                     startVoiceSearch()
                 else
-                    termsEditTextSearch.setText("", TextView.BufferType.EDITABLE)
+                    binding.searchText.setText("", TextView.BufferType.EDITABLE)
             }
         }
-        termsEditTextSearch.apply {
+        binding.searchText.apply {
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                     isEditTextEmpty = count == 0
                     if (isEditTextEmpty)
-                        termsSearchMultiButton.setImageResource(R.drawable.ic_voice)
+                        binding.searchMultiButton.setImageResource(R.drawable.ic_voice)
                     else
-                        termsSearchMultiButton.setImageResource(R.drawable.ic_clear_black)
+                        binding.searchMultiButton.setImageResource(R.drawable.ic_clear_black)
                     search(s.toString())
                 }
 
@@ -130,17 +126,28 @@ class TermsFragment : BaseFragment() {
                 if (event.action == KeyEvent.ACTION_UP &&
                         (keyCode == KeyEvent.KEYCODE_ENTER ||
                                 keyCode == KeyEvent.KEYCODE_SEARCH)) {
-                    (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(termsCardSearch.windowToken, 0)
+                    (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.cardSearch.windowToken, 0)
                     return@OnKeyListener true
                 }
-                if (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK && termsCardSearch.visibility == View.VISIBLE) {
+                if (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK && binding.cardSearch.visibility == View.VISIBLE) {
                     hideSearch()
                     return@OnKeyListener true
                 }
                 false
             })
         }
+
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     fun search(query: String) {
         adapter.items = if (query.isEmpty())
@@ -152,13 +159,13 @@ class TermsFragment : BaseFragment() {
     }
 
     private fun showSearch() {
-        termsAppbar.setExpanded(true)
-        termsRecyclerView.isNestedScrollingEnabled = false
-        termsCardSearch.visibility = View.VISIBLE
-        (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+        binding.appBar.setExpanded(true)
+        binding.recyclerView.isNestedScrollingEnabled = false
+        binding.cardSearch.visibility = View.VISIBLE
+        Keyboard.show(binding.cardSearch)
         Handler().postDelayed({
-            termsEditTextSearch.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 0f, 0f, 0))
-            termsEditTextSearch.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, 0f, 0f, 0))
+            binding.searchText.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 0f, 0f, 0))
+            binding.searchText.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, 0f, 0f, 0))
         }, 200)
 
         adapter.isSearchMode = true
@@ -166,18 +173,18 @@ class TermsFragment : BaseFragment() {
     }
 
     private fun hideSearch() {
-        termsRecyclerView.isNestedScrollingEnabled = true
-        termsCardSearch.visibility = View.GONE
-        termsEditTextSearch.setText("", TextView.BufferType.EDITABLE)
+        binding.recyclerView.isNestedScrollingEnabled = true
+        binding.cardSearch.visibility = View.GONE
+        binding.searchText.setText("", TextView.BufferType.EDITABLE)
         adapter.items = terms
         adapter.isSearchMode = false
         adapter.notifyItemChanged(0)
-        (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(termsCardSearch.windowToken, 0)
+        Keyboard.hide(binding.cardSearch)
     }
 
     fun scrollToTop() {
-        termsAppbar.setExpanded(true)
-        termsRecyclerView.smoothScrollToPosition(0)
+        binding.appBar.setExpanded(true)
+        binding.recyclerView.smoothScrollToPosition(0)
     }
 
     override fun onStart() {
@@ -188,7 +195,7 @@ class TermsFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RECOGNIZER_REQUEST_CODE) if (data != null && data.extras!!.containsKey(RecognizerIntent.EXTRA_RESULTS)) {
             val text = data.extras!!.getStringArrayList(RecognizerIntent.EXTRA_RESULTS)
-            termsEditTextSearch.setText(text!![0], TextView.BufferType.EDITABLE)
+            binding.searchText.setText(text!![0], TextView.BufferType.EDITABLE)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

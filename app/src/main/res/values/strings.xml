@@ -11,18 +11,28 @@
     <string name="title_statistics">Статистика</string>
     <string name="title_details_picker">Выбор настроек</string>
     <string name="title_practise_settings">Настройки практики</string>
-    <string name="title_analyze">Настройки практики</string>
+    <string name="title_analyze">Анализ</string>
     <string name="title_game">Игра</string>
     <string name="title_notifications">Уведомления</string>
-    <string name="settings">Настройки</string>
     <string name="title_activity_settings">Настройки</string>
 
     <string name="hello_blank_fragment">Привет от пустого фрагмента =)</string>
 
-    <!--IntroductionFragment-->
-    <string name="skip">Пропустить</string>
+    <!--BaseFragment-->
+    <string name="arrow_back">Назад</string>
+    <string name="settings">Настройки</string>
+    <string name="analyze">Анализ</string>
     <string name="next">Далее</string>
-    <string name="ready">Готово</string>
+    <string name="search">Поиск</string>
+    <string name="clear">Очистка</string>
+    <string name="save">Сохранить</string>
+    <string name="result_image">Результат</string>
+
+    <!--IntroductionFragment-->
+    <string name="fragment_introduction_skip">Пропустить</string>
+    <string name="fragment_introduction_next">Далее</string>
+    <string name="fragment_introduction_ready">Готово</string>
+    <string name="fragment_introduction_image">Преимущество</string>
 
     <!--DatesFragment-->
     <string name="dates_all">Все</string>
@@ -39,7 +49,73 @@
     <string name="practise_dates_title">Даты</string>
     <string name="practise_terms_title">Термины</string>
 
+    <!--DatesPractiseFragment-->
+    <string name="fragment_dates_practise_cards_title">Карточки</string>
+    <string name="fragment_dates_practise_variant_title">Выбора варианта</string>
+    <string name="fragment_dates_practise_distribution_title">Распределение</string>
+
+    <string name="fragment_dates_practise_cards_image">Карточки</string>
+    <string name="fragment_dates_practise_cards_description">Запоминание дат через карточки</string>
+
+    <string name="fragment_dates_practise_voice_image">Голосовые карточки</string>
+    <string name="fragment_dates_practise_voice_title">Голосовые карточки</string>
+    <string name="fragment_dates_practise_voice_description">Запоминание дат через карточки с голосовой проверкой</string>
+
+    <string name="fragment_dates_practise_test_image">Тест</string>
+    <string name="fragment_dates_practise_test_title">Тест</string>
+    <string name="fragment_dates_practise_test_description">Классический тест с одним правильным ответом</string>
+
+    <string name="fragment_dates_practise_true_false_image">Правда или ложь</string>
+    <string name="fragment_dates_practise_true_false_title">Правда или ложь</string>
+    <string name="fragment_dates_practise_true_false_description">Проверка на правильность соотношения даты и события</string>
+
+    <string name="fragment_dates_practise_link_image">Связка</string>
+    <string name="fragment_dates_practise_link_title">Связка</string>
+    <string name="fragment_dates_practise_link_description">Связка даты с событием</string>
+
+    <string name="fragment_dates_practise_sort_image">Сортировка</string>
+    <string name="fragment_dates_practise_sort_title">Сортировка</string>
+    <string name="fragment_dates_practise_sort_description">Расположение событий в хронологической последовательности</string>
+
+    <string name="fragment_dates_practise_distribution_image">Связка</string>
+    <string name="fragment_dates_practise_distribution_description">Связка даты с событием</string>
+
+    <!--TermsPractiseFragment-->
+    <string name="fragment_terms_practise_cards_title">Карточки</string>
+    <string name="fragment_terms_practise_variant_title">Выбора варианта</string>
+    <string name="fragment_terms_practise_distribution_title">Распределение</string>
+
+    <string name="fragment_terms_practise_cards_image">Карточки</string>
+    <string name="fragment_terms_practise_cards_description">Запоминание терминов через карточки</string>
+
+    <string name="fragment_terms_practise_voice_image">Голосовые карточки</string>
+    <string name="fragment_terms_practise_voice_title">Голосовые карточки</string>
+    <string name="fragment_terms_practise_voice_description">Запоминание дат через карточки с голосовой проверкой</string>
+
+    <string name="fragment_terms_practise_test_image">Тест</string>
+    <string name="fragment_terms_practise_test_title">Тест</string>
+    <string name="fragment_terms_practise_test_description">Классический тест с одним правильным ответом</string>
+
+    <string name="fragment_terms_practise_true_false_image">Правда или ложь</string>
+    <string name="fragment_terms_practise_true_false_title">Правда или ложь</string>
+    <string name="fragment_terms_practise_true_false_description">Проверка на правильность соотношения термина и описания</string>
+
+    <string name="fragment_terms_practise_link_image">Связка</string>
+    <string name="fragment_terms_practise_link_title">Связка</string>
+    <string name="fragment_terms_practise_link_description">Связка даты с событием</string>
+
+    <string name="fragment_terms_practise_sort_image">Сортировка</string>
+    <string name="fragment_terms_practise_sort_title">Сортировка</string>
+    <string name="fragment_terms_practise_sort_description">Расположение событий в хронологической последовательности</string>
+
+    <string name="fragment_terms_practise_distribution_image">Связка</string>
+    <string name="fragment_terms_practise_distribution_description">Связка даты с событием</string>
+
     <!--StatisticsFragment-->
+    <string name="fragment_statistics_app">Статистика по приложению</string>
+    <string name="fragment_statistics_dummy_value">1.231K</string>
+    <string name="fragment_statistics_dummy_change">+12.3% of target</string>
+    <string name="fragment_statistics_dummy_image">Статистика</string>
 
 
     <!--MenuFragment-->
@@ -64,11 +140,6 @@
 
     <!--TermsDetailsFragment-->
 
-    <!--SettingsFragment-->
-    <!--AboutFragment-->
-    <!--DatesViewFragment-->
-    <!--TermsViewFragment-->
-
     <!--PractiseSelectFragment-->
     <string name="set_details_test_mode">Режим тестирования</string>
     <string name="set_details_single_title">Тип</string>
@@ -77,6 +148,12 @@
     <string name="date_count">%d дат(ы)</string>
     <string name="set_details_multi_title">Столетия</string>
     <string name="set_dates_test_button">Начать</string>
+
+    <!--PractiseSettingsFragment-->
+    <string name="fragment_practise_settings_random_title">Генерация случайных чисел</string>
+    <string name="fragment_practise_settings_test_mode">Режим теста</string>
+    <string name="fragment_practise_settings_type">Тип</string>
+    <string name="fragment_practise_settings_century">Столетия</string>
 
 
     <!--PractiseResultFragment-->
@@ -95,10 +172,19 @@
 
     <string name="mistakes">Ошибки</string>
 
+    <!--FragmentAnalyze-->
+    <string name="fragment_analyze_result">Ваш результат</string>
+    <string name="fragment_analyze_wrong_dummy_value">8</string>
+    <string name="fragment_analyze_right_dummy_value">12</string>
+
 
     <!--CardsFragment-->
+    <string name="fragment_cards_next">></string>
+    <string name="fragment_cards_description">\?</string>
+
     <!--VoiceFragment-->
     <string name="check_button">Проверить</string>
+    <string name="fragment_voice_recognition_image">Голосовое распознавание</string>
 
 
     <!--TestFragment-->
@@ -131,6 +217,9 @@
     <string name="gdpr_close">Закрыть окно</string>
 
     <!--GameFragment-->
+    <string name="fragment_game_development">В разработке :)</string>
+    <string name="fragment_game_update">Проверить обновление</string>
+    <string name="fragment_game_development_icon">Разработка</string>
 
     <!--DetailsFragment-->
     <string name="details_title">Подробности</string>
@@ -160,9 +249,29 @@
     <string name="example_date">2018</string>
     <string name="example_month">январь</string>
     <string name="example_event">Создание этого приложения.</string>
+    <string name="fragment_settings_view">Отображение</string>
 
     <string name="example_term">Отличное приложение</string>
     <string name="example_description">Хорошо спроектированное и написанное приложение. Только удовольствие от использования и эффективное обучение.</string>
+
+    <!--FragmentDatesView-->
+    <string name="fragment_dates_view_title">Настройка дат</string>
+    <string name="fragment_dates_view_example">Пример отображения</string>
+    <string name="fragment_dates_view_type">Режимы отображения</string>
+    <string name="fragment_dates_view_default">Стандартное отображение</string>
+    <string name="fragment_dates_view_adaptive">Адаптированное отображение</string>
+    <string name="fragment_dates_view_reset_title">Сброс</string>
+    <string name="fragment_dates_view_reset">Сбросить настройки дат</string>
+
+    <!--FragmentTermsView-->
+    <string name="fragment_terms_view_title">Настройка терминов</string>
+    <string name="fragment_terms_view_example">Пример отображения</string>
+    <string name="fragment_terms_view_type">Режимы отображения</string>
+    <string name="fragment_terms_view_default">Стандартное отображение</string>
+    <string name="fragment_terms_view_adaptive">Адаптированное отображение</string>
+    <string name="fragment_terms_view_reset_title">Сброс</string>
+    <string name="fragment_terms_view_reset">Сбросить настройки терминов</string>
+
 
     <!--ResetSettingsDialog-->
     <string name="reset_settings_are_you_sure">Вы уверены?</string>
@@ -181,6 +290,9 @@
     <string name="search_multi_button_description">Голосовой поиск/Очистка</string>
     <string name="no_data">Нет данных</string>
 
+    <!--DialogResult-->
+    <string name="dialog_result_title">Результаты тестирования</string>
+    <string name="dialog_result_mark">Ваша оценка</string>
 
     <!--Arrays-->
     <string-array name="search_titles">

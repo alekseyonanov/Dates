@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/termsAppbar"
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleEnabled="false">
@@ -19,7 +19,7 @@
             app:titleEnabled="false">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/termsToolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
                 android:background="@color/colorPrimary"
@@ -29,7 +29,7 @@
                 app:titleTextColor="@android:color/white" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/termsCardSearch"
+                android:id="@+id/cardSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -38,12 +38,12 @@
                 app:cardCornerRadius="2dp">
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutSearch"
+                    android:id="@+id/searchLayout"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
 
                     <ImageView
-                        android:id="@+id/termsImageSearchBack"
+                        android:id="@+id/arrowBack"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
@@ -53,7 +53,8 @@
                         android:padding="12dp" />
 
                     <EditText
-                        android:id="@+id/termsEditTextSearch"
+                        android:importantForAutofill="no"
+                        android:id="@+id/searchText"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -67,7 +68,7 @@
                         android:singleLine="true" />
 
                     <ImageView
-                        android:id="@+id/termsSearchMultiButton"
+                        android:id="@+id/searchMultiButton"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
@@ -84,7 +85,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/termsRecyclerView"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

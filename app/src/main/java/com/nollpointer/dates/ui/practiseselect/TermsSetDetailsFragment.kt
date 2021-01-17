@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nollpointer.dates.R
+import com.nollpointer.dates.databinding.FragmentSetDetailsBinding
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.activity.MainActivity
@@ -17,7 +18,6 @@ import com.nollpointer.dates.ui.test.TestFragment
 import com.nollpointer.dates.ui.truefalse.TrueFalseFragment
 import com.nollpointer.dates.ui.view.BaseFragment
 import com.nollpointer.dates.ui.voice.VoiceFragment
-import kotlinx.android.synthetic.main.fragment_set_details.*
 
 /**
  * @author Onanov Aleksey (@onanov)
@@ -34,6 +34,10 @@ class TermsSetDetailsFragment : BaseFragment() {
 
     private lateinit var practise: Practise
 
+    private var _binding: FragmentSetDetailsBinding? = null
+    private val binding: FragmentSetDetailsBinding
+        get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -41,50 +45,43 @@ class TermsSetDetailsFragment : BaseFragment() {
         }
     }
 
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_set_details, container, false)
-    }
+                              savedInstanceState: Bundle?): View {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentSetDetailsBinding.inflate(inflater, container, false)
 
-        setDetailsToolbar.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
         singleSelectAdapter = SingleSelectAdapter(resources.getTextArray(R.array.pick_type)).apply {
             onItemHasSelected = { isSelected ->
                 isSingleItemSelected = isSelected
-                setDetailsSelectButton.isEnabled = isSingleItemSelected && isMultiItemsSelected
+                binding.select.isEnabled = isSingleItemSelected && isMultiItemsSelected
             }
         }
         multiSelectAdapter = MutliSelectAdapter(resources.getTextArray(R.array.terms_titles))
                 .apply {
                     onAnyItemSelected = { isSelected ->
                         isMultiItemsSelected = isSelected
-                        setDetailsSelectButton.isEnabled = isSingleItemSelected && isMultiItemsSelected
+                        binding.select.isEnabled = isSingleItemSelected && isMultiItemsSelected
                     }
                 }
 
-        setDetailsMultiRecyclerView.apply {
+        binding.recyclerViewMulti.apply {
             adapter = multiSelectAdapter
             layoutManager = LinearLayoutManager(this.context)
             isNestedScrollingEnabled = false
         }
 
-        setDetailsSingleRecyclerView.apply {
+        binding.recyclerViewType.apply {
             adapter = singleSelectAdapter
             layoutManager = LinearLayoutManager(this.context)
             isNestedScrollingEnabled = false
         }
 
-        setDetailsSelectButton.setOnClickListener {
-            practise.isTestMode = setDetailsTestSwitch.isChecked
+        binding.select.setOnClickListener {
+            practise.isTestMode = binding.switchMode.isChecked
             practise.type = singleSelectAdapter.selectedItem
 
             val mainActivity = activity as MainActivity
@@ -110,12 +107,22 @@ class TermsSetDetailsFragment : BaseFragment() {
             requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
         }
 
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart()
         (activity as MainActivity?)!!.hideBottomNavigationView()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun getStatusBarColorRes() = R.color.colorPrimary
+
+    override fun isStatusBarLight() = false
 
     private fun getDatesRange(centuries: List<Int>): List<Pair<Int, Int>> {
         val pairList = mutableListOf<Pair<Int, Int>>()

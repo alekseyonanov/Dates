@@ -1,4 +1,4 @@
-package com.nollpointer.dates.ui.test
+package com.nollpointer.dates.ui.terms
 
 import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
@@ -9,22 +9,12 @@ import dagger.hilt.android.qualifiers.ActivityContext
 /**
  * @author Onanov Aleksey (@onanov)
  */
-class TestViewModel @ViewModelInject constructor(
+class TermsViewModel @ViewModelInject constructor(
         @ActivityContext private val context: Context,
         private val navigator: AppNavigator) : BaseViewModel() {
 
     override fun onStart() {
+
     }
 
-    fun onArrowBackClicked() {
-        navigator.navigateBack()
-    }
-
-    fun onAnalyzeClicked() {
-        navigator.navigateToAnalyze()
-    }
-
-    fun onSettingsClicked() {
-        //navigator.navigateToPractiseSettings()
-    }
 }

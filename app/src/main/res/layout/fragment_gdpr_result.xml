@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
     android:orientation="vertical">
 
@@ -44,9 +44,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingMultiplier="1.4"
-                tools:text="@string/gdpr_agree_text"
                 android:textColor="@android:color/black"
-                android:textColorLink="@color/colorPrimary" />
+                android:textColorLink="@color/colorPrimary"
+                tools:text="@string/gdpr_agree_text" />
 
         </LinearLayout>
 
@@ -65,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginBottom="5dp"
+            android:contentDescription="@string/gdpr_close"
             app:srcCompat="@drawable/ic_clear_black" />
 
         <TextView

@@ -11,12 +11,15 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentDistributionBinding
 import com.nollpointer.dates.model.Practise
-import com.nollpointer.dates.ui.practise.PractiseSettingsFragment
+import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.ui.view.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
+@AndroidEntryPoint
 class DistributionFragment : BaseFragment() {
 
     private lateinit var practise: Practise
@@ -24,6 +27,9 @@ class DistributionFragment : BaseFragment() {
     private var _binding: FragmentDistributionBinding? = null
     private val binding: FragmentDistributionBinding
         get() = _binding!!
+
+    @Inject
+    lateinit var navigator: AppNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,34 +39,29 @@ class DistributionFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View { // Inflate the layout for this fragment
+                              savedInstanceState: Bundle?): View {
 
         _binding = FragmentDistributionBinding.inflate(inflater, container, false)
 
         binding.arrowBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            navigator.navigateBack()
         }
 
         binding.settings.setOnClickListener {
-            requireActivity()
-                    .supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frameLayout, PractiseSettingsFragment.newInstance(practise))
-                    .addToBackStack(null)
-                    .commit()
+            navigator.navigateToPractiseSettings(practise)
         }
 
         return binding.root
     }
 
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun getStatusBarColorRes() = R.color.colorBackground
+
+    override fun isStatusBarLight() = true
 
     companion object {
         private const val DISTRIBUTION = "Distribution"
@@ -74,7 +75,7 @@ class DistributionFragment : BaseFragment() {
                 }
     }
 
-    inner class ItemSwipeTouchHelper(var recyclerView: RecyclerView) : ItemTouchHelper.Callback() {
+    inner class ItemSwipeTouchHelper(private var recyclerView: RecyclerView) : ItemTouchHelper.Callback() {
         override fun isItemViewSwipeEnabled(): Boolean {
             return true
         }
