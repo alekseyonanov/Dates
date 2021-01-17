@@ -19,28 +19,22 @@ android {
         buildConfigField('String', 'WIKIPEDIA_BASE_URL', '"https://ru.wikipedia.org/api/rest_v1/"')
 
         buildConfigField('String', 'APPODEAL_PRIVACY_POLICY_LINK', '"https://www.appodeal.com/privacy-policy"')
+
+        buildConfigField('String', 'APPODEAL_KEY', '"106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1"')
+        buildConfigField('String', 'FLURRY_KEY', '"52ZN7BKTNFZ8M26Q2VPN"')
+        buildConfigField('String', 'APP_METRICA_KEY', '"53f38fd5-682c-47e3-aaf4-f3fc8103a47c"')
+
+        resValue('string', 'admob_key', "ca-app-pub-8220836665813398~7207510605")
     }
 
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            buildConfigField("String", "APPODEAL_KEY", "\"106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1\"")
-            buildConfigField("String", "FLURRY_KEY", "\"52ZN7BKTNFZ8M26Q2VPN\"")
-            buildConfigField("String", "APP_METRICA_KEY", "\"53f38fd5-682c-47e3-aaf4-f3fc8103a47c\"")
-
-            resValue("string", "admob_key", "ca-app-pub-8220836665813398~7207510605")
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            buildConfigField("String", "APPODEAL_KEY", "\"106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1\"")
-            buildConfigField("String", "FLURRY_KEY", "\"52ZN7BKTNFZ8M26Q2VPN\"")
-            buildConfigField("String", "APP_METRICA_KEY", "\"53f38fd5-682c-47e3-aaf4-f3fc8103a47c\"")
-
-            resValue("string", "admob_key", "ca-app-pub-8220836665813398~7207510605")
         }
     }
 
