@@ -43,6 +43,12 @@ class TrueFalseFragment : BaseFragment() {
 
     private val viewModel by viewModels<TrueFalseViewModel>()
 
+    override val statusBarColorRes = R.color.colorBackground
+
+    override val isStatusBarLight = true
+
+    override val isBottomNavigationViewHidden = true
+
     private val listener = View.OnClickListener { view ->
         if (isLocked)
             return@OnClickListener
@@ -108,10 +114,6 @@ class TrueFalseFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
 
     private fun generateAndSetInfo() {
         questionNumber++

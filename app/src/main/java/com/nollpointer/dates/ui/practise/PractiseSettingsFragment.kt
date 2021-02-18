@@ -31,6 +31,12 @@ class PractiseSettingsFragment : BaseFragment() {
     @Inject
     lateinit var navigator: AppNavigator
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
+    override val isBottomNavigationViewHidden = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -70,10 +76,6 @@ class PractiseSettingsFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     companion object {
 

@@ -14,13 +14,19 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.nollpointer.dates.R
-import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
  * @author Onanov Aleksey (@onanov)
  */
 class GameFragment : BaseFragment() {
+
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
+    override val isBottomNavigationViewHidden = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -66,22 +72,6 @@ class GameFragment : BaseFragment() {
             }
         }
         return mainView
-    }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
-
-    override fun onStart() {
-        super.onStart()
-        val mainActivity = activity as MainActivity?
-        mainActivity!!.hideBottomNavigationView()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        val mainActivity = activity as MainActivity?
-        mainActivity!!.showBottomNavigationView()
     }
 
     companion object {

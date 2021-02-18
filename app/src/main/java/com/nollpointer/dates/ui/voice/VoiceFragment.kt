@@ -45,6 +45,12 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
     private val binding: FragmentVoiceBinding
         get() = _binding!!
 
+    override val statusBarColorRes = R.color.colorBackground
+
+    override val isStatusBarLight = true
+
+    override val isBottomNavigationViewHidden = true
+
     private val listener = View.OnClickListener {
         if (isLocked) return@OnClickListener
         lockAnswerButtons()
@@ -140,10 +146,6 @@ class VoiceFragment : BaseFragment(), RecognitionListener {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
 
     private fun check(text: String): Boolean {
         var isCorrect: Boolean

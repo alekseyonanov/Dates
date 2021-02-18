@@ -23,6 +23,12 @@ class DatesViewFragment : BaseFragment() {
     private val binding: FragmentDatesViewBinding
         get() = _binding!!
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
+    override val isBottomNavigationViewHidden = true
+
     @Inject
     lateinit var loader: Loader
 
@@ -81,10 +87,6 @@ class DatesViewFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     private fun initView(view: View) {
         view.findViewById<TextView>(R.id.text1).text = getString(R.string.example_date)

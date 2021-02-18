@@ -36,6 +36,12 @@ class SortFragment : BaseFragment() {
     private val binding: FragmentSortBinding
         get() = _binding!!
 
+    override val statusBarColorRes = R.color.colorBackground
+
+    override val isStatusBarLight = true
+
+    override val isBottomNavigationViewHidden = true
+
     private val listener = View.OnClickListener {
         if (isLocked) return@OnClickListener
         lockAnswerButtons()
@@ -81,10 +87,6 @@ class SortFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
 
     private fun generateAndSetInfo() {
         val initialDates = generateDatesList(3)

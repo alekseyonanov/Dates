@@ -30,6 +30,12 @@ class DistributionFragment : BaseFragment() {
 
     private val viewModel by viewModels<DistributionViewModel>()
 
+    override val statusBarColorRes = R.color.colorBackground
+
+    override val isStatusBarLight = true
+
+    override val isBottomNavigationViewHidden = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
@@ -81,10 +87,6 @@ class DistributionFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
 
     private fun showControls(isVisible: Boolean) {
         if (isVisible) {

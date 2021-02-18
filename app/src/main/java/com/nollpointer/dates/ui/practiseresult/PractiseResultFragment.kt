@@ -20,6 +20,12 @@ class PractiseResultFragment : BaseFragment() {
 
     private lateinit var practiseResults: ArrayList<PractiseResult>
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
+    override val isBottomNavigationViewHidden = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentPractiseResultBinding.inflate(inflater, container, false)
@@ -61,9 +67,6 @@ class PractiseResultFragment : BaseFragment() {
         _binding = null
     }
 
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 /*
     private fun getPractiseSaveTitle(practise: String?): String {
         val titles = resources.getStringArray(R.array.practise_marks_titles)

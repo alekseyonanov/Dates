@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentDetailsBinding
 import com.nollpointer.dates.model.Date
-import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,6 +24,12 @@ class DatesDetailsFragment : BaseFragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding: FragmentDetailsBinding
         get() = _binding!!
+
+    override val statusBarColorRes = android.R.color.white
+
+    override val isStatusBarLight = true
+
+    override val isBottomNavigationViewHidden = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -56,19 +61,10 @@ class DatesDetailsFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        (activity as MainActivity).hideBottomNavigationView()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = android.R.color.white
-
-    override fun isStatusBarLight() = true
 
     private fun setData(data: Pair<String, String>) {
         binding.subject.text = getString(R.string.dates_details_year, data.first) //TODO месяц

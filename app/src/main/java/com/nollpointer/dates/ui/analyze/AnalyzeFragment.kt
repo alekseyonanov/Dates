@@ -19,6 +19,12 @@ class AnalyzeFragment : BaseFragment() {
     private val binding: FragmentAnalyzeBinding
         get() = _binding!!
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
+    override val isBottomNavigationViewHidden = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentAnalyzeBinding.inflate(inflater, container, false)
@@ -30,10 +36,6 @@ class AnalyzeFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     companion object {
 

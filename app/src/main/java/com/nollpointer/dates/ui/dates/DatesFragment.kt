@@ -45,6 +45,10 @@ class DatesFragment : BaseFragment() {
     private val binding: FragmentDatesBinding
         get() = _binding!!
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
     @Inject
     lateinit var loader: Loader
 
@@ -108,11 +112,6 @@ class DatesFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        mainActivity.showBottomNavigationView()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -127,10 +126,6 @@ class DatesFragment : BaseFragment() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     private fun initializeSearchView() {
         binding.searchArrowBack.apply {

@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentLinkBinding
+import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.PractiseInfo
 import com.nollpointer.dates.ui.view.BaseFragment
@@ -23,6 +26,15 @@ class LinkFragment : BaseFragment() {
         get() = _binding!!
 
     private val viewModel by viewModels<LinkViewModel>()
+
+    private val taskAdapter = TaskLinkAdapter()
+    private val answersAdapter = AnswersLinkAdapter()
+
+    override val statusBarColorRes = R.color.colorBackground
+
+    override val isStatusBarLight = true
+
+    override val isBottomNavigationViewHidden = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -48,11 +60,27 @@ class LinkFragment : BaseFragment() {
             viewModel.onCheckClicked()
         }
 
+        binding.taskRecyclerView.apply {
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            adapter = taskAdapter
+            layoutManager = LinearLayoutManager(context)
+            isNestedScrollingEnabled = false
+        }
+
+        binding.answersRecyclerView.apply {
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            adapter = answersAdapter
+            layoutManager = LinearLayoutManager(context)
+            isNestedScrollingEnabled = false
+        }
+
         viewModel.apply {
             practise = requireArguments().getParcelable(LINK)!!
             controlsVisibilityLiveData.observe({ lifecycle }, ::showControls)
             infoLiveData.observe({ lifecycle }, ::setPractiseInfo)
             checkEnabilityLiveData.observe({ lifecycle }, ::setCheckEnable)
+            possibleAnswersLiveData.observe({ lifecycle }, ::setPossibleAnswers)
+            questionsLiveData.observe({ lifecycle }, ::setQuestions)
             start()
         }
 
@@ -63,10 +91,6 @@ class LinkFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
 
     private fun showControls(isVisible: Boolean) {
         if (isVisible) {
@@ -86,6 +110,14 @@ class LinkFragment : BaseFragment() {
 
     private fun setCheckEnable(isEnabled: Boolean) {
         binding.check.isEnabled = isEnabled
+    }
+
+    private fun setPossibleAnswers(answers: List<Date>) {
+        answersAdapter.items = answers.map { it.event }
+    }
+
+    private fun setQuestions(questions: List<Date>) {
+        taskAdapter.items = questions.map { it.date }
     }
 
     companion object {

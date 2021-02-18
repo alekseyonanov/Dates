@@ -26,6 +26,10 @@ class PractiseFragment : BaseFragment() {
 
     private lateinit var fragmentPages: List<FragmentPage>
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fragmentPages = listOf(
@@ -73,10 +77,6 @@ class PractiseFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     fun scrollToTop() {
 

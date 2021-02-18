@@ -40,6 +40,10 @@ class TermsFragment : BaseFragment() {
     private val binding: FragmentTermsBinding
         get() = _binding!!
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
     @Inject
     lateinit var loader: Loader
 
@@ -160,10 +164,6 @@ class TermsFragment : BaseFragment() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     fun search(query: String) {
         adapter.items = if (query.isEmpty())

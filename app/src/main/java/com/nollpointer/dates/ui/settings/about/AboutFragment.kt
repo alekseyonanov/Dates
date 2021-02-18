@@ -23,6 +23,12 @@ class AboutFragment : BaseFragment() {
     private val binding: FragmentAboutBinding
         get() = _binding!!
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
+    override val isBottomNavigationViewHidden = true
+
     @Inject
     lateinit var navigator: AppNavigator
 
@@ -71,10 +77,6 @@ class AboutFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     companion object {
         @JvmStatic

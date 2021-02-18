@@ -32,6 +32,12 @@ class GDPRResultFragment : BaseFragment() {
     @Inject
     lateinit var navigator: AppNavigator
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
+    override val isBottomNavigationViewHidden = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View { // Inflate the layout for this fragment
         _binding = FragmentGdprResultBinding.inflate(inflater, container, false)
@@ -58,10 +64,6 @@ class GDPRResultFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     companion object {
         private const val RESULT_GDPR = "RESULT_GDPR"

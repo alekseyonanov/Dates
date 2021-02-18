@@ -3,6 +3,7 @@ package com.nollpointer.dates.ui.link
 import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
+import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.PractiseInfo
 import com.nollpointer.dates.other.AppNavigator
@@ -21,9 +22,21 @@ class LinkViewModel @ViewModelInject constructor(
     val infoLiveData = MutableLiveData<PractiseInfo>()
     val controlsVisibilityLiveData = MutableLiveData<Boolean>()
     val checkEnabilityLiveData = MutableLiveData<Boolean>()
+    val questionsLiveData = MutableLiveData<List<Date>>()
+    val possibleAnswersLiveData = MutableLiveData<List<Date>>()
+
+    private var rightAnswers = 0
+    private var wrongAnswers = 0
+    private var questionNumber = 1
 
     override fun onStart() {
+        generateQuestions()
+    }
 
+    private fun generateQuestions() {
+        possibleAnswersLiveData.value = practise.dates.shuffled().take(5)
+        questionsLiveData.value = possibleAnswersLiveData.value!!.take(4).shuffled()
+        infoLiveData.value = PractiseInfo(questionNumber, rightAnswers, wrongAnswers)
     }
 
     fun onArrowBackClicked() {
@@ -35,7 +48,8 @@ class LinkViewModel @ViewModelInject constructor(
     }
 
     fun onNextClicked() {
-
+        questionNumber++
+        generateQuestions()
     }
 
     fun onAnalyzeClicked() {
@@ -43,7 +57,7 @@ class LinkViewModel @ViewModelInject constructor(
     }
 
     fun onCheckClicked() {
-
+        controlsVisibilityLiveData.value = true
     }
 
 

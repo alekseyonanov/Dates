@@ -25,6 +25,10 @@ class MenuFragment : BaseFragment() {
     private val binding: FragmentMenuBinding
         get() = _binding!!
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
     private val viewModel by viewModels<MenuViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -97,10 +101,6 @@ class MenuFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     private fun showModeSelect(isShown: Boolean) {
         binding.modeSelect.visibility = if (isShown) {

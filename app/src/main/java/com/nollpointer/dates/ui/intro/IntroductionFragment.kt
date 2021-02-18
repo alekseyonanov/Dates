@@ -28,6 +28,12 @@ class IntroductionFragment : BaseFragment() {
     private val binding: FragmentIntroductionBinding
         get() = _binding!!
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
+    override val isBottomNavigationViewHidden = true
+
     @Inject
     lateinit var navigator: AppNavigator
 
@@ -85,10 +91,6 @@ class IntroductionFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     inner class PractiseCellAdapter(private val introPages: List<IntroPage>) : PagerAdapter() {
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {

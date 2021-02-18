@@ -26,6 +26,12 @@ class CardsFragment : BaseFragment() {
 
     private val viewModel by viewModels<CardsViewModel>()
 
+    override val statusBarColorRes = android.R.color.white
+
+    override val isStatusBarLight = true
+
+    override val isBottomNavigationViewHidden = true
+
     @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -67,10 +73,6 @@ class CardsFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = android.R.color.white
-
-    override fun isStatusBarLight() = true
 
     private fun setData(data: String) {
         binding.text.text = data

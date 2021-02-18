@@ -51,6 +51,9 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding
         get() = _binding!!
 
+    private val isBottomNavigationViewVisible: Boolean
+        get() = binding.navigation.visibility == View.VISIBLE
+
     @Inject
     lateinit var navigator: AppNavigator
 
@@ -137,11 +140,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun hideBottomNavigationView() {
-        binding.navigation.visibility = View.GONE
+        if (isBottomNavigationViewVisible) {
+            binding.navigation.visibility = View.GONE
+        }
     }
 
     fun showBottomNavigationView() {
-        binding.navigation.visibility = View.VISIBLE
+        if (!isBottomNavigationViewVisible) {
+            binding.navigation.visibility = View.VISIBLE
+        }
     }
 
     private fun updateDates(mode: Int) {

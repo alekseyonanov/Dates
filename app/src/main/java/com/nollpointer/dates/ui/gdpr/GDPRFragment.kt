@@ -30,6 +30,12 @@ class GDPRFragment : BaseFragment() {
     private val binding: FragmentGdprBinding
         get() = _binding!!
 
+    override val statusBarColorRes = R.color.colorPrimary
+
+    override val isStatusBarLight = false
+
+    override val isBottomNavigationViewHidden = true
+
     @Inject
     lateinit var loader: Loader
 
@@ -65,10 +71,6 @@ class GDPRFragment : BaseFragment() {
 
         return binding.root
     }
-
-    override fun getStatusBarColorRes() = R.color.colorPrimary
-
-    override fun isStatusBarLight() = false
 
     override fun onDestroyView() {
         super.onDestroyView()

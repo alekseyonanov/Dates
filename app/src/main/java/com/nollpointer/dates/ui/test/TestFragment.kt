@@ -52,6 +52,12 @@ class TestFragment : BaseFragment() {
 
     private val viewModel by viewModels<TestViewModel>()
 
+    override val statusBarColorRes = R.color.colorBackground
+
+    override val isStatusBarLight = true
+
+    override val isBottomNavigationViewHidden = true
+
     private val listener = { testAnswerButton: TestAnswerButton ->
 
         val position = answerButtons.indexOf(testAnswerButton)
@@ -168,10 +174,6 @@ class TestFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun getStatusBarColorRes() = R.color.colorBackground
-
-    override fun isStatusBarLight() = true
 
     private fun generateDatesQuestionList(): List<Date> {
         val random = Random()
