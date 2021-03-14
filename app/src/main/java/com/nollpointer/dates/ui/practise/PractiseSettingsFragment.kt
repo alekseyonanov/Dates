@@ -82,7 +82,7 @@ class PractiseSettingsFragment : BaseFragment() {
         private const val PRACTISE_SETTINGS = "Practise_Settings"
 
         @JvmStatic
-        fun newInstance(practise: Practise) =
+        fun newInstance(practise: Practise = Practise()) =
                 PractiseSettingsFragment().apply {
                     arguments = Bundle().apply {
                         putParcelable(PRACTISE_SETTINGS, practise)

@@ -2,20 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
     android:orientation="horizontal">
 
     <View
         android:id="@+id/sortItemResult"
         android:layout_width="8dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/sortItemText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@android:color/white"
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeight"
         android:paddingStart="?android:attr/listPreferredItemPaddingStart"

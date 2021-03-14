@@ -101,6 +101,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // TODO: 13.03.2021 Сделать рефактор
         loadDates(mode).subscribe({
             dates = it
             if (isFirstStart) {
@@ -114,20 +116,13 @@ class MainActivity : AppCompatActivity() {
         loadTerms().subscribe({
             terms = it
         }, {})
-    }
 
-    override fun onStart() {
-        super.onStart()
         FlurryAgent.onStartSession(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        FlurryAgent.onEndSession(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        FlurryAgent.onEndSession(this)
         _binding = null
     }
 

@@ -13,6 +13,8 @@ import com.nollpointer.dates.model.Date
  */
 class SortCardsAdapter : RecyclerView.Adapter<SortCardsAdapter.ViewHolder>() {
 
+    var answerClickListener: ((Date) -> Unit)? = null
+
     var dates: List<Date> = listOf()
         set(value) {
             field = value
@@ -36,7 +38,6 @@ class SortCardsAdapter : RecyclerView.Adapter<SortCardsAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
-
         fun bind(date: Date) {
             itemView.findViewById<TextView>(R.id.sortItemText).text = date.event
         }

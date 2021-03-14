@@ -18,7 +18,7 @@ class TestAnswerButton @JvmOverloads constructor(
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
 
-    var setOnAnswerButtonClickListener: ((TestAnswerButton) -> Unit)? = null
+    var setOnAnswerButtonClickListener: ((Date) -> Unit)? = null
     var setOnDetailsClickListener: ((Date) -> Unit)? = null
 
     private var isDetailsMode = false
@@ -28,11 +28,10 @@ class TestAnswerButton @JvmOverloads constructor(
 
     init {
         binding.root.setOnClickListener {
-            if (!this@TestAnswerButton.isClickable) return@setOnClickListener
             if (isDetailsMode)
                 setOnDetailsClickListener?.invoke(currentDate)
             else
-                setOnAnswerButtonClickListener?.invoke(this)
+                setOnAnswerButtonClickListener?.invoke(currentDate)
         }
     }
 
@@ -52,22 +51,17 @@ class TestAnswerButton @JvmOverloads constructor(
         binding.text.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
     }
 
-    fun setResult(result: Boolean) {
+    fun setResult(isCorrect: Boolean) {
         binding.result.apply {
             visibility = View.VISIBLE
             setBackgroundResource(
-                    if (result)
-                        R.color.colorTest
-                    else
-                        R.color.colorPrimary
+                    if (isCorrect) R.color.colorTest else R.color.colorPrimary
             )
         }
     }
 
     fun setDetailsMode() {
         isDetailsMode = true
-        binding.text.setCompoundDrawablesRelativeWithIntrinsicBounds(0,
-                0, R.drawable.ic_help_gray, 0)
     }
 
 

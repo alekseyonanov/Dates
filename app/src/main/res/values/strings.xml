@@ -486,4 +486,8 @@
     <string name="mode_switch">Переключение режима</string>
 
 
+    <!--FirebaseMessagingService-->
+    <string name="fcm_message">FCM Message</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
 </resources>

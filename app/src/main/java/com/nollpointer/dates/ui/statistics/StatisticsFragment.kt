@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentStatisticsBinding
 import com.nollpointer.dates.ui.view.BaseFragment
@@ -17,14 +18,22 @@ class StatisticsFragment : BaseFragment() {
     private val binding: FragmentStatisticsBinding
         get() = _binding!!
 
+    private val viewModel by viewModels<StatisticsViewModel>()
+
     override val statusBarColorRes = R.color.colorPrimary
 
     override val isStatusBarLight = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
 
+        viewModel.apply {
+
+            start()
+        }
 
         return binding.root
     }

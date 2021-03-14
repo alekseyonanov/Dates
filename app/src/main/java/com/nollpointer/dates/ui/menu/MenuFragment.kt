@@ -11,7 +11,6 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentMenuBinding
 import com.nollpointer.dates.databinding.ItemMenuModeBinding
 import com.nollpointer.dates.model.MenuPage
-import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -90,11 +89,6 @@ class MenuFragment : BaseFragment() {
         }
 
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        (requireActivity() as MainActivity).showBottomNavigationView()
     }
 
     override fun onDestroyView() {

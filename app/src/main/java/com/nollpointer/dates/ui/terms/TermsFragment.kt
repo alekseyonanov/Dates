@@ -147,11 +147,6 @@ class TermsFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        (activity as MainActivity).showBottomNavigationView()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

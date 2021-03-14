@@ -7,6 +7,8 @@ import com.nollpointer.dates.BuildConfig
 import com.yandex.metrica.YandexMetrica
 import com.yandex.metrica.YandexMetricaConfig
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 
 
 /**
@@ -24,5 +26,6 @@ class App : Application() {
         YandexMetrica.activate(applicationContext, config)
         YandexMetrica.enableActivityAutoTracking(this)
         FirebaseAnalytics.getInstance(this)
+        Timber.plant(DebugTree())
     }
 }

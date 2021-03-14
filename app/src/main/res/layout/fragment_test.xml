@@ -1,9 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:animateLayoutChanges="true"
     android:background="@color/colorBackground">
 
@@ -11,130 +10,132 @@
         android:id="@+id/arrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_margin="8dp"
         android:background="?android:selectableItemBackground"
         android:contentDescription="@string/arrow_back"
         android:padding="8dp"
-        android:src="@drawable/ic_arrow_back_black" />
+        android:src="@drawable/ic_arrow_back_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_margin="8dp"
         android:background="?android:selectableItemBackground"
         android:contentDescription="@string/settings"
         android:padding="8dp"
-        android:src="@drawable/ic_settings_black" />
+        android:src="@drawable/ic_settings_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/question"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/buttonContainer"
+        android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:padding="16dp"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@android:color/black"
         android:textSize="32sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/buttonContainer"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="1962" />
 
-    <RelativeLayout
-        android:id="@+id/infoContainer"
-        android:layout_width="match_parent"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/infoChipGroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/buttonContainer"
-        android:minHeight="?android:attr/listPreferredItemHeight">
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="4dp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toTopOf="@id/buttonContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:singleLine="true"
+        app:singleSelection="true">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/infoChipGroup"
+        <com.google.android.material.chip.Chip
+            android:id="@+id/rightAnswers"
+            style="@style/Widget.MaterialComponents.Chip.Action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="4dp"
-            app:singleLine="true"
-            app:singleSelection="true">
+            android:layout_margin="4dp"
+            android:clickable="false"
+            app:chipBackgroundColor="@android:color/white"
+            app:chipIcon="@drawable/ic_right_answer_icon"
+            app:iconStartPadding="2dp"
+            tools:text="0" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/rightAnswers"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:clickable="false"
-                app:chipBackgroundColor="@android:color/white"
-                app:chipIcon="@drawable/ic_right_answer_icon"
-                app:iconStartPadding="2dp"
-                tools:text="0" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/questionNumber"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:clickable="false"
-                android:gravity="center"
-                android:textStyle="bold"
-                app:chipBackgroundColor="@android:color/white"
-                tools:text="1" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/wrongAnswers"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:clickable="false"
-                app:chipBackgroundColor="@android:color/white"
-                app:chipIcon="@drawable/ic_wrong_answer_icon"
-                app:iconStartPadding="2dp"
-                tools:text="0" />
-
-        </com.google.android.material.chip.ChipGroup>
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/next"
+        <com.google.android.material.chip.Chip
+            android:id="@+id/questionNumber"
+            style="@style/Widget.MaterialComponents.Chip.Action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="8dp"
-            android:backgroundTint="@android:color/white"
-            android:contentDescription="@string/next"
-            android:src="@drawable/ic_next"
-            android:visibility="invisible"
-            app:elevation="0dp"
-            app:fabSize="mini" />
+            android:layout_margin="4dp"
+            android:clickable="false"
+            android:gravity="center"
+            android:textStyle="bold"
+            app:chipBackgroundColor="@android:color/white"
+            tools:text="1" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/analyze"
+        <com.google.android.material.chip.Chip
+            android:id="@+id/wrongAnswers"
+            style="@style/Widget.MaterialComponents.Chip.Action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_margin="8dp"
-            android:backgroundTint="@android:color/white"
-            android:contentDescription="@string/analyze"
-            android:src="@drawable/ic_analyze"
-            android:visibility="invisible"
-            app:elevation="0dp"
-            app:fabSize="mini" />
+            android:layout_margin="4dp"
+            android:clickable="false"
+            app:chipBackgroundColor="@android:color/white"
+            app:chipIcon="@drawable/ic_wrong_answer_icon"
+            app:iconStartPadding="2dp"
+            tools:text="0" />
 
-    </RelativeLayout>
+    </com.google.android.material.chip.ChipGroup>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@android:color/white"
+        android:contentDescription="@string/next"
+        android:src="@drawable/ic_next"
+        android:visibility="invisible"
+        app:elevation="0dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@id/infoChipGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/infoChipGroup"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/analyze"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@android:color/white"
+        android:contentDescription="@string/analyze"
+        android:src="@drawable/ic_analyze"
+        android:visibility="invisible"
+        app:elevation="0dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@id/infoChipGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/infoChipGroup"
+        tools:visibility="visible" />
+
 
     <LinearLayout
         android:id="@+id/buttonContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.nollpointer.dates.ui.view.TestAnswerButton
             android:id="@+id/button0"
@@ -183,4 +184,4 @@
     <!--        android:visibility="visible" />-->
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

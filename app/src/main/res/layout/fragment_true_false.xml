@@ -1,200 +1,195 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:animateLayoutChanges="true"
     android:background="@color/colorBackground">
 
     <ImageView
         android:id="@+id/arrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_margin="8dp"
         android:background="?android:selectableItemBackground"
         android:contentDescription="@string/arrow_back"
         android:padding="8dp"
-        android:src="@drawable/ic_arrow_back_black" />
+        android:src="@drawable/ic_arrow_back_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_margin="8dp"
         android:background="?android:selectableItemBackground"
         android:contentDescription="@string/settings"
         android:padding="8dp"
-        android:src="@drawable/ic_settings_black" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/trueFalseButtonContainer"
-        android:layout_gravity="fill"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom|center"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@android:color/black"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            tools:text="1962" />
-
-        <ImageView
-            android:id="@+id/result"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:contentDescription="@string/result_image"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/event"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:gravity="top|center"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"
-            tools:text="Правление петуча" />
+        android:src="@drawable/ic_settings_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/infoContainer"
+    <TextView
+        android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/trueFalseButtonContainer"
-        android:minHeight="?android:attr/listPreferredItemHeight">
+        android:fontFamily="sans-serif-light"
+        android:gravity="bottom|center"
+        android:padding="5dp"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/event"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="1962" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/infoGroup"
+    <TextView
+        android:id="@+id/event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:gravity="top|center"
+        android:padding="5dp"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@android:color/black"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@id/trueButton"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        tools:text="Правление петуча" />
+
+    <ImageView
+        android:id="@+id/result"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="@string/result_image"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event"
+        tools:visibility="visible" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/infoGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@id/trueButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/rightAnswers"
+            style="@style/Widget.MaterialComponents.Chip.Action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            app:singleLine="true"
-            app:singleSelection="true">
+            android:layout_margin="4dp"
+            android:clickable="false"
+            app:chipBackgroundColor="@android:color/white"
+            app:chipIcon="@drawable/ic_right_answer_icon"
+            app:iconStartPadding="2dp"
+            tools:text="0" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/rightCount"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:clickable="false"
-                app:chipBackgroundColor="@android:color/white"
-                app:chipIcon="@drawable/ic_right_answer_icon"
-                app:iconStartPadding="2dp"
-                tools:text="0" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/questionNumber"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:clickable="false"
-                android:gravity="center"
-                android:textStyle="bold"
-                app:chipBackgroundColor="@android:color/white"
-                tools:text="1" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/wrongCount"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:clickable="false"
-                app:chipBackgroundColor="@android:color/white"
-                app:chipIcon="@drawable/ic_wrong_answer_icon"
-                app:iconStartPadding="2dp"
-                tools:text="0" />
-
-        </com.google.android.material.chip.ChipGroup>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/next"
+        <com.google.android.material.chip.Chip
+            android:id="@+id/questionNumber"
+            style="@style/Widget.MaterialComponents.Chip.Action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="8dp"
-            android:backgroundTint="@android:color/white"
-            android:contentDescription="@string/next"
-            android:src="@drawable/ic_next"
-            android:visibility="invisible"
-            app:elevation="0dp"
-            app:fabSize="mini" />
+            android:layout_margin="4dp"
+            android:clickable="false"
+            android:gravity="center"
+            android:textStyle="bold"
+            app:chipBackgroundColor="@android:color/white"
+            tools:text="1" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/analyze"
+        <com.google.android.material.chip.Chip
+            android:id="@+id/wrongAnswers"
+            style="@style/Widget.MaterialComponents.Chip.Action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_margin="8dp"
-            android:backgroundTint="@android:color/white"
-            android:contentDescription="@string/analyze"
-            android:src="@drawable/ic_analyze"
-            android:visibility="invisible"
-            app:elevation="0dp"
-            app:fabSize="mini" />
+            android:layout_margin="4dp"
+            android:clickable="false"
+            app:chipBackgroundColor="@android:color/white"
+            app:chipIcon="@drawable/ic_wrong_answer_icon"
+            app:iconStartPadding="2dp"
+            tools:text="0" />
 
-    </RelativeLayout>
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp"
+        android:backgroundTint="@android:color/white"
+        android:contentDescription="@string/next"
+        android:src="@drawable/ic_next"
+        android:visibility="invisible"
+        app:elevation="0dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@id/infoGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/infoGroup"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/analyze"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_margin="8dp"
+        android:backgroundTint="@android:color/white"
+        android:contentDescription="@string/analyze"
+        android:src="@drawable/ic_analyze"
+        android:visibility="invisible"
+        app:elevation="0dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@id/infoGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/infoGroup"
+        tools:visibility="visible" />
 
     <com.appodeal.ads.BannerView
         android:id="@+id/appodealBannerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/infoContainer"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/trueButton" />
 
-    <LinearLayout
-        android:id="@+id/trueFalseButtonContainer"
-        android:layout_width="match_parent"
+    <android.widget.Button
+        android:id="@+id/trueButton"
+        style="?android:borderlessButtonStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:background="@color/colorTest"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="@string/true_button"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/falseButton"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <android.widget.Button
-            android:id="@+id/trueButton"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:background="@color/colorTest"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="@string/true_button"
-            android:textColor="@android:color/white" />
+    <android.widget.Button
+        android:id="@+id/falseButton"
+        style="?android:borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="@string/false_button"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/trueButton" />
 
-        <android.widget.Button
-            android:id="@+id/falseButton"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="@string/false_button"
-            android:textColor="@android:color/white" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
