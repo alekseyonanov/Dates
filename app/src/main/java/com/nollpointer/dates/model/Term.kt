@@ -5,6 +5,8 @@ import kotlinx.parcelize.Parcelize
 import java.util.*
 
 /**
+ * Модель Термина
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @Parcelize

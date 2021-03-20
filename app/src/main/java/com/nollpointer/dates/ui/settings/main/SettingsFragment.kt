@@ -12,6 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
+ * Экран "Настройки"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

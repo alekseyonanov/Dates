@@ -18,6 +18,8 @@ import java.util.*
 import javax.inject.Inject
 
 /**
+ * Экран "Результат выбора GDPR"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class GDPRResultFragment : BaseFragment() {

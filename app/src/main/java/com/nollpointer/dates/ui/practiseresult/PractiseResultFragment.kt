@@ -10,6 +10,8 @@ import com.nollpointer.dates.model.PractiseResult
 import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
+ * Экран "Результат практики"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class PractiseResultFragment : BaseFragment() {

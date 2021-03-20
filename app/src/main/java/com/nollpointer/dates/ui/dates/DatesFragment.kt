@@ -29,6 +29,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
+ * Экран "Даты"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint
@@ -52,8 +54,10 @@ class DatesFragment : BaseFragment() {
     @Inject
     lateinit var loader: Loader
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
+    ): View {
 
         _binding = FragmentDatesBinding.inflate(inflater, container, false)
 
@@ -97,9 +101,9 @@ class DatesFragment : BaseFragment() {
                         EASY_DATES_MODE -> R.array.dates_easy_positions
                         else -> R.array.dates_full_positions
                     }))
-            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(context, R.drawable.divider) as Drawable)
+            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.divider) as Drawable)
             addItemDecoration(dividerItemDecoration)
-            layoutManager = LinearLayoutManager(this.context)
+            layoutManager = LinearLayoutManager(requireContext())
             this.adapter = this@DatesFragment.adapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -107,6 +111,12 @@ class DatesFragment : BaseFragment() {
                         Keyboard.hide(binding.cardSearch)
                 }
             })
+        }
+
+        viewModel.apply {
+            dates = mainActivity.dates
+            mode = mainActivity.mode
+            start()
         }
 
         return binding.root

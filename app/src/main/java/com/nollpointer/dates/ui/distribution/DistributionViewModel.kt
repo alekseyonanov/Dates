@@ -1,29 +1,44 @@
 package com.nollpointer.dates.ui.distribution
 
-import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.PractiseInfo
 import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.BaseViewModel
-import dagger.hilt.android.qualifiers.ActivityContext
 
 /**
+ * ViewModel экрана практики "Распределение"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class DistributionViewModel @ViewModelInject constructor(
-        @ActivityContext private val context: Context,
-        private val navigator: AppNavigator) : BaseViewModel() {
+        private val navigator: AppNavigator,
+) : BaseViewModel() {
+
+    private val _questionsLiveData = MutableLiveData<List<String>>()
+    val questionsLiveData: LiveData<List<String>> = _questionsLiveData
+
+    private val _infoLiveData = MutableLiveData<PractiseInfo>()
+    val infoLiveData: LiveData<PractiseInfo> = _infoLiveData
+
+    private val _rightWrongAnswersLiveData = MutableLiveData<Pair<Int, Int>>()
+    val rightWrongAnswersLiveData: LiveData<Pair<Int, Int>> = _rightWrongAnswersLiveData
+
+    private val _controlsVisibilityLiveData = MutableLiveData<Boolean>()
+    val controlsVisibilityLiveData: LiveData<Boolean> = _controlsVisibilityLiveData
+
+    private val _checkEnabilityLiveData = MutableLiveData<Boolean>()
+    val checkEnabilityLiveData: LiveData<Boolean> = _checkEnabilityLiveData
 
     lateinit var practise: Practise
 
-    val questionsLiveData = MutableLiveData<List<String>>()
-    val infoLiveData = MutableLiveData<PractiseInfo>()
-    val controlsVisibilityLiveData = MutableLiveData<Boolean>()
-    val checkEnabilityLiveData = MutableLiveData<Boolean>()
-
     override fun onStart() {
+        generateQuestion()
+    }
+
+    private fun generateQuestion() {
 
     }
 

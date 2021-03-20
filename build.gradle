@@ -7,12 +7,11 @@ buildscript {
             dirs 'libs'
         }
         maven { url "https://artifactory.appodeal.com/appodeal" }
-        maven { url 'https://maven.fabric.io/public' }
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
-        classpath 'com.android.tools:r8:2.1.75'
+        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath 'com.android.tools:r8:2.2.60'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31"
         classpath 'com.google.gms:google-services:4.3.5'
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.33-beta'
@@ -29,7 +28,6 @@ allprojects {
         maven { url "https://artifactory.appodeal.com/appodeal" }
         maven { url "https://jitpack.io" }
         maven { url "https://maven.google.com" }
-        maven { url 'https://maven.fabric.io/public' }
     }
 }
 

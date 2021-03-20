@@ -26,6 +26,8 @@ import java.io.InputStreamReader
 import javax.inject.Inject
 
 /**
+ * Главная Activity приложения
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

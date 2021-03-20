@@ -8,6 +8,8 @@ import android.util.AttributeSet
 import android.view.View
 
 /**
+ * Кастомная View для отрисовки разделителя на экране "Приветствие нового пользователя"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class DividerView @JvmOverloads constructor(

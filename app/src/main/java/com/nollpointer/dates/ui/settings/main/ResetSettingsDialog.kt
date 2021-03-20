@@ -13,6 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
+ * Диалоговое окно, сбрасывающее выбор настроек
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

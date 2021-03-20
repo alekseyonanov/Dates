@@ -6,6 +6,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 /**
+ * Api для работы с Википедией
+ *
  * @author Onanov Aleksey (@onanov)
  */
 interface WikipediaApi {

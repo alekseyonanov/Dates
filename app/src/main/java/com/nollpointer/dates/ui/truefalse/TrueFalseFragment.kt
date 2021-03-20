@@ -15,6 +15,8 @@ import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
+ * Экран практики "Правда/Ложь"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

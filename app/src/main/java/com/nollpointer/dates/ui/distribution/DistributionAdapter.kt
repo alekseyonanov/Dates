@@ -8,6 +8,8 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.ItemDistributionBinding
 
 /**
+ * Адаптер для работы с экраном практики "Распределение"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class DistributionAdapter : RecyclerView.Adapter<DistributionAdapter.ViewHolder>() {

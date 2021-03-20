@@ -17,7 +17,6 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         buildConfigField('String', 'WIKIPEDIA_BASE_URL', '"https://ru.wikipedia.org/api/rest_v1/"')
-
         buildConfigField('String', 'APPODEAL_PRIVACY_POLICY_LINK', '"https://www.appodeal.com/privacy-policy"')
 
         buildConfigField('String', 'APPODEAL_KEY', '"106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1"')

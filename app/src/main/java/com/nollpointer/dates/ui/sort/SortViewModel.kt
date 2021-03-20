@@ -11,6 +11,8 @@ import com.nollpointer.dates.ui.test.model.ResultModel
 import kotlin.random.Random
 
 /**
+ * ViewModel экрана практики "Сортировка"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class SortViewModel @ViewModelInject constructor(

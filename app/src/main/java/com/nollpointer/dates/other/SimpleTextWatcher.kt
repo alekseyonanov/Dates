@@ -4,6 +4,8 @@ import android.text.Editable
 import android.text.TextWatcher
 
 /**
+ * Заглушка для работы с TextWatcher
+ *
  * @author Onanov Aleksey (@onanov)
  */
 open class SimpleTextWatcher : TextWatcher {

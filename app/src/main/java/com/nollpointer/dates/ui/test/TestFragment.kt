@@ -14,7 +14,6 @@ import com.nollpointer.dates.ui.view.BaseFragment
 import com.nollpointer.dates.ui.view.TestAnswerButton
 import dagger.hilt.android.AndroidEntryPoint
 
-
 /**
  * Экран практики "Тестирование"
  *

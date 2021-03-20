@@ -9,6 +9,8 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.model.Date
 
 /**
+ * Адаптер для работы с карточками экрана практики "Сортировка"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class SortCardsAdapter : RecyclerView.Adapter<SortCardsAdapter.ViewHolder>() {

@@ -3,6 +3,8 @@ package com.nollpointer.dates.model
 import com.google.gson.annotations.SerializedName
 
 /**
+ * Модель ответа сервера при запросе деталей по событию из Википедии
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class WikipediaResponseModel {

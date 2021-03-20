@@ -19,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 /**
+ * Экран практики "Сортировка"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

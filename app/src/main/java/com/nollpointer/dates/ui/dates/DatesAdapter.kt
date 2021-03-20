@@ -12,6 +12,8 @@ import com.nollpointer.dates.ui.activity.MainActivity.Companion.FULL_DATES_MODE
 import java.util.*
 
 /**
+ * Адаптер для работы со списком дат на экране "Даты"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class DatesAdapter(val resources: Resources, var items: List<Date>, mode: Int) : RecyclerView.Adapter<DatesAdapter.ViewHolder>() {

@@ -9,6 +9,8 @@ import com.nollpointer.dates.R
 import java.util.*
 
 /**
+ * Адаптер для работы с элементами, поддерживающими мультивыбор
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class MutliSelectAdapter(private val items: Array<CharSequence>) : RecyclerView.Adapter<MutliSelectAdapter.ViewHolder>() {

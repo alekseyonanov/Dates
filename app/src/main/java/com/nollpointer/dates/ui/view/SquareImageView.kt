@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
 /**
+ * Квадратный ImageView
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class SquareImageView @JvmOverloads constructor(

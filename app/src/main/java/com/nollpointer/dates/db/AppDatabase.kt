@@ -7,6 +7,8 @@ import com.nollpointer.dates.db.dao.PractiseDao
 import com.nollpointer.dates.db.entity.PractiseEntity
 
 /**
+ * БД приложения
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @Database(entities = [PractiseEntity::class], version = BuildConfig.DB_VERSION, exportSchema = false)

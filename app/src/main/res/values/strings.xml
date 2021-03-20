@@ -291,6 +291,11 @@
     <string name="search_multi_button_description">Голосовой поиск/Очистка</string>
     <string name="no_data">Нет данных</string>
 
+    <!--LinkFragment-->
+    <string name="fragment_link_year">Годы</string>
+    <string name="fragment_link_event">События</string>
+
+
     <!--DialogResult-->
     <string name="dialog_result_title">Результаты тестирования</string>
     <string name="dialog_result_mark">Ваша оценка</string>

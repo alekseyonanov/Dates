@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import android.widget.RelativeLayout
 
 /**
+ * Квадратный RelativeLayout
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class SquareRelativeLayout @JvmOverloads constructor(

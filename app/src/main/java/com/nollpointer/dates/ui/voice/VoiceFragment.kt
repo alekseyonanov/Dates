@@ -21,6 +21,8 @@ import com.nollpointer.dates.ui.view.BaseFragment
 import java.util.*
 
 /**
+ * Экран практики "Голосовой выбор"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class VoiceFragment : BaseFragment(), RecognitionListener {

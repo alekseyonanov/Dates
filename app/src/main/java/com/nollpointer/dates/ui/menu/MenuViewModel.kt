@@ -11,6 +11,11 @@ import com.nollpointer.dates.other.BaseViewModel
 import com.nollpointer.dates.ui.activity.MainActivity
 import dagger.hilt.android.qualifiers.ActivityContext
 
+/**
+ * ViewModel экрана "Меню"
+ *
+ * @author Onanov Aleksey (@onanov)
+ */
 class MenuViewModel @ViewModelInject constructor(
         @ActivityContext private val context: Context,
         private val navigator: AppNavigator) : BaseViewModel() {

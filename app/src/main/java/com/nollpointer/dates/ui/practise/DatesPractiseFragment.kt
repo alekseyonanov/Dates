@@ -17,6 +17,8 @@ import com.nollpointer.dates.ui.activity.MainActivity
 import com.nollpointer.dates.ui.practiseselect.SetDetailsFragment
 
 /**
+ * Экран со списком практики для дат
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class DatesPractiseFragment : Fragment() {

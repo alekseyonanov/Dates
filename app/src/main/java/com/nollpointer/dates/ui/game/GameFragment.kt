@@ -17,6 +17,8 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
+ * Экран "Игра"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class GameFragment : BaseFragment() {

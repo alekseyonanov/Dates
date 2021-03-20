@@ -5,22 +5,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
-import com.nollpointer.dates.databinding.ItemLinkBinding
+import com.nollpointer.dates.databinding.ItemLinkTaskBinding
+import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.LinkModel
 
 /**
+ * Адаптер для работы с вопросами на экране "Связка"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class TaskLinkAdapter : RecyclerView.Adapter<TaskLinkAdapter.ViewHolder>() {
 
-    var items = listOf<String>()
+    var items = listOf<Date>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
+    var onTaskClickedListener: ((Date) -> Unit)? = null
+
+    var isDetailsMode = false
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_link, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_link_task, parent, false)
         return ViewHolder(view)
     }
 
@@ -32,11 +39,15 @@ class TaskLinkAdapter : RecyclerView.Adapter<TaskLinkAdapter.ViewHolder>() {
 
     inner class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val binding = ItemLinkBinding.bind(itemView)
+        private val binding = ItemLinkTaskBinding.bind(itemView)
 
-        fun bind(item: String) {
-            binding.root.text = item
-            binding.root.isClickable = false
+        fun bind(item: Date) {
+            binding.root.setOnClickListener {
+                if (isDetailsMode) {
+                    onTaskClickedListener?.invoke(item)
+                }
+            }
+            binding.root.text = item.dateFull
             binding.root.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0,
                     when (adapterPosition) {
                         LinkModel.BLUE -> R.drawable.ic_dot_blue

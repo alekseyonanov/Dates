@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentAnalyzeBinding
 import com.nollpointer.dates.model.Practise
@@ -11,6 +12,8 @@ import com.nollpointer.dates.model.PractiseResult
 import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
+ * Экран "Анализ"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class AnalyzeFragment : BaseFragment() {
@@ -19,15 +22,27 @@ class AnalyzeFragment : BaseFragment() {
     private val binding: FragmentAnalyzeBinding
         get() = _binding!!
 
+    private val viewModel by viewModels<AnalyzeViewModel>()
+
     override val statusBarColorRes = R.color.colorPrimary
 
     override val isStatusBarLight = false
 
     override val isBottomNavigationViewHidden = true
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentAnalyzeBinding.inflate(inflater, container, false)
+
+        binding.toolbar.setNavigationOnClickListener {
+            viewModel.onArrowBackClicked()
+        }
+
+        viewModel.apply {
+            start()
+        }
 
         return binding.root
     }

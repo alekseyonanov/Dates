@@ -16,6 +16,8 @@ import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
+ * Экран практики "Связка"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint
@@ -36,8 +38,10 @@ class LinkFragment : BaseFragment() {
 
     override val isBottomNavigationViewHidden = true
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentLinkBinding.inflate(inflater, container, false)
 
         binding.arrowBack.setOnClickListener {
@@ -62,6 +66,7 @@ class LinkFragment : BaseFragment() {
 
         binding.taskRecyclerView.apply {
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            taskAdapter.onTaskClickedListener = viewModel::onDateClicked
             adapter = taskAdapter
             layoutManager = LinearLayoutManager(context)
             isNestedScrollingEnabled = false
@@ -69,6 +74,8 @@ class LinkFragment : BaseFragment() {
 
         binding.answersRecyclerView.apply {
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            answersAdapter.onAnswerClickedListener = viewModel::onDateClicked
+            answersAdapter.onAnswersListChanged = viewModel::onAnswersListChanged
             adapter = answersAdapter
             layoutManager = LinearLayoutManager(context)
             isNestedScrollingEnabled = false
@@ -76,11 +83,12 @@ class LinkFragment : BaseFragment() {
 
         viewModel.apply {
             practise = requireArguments().getParcelable(LINK)!!
-            controlsVisibilityLiveData.observe({ lifecycle }, ::showControls)
+            controlButtonsVisibilityLiveData.observe({ lifecycle }, ::showControls)
             infoLiveData.observe({ lifecycle }, ::setPractiseInfo)
             checkEnabilityLiveData.observe({ lifecycle }, ::setCheckEnable)
             possibleAnswersLiveData.observe({ lifecycle }, ::setPossibleAnswers)
-            questionsLiveData.observe({ lifecycle }, ::setQuestions)
+            questionLiveData.observe({ lifecycle }, ::setQuestions)
+            resultLiveData.observe({ lifecycle }, ::setResult)
             start()
         }
 
@@ -100,6 +108,8 @@ class LinkFragment : BaseFragment() {
             binding.analyze.visibility = View.INVISIBLE
             binding.next.visibility = View.INVISIBLE
         }
+        taskAdapter.isDetailsMode = isVisible
+        answersAdapter.isDetailsMode = isVisible
     }
 
     private fun setPractiseInfo(practiseInfo: PractiseInfo) {
@@ -113,11 +123,16 @@ class LinkFragment : BaseFragment() {
     }
 
     private fun setPossibleAnswers(answers: List<Date>) {
-        answersAdapter.items = answers.map { it.event }
+        answersAdapter.items = answers
     }
 
     private fun setQuestions(questions: List<Date>) {
-        taskAdapter.items = questions.map { it.date }
+        taskAdapter.items = questions
+    }
+
+    private fun setResult(results: List<Int>) {
+        answersAdapter.correctAnswers = results
+        answersAdapter.notifyDataSetChanged()
     }
 
     companion object {

@@ -11,6 +11,8 @@ import com.nollpointer.dates.model.Term
 import java.util.*
 
 /**
+ * Адаптер для работы с терминами на экране "Термины"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class TermsAdapter(val resources: Resources, var items: List<Term>) : RecyclerView.Adapter<TermsAdapter.ViewHolder>() {

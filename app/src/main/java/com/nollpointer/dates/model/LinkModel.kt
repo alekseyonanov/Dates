@@ -1,6 +1,8 @@
 package com.nollpointer.dates.model
 
 /**
+ * Модель связки
+ *
  * @author Onanov Aleksey (@onanov)
  */
 data class LinkModel(

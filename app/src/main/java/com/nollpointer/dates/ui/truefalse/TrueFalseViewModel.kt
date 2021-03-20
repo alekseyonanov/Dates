@@ -11,6 +11,8 @@ import com.nollpointer.dates.ui.truefalse.model.ResultModel
 import kotlin.random.Random
 
 /**
+ * ViewModel экрана практики "Правда/Ложь"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class TrueFalseViewModel @ViewModelInject constructor(

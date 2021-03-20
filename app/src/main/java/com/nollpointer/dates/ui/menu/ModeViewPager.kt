@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import androidx.viewpager.widget.ViewPager
 
 /**
+ * Кастомный ViewPager, который подстраивается под размеры своих детей
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class ModeViewPager(context: Context, attrs: AttributeSet? = null) : ViewPager(context,attrs) {

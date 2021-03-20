@@ -1,7 +1,7 @@
 package com.nollpointer.dates.ui.test.model
 
 /**
- *
+ * Модель результата практики
  *
  * @author Onanov Aleksey (@onanov)
  */

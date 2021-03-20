@@ -3,7 +3,7 @@ package com.nollpointer.dates.ui.test.model
 import com.nollpointer.dates.model.Date
 
 /**
- *
+ * Модель вопроса практики
  *
  * @author Onanov Aleksey (@onanov)
  */

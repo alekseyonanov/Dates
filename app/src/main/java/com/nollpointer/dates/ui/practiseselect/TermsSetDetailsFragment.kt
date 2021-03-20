@@ -20,6 +20,8 @@ import com.nollpointer.dates.ui.view.BaseFragment
 import com.nollpointer.dates.ui.voice.VoiceFragment
 
 /**
+ * Экран "Детали практики по терминам"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class TermsSetDetailsFragment : BaseFragment() {

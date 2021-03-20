@@ -7,6 +7,8 @@ import com.nollpointer.dates.other.BaseViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
 
 /**
+ * ViewModel экрана "Термины"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class TermsViewModel @ViewModelInject constructor(

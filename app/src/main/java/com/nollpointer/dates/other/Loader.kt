@@ -6,6 +6,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 /**
+ * Класс для работы с SharedPreferences
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class Loader @Inject constructor(@ApplicationContext private val context: Context) {

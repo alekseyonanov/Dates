@@ -28,6 +28,8 @@ import com.nollpointer.dates.ui.view.BaseFragment
 import com.nollpointer.dates.ui.voice.VoiceFragment
 
 /**
+ * Экран "Детали практики по датам"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 open class SetDetailsFragment : BaseFragment() {

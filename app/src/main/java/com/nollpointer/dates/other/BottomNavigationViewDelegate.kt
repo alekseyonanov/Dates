@@ -6,6 +6,8 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
 /**
+ * Делегат для работы с нижним меню
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class BottomNavigationViewDelegate @Inject constructor(@ActivityContext private val context: Context) {

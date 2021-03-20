@@ -21,6 +21,8 @@ import java.util.*
 import javax.inject.Inject
 
 /**
+ * Экран с условиями "GDPR"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 
 /**
+ * Адаптер для работы с карточками экрана "Статистика"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class StatisticsCardsAdapter : RecyclerView.Adapter<StatisticsCardsAdapter.ViewHolder>() {

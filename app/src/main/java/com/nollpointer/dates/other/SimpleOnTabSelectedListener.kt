@@ -3,6 +3,8 @@ package com.nollpointer.dates.other
 import com.google.android.material.tabs.TabLayout
 
 /**
+ * Заглушка для работы с OnTabSelectedListener
+ *
  * @author Onanov Aleksey (@onanov)
  */
 open class SimpleOnTabSelectedListener : TabLayout.OnTabSelectedListener {

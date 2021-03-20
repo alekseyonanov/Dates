@@ -7,6 +7,8 @@ import android.util.AttributeSet
 import android.view.View
 
 /**
+ * Кастомная View для отображения голосового вывода
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class VisualizerView @JvmOverloads constructor(

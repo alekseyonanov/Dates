@@ -16,6 +16,8 @@ import com.nollpointer.dates.other.SimpleOnTabSelectedListener
 import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
+ * Экран "Практика"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class PractiseFragment : BaseFragment() {

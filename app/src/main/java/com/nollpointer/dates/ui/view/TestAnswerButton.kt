@@ -11,6 +11,8 @@ import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise.Companion.TYPE_DATE
 
 /**
+ * Кастомная View с вариантами ответа для экрана практики "Тестирование"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class TestAnswerButton @JvmOverloads constructor(

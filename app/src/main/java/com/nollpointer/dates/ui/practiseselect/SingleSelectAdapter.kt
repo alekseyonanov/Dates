@@ -9,6 +9,8 @@ import com.nollpointer.dates.R
 import java.util.*
 
 /**
+ * Адаптер для работы с элементами, поддерживающими единственный выбор
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class SingleSelectAdapter(private val items: Array<CharSequence>) : RecyclerView.Adapter<SingleSelectAdapter.ViewHolder>() {

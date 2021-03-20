@@ -23,6 +23,8 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
 /**
+ * Навигатор между экранами
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class AppNavigator @Inject constructor(@ActivityContext private val context: Context) {

@@ -5,6 +5,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 /**
+ * Базовый класс ViewModel с CompositeDisposable для Disposable внутри подклассов.
+ *
  * @author Onanov Aleksey (@onanov)
  */
 abstract class BaseViewModel : ViewModel() {

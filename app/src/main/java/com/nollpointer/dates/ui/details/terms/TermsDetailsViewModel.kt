@@ -15,6 +15,8 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 /**
+ * ViewModel экрана "Подробности по термину"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class TermsDetailsViewModel @ViewModelInject constructor(

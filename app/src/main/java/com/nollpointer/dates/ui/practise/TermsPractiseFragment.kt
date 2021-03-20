@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.nollpointer.dates.databinding.FragmentTermsPractiseBinding
 
 /**
+ * Экран со списком практики для терминов
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class TermsPractiseFragment : Fragment() {

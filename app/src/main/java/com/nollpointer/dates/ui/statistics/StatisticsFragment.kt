@@ -10,6 +10,8 @@ import com.nollpointer.dates.databinding.FragmentStatisticsBinding
 import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
+ * Экран "Статистика"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class StatisticsFragment : BaseFragment() {

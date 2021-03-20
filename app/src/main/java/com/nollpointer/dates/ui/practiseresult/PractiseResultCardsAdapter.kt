@@ -8,19 +8,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 import com.nollpointer.dates.model.PractiseResult
-import com.nollpointer.dates.ui.practise.PractiseCardsAdapter
 
 /**
+ * Адаптер для работы с карточками результата практики
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class PractiseResultCardsAdapter(private val practiseResults: List<PractiseResult>) : RecyclerView.Adapter<PractiseResultCardsAdapter.ViewHolder>() {
-    private lateinit var mListener: PractiseCardsAdapter.Listener
+    private lateinit var mListener: Listener
 
     interface Listener {
         fun onClick(position: Int)
     }
 
-    fun setListener(listener: PractiseCardsAdapter.Listener) {
+    fun setListener(listener: Listener) {
         mListener = listener
     }
 

@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
 
 /**
+ * Кастомный ItemDecoration для RecyclerView с датами. Используется в связке с массивом позиций,
+ * которые разделяют разные группы дат.
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class CustomItemDecoration(val context: Context,

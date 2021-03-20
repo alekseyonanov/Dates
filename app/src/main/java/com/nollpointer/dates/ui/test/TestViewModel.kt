@@ -12,6 +12,8 @@ import com.nollpointer.dates.ui.test.model.ResultModel
 import kotlin.random.Random
 
 /**
+ * ViewModel экрана практики "Тестирование"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class TestViewModel @ViewModelInject constructor(

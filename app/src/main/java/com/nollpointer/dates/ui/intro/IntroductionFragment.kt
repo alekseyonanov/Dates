@@ -19,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
+ * Экран "Приветствие нового пользователя"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

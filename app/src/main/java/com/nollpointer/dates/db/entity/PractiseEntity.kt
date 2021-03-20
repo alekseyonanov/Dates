@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- *
+ * Entity практики для статистики
  *
  * @author Onanov Aleksey (@onanov)
  */

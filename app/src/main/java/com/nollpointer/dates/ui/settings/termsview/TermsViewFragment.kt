@@ -14,6 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
+ * Экран "Настройка терминов"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

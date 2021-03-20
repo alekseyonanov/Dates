@@ -1,20 +1,19 @@
 package com.nollpointer.dates.ui.cards
 
-import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.BaseViewModel
-import dagger.hilt.android.qualifiers.ActivityContext
 import java.util.*
 
 /**
+ * ViewModel экрана практики "Карточки"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class CardsViewModel @ViewModelInject constructor(
-        @ActivityContext private val context: Context,
         private val navigator: AppNavigator
 ) : BaseViewModel() {
 

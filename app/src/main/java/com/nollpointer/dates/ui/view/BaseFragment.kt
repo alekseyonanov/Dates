@@ -13,6 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
+ * Бзаовый класс для фрагментов
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

@@ -14,6 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
+ * Экран "Настройка дат"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

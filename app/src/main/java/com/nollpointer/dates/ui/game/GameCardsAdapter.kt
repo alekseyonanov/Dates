@@ -8,16 +8,17 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
-import com.nollpointer.dates.other.Misc
 
 /**
+ * Адаптер для работы с карточками на экране "Игра"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class GameCardsAdapter(private val listener: GameCardsListener?) : RecyclerView.Adapter<GameCardsAdapter.ViewHolder>() {
     private var isGameMode = false
     private val rightAnswered = 0
     private var openedCards = 0
-    private val rightAnswers: List<Int> = Misc.getRightAnswersList(5)
+    private val rightAnswers: List<Int> = emptyList()
 
     interface GameCardsListener {
         fun onGameStart()

@@ -4,6 +4,8 @@ import androidx.fragment.app.Fragment
 import com.nollpointer.dates.other.ScrollableFragment
 
 /**
+ * Модель страницы практики для ViewPager
+ *
  * @author Onanov Aleksey (@onanov)
  */
 class FragmentPage(val title: String, var fragment: Fragment, val type: Int = -1) {

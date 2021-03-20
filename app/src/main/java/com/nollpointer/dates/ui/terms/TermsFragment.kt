@@ -26,6 +26,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
+ * Экран "Термины"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

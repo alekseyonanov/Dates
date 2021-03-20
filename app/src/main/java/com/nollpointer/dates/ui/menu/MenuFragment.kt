@@ -15,6 +15,8 @@ import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
+ * Экран "Меню"
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @AndroidEntryPoint

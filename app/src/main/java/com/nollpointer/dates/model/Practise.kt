@@ -4,6 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 /**
+ * Модель практики
+ *
  * @author Onanov Aleksey (@onanov)
  */
 @Parcelize
