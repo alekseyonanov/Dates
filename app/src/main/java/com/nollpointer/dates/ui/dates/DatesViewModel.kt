@@ -3,10 +3,10 @@ package com.nollpointer.dates.ui.dates
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.nollpointer.dates.annotation.FULL
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.BaseViewModel
-import com.nollpointer.dates.ui.activity.MainActivity
 
 /**
  * ViewModel экрана "Даты"
@@ -21,7 +21,7 @@ class DatesViewModel @ViewModelInject constructor(
     val showSearchLiveData: LiveData<Boolean> = _showSearchLiveData
 
     lateinit var dates: List<Date>
-    var mode = MainActivity.FULL_DATES_MODE
+    var mode = FULL
 
     override fun onStart() {
 

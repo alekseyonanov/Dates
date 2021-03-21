@@ -8,6 +8,8 @@ import com.flurry.android.FlurryAgent
 import com.google.gson.Gson
 import com.nollpointer.dates.BuildConfig
 import com.nollpointer.dates.R
+import com.nollpointer.dates.annotation.FULL
+import com.nollpointer.dates.annotation.Mode
 import com.nollpointer.dates.databinding.ActivityMainBinding
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Term
@@ -33,7 +35,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    var mode = 0
+    @Mode
+    var mode = FULL
         set(value) {
             field = value
             loader.mode = value
@@ -91,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                     else -> datesFragment
                 }
                 val transaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.frameLayout, fragment, TAG)
+                transaction.replace(R.id.frameLayout, fragment, "")
                 transaction.commitAllowingStateLoss()
                 true
             }
@@ -148,12 +151,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateDates(mode: Int) {
+    private fun updateDates(@Mode mode: Int) {
         val datesList = Gson().fromJson(
                 InputStreamReader(
                         resources.openRawResource(
                                 when (mode) {
-                                    FULL_DATES_MODE -> R.raw.dates_full
+                                    FULL -> R.raw.dates_full
                                     else -> R.raw.dates_easy
                                 })),
                 Array<Date>::class.java)
@@ -188,12 +191,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun loadDates(mode: Int): Single<List<Date>> {
+    private fun loadDates(@Mode mode: Int): Single<List<Date>> {
         return Single
                 .fromCallable {
                     Gson().fromJson(InputStreamReader(resources.openRawResource(
                             when (mode) {
-                                FULL_DATES_MODE -> R.raw.dates_full
+                                FULL -> R.raw.dates_full
                                 else -> R.raw.dates_easy
                             })),
                             Array<Date>::class.java)
@@ -202,14 +205,4 @@ class MainActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
-
-    companion object {
-        const val TAG = "MainActivity"
-        const val SORT = "SORT"
-        const val TRUE_FALSE = "TRUE_FALSE"
-        const val CARDS = "CARDS"
-        const val FULL_DATES_MODE = 0
-        const val EASY_DATES_MODE = 1
-    }
-
 }

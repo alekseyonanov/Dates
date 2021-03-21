@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
+import com.nollpointer.dates.annotation.FULL
 import com.nollpointer.dates.databinding.FragmentDatesBinding
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.other.CustomItemDecoration
@@ -23,7 +24,6 @@ import com.nollpointer.dates.other.Keyboard
 import com.nollpointer.dates.other.Loader
 import com.nollpointer.dates.other.SimpleTextWatcher
 import com.nollpointer.dates.ui.activity.MainActivity
-import com.nollpointer.dates.ui.activity.MainActivity.Companion.EASY_DATES_MODE
 import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -98,8 +98,8 @@ class DatesFragment : BaseFragment() {
             val dividerItemDecoration = CustomItemDecoration(requireContext(),
                     DividerItemDecoration.VERTICAL,
                     resources.getIntArray(when (mainActivity.mode) {
-                        EASY_DATES_MODE -> R.array.dates_easy_positions
-                        else -> R.array.dates_full_positions
+                        FULL -> R.array.dates_full_positions
+                        else -> R.array.dates_easy_positions
                     }))
             dividerItemDecoration.setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.divider) as Drawable)
             addItemDecoration(dividerItemDecoration)

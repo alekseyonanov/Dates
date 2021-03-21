@@ -2,6 +2,7 @@ package com.nollpointer.dates.ui.cards
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
+import com.nollpointer.dates.annotation.MIXED
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.other.AppNavigator
@@ -71,7 +72,7 @@ class CardsViewModel @ViewModelInject constructor(
         val random = Random()
         val position = random.nextInt(practise.dates.size)
         currentDate = practise.dates[position]
-        if (practise.type == Practise.TYPE_MIXED)
+        if (practise.type == MIXED)
             isDateQuestion = random.nextBoolean()
     }
 }

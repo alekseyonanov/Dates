@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.nollpointer.dates.R
+import com.nollpointer.dates.annotation.*
 import com.nollpointer.dates.databinding.FragmentDatesPractiseBinding
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.ui.activity.MainActivity
@@ -32,31 +33,31 @@ class DatesPractiseFragment : Fragment() {
         _binding = FragmentDatesPractiseBinding.inflate(inflater, container, false)
 
         binding.cards.setOnClickListener {
-            onPractiseClicked(Practise.CARDS)
+            onPractiseClicked(CARDS)
         }
 
         binding.voice.setOnClickListener {
-            onPractiseClicked(Practise.VOICE)
+            onPractiseClicked(VOICE)
         }
 
         binding.test.setOnClickListener {
-            onPractiseClicked(Practise.TEST)
+            onPractiseClicked(TEST)
         }
 
         binding.trueFalse.setOnClickListener {
-            onPractiseClicked(Practise.TRUE_FALSE)
+            onPractiseClicked(TRUE_FALSE)
         }
 
         binding.link.setOnClickListener {
-            onPractiseClicked(Practise.LINK)
+            onPractiseClicked(LINK)
         }
 
         binding.sort.setOnClickListener {
-            onPractiseClicked(Practise.SORT)
+            onPractiseClicked(SORT)
         }
 
         binding.distribution.setOnClickListener {
-            onPractiseClicked(Practise.DISTRIBUTION)
+            onPractiseClicked(DISTRIBUTION)
         }
 
         return binding.root
@@ -72,7 +73,7 @@ class DatesPractiseFragment : Fragment() {
         if (requestCode == 1) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(context, "Разрешение получено", Toast.LENGTH_SHORT).show()
-                onPractiseClicked(Practise.VOICE)
+                onPractiseClicked(VOICE)
             }
         }
     }
@@ -82,7 +83,7 @@ class DatesPractiseFragment : Fragment() {
         val practiseParcelable = Practise(practise, mainActivity.mode)
         val permissionRecord = ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.RECORD_AUDIO)
         //TODO: переделать этот момент
-        if (practise == Practise.VOICE && permissionRecord != PackageManager.PERMISSION_GRANTED)
+        if (practise == VOICE && permissionRecord != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(mainActivity, arrayOf(Manifest.permission.RECORD_AUDIO), 1)
         else
             mainActivity.supportFragmentManager

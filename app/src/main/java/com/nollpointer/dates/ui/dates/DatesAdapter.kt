@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.nollpointer.dates.R
+import com.nollpointer.dates.annotation.FULL
 import com.nollpointer.dates.model.Date
-import com.nollpointer.dates.ui.activity.MainActivity.Companion.FULL_DATES_MODE
 import java.util.*
 
 /**
@@ -29,11 +29,11 @@ class DatesAdapter(val resources: Resources, var items: List<Date>, mode: Int) :
 
     init {
         val positions = when (mode) {
-            FULL_DATES_MODE -> resources.getIntArray(R.array.dates_full_positions)
+            FULL -> resources.getIntArray(R.array.dates_full_positions)
             else -> resources.getIntArray(R.array.dates_easy_positions)
         }
         val titles = when (mode) {
-            FULL_DATES_MODE -> resources.getStringArray(R.array.centuries_full)
+            FULL -> resources.getStringArray(R.array.centuries_full)
             else -> resources.getStringArray(R.array.centuries_easy)
         }
 

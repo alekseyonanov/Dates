@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nollpointer.dates.R
+import com.nollpointer.dates.annotation.*
 import com.nollpointer.dates.databinding.FragmentSetDetailsBinding
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
@@ -102,13 +103,13 @@ class TermsSetDetailsFragment : BaseFragment() {
             practise.dates = datesList
 
             val fragment = when (practise.practise) {
-                Practise.CARDS -> CardsFragment.newInstance(practise)
-                Practise.VOICE -> VoiceFragment.newInstance(practise)
-                Practise.TEST -> TestFragment.newInstance(practise)
-                Practise.TRUE_FALSE -> TrueFalseFragment.newInstance(practise)
-                Practise.LINK -> LinkFragment.newInstance(practise)
-                Practise.SORT -> SortFragment.newInstance(practise)
-                Practise.DISTRIBUTION -> DistributionFragment.newInstance(practise)
+                CARDS -> CardsFragment.newInstance(practise)
+                VOICE -> VoiceFragment.newInstance(practise)
+                TEST -> TestFragment.newInstance(practise)
+                TRUE_FALSE -> TrueFalseFragment.newInstance(practise)
+                LINK -> LinkFragment.newInstance(practise)
+                SORT -> SortFragment.newInstance(practise)
+                DISTRIBUTION -> DistributionFragment.newInstance(practise)
                 else -> CardsFragment.newInstance(practise)
             }
 
@@ -126,7 +127,7 @@ class TermsSetDetailsFragment : BaseFragment() {
     private fun getDatesRange(centuries: List<Int>): List<Pair<Int, Int>> {
         val pairList = mutableListOf<Pair<Int, Int>>()
         centuries.forEach {
-            if (mode == MainActivity.FULL_DATES_MODE)
+            if (mode == FULL)
                 pairList.add(when (it) {
                     0 -> Pair(0, 21)
                     1 -> Pair(21, 41)

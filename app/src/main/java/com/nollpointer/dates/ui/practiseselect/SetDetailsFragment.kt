@@ -6,18 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nollpointer.dates.R
+import com.nollpointer.dates.annotation.*
 import com.nollpointer.dates.databinding.FragmentSetDetailsBinding
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
-import com.nollpointer.dates.model.Practise.Companion.CARDS
-import com.nollpointer.dates.model.Practise.Companion.DISTRIBUTION
-import com.nollpointer.dates.model.Practise.Companion.LINK
-import com.nollpointer.dates.model.Practise.Companion.SORT
-import com.nollpointer.dates.model.Practise.Companion.TEST
-import com.nollpointer.dates.model.Practise.Companion.TRUE_FALSE
-import com.nollpointer.dates.model.Practise.Companion.VOICE
 import com.nollpointer.dates.ui.activity.MainActivity
-import com.nollpointer.dates.ui.activity.MainActivity.Companion.FULL_DATES_MODE
 import com.nollpointer.dates.ui.cards.CardsFragment
 import com.nollpointer.dates.ui.distribution.DistributionFragment
 import com.nollpointer.dates.ui.link.LinkFragment
@@ -78,7 +71,7 @@ open class SetDetailsFragment : BaseFragment() {
         }
         multiSelectAdapter = MutliSelectAdapter(
                 when (practise.mode) {
-                    FULL_DATES_MODE -> resources.getTextArray(R.array.centuries_full)
+                    FULL -> resources.getTextArray(R.array.centuries_full)
                     else -> resources.getTextArray(R.array.centuries_easy)
                 }
         ).apply {
@@ -145,7 +138,7 @@ open class SetDetailsFragment : BaseFragment() {
     private fun getDatesRange(centuries: List<Int>): List<IntRange> {
         val pairList = mutableListOf<IntRange>()
         centuries.forEach {
-            if (mode == FULL_DATES_MODE)
+            if (mode == FULL)
                 pairList.add(when (it) {
                     0 -> IntRange(0, 21)
                     1 -> IntRange(22, 41)
@@ -170,6 +163,7 @@ open class SetDetailsFragment : BaseFragment() {
     companion object {
         private const val PRACTISE = "Practise"
 
+        @JvmStatic
         fun newInstance(practise: Practise) =
                 SetDetailsFragment().apply {
                     arguments = Bundle().apply {

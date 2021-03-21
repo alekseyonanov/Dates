@@ -9,6 +9,7 @@ import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentAnalyzeBinding
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.model.PractiseResult
+import com.nollpointer.dates.ui.analyze.adapter.AnswersAdapter
 import com.nollpointer.dates.ui.view.BaseFragment
 
 /**
@@ -21,6 +22,8 @@ class AnalyzeFragment : BaseFragment() {
     private var _binding: FragmentAnalyzeBinding? = null
     private val binding: FragmentAnalyzeBinding
         get() = _binding!!
+
+    private val adapter = AnswersAdapter()
 
     private val viewModel by viewModels<AnalyzeViewModel>()
 
@@ -38,6 +41,10 @@ class AnalyzeFragment : BaseFragment() {
 
         binding.toolbar.setNavigationOnClickListener {
             viewModel.onArrowBackClicked()
+        }
+
+        binding.answers.apply {
+
         }
 
         viewModel.apply {

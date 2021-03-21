@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import com.nollpointer.dates.R
+import com.nollpointer.dates.annotation.FULL
 import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.BaseViewModel
 import com.nollpointer.dates.ui.activity.MainActivity
@@ -18,14 +19,15 @@ import dagger.hilt.android.qualifiers.ActivityContext
  */
 class MenuViewModel @ViewModelInject constructor(
         @ActivityContext private val context: Context,
-        private val navigator: AppNavigator) : BaseViewModel() {
+        private val navigator: AppNavigator,
+) : BaseViewModel() {
 
     private val activity = context as MainActivity
 
     val modeLiveData = MutableLiveData<Int>()
     val modeSelectVisibilityLiveData = MutableLiveData<Boolean>()
 
-    private var mode = MainActivity.FULL_DATES_MODE
+    private var mode = FULL
 
     override fun onStart() {
         mode = activity.mode

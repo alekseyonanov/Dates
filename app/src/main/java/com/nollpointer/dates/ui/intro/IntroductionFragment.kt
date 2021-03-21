@@ -26,6 +26,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class IntroductionFragment : BaseFragment() {
 
+    @Inject
+    lateinit var navigator: AppNavigator
+
     private var _binding: FragmentIntroductionBinding? = null
     private val binding: FragmentIntroductionBinding
         get() = _binding!!
@@ -35,9 +38,6 @@ class IntroductionFragment : BaseFragment() {
     override val isStatusBarLight = false
 
     override val isBottomNavigationViewHidden = true
-
-    @Inject
-    lateinit var navigator: AppNavigator
 
     //TODO перенести локально
     private var introPages = emptyList<IntroPage>()

@@ -1,7 +1,8 @@
 package com.nollpointer.dates.other
 
 import android.content.Context
-import com.nollpointer.dates.ui.activity.MainActivity.Companion.FULL_DATES_MODE
+import com.nollpointer.dates.annotation.FULL
+import com.nollpointer.dates.annotation.Mode
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -29,9 +30,10 @@ class Loader @Inject constructor(@ApplicationContext private val context: Contex
     /*
     * Режим приложения
     */
+    @Mode
     var mode: Int
         set(value) = context.getSharedPreferences(APP, Context.MODE_PRIVATE).edit().putInt(MODE, value).apply()
-        get() = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(MODE, FULL_DATES_MODE)
+        get() = context.getSharedPreferences(APP, Context.MODE_PRIVATE).getInt(MODE, FULL)
 
     /*
     * Тип отображения дат

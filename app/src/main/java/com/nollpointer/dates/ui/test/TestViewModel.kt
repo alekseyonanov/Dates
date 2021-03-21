@@ -3,6 +3,7 @@ package com.nollpointer.dates.ui.test
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.nollpointer.dates.annotation.DATES
 import com.nollpointer.dates.model.Date
 import com.nollpointer.dates.model.Practise
 import com.nollpointer.dates.other.AppNavigator
@@ -17,7 +18,8 @@ import kotlin.random.Random
  * @author Onanov Aleksey (@onanov)
  */
 class TestViewModel @ViewModelInject constructor(
-        private val navigator: AppNavigator) : BaseViewModel() {
+        private val navigator: AppNavigator,
+) : BaseViewModel() {
 
     private val _controlButtonsVisibilityLiveData = MutableLiveData(false)
     val controlButtonsVisibilityLiveData: LiveData<Boolean> = _controlButtonsVisibilityLiveData
@@ -48,7 +50,7 @@ class TestViewModel @ViewModelInject constructor(
         val question = answers.random()
 
         val questionTitle = with(question) {
-            if (practise.type == Practise.TYPE_DATE) {
+            if (practise.type == DATES) {
                 if (containsMonth) "${date}\n${month}" else date
             } else {
                 event

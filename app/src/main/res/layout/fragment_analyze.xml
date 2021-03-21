@@ -34,9 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
-                android:paddingStart="16dp"
+                android:paddingHorizontal="16dp"
                 android:paddingTop="16dp"
-                android:paddingEnd="16dip"
                 android:paddingBottom="4dp"
                 android:text="@string/fragment_analyze_result"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -50,9 +49,8 @@
                 android:layout_marginBottom="16dp"
                 android:background="@android:color/white"
                 android:orientation="horizontal"
-                android:padding="10dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -73,6 +71,24 @@
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/answersTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="4dp"
+                android:text="@string/fragment_analyze_result"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorSettingsCategory"
+                android:textSize="14sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/answers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

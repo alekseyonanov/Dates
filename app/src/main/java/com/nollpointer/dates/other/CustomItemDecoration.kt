@@ -16,14 +16,18 @@ import com.nollpointer.dates.R
  *
  * @author Onanov Aleksey (@onanov)
  */
-class CustomItemDecoration(val context: Context,
-                           orientation: Int,
-                           private var items: IntArray) : DividerItemDecoration(context, orientation) {
+class CustomItemDecoration(
+        private val context: Context,
+        orientation: Int,
+        private var items: IntArray,
+) : DividerItemDecoration(context, orientation) {
 
     private val divider: Drawable = ContextCompat.getDrawable(context, R.drawable.divider)!!
 
-    override fun getItemOffsets(outRect: Rect, view: View,
-                                parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+            outRect: Rect, view: View,
+            parent: RecyclerView, state: RecyclerView.State,
+    ) {
         val position = parent.getChildAdapterPosition(view)
         if (position != 0 && items.contains(parent.getChildAdapterPosition(view)))
             outRect.top = TypedValue.applyDimension(

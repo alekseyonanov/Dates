@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import com.nollpointer.dates.R
+import com.nollpointer.dates.annotation.DATES
 import com.nollpointer.dates.databinding.ItemTestAnswerBinding
 import com.nollpointer.dates.model.Date
-import com.nollpointer.dates.model.Practise.Companion.TYPE_DATE
 
 /**
  * Кастомная View с вариантами ответа для экрана практики "Тестирование"
@@ -18,7 +18,8 @@ import com.nollpointer.dates.model.Practise.Companion.TYPE_DATE
 class TestAnswerButton @JvmOverloads constructor(
         context: Context?,
         attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
+        defStyleAttr: Int = 0,
+) : LinearLayout(context, attrs, defStyleAttr) {
 
     var setOnAnswerButtonClickListener: ((Date) -> Unit)? = null
     var setOnDetailsClickListener: ((Date) -> Unit)? = null
@@ -42,7 +43,7 @@ class TestAnswerButton @JvmOverloads constructor(
         isDetailsMode = false
         binding.result.visibility = View.INVISIBLE
         binding.text.text =
-                if (type == TYPE_DATE) {
+                if (type == DATES) {
                     date.event
                 } else {
                     if (currentDate.containsMonth)
