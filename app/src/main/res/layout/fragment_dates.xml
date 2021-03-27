@@ -4,6 +4,7 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@color/colorBackground">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -60,11 +61,11 @@
                         android:gravity="center_vertical"
                         android:hint="@string/search_hint"
                         android:imeOptions="actionSearch"
+                        android:importantForAutofill="no"
                         android:inputType="textCapWords"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:singleLine="true"
-                        android:importantForAutofill="no" />
+                        android:singleLine="true" />
 
                     <ImageView
                         android:id="@+id/searchMultiButton"

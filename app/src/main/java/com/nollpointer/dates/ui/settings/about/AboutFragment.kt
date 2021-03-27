@@ -1,14 +1,14 @@
 package com.nollpointer.dates.ui.settings.about
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.nollpointer.dates.BuildConfig
 import com.nollpointer.dates.R
 import com.nollpointer.dates.databinding.FragmentAboutBinding
 import com.nollpointer.dates.other.AppNavigator
+import com.nollpointer.dates.other.ExternalLinksManager
 import com.nollpointer.dates.ui.view.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -34,8 +34,13 @@ class AboutFragment : BaseFragment() {
     @Inject
     lateinit var navigator: AppNavigator
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    @Inject
+    lateinit var externalLinksManager: ExternalLinksManager
+
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
 
         binding.toolbar.setNavigationOnClickListener {
@@ -43,34 +48,30 @@ class AboutFragment : BaseFragment() {
         }
 
         binding.rateApp.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.nollpointer.dates"))
-            startActivity(intent)
+            externalLinksManager.navigateToRateApp()
         }
 
         binding.privacyPolicy.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://onanov.ru/app/dates/privacy-policy.html"))
-            startActivity(intent)
+            externalLinksManager.navigateToPrivacyPolicy()
         }
 
         binding.termsConditions.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://onanov.ru/app/dates/terms-conditions.html"))
-            startActivity(intent)
+            externalLinksManager.navigateToTermsConditions()
         }
 
         binding.licence.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://onanov.ru/app/dates/licences.html"))
-            startActivity(intent)
+            externalLinksManager.navigateToLicence()
         }
 
         binding.faq.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://onanov.ru/app/dates/faq.html"))
-            startActivity(intent)
+            externalLinksManager.navigateToFaq()
         }
 
         binding.betaTest.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/apps/testing/com.nollpointer.dates"))
-            startActivity(intent)
+            externalLinksManager.navigateToBetaTest()
         }
+
+        binding.appVersion.text = getString(R.string.app_version, BuildConfig.VERSION_NAME)
 
         return binding.root
     }

@@ -1,9 +1,6 @@
 package com.nollpointer.dates.ui.game
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.graphics.Rect
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -65,14 +62,6 @@ class GameFragment : BaseFragment() {
         val image = mainView.findViewById<ImageView>(R.id.statistics_dummy_crane)
         image.setImageResource(R.drawable.ic_crane)
         val button = mainView.findViewById<Button>(R.id.statistics_dummy_button)
-        button.setOnClickListener {
-            val appPackageName = requireContext().packageName // getPackageName() from Context or Activity object
-            try {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
-            } catch (anfe: ActivityNotFoundException) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
-            }
-        }
         return mainView
     }
 

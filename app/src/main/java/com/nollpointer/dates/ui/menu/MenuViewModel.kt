@@ -1,14 +1,13 @@
 package com.nollpointer.dates.ui.menu
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.nollpointer.dates.R
 import com.nollpointer.dates.annotation.FULL
 import com.nollpointer.dates.other.AppNavigator
 import com.nollpointer.dates.other.BaseViewModel
+import com.nollpointer.dates.other.ExternalLinksManager
 import com.nollpointer.dates.ui.activity.MainActivity
 import dagger.hilt.android.qualifiers.ActivityContext
 
@@ -20,51 +19,48 @@ import dagger.hilt.android.qualifiers.ActivityContext
 class MenuViewModel @ViewModelInject constructor(
         @ActivityContext private val context: Context,
         private val navigator: AppNavigator,
+        private val externalLinksManager: ExternalLinksManager,
 ) : BaseViewModel() {
 
-    private val activity = context as MainActivity
+    private val activity: MainActivity
+        get() = context as MainActivity
 
-    val modeLiveData = MutableLiveData<Int>()
-    val modeSelectVisibilityLiveData = MutableLiveData<Boolean>()
+
+    private val _modeLiveData = MutableLiveData<Int>()
+    val modeLiveData: LiveData<Int> = _modeLiveData
+
+    private val _modeSelectVisibilityLiveData = MutableLiveData<Boolean>()
+    val modeSelectVisibilityLiveData: LiveData<Boolean> = _modeSelectVisibilityLiveData
 
     private var mode = FULL
 
     override fun onStart() {
         mode = activity.mode
-        modeLiveData.value = mode
+        _modeLiveData.value = mode
     }
 
     fun onTelegramClicked() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://t.me/alekseyonanov"))
-        context.startActivity(intent)
+        externalLinksManager.navigateToTelegram()
     }
 
     fun onTwitterClicked() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/alekseyonanov"))
-        context.startActivity(intent)
+        externalLinksManager.navigateToTwitter()
     }
 
     fun onMailClicked() {
-        val intent = Intent(Intent.ACTION_SENDTO)
-        intent.data = Uri.parse("mailto:")
-        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("dates@onanov.ru"))
-        intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.message_developer_title))
-        context.startActivity(intent)
+        externalLinksManager.navigateToMail()
     }
 
     fun onVkClicked() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/onanov"))
-        context.startActivity(intent)
+        externalLinksManager.navigateToVk()
     }
 
     fun onInstagramClicked() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/alekseyonanov"))
-        context.startActivity(intent)
+        externalLinksManager.navigateToInstagram()
     }
 
     fun onOnanovClicked() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://onanov.ru/"))
-        context.startActivity(intent)
+        externalLinksManager.navigateToOnanov()
     }
 
     fun onGameClicked() {
@@ -76,13 +72,13 @@ class MenuViewModel @ViewModelInject constructor(
     }
 
     fun onPageSelected(item: Int) {
-        modeSelectVisibilityLiveData.value = mode != item
+        _modeSelectVisibilityLiveData.value = mode != item
     }
 
     fun onModeSelectClicked(currentMode: Int) {
         mode = currentMode
         activity.mode = currentMode
-        modeSelectVisibilityLiveData.value = false
+        _modeSelectVisibilityLiveData.value = false
     }
 
 }

@@ -41,6 +41,10 @@ class TermsDetailsFragment : BaseFragment() {
             viewModel.onArrowBackClicked()
         }
 
+        binding.report.setOnClickListener {
+            viewModel.onReportClicked()
+        }
+
         binding.wikiLink.setOnClickListener {
             viewModel.onWikiLinkClicked()
         }

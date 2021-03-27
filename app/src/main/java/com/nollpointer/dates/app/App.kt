@@ -19,10 +19,12 @@ import timber.log.Timber.DebugTree
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+
         FlurryAgent.Builder()
                 .withLogEnabled(true)
                 .withCaptureUncaughtExceptions(true)
                 .build(this, BuildConfig.FLURRY_KEY)
+
         val config = YandexMetricaConfig.newConfigBuilder(BuildConfig.APP_METRICA_KEY).build()
         YandexMetrica.activate(applicationContext, config)
         YandexMetrica.enableActivityAutoTracking(this)

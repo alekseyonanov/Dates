@@ -35,7 +35,7 @@
                 android:background="@android:color/white"
                 android:paddingStart="16dp"
                 android:paddingTop="16dp"
-                android:paddingEnd="16dip"
+                android:paddingEnd="16dp"
                 android:paddingBottom="4dp"
                 android:text="@string/fragment_practise_settings_random_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -61,7 +61,7 @@
                 android:background="@android:color/white"
                 android:paddingStart="16dp"
                 android:paddingTop="16dp"
-                android:paddingEnd="16dip"
+                android:paddingEnd="16dp"
                 android:paddingBottom="4dp"
                 android:text="@string/fragment_practise_settings_type"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -84,12 +84,31 @@
                 android:background="@android:color/white"
                 android:paddingStart="16dp"
                 android:paddingTop="16dp"
-                android:paddingEnd="16dip"
+                android:paddingEnd="16dp"
                 android:paddingBottom="4dp"
                 android:text="@string/fragment_practise_settings_century"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorSettingsCategory"
                 android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/white"
+                android:drawablePadding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/fragment_practise_settings_report"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/black"
+                app:drawableStartCompat="@drawable/ic_report"
+                app:drawableTint="@color/colorPrimary" />
+
 
             <!--            <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/practiseSettingsMultiRecyclerView"

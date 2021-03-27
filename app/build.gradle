@@ -11,19 +11,55 @@ android {
         applicationId "com.nollpointer.dates"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 28
-        versionName "2.1.9B"
+        versionCode 30
+        versionName "2.1.11B"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
+        /*
+        * Обязательные ссылки
+        */
+        buildConfigField('String', 'PRIVACY_POLICY', '"https://onanov.ru/app/dates/privacy-policy.html"')
+        buildConfigField('String', 'TERMS_CONDITIONS', '"https://onanov.ru/app/dates/terms-conditions.html"')
+        buildConfigField('String', 'LICENCE', '"https://onanov.ru/app/dates/licences.html"')
+        buildConfigField('String', 'FAQ', '"https://onanov.ru/app/dates/faq.html"')
+
+        /*
+        * Дополнительные ссылки
+        */
         buildConfigField('String', 'WIKIPEDIA_BASE_URL', '"https://ru.wikipedia.org/api/rest_v1/"')
         buildConfigField('String', 'APPODEAL_PRIVACY_POLICY_LINK', '"https://www.appodeal.com/privacy-policy"')
+        buildConfigField('String', 'TELEGRAM', '"http://t.me/alekseyonanov"')
+        buildConfigField('String', 'TWITTER', '"https://twitter.com/alekseyonanov"')
+        buildConfigField('String', 'VK', '"https://vk.com/onanov"')
+        buildConfigField('String', 'INSTAGRAM', '"https://instagram.com/alekseyonanov"')
+        buildConfigField('String', 'ONANOV_RU', '"https://onanov.ru/"')
+        buildConfigField('String', 'ONANOV_RU', '"https://onanov.ru/"')
+        buildConfigField('String', 'PLAY_MARKET', '"https://play.google.com/store/apps/details?id=com.nollpointer.dates"')
+        buildConfigField('String', 'BETA_TEST', '"https://play.google.com/apps/testing/com.nollpointer.dates"')
+        buildConfigField('String', 'SEARCH_YANDEX', '"https://yandex.ru/search/?text="')
+        buildConfigField('String', 'SEARCH_GOOGLE', '"https://www.google.com/search?q="')
+        buildConfigField('String', 'SEARCH_WIKIPEDIA', '"https://ru.wikipedia.org/wiki/"')
+        buildConfigField('String', 'MAIL_TO', '"mailto:"')
 
+        /*
+        * Адреса почты
+        */
+        buildConfigField('String', 'EMAIL_REPORT', '"report@onanov.ru"')
+        buildConfigField('String', 'EMAIL_HELLO', '"hello@onanov.ru"')
+        buildConfigField('String', 'EMAIL_CONTACT', '"dates@onanov.ru"')
+
+        /*
+        * Ключи
+        */
         buildConfigField('String', 'APPODEAL_KEY', '"106e01ac39306b040f6b1d290a5b5bae37ebbcf794bb3cb1"')
         buildConfigField('String', 'FLURRY_KEY', '"52ZN7BKTNFZ8M26Q2VPN"')
         buildConfigField('String', 'APP_METRICA_KEY', '"53f38fd5-682c-47e3-aaf4-f3fc8103a47c"')
         resValue('string', 'admob_key', "ca-app-pub-8220836665813398~7207510605")
 
+        /*
+        * Глобальные константы
+        */
         buildConfigField('int', 'DB_VERSION', '1')
     }
 

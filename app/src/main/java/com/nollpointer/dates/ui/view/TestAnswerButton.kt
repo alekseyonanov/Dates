@@ -67,5 +67,4 @@ class TestAnswerButton @JvmOverloads constructor(
         isDetailsMode = true
     }
 
-
 }

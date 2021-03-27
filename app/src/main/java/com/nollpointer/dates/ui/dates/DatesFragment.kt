@@ -65,7 +65,7 @@ class DatesFragment : BaseFragment() {
         binding.toolbar.apply {
             setTitle(R.string.title_dates)
             setOnMenuItemClickListener { menuItem ->
-                if (menuItem.itemId == R.id.dates_app_bar_search) showSearch()
+                if (menuItem.itemId == R.id.dates_app_bar_search) viewModel.onSearchClicked()
                 true
             }
             setOnClickListener {
@@ -116,6 +116,9 @@ class DatesFragment : BaseFragment() {
         viewModel.apply {
             dates = mainActivity.dates
             mode = mainActivity.mode
+
+            showSearchLiveData.observe({ lifecycle }, ::setSearchVisibility)
+
             start()
         }
 
@@ -140,7 +143,7 @@ class DatesFragment : BaseFragment() {
     private fun initializeSearchView() {
         binding.searchArrowBack.apply {
             setImageResource(R.drawable.ic_arrow_back_black)
-            setOnClickListener { hideSearch() }
+            setOnClickListener { viewModel.onSearchArrowBackClicked() }
         }
         binding.searchMultiButton.apply {
             setImageResource(R.drawable.ic_voice)
@@ -183,6 +186,14 @@ class DatesFragment : BaseFragment() {
             }
             false
         })
+    }
+
+    private fun setSearchVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            showSearch()
+        } else {
+            hideSearch()
+        }
     }
 
     private fun showSearch() {

@@ -26,14 +26,16 @@ class MenuFragment : BaseFragment() {
     private val binding: FragmentMenuBinding
         get() = _binding!!
 
+    private val viewModel by viewModels<MenuViewModel>()
+
     override val statusBarColorRes = R.color.colorPrimary
 
     override val isStatusBarLight = false
 
-    private val viewModel by viewModels<MenuViewModel>()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
 
         binding.toolbar.apply {

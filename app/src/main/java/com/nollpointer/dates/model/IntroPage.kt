@@ -1,5 +1,7 @@
 package com.nollpointer.dates.model
 
+import androidx.annotation.DrawableRes
+
 /**
  * Модель стартового экрана
  *
@@ -8,4 +10,5 @@ package com.nollpointer.dates.model
 data class IntroPage(
         val title: String,
         var description: String,
-        val imageRes: Int)
+        @DrawableRes val imageRes: Int,
+)

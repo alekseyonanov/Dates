@@ -102,11 +102,11 @@ class LinkFragment : BaseFragment() {
 
     private fun showControls(isVisible: Boolean) {
         if (isVisible) {
-            binding.analyze.visibility = View.VISIBLE
-            binding.next.visibility = View.VISIBLE
+            binding.analyze.show()
+            binding.next.show()
         } else {
-            binding.analyze.visibility = View.INVISIBLE
-            binding.next.visibility = View.INVISIBLE
+            binding.analyze.hide()
+            binding.next.hide()
         }
         taskAdapter.isDetailsMode = isVisible
         answersAdapter.isDetailsMode = isVisible

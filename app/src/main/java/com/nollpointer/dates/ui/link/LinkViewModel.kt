@@ -61,6 +61,7 @@ class LinkViewModel @ViewModelInject constructor(
 
         _infoLiveData.value = PractiseInfo(questionNumber, rightAnswers, wrongAnswers)
         _controlButtonsVisibilityLiveData.value = false
+        _checkEnabilityLiveData.value = false
     }
 
     private fun check() {

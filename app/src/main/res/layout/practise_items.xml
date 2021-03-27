@@ -93,7 +93,7 @@
                 android:background="@drawable/ic_practise_background_voice_cards"
                 android:contentDescription="@string/fragment_dates_practise_voice_image"
                 android:scaleType="center"
-                android:src="@drawable/ic_cards_with_voice" />
+                android:src="@drawable/ic_practise_voice" />
 
             <LinearLayout
                 android:layout_width="match_parent"
