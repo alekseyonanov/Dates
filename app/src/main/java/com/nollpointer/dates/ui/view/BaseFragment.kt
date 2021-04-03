@@ -47,12 +47,16 @@ open class BaseFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    fun updateStatusBarIconsColor() {
+    private fun updateStatusBarIconsColor() {
         requireActivity().window.decorView.systemUiVisibility =
                 when (isStatusBarLight) {
                     true -> View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                     else -> 0
                 }
+    }
+
+    private fun updateSystemButtonsColor() {
+        requireActivity().window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.colorAccent)
     }
 
     /*

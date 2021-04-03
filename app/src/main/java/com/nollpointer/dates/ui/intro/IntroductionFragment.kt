@@ -58,18 +58,26 @@ class IntroductionFragment : BaseFragment() {
                 }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentIntroductionBinding.inflate(inflater, container, false)
 
         binding.viewPager.apply {
             adapter = PractiseCellAdapter(introPages)
             addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
                 override fun onPageSelected(position: Int) {
+                    binding.dots.onPageSelected(position)
                     binding.next.text = when (position) {
                         introPages.lastIndex -> getString(R.string.fragment_introduction_ready)
                         else -> getString(R.string.fragment_introduction_next)
                     }
+                }
+
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    binding.dots.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 }
             })
             binding.dots.setupWithViewPager(this)

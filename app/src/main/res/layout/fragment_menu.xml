@@ -20,20 +20,33 @@
         android:layout_below="@id/toolbar"
         android:background="@color/colorPrimary" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/dots"
+    <FrameLayout
+        android:id="@+id/dotsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/viewPager"
         android:background="@color/colorPrimary"
-        app:tabBackground="@drawable/tab_selector"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp" />
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <com.zhpan.indicator.IndicatorView
+            android:id="@+id/dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:vpi_orientation="horizontal"
+            app:vpi_slide_mode="worm"
+            app:vpi_slider_checked_color="@android:color/white"
+            app:vpi_slider_normal_color="#BDBDBD"
+            app:vpi_slider_radius="5dp"
+            app:vpi_style="round_rect" />
+
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/dots">
+        android:layout_below="@id/dotsContainer">
 
         <LinearLayout
             android:layout_width="match_parent"

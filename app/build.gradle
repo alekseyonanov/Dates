@@ -111,6 +111,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.0'
     implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0'
+    implementation 'com.github.zhpanvip:viewpagerindicator:1.2.0'
 
     /*
     * Api

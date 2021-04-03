@@ -4,7 +4,7 @@
     <!--<color name="colorPrimary">#a6311f</color>-->
     <color name="colorPrimaryDark">#B71C1C</color>
     <color name="colorAccent">#448aff</color>
-<!--    <color name="colorBackground">#c4bcbc</color>-->
+    <!--    <color name="colorBackground">#c4bcbc</color>-->
     <color name="colorBackgroundDivider">#FAFAFA</color>
     <color name="colorDatesShowDown">#ffffff</color>
     <color name="colorPrimaryDarkCards">#0d47a1</color>
@@ -27,7 +27,7 @@
 
     <color name="colorCards">#164FA5</color>
     <color name="colorTest">#23A527</color>
-<!--    <color name="colorTrueFalse">#ABA619</color> -->
+    <!--    <color name="colorTrueFalse">#ABA619</color> -->
     <color name="colorTrueFalse">#FB8C00</color>
     <color name="colorSort">#00BBD2</color>
     <color name="colorDistribution">#2962FF</color>
@@ -44,6 +44,8 @@
 
     <color name="colorSettingsCategory">#448aff</color>
 
-<!--    <color name="ic_launcher_background">#B71C1C</color>-->
+    <color name="rippleLightTheme">#1f000000</color>
+
+    <!--    <color name="ic_launcher_background">#B71C1C</color>-->
 
 </resources>

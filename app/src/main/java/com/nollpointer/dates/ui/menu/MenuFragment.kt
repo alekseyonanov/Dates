@@ -75,12 +75,18 @@ class MenuFragment : BaseFragment() {
                     }
             adapter = ModeAdapter(items)
             addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-                override fun onPageSelected(item: Int) {
-                    viewModel.onPageSelected(item)
+                override fun onPageSelected(position: Int) {
+                    binding.dots.onPageSelected(position)
+                    viewModel.onPageSelected(position)
+                }
+
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    binding.dots.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 }
             })
 
-            binding.dots.setupWithViewPager(this, true)
+            binding.dots.setupWithViewPager(this)
         }
         binding.modeSelect.setOnClickListener {
             viewModel.onModeSelectClicked(binding.viewPager.currentItem)
